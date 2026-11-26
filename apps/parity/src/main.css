@@ -1,0 +1,6 @@
+/* The brand as apps install it, Tailwind and every class the registry uses: the same CSS for the React example (the
+   reference) and the element example. */
+@import "tailwindcss";
+@import "../../../build/brand.css";
+@import "../../../build/theme.css";
+@source "../../../registry";

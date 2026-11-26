@@ -1,0 +1,280 @@
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
+
+import { Code, Command, PageBody, PageHead, Prose, Section } from "@www/components/chrome";
+import { CLI } from "@www/lib/registry";
+
+export const metadata = { title: "Assets" };
+
+type Shot = { name: string; title: string; src: string; width: number; height: number };
+type Image = Shot & { template: string; group: string; size: string; variant?: string; canvas: string };
+type Merch = Shot & { item: string; variant: string };
+type MerchInfo = { id: string; name: string; trim: { width: number; height: number }; bleed: number; safe: number; method: string; variants: string[]; source: string; pixels: { width: number; height: number } };
+type Recipe = Shot & { group: string; description: string; size: string };
+type Coverage = { rows: { need: string; how: string; run: string }[]; missing: { need: string; why: string }[] };
+type Doc = {
+  recipes?: Recipe[];
+  coverage?: Coverage;
+  images: Image[];
+  slides: (Shot & { group: string })[];
+  merch: Merch[];
+  catalog: { video: { templates: { id: string; description: string }[]; sizes: { id: string; width: number; height: number }[]; fps: number; seconds: number }; merch: MerchInfo[] };
+};
+
+const file = path.join(process.cwd(), "lib/assets.generated.json");
+
+// "Ads from a brief": the brief format, one complete example (brand/briefs/offer.md) and where each platform lands.
+const BRIEF = `# Creator plan offer
+
+## Goal
+Sell the Creator plan: a price offer for solo marketers.
+
+## Platforms
+Instagram feed, Instagram portrait, Facebook, LinkedIn
+
+## Headline
+Stop screenshotting at midnight.
+
+## Supporting line
+Every ad in your market, saved for you.
+
+## CTA
+Start free
+
+## Offer
+$20 a month
+
+## Plan
+Creator
+
+## Features
+- Every network
+- Daily updates
+- Shared boards
+
+## Look
+dark, bold, pricing card
+
+## Must-haves
+- the price`;
+const BRIEF_SECTIONS: [string, string][] = [
+  ["Goal", "What the ads are for: a launch, an offer, a feature, a customer story, hiring, an event. Required."],
+  ["Platforms", "Where they run, with commas. Required."],
+  ["Headline, CTA", "The headline and the button label, drawn whole. Required (an offer also needs `Offer`, a customer story `Quote`)."],
+  ["Supporting line, Offer, Label, Plan, Features, Quote, Quote name, Quote role, Stat, Search prompt", "More copy, drawn where a layout has room; each label on the sheet says what that ad leaves out."],
+  ["Audience", "Who sees them. Read, never drawn."],
+  ["Look", "`dark` or `light theme`, `minimal` or `bold`, `picture-led` or `type-led`, and the brand elements: `brand light`, `ASCII`, `product UI`, `pricing card`, and the ad layouts by name: `search bar`, `photo grid`, `stacked cards`, `corridor`."],
+  ["Layout", "Any arrangement in plain words, one row per line from the top, parts side by side split by commas: `headline top left`, `stat left, quote right`, `three photos in a row`, `button bottom right`. That ad comes first; without it, `ad` still lays every part out itself (stacked, centered, two columns) beside the templates that fit."],
+  ["Images", "One per line, `file.png: what it shows`; or `--image name=file.png`. Pictures are only ever yours."],
+  ["Must-haves, Don'ts", "One per line: `the price`, `the CTA`, `no brand light`, `no texture`, `no pictures`. Lines the command cannot check are listed on the sheet to check by eye."],
+];
+const PLATFORMS: [string, string][] = [
+  ["X", "landscape 1200x675"],
+  ["LinkedIn", "linkedin 1200x627"],
+  ["Instagram feed", "square 1080x1080"],
+  ["Instagram portrait", "portrait 1080x1350"],
+  ["Instagram story, TikTok cover", "story 1080x1920"],
+  ["Facebook", "facebook 1080x1350"],
+  ["Google display", "300x250, 336x280, 728x90, 300x600, 320x50, 160x600, 970x250"],
+  ["All social", "landscape, linkedin, square, portrait, story, facebook"],
+];
+const doc: Doc | undefined = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : undefined;
+
+const GROUPS = [
+  ["post", "Social posts", "1080 by 1080. Every post on the brand assets page, with its own light window and type measured from the reference."],
+  ["ad", "Social ads", "1080 by 1350, including the plan offer and the search bar ad. Pictures come from --image; without one a slot is the card fill."],
+  ["banner", "Banners", "X (1500 by 500), LinkedIn (1584 by 396) and LinkedIn company (1128 by 191) for each banner layout."],
+  ["logo", "Avatar and logo backgrounds", "The logomark on the approved backgrounds only, the 3D logomark, the avatar and the primary 1920 by 1080."],
+  ["derived", "Open Graph, landscape and story", "1200 by 630, 1200 by 675 and 1080 by 1920, derived from the same rules (stories keep 250px clear at the top and bottom)."],
+] as const;
+
+function Tile({ shot, caption, detail }: { shot: Shot; caption: string; detail?: string }) {
+  return (
+    <figure className="m-0 grid min-w-0 content-start gap-2">
+      <img src={shot.src} alt={`${shot.title}${detail ? `, ${detail}` : ""}`} width={shot.width} height={shot.height} loading="lazy" className="h-auto w-full rounded-control border border-edge bg-surface" />
+      <figcaption className="min-w-0">
+        <p className="truncate type-code text-fg">{caption}</p>
+        {detail && <p className="truncate type-caption text-fg-muted">{detail}</p>}
+      </figcaption>
+    </figure>
+  );
+}
+
+export default function AssetsPage() {
+  if (!doc) {
+    return (
+      <>
+        <PageHead eyebrow="Brand" title="Assets" description="Run the registry build to render this page's previews." />
+        <PageBody><Command command="bun run registry" /></PageBody>
+      </>
+    );
+  }
+  return (
+    <>
+      <PageHead eyebrow="Brand" title="Assets" description="Posts, ads, banners, decks, light loops and merch print files, drawn by the CLI from the layouts on the brand assets page. The previews below are its output with the default copy and seed 0." />
+      <PageBody className="max-w-250">
+        <Section id="commands" title="Make them" description="Text goes in by slot, pictures by --image, and --seed moves the texture (and a generated light with --light generated). Unknown names exit 1 with the closest match; manifest --json lists everything. The brand imagery on its own is on Illustrations; taking any of it into Figma is on Figma.">
+          <div className="grid gap-2">
+            <Command command={`${CLI} image --template ad-creator-plan --headline "Stop screenshotting at midnight."`} />
+            <Command command={`${CLI} image --template post-agents --image photo.jpg --seed 3`} />
+            <Command command={`${CLI} deck --input deck.json --out deck`} />
+            <Command command={`${CLI} video --template light-band --size vertical`} />
+            <Command command={`${CLI} merch --item tee-front --variant full-color`} />
+            <Command command={`${CLI} illustrate pattern --variant corner`} />
+            <Command command={`${CLI} figma push asset imagery/post-offer.svg`} />
+          </div>
+        </Section>
+
+        <Section id="ads" title="Ads from a brief" description="Write the brief in plain sections, run one command, look at the contact sheet, then revise the ads you pick. Each size gets 2 to 4 ads that look different, every one checked against the brand (whole words, contrast, the logo's clear space, the platform's safe areas) and skipped for another layout where it stops reading. Missing copy fails and names the field; the same brief writes the same bytes.">
+          <div className="grid gap-2">
+            <Command command={`${CLI} ad brief.md`} />
+            <Command command={`${CLI} ad brief.md --image screenshot=shot.png --variants 4 --format png,jpg,webp`} />
+            <Command command={`${CLI} design revise ads/brief/square-1-ad-creator-plan.design.json "bigger headline"`} />
+          </div>
+          <Code code={BRIEF} title="brand/briefs/offer.md" tall />
+          <div className="overflow-hidden rounded-control border border-edge">
+            <div className="overflow-x-auto fade-x">
+              <table className="w-full border-collapse type-ui">
+                <thead>
+                  <tr className="text-left text-fg-muted">
+                    {["Section", "What goes in"].map((h) => <th key={h} className="border-b border-edge px-4 py-2.5 type-label font-normal">{h}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {BRIEF_SECTIONS.map(([name, what]) => (
+                    <tr key={name} className="align-top">
+                      <td className="min-w-48 border-b border-edge px-4 py-2.5 text-fg">{name}</td>
+                      <td className="min-w-80 border-b border-edge px-4 py-2.5 text-fg-soft"><Prose text={what} /></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="overflow-hidden rounded-control border border-edge">
+            <div className="overflow-x-auto fade-x">
+              <table className="w-full border-collapse type-ui">
+                <thead>
+                  <tr className="text-left text-fg-muted">
+                    {["Platform", "Sizes"].map((h) => <th key={h} className="border-b border-edge px-4 py-2.5 type-label font-normal">{h}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {PLATFORMS.map(([name, sizes]) => (
+                    <tr key={name} className="align-top">
+                      <td className="min-w-48 border-b border-edge px-4 py-2.5 text-fg">{name}</td>
+                      <td className="min-w-80 border-b border-edge px-4 py-2.5 type-code text-fg-soft">{sizes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <p className="type-ui text-fg-muted">The output folder holds each ad as a design file with its PNG, the labeled sheet.png and ads.json. Three complete briefs are in brand/briefs (launch, offer, hiring); an agent's steps are in the agent guide under Ads from a brief.</p>
+        </Section>
+
+        {GROUPS.map(([group, title, description]) => {
+          const shots = doc.images.filter((i) => i.group === group);
+          return (
+            <Section key={group} id={group} title={title} description={description}>
+              <div className={group === "banner" ? "grid gap-4 sm:grid-cols-2" : "grid grid-cols-2 gap-4 lg:grid-cols-3"}>
+                {shots.map((s) => <Tile key={s.name} shot={s} caption={s.name} detail={`${s.title}, ${s.canvas}`} />)}
+              </div>
+            </Section>
+          );
+        })}
+
+        <Section id="deck" title="Pitch deck" description="1920 by 1080 slides: the three covers from the brand assets and seven content slides derived from their rules. One PNG per slide and one PDF.">
+          <div className="grid gap-4 sm:grid-cols-2">
+            {doc.slides.map((s) => <Tile key={s.name} shot={s} caption={s.name} detail={s.title} />)}
+          </div>
+        </Section>
+
+        <Section id="video" title="Light loops" description={`${doc.catalog.video.seconds} seconds at ${doc.catalog.video.fps} fps, seamless: the light drifts at a constant rate around a closed path while everything else holds still. MP4 and WebM through ffmpeg, else PNG frames and a Motion JPEG MP4; --still writes one frame for reduced motion.`}>
+          <div className="divide-y divide-edge rounded-control border border-edge px-5">
+            {doc.catalog.video.templates.map((t) => (
+              <div key={t.id} className="grid gap-1 py-4 md:grid-cols-[12rem_1fr]">
+                <p className="type-code text-fg">{t.id}</p>
+                <p className="type-ui text-fg-soft">{t.description}</p>
+              </div>
+            ))}
+          </div>
+          <p className="type-ui text-fg-muted">Sizes: {doc.catalog.video.sizes.map((s) => `${s.id} ${s.width}x${s.height}`).join(", ")}.</p>
+        </Section>
+
+        {doc.coverage && (
+          <Section id="coverage" title="I need X" description="The command for each kind of graphic, document, page or part. manifest --json carries the same table as coverage.">
+            <div className="overflow-hidden rounded-control border border-edge">
+              <div className="overflow-x-auto fade-x">
+                <table className="w-full border-collapse type-ui">
+                  <thead>
+                    <tr className="text-left text-fg-muted">
+                      {["I need", "Made by", "Run"].map((h) => <th key={h} className="border-b border-edge px-4 py-2.5 type-label font-normal">{h}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {doc.coverage.rows.map((r) => (
+                      <tr key={r.need} className="align-top">
+                        <td className="min-w-60 border-b border-edge px-4 py-2.5 text-fg">{r.need}</td>
+                        <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap text-fg-soft">{r.how}</td>
+                        <td className="min-w-80 border-b border-edge px-4 py-2.5 type-code text-fg-soft">{`${CLI} ${r.run}`}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <ul className="grid gap-1 type-caption text-fg-muted">
+              {doc.coverage.missing.map((m) => <li key={m.need}>Not made: {m.need}. {m.why}</li>)}
+            </ul>
+          </Section>
+        )}
+
+        {doc.recipes && (
+          <Section id="recipes" title="Recipes" description="Ready compose layouts for what no template covers: display ads, cards, print, email and backgrounds. Shown with their sample copy; the words are always yours.">
+            <Command command={`${CLI} recipe quote-card --set quote.text="..." --set quote.name="..."`} />
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+              {doc.recipes.map((r) => <Tile key={r.name} shot={r} caption={r.name} detail={`${r.size}: ${r.description}`} />)}
+            </div>
+          </Section>
+        )}
+
+        <Section id="merch" title="Merch print files" description="Print files only, no mockups: SVG at physical size and PNG at 300 dpi with the bleed. Full color uses the light and the texture on Black; one-color files are an approved lockup in White or Black on a transparent ground (shown on a checker).">
+          <div className="overflow-hidden rounded-control border border-edge">
+            <div className="overflow-x-auto fade-x">
+              <table className="w-full border-collapse type-ui">
+                <thead>
+                  <tr className="text-left text-fg-muted">
+                    {["Item", "Trim", "Bleed", "Safe", "Variants", "Source or convention"].map((h) => <th key={h} className="border-b border-edge px-4 py-2.5 type-label font-normal">{h}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {doc.catalog.merch.map((m) => (
+                    <tr key={m.id} className="align-top">
+                      <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap type-code text-fg">{m.id}</td>
+                      <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap text-fg-soft">{m.trim.width} x {m.trim.height} in</td>
+                      <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap text-fg-soft">{m.bleed} in</td>
+                      <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap text-fg-soft">{m.safe} in</td>
+                      <td className="border-b border-edge px-4 py-2.5 whitespace-nowrap text-fg-soft">{m.variants.join(", ")}</td>
+                      <td className="min-w-80 border-b border-edge px-4 py-2.5 type-caption text-fg-muted">{m.source}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+            {doc.merch.map((m) => (
+              <figure key={m.name} className="m-0 grid min-w-0 content-start gap-2">
+                <div className="grid place-items-center rounded-control border border-edge bg-[repeating-conic-gradient(var(--ds-color-neutral-8)_0_25%,var(--ds-color-neutral-7)_0_50%)] bg-[length:16px_16px] p-3">
+                  <img src={m.src} alt={`${m.title}, ${m.variant}`} width={m.width} height={m.height} loading="lazy" className="h-auto max-h-64 w-auto max-w-full" />
+                </div>
+                <figcaption className="min-w-0"><p className="truncate type-code text-fg">{m.item}</p><p className="truncate type-caption text-fg-muted">{m.variant}</p></figcaption>
+              </figure>
+            ))}
+          </div>
+        </Section>
+      </PageBody>
+    </>
+  );
+}

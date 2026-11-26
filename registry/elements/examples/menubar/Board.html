@@ -1,0 +1,27 @@
+<!-- A board's tools as a menubar: the board itself, how its creatives are sorted, and who sees it. Open one, then point
+     at the next or press Right. -->
+<div class="min-h-72">
+  <agd-menubar label="Board">
+    <agd-menubar-menu label="Board">
+      <agd-menubar-item shortcut="⌘N"><i data-lucide="folder-plus" data-size="16" data-stroke-width="1.5" class="shrink-0 text-fg-muted" aria-hidden="true"></i>New board</agd-menubar-item>
+      <agd-menubar-item><i data-lucide="copy" data-size="16" data-stroke-width="1.5" class="shrink-0 text-fg-muted" aria-hidden="true"></i>Duplicate</agd-menubar-item>
+      <agd-menubar-item><i data-lucide="download" data-size="16" data-stroke-width="1.5" class="shrink-0 text-fg-muted" aria-hidden="true"></i>Export as PDF</agd-menubar-item>
+      <agd-menubar-separator></agd-menubar-separator>
+      <agd-menubar-item danger><i data-lucide="trash-2" data-size="16" data-stroke-width="1.5" class="shrink-0" aria-hidden="true"></i>Delete board</agd-menubar-item>
+    </agd-menubar-menu>
+    <agd-menubar-menu label="View">
+      <agd-menubar-label>Sort creatives</agd-menubar-label>
+      <agd-menubar-item item-role="menuitemradio" data-sort="newest" checked>Newest first</agd-menubar-item>
+      <agd-menubar-item item-role="menuitemradio" data-sort="longest">Longest running</agd-menubar-item>
+      <agd-menubar-item item-role="menuitemradio" data-sort="saved">Most saved</agd-menubar-item>
+    </agd-menubar-menu>
+    <agd-menubar-menu label="Share">
+      <agd-menubar-item><i data-lucide="link" data-size="16" data-stroke-width="1.5" class="shrink-0 text-fg-muted" aria-hidden="true"></i>Copy link</agd-menubar-item>
+      <agd-menubar-item><i data-lucide="user-plus" data-size="16" data-stroke-width="1.5" class="shrink-0 text-fg-muted" aria-hidden="true"></i>Invite a teammate</agd-menubar-item>
+    </agd-menubar-menu>
+  </agd-menubar>
+</div>
+<script type="module">
+  const rows = document.querySelectorAll('agd-menubar-item[data-sort]')
+  for (const row of rows) row.addEventListener('select', () => { for (const r of rows) r.checked = r === row })
+</script>

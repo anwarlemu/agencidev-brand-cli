@@ -1,0 +1,16 @@
+<!-- The four edges a sheet comes from: right and left for details beside the page, top and bottom for a short row. -->
+<div class="flex min-h-40 flex-wrap items-center justify-center gap-2">
+  <agd-button variant="secondary" data-side="top">Top</agd-button>
+  <agd-button variant="secondary" data-side="right">Right</agd-button>
+  <agd-button variant="secondary" data-side="bottom">Bottom</agd-button>
+  <agd-button variant="secondary" data-side="left">Left</agd-button>
+  <agd-sheet side="top" heading="Acme Studio" description="128 active ads on Meta and TikTok, 14 new this week."><p class="type-ui text-fg-soft">Save the brand to a board to follow every new ad it launches.</p></agd-sheet>
+  <agd-sheet side="right" heading="Acme Studio" description="128 active ads on Meta and TikTok, 14 new this week."><p class="type-ui text-fg-soft">Save the brand to a board to follow every new ad it launches.</p></agd-sheet>
+  <agd-sheet side="bottom" heading="Acme Studio" description="128 active ads on Meta and TikTok, 14 new this week."><p class="type-ui text-fg-soft">Save the brand to a board to follow every new ad it launches.</p></agd-sheet>
+  <agd-sheet side="left" heading="Acme Studio" description="128 active ads on Meta and TikTok, 14 new this week."><p class="type-ui text-fg-soft">Save the brand to a board to follow every new ad it launches.</p></agd-sheet>
+</div>
+<script type="module">
+  for (const b of document.querySelectorAll('agd-button[data-side]')) {
+    b.addEventListener('click', () => { document.querySelector(`agd-sheet[side="${b.dataset.side}"]`).open = true })
+  }
+</script>

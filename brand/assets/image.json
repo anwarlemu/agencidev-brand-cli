@@ -1,0 +1,686 @@
+{
+ "$comment": "Image templates: the Agencidev site's own compositions (the homepage statement and work rail, the 404 page's no-signal static, the about page's bets and process, the contact head, the testimonials, the brand kit's marks and the share image), drawn as the site draws (layouts.mjs says how). The first size is the template's own frame; the others are the same layout re-flowed. Slots hold sample copy (the site's own words), drawn only with --sample ({domain} and {tagline} come from brand.json); the address (url) is always drawn, and every other slot only when it is passed. `required` slots must be passed. Pictures fill the photo slots in order and repeat when there are fewer. The site's client work, team and testimonials are never shipped: pass your own pictures and names.",
+ "templates": [
+  {
+   "id": "post-statement",
+   "group": "post",
+   "name": "Post, statement",
+   "source": "The homepage (app/page.tsx): the stat line over the two-tone statement, the lockup at the top left",
+   "description": "The lockup at the top, the stat line and the statement at the foot: its lead in white running on into the rest in mid.",
+   "slots": {
+    "headline": "Product design thinking and implementation.",
+    "body": "We help YC startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.",
+    "stat": "YC26 startups each batch designed by Agencidev:",
+    "figure": "6.06%",
+    "url": "{domain}",
+    "page": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "post-rail",
+   "group": "post",
+   "name": "Post, work rail",
+   "source": "The home hero (components/home-gallery.tsx, globals.css .rail-ssr): portrait strips of work in a row, the statement under it",
+   "description": "A row of portrait strips of your work running off the right edge, the statement at the foot.",
+   "photos": 8,
+   "minPhotos": 1,
+   "slots": {
+    "headline": "Product design thinking and implementation.",
+    "body": "We help YC startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.",
+    "stat": "",
+    "figure": "",
+    "url": "{domain}",
+    "page": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top-right",
+    "bottom-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "post-signal",
+   "group": "post",
+   "name": "Post, no signal",
+   "source": "The 404 page (components/no-signal-404.tsx, lib/no-signal-engine.ts): the dead-channel static with its glitch band, a centered head and line under it",
+   "description": "The site's no-signal static behind a centered head, a line in dim and a button.",
+   "slots": {
+    "headline": "Page not found.",
+    "body": "The content you're looking for doesn't exist or has been moved.",
+    "cta": "Back home",
+    "url": "{domain}",
+    "page": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "post-bets",
+   "group": "post",
+   "name": "Post, bets",
+   "source": "The about page (components/about-view.tsx): \"Our bets:\" centered, the bets in mid, the last line in white",
+   "description": "A centered heading, a list of statements in mid (separate them with |), and a closing line in white.",
+   "slots": {
+    "headline": "Our bets:",
+    "body": "Companies don't want designers to implement styles or design. They'd much rather use AI to do it themselves, faster and cheaper. | Products and websites need to be geared for agent usage.",
+    "close": "This is why we build design systems for both teams and LLMs.",
+    "url": "{domain}",
+    "page": ""
+   },
+   "required": [
+    "headline",
+    "body"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "post-quote",
+   "group": "post",
+   "name": "Post, quote",
+   "source": "The testimonials (components/testimonials.tsx): the quote, the name and role",
+   "description": "A quote at the display face, the name in white and the role in capitals; a portrait when one is passed.",
+   "photos": 1,
+   "slots": {
+    "quote": "They shipped our brand, product and site in one partnership.",
+    "name": "Alex Rivera",
+    "role": "Founder, Acme",
+    "url": "{domain}"
+   },
+   "required": [
+    "quote",
+    "name"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "post-process",
+   "group": "post",
+   "name": "Post, process",
+   "source": "The about page's process rows (components/about-view.tsx): a number, a title, a hairline",
+   "description": "The two-tone statement over three numbered rows on hairlines.",
+   "slots": {
+    "headline": "Harnessing an AI-first approach to accelerate our craft.",
+    "body": "Our agentic design and engineering process keeps us at the forefront of what's possible.",
+    "step-1": "Exploration is fast. Judgement is not.",
+    "step-2": "Speed requires agility.",
+    "step-3": "Strong ideas survive testing.",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "square",
+    "portrait",
+    "story",
+    "og",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "ad-call",
+   "group": "ad",
+   "name": "Ad, book a call",
+   "source": "The contact page (app/contact/page.tsx): the two-tone head and the plate button",
+   "description": "The statement and the plate button, the lockup and the address on top.",
+   "slots": {
+    "headline": "Tell us what you're building.",
+    "body": "Agencidev partners with AI-first startups to design, build, and ship software.",
+    "stat": "",
+    "figure": "",
+    "cta": "Book a call",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "portrait",
+    "square",
+    "story",
+    "linkedin-square",
+    "pinterest",
+    "facebook",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "ad-rail",
+   "group": "ad",
+   "name": "Ad, work rail",
+   "source": "The home hero (home-gallery.tsx) with the bar's plate button",
+   "description": "The rail of your work, the statement and the plate button.",
+   "photos": 8,
+   "minPhotos": 1,
+   "slots": {
+    "headline": "Product design thinking and implementation.",
+    "body": "Design partnerships for YC startups.",
+    "cta": "Book a call",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "portrait",
+    "square",
+    "story",
+    "linkedin-square",
+    "pinterest",
+    "facebook",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "ad-signal",
+   "group": "ad",
+   "name": "Ad, no signal",
+   "source": "The 404 page's static (no-signal-404.tsx)",
+   "description": "The no-signal static, a centered head, a line and the plate button.",
+   "slots": {
+    "headline": "Your product deserves a signal.",
+    "body": "Design and engineering partnerships for AI-first startups.",
+    "cta": "Book a call",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ],
+   "sizes": [
+    "portrait",
+    "square",
+    "story",
+    "linkedin-square",
+    "pinterest",
+    "facebook",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "ad-plan",
+   "group": "ad",
+   "name": "Ad, partnership",
+   "source": "The site's published pricing (PRODUCT.md, lib/agent-content.ts): ongoing monthly partnerships, cancel anytime",
+   "description": "A head, the partnership in capitals, its price at the display step, the terms and a button. Pass your own figures; nothing is sampled unless asked.",
+   "slots": {
+    "headline": "An embedded product team, not a vendor.",
+    "plan": "Design partnership",
+    "price": "$5,417/month",
+    "body": "Product design, branding and strategy. Cancel anytime.",
+    "cta": "Book a call",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top-right"
+   ],
+   "sizes": [
+    "portrait",
+    "square",
+    "story",
+    "linkedin-square",
+    "pinterest",
+    "facebook",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "banner-statement",
+   "group": "banner",
+   "name": "Banner, statement",
+   "source": "The homepage statement on a strip",
+   "description": "The lockup at the left, the two-tone statement at the right.",
+   "slots": {
+    "headline": "Product design thinking and implementation.",
+    "body": "Brand, product and websites for YC startups."
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "og",
+    "landscape",
+    "square",
+    "portrait",
+    "story",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "ad-728x90",
+    "ad-970x250",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "banner-rail",
+   "group": "banner",
+   "name": "Banner, work rail",
+   "source": "The home hero on a strip",
+   "description": "The statement at the left, the rail of your work running off the right.",
+   "photos": 8,
+   "minPhotos": 1,
+   "slots": {
+    "headline": "Product design thinking and implementation.",
+    "body": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "og",
+    "landscape",
+    "square",
+    "portrait",
+    "story",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "ad-728x90",
+    "ad-970x250",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "avatar",
+   "group": "logo",
+   "name": "Social avatar",
+   "source": "The site's app icon (app/icon.png): the white square on black",
+   "description": "The square, white on black (or black on white), for profile pictures.",
+   "slots": {},
+   "required": [],
+   "variants": {
+    "black": {
+     "ground": "black",
+     "mark": "white"
+    },
+    "white": {
+     "ground": "white",
+     "mark": "black"
+    }
+   },
+   "sizes": [
+    "avatar"
+   ]
+  },
+  {
+   "id": "logo-background",
+   "group": "logo",
+   "name": "Mark on black",
+   "source": "The brand kit (/branding): Mark, white",
+   "description": "The square in white on black (or black on white).",
+   "slots": {},
+   "required": [],
+   "variants": {
+    "black": {
+     "ground": "black",
+     "mark": "white"
+    },
+    "white": {
+     "ground": "white",
+     "mark": "black"
+    }
+   },
+   "sizes": [
+    "tile"
+   ]
+  },
+  {
+   "id": "logo-primary",
+   "group": "logo",
+   "name": "Lockup on black",
+   "source": "The brand kit: Lockup, white; the share image (public/og-image.png)",
+   "description": "The lockup in white on black at 1920 by 1080 (or black on white).",
+   "slots": {},
+   "required": [],
+   "variants": {
+    "black": {
+     "ground": "black",
+     "mark": "white"
+    },
+    "white": {
+     "ground": "white",
+     "mark": "black"
+    }
+   },
+   "sizes": [
+    "primary",
+    "og",
+    "linkedin",
+    "youtube-thumbnail",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "ad-300x250",
+    "ad-336x280",
+    "ad-728x90",
+    "ad-300x600",
+    "ad-160x600",
+    "ad-970x250",
+    "desktop",
+    "phone-wallpaper"
+   ],
+   "sizeAliases": {
+    "landscape": "primary"
+   }
+  },
+  {
+   "id": "logo-glass",
+   "group": "logo",
+   "name": "Liquid-glass mark",
+   "source": "The brand kit: Mark, liquid glass (public/logo-glass.svg), for imagery",
+   "description": "The liquid-glass mark centered on black.",
+   "slots": {},
+   "required": [],
+   "sizes": [
+    "tile",
+    "primary",
+    "og",
+    "square",
+    "story"
+   ]
+  },
+  {
+   "id": "logo-chrome",
+   "group": "logo",
+   "name": "3D chrome mark",
+   "source": "The brand kit: Mark, 3D chrome (public/agd-tilt.png)",
+   "description": "The 3D chrome mark centered on black.",
+   "slots": {},
+   "required": [],
+   "sizes": [
+    "tile",
+    "primary",
+    "og",
+    "square",
+    "portrait",
+    "story"
+   ]
+  },
+  {
+   "id": "og",
+   "group": "derived",
+   "name": "Share card",
+   "source": "The site's share image (public/og-image.png, 2000 by 1050): the lockup centered on black",
+   "description": "The lockup alone, centered on black; with a headline, the statement under the lockup.",
+   "slots": {
+    "headline": "",
+    "body": "",
+    "url": "{domain}"
+   },
+   "required": [],
+   "logoAnchors": [
+    "top-left",
+    "top-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "og",
+    "square",
+    "portrait",
+    "story",
+    "landscape",
+    "linkedin",
+    "linkedin-square",
+    "youtube-thumbnail",
+    "x-banner",
+    "linkedin-banner",
+    "linkedin-page",
+    "youtube",
+    "email",
+    "pinterest",
+    "facebook-cover",
+    "facebook",
+    "ad-970x250",
+    "desktop",
+    "phone-wallpaper"
+   ]
+  },
+  {
+   "id": "story",
+   "group": "derived",
+   "name": "Story",
+   "source": "The contact head and the home rail, in a story's safe area",
+   "description": "The statement and the plate button in the lower safe area; the rail above it when pictures are passed.",
+   "photos": 8,
+   "slots": {
+    "headline": "Tell us what you're building.",
+    "body": "The quickest way to start is a call or an email.",
+    "cta": "Book a call",
+    "url": "{domain}",
+    "stat": "",
+    "figure": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "logoAnchors": [
+    "top-left",
+    "top-right"
+   ],
+   "aliases": {
+    "rest": "body"
+   },
+   "sizes": [
+    "story",
+    "portrait",
+    "square",
+    "linkedin-square",
+    "pinterest",
+    "facebook",
+    "phone-wallpaper"
+   ]
+  }
+ ]
+}

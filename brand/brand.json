@@ -1,0 +1,88 @@
+{
+  "name": "Agencidev",
+  "bin": "agencidev-ds",
+  "source": "github:anwarlemu/agencidev-brand-cli#release",
+  "registryUrl": "https://agencidev-ds.vercel.app",
+  "site": "https://www.agencidev.com",
+  "domain": "agencidev.com",
+  "framework": "react",
+  "elementPrefix": "agd",
+  "assetBase": "/agencidev-ds",
+  "tagline": "Product design thinking and implementation.",
+  "fonts": {
+    "$comment": "Faces from the site (AGD app/layout.tsx, next/font/local; public/fonts). use web: the files the site serves (ABC Diatype variable, wght 400-500, cut to Latin; Agencidev Sans Regular, Latin-1). use render: a static instance of Diatype at 400 (the site sets one weight: labels, buttons and copy all at 400) cut with fontTools for the image and video renderers. Agencidev Sans is the studio's own face. ABC Diatype is Dinamo's: the site's file is their trial build (see licenses/README.md).",
+    "files": [
+      {
+        "family": "Agencidev Sans",
+        "weight": 400,
+        "file": "AgencidevSans-400.woff2",
+        "role": "heading",
+        "license": "licenses/README.md"
+      },
+      {
+        "family": "ABC Diatype",
+        "weight": 400,
+        "range": "400 500",
+        "file": "ABCDiatype.woff2",
+        "role": "text",
+        "use": "web",
+        "license": "licenses/README.md"
+      },
+      {
+        "family": "ABC Diatype",
+        "weight": 400,
+        "file": "ABCDiatype-400.woff2",
+        "role": "text",
+        "use": "render",
+        "license": "licenses/README.md"
+      }
+    ],
+    "css": ""
+  },
+  "icons": {
+    "name": "Lucide",
+    "packages": [
+      "lucide-react",
+      "lucide",
+      "lucide-vue-next",
+      "@lucide/svelte",
+      "lucide-svelte",
+      "lucide-angular",
+      "lucide-solid",
+      "lucide-preact"
+    ],
+    "stroke": 1.5
+  },
+  "type": {
+    "caps": true,
+    "bold": false,
+    "buttonCaps": true,
+    "$comment": "Labels, nav links and buttons are 12px capitals, untracked, at 400 (nav-bar.tsx, page-tokens.ts)."
+  },
+  "logo": {
+    "source": "The site's brand kit (www.agencidev.com/branding, components/branding/brand-kit.tsx) and its lockup (public/agd-lockup.svg)",
+    "clearSpace": 0.5,
+    "clearSpaceText": "Keep clear space around the mark and never recolor or distort it (brand kit). The kit gives no measure; the library keeps half the square's height free on all four sides, a minimum.",
+    "markHeight": {
+      "mark": 1,
+      "horizontal": 0.5818
+    },
+    "minHeight": {
+      "mark": 16,
+      "horizontal": 18,
+      "wordmark": 18
+    },
+    "rules": [
+      "The mark is the square: white on dark, black on light.",
+      "The liquid-glass mark where it must read over imagery.",
+      "Never recolor or distort it."
+    ]
+  },
+  "groups": {
+    "ui": "Components",
+    "site": "Site",
+    "visuals": "Brand",
+    "blocks": "Blocks",
+    "pages": "Pages"
+  }
+}

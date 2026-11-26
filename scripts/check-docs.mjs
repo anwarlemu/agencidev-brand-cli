@@ -1,0 +1,287 @@
+// The docs site's full sweep, against a production server: build it (`bun run ci`, then `bun run www:build`), start it
+// (`bun run --cwd apps/www start`, port 3700), then `DOCS_URL=http://localhost:3700 bun run test:docs`.
+// Every component page and every /preview/<item>/<example> at 1440 and 390: no browser errors, no failed requests and
+// no horizontal overflow, and no scroll box that overflows without the scroll fade (fade-y, fade-x: content is never
+// cut off by a hard edge). Then the rail (and its fade at rest, scrolled and at the end) (every item listed, the filter), the overlays (open, Escape, focus back on
+// the trigger) and the items that compose others. CHROMIUM_PATH points at a Chromium build if playwright-core has
+// none installed; CONCURRENCY sets how many pages load at once (4); SWEEP=0 skips the page sweep.
+import assert from 'node:assert/strict';
+import { chromium } from 'playwright-core';
+
+const base = (process.env.DOCS_URL ?? 'http://localhost:3700').replace(/\/$/, '');
+const widths = [1440, 390];
+const concurrency = Number(process.env.CONCURRENCY ?? 4);
+const browser = await chromium.launch(process.env.CHROMIUM_PATH ? { executablePath: process.env.CHROMIUM_PATH } : {});
+const problems = [];
+const fail = (where, what) => problems.push(`${where}: ${what}`);
+
+// A page that records what went wrong while it was open.
+async function open(width, path, label = path) {
+	const context = await browser.newContext({ viewport: { width, height: width > 600 ? 1000 : 844 }, acceptDownloads: true });
+	const page = await context.newPage();
+	const where = `${label} @${width}`;
+	page.on('pageerror', (e) => fail(where, `page error: ${e.message}`));
+	page.on('console', (m) => { if (m.type() === 'error') fail(where, `console error: ${m.text()}`); });
+	page.on('requestfailed', (r) => { if (!/net::ERR_ABORTED/.test(r.failure()?.errorText ?? '')) fail(where, `request failed: ${r.url()} (${r.failure()?.errorText})`); });
+	page.on('response', (r) => { if (r.status() >= 400) fail(where, `HTTP ${r.status()}: ${r.url()}`); });
+	await page.goto(`${base}${path}`, { waitUntil: 'networkidle' });
+	await page.evaluate(() => document.fonts.ready);
+	return { page, context, where };
+}
+async function overflow(page) {
+	return page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+}
+/** Scroll boxes (light DOM and shadow roots) that overflow on an axis with no mask: their content is cut off. */
+async function hardEdges(page) {
+	return page.evaluate(() => {
+		const out = [];
+		const visit = (root) => {
+			for (const el of root.querySelectorAll('*')) {
+				if (el.shadowRoot) visit(el.shadowRoot);
+				if (el === document.documentElement || el === document.body) continue;
+				const cs = getComputedStyle(el);
+				const y = /auto|scroll/.test(cs.overflowY) && el.scrollHeight > el.clientHeight + 1;
+				const x = /auto|scroll/.test(cs.overflowX) && el.scrollWidth > el.clientWidth + 1;
+				const mask = cs.maskImage && cs.maskImage !== 'none' ? cs.maskImage : cs.webkitMaskImage;
+				if ((y || x) && (!mask || mask === 'none')) out.push(`${el.tagName.toLowerCase()}${el.id ? `#${el.id}` : ''}.${String(el.className).trim().split(/\s+/).slice(0, 4).join('.')} (${[y && 'down', x && 'across'].filter(Boolean).join(', ')})`);
+			}
+		};
+		visit(document);
+		return out;
+	});
+}
+/** The scroll fade's edges on an element, in px: [start, end] down, then [start, end] across (fade-xy). */
+async function fadeEdges(locator) {
+	return locator.evaluate((el) => { const cs = getComputedStyle(el); return ['--fade-start', '--fade-end', '--fade-x-start', '--fade-x-end'].map((p) => Number.parseFloat(cs.getPropertyValue(p))); });
+}
+async function pool(tasks) {
+	let next = 0;
+	await Promise.all(Array.from({ length: concurrency }, async () => {
+		while (next < tasks.length) await tasks[next++]();
+	}));
+}
+
+const { items } = await (await fetch(`${base}/r/index.json`)).json();
+assert.ok(items.length > 0, 'the index lists items');
+const previews = items.flatMap((i) => i.examples.map((e) => `/preview/${i.name}/${e}`));
+
+try {
+	// 1. Every component page and every preview, at both widths (SWEEP=0 skips it, to rerun the checks below).
+	if (process.env.SWEEP !== '0') {
+	const routes = [...items.map((i) => `/components/${i.name}`), ...previews];
+	let done = 0;
+	await pool(routes.flatMap((path) => widths.map((width) => async () => {
+		const { page, context, where } = await open(width, path);
+		try {
+			if (path.startsWith('/components/')) {
+				const name = path.split('/').pop();
+				const title = items.find((i) => i.name === name).title;
+				await page.getByRole('heading', { name: title, exact: true, level: 1 }).waitFor({ timeout: 5000 }).catch(() => fail(where, 'no page title'));
+			} else {
+				await page.waitForTimeout(600);
+				if (!(await page.evaluate(() => document.body.textContent?.trim().length || document.querySelector('body svg, body img, body canvas')))) fail(where, 'renders nothing');
+			}
+			const over = await overflow(page);
+			if (over > 0) fail(where, `overflows by ${over}px`);
+			for (const box of await hardEdges(page)) fail(where, `cut off by a hard edge (add fade-y or fade-x): ${box}`);
+		} finally {
+			await context.close();
+		}
+		if (++done % 100 === 0) console.log(`  ${done} of ${routes.length * widths.length} loads`);
+	})));
+	console.log(`Swept ${items.length} component pages and ${previews.length} previews at ${widths.join(' and ')}.`);
+	}
+
+	// 2. The rail lists every item, and its filter narrows it.
+	{
+		const { page, context, where } = await open(1440, '/components/button', 'rail');
+		const rail = page.locator('#docs-rail');
+		const listed = await rail.locator('a[href^="/components/"]').evaluateAll((as) => as.map((a) => a.getAttribute('href').split('/').pop()));
+		const missing = items.map((i) => i.name).filter((n) => !listed.includes(n));
+		if (missing.length) fail(where, `missing from the rail: ${missing.join(', ')}`);
+		if (listed.length !== items.length) fail(where, `rail lists ${listed.length} items, the index ${items.length}`);
+		const filter = rail.getByRole('textbox', { name: 'filter components' });
+		await filter.fill('light');
+		const narrowed = await rail.locator('a[href^="/components/"]').allTextContents();
+		const expected = items.filter((i) => i.title.toLowerCase().includes('light') || i.name.includes('light')).length;
+		if (narrowed.length !== expected) fail(where, `filter "light" shows ${narrowed.length}, expected ${expected}`);
+		await rail.locator('a[href="/components/brand-light"]').click();
+		await page.waitForURL('**/components/brand-light');
+		if ((await filter.inputValue()) !== 'light') fail(where, 'the filter is not kept after navigating');
+		await filter.fill('zzz');
+		await rail.getByText('Nothing matches').waitFor({ timeout: 3000 }).catch(() => fail(where, 'no empty message for a filter with no match'));
+		await context.close();
+		console.log(`Rail: ${listed.length} items listed; filter checked.`);
+	}
+
+	// 2b. The rail's list fades at its edges, tied to the scroll: none at rest at the top (the first row whole under the
+	// filter), 24px at both edges mid-scroll, none at the bottom at the end. At both widths (the phone opens the rail).
+	for (const width of widths) {
+		const { page, context, where } = await open(width, '/components/button', `rail fade`);
+		try {
+			if (width < 1024) await page.getByRole('button', { name: 'Open the library' }).click();
+			const list = page.locator('#docs-rail > div.fade-y');
+			await list.waitFor({ timeout: 3000 });
+			const mask = await list.evaluate((el) => getComputedStyle(el).maskImage);
+			if (!/gradient/.test(mask)) fail(where, `the rail list has no mask (${mask})`);
+			await list.evaluate((el) => { el.scrollTop = 0; });
+			await page.waitForTimeout(100);
+			let [start, end] = await fadeEdges(list);
+			if (start !== 0) fail(where, `at rest the top fade is ${start}px, not 0`);
+			if (end !== 24) fail(where, `at rest the bottom fade is ${end}px, not 24`);
+			await list.evaluate((el) => { el.scrollTop = 200; });
+			await page.waitForTimeout(100);
+			[start, end] = await fadeEdges(list);
+			if (start !== 24 || end !== 24) fail(where, `scrolled 200px the fades are ${start}px and ${end}px, not 24 and 24`);
+			await list.evaluate((el) => { el.scrollTop = el.scrollHeight; });
+			await page.waitForTimeout(100);
+			[start, end] = await fadeEdges(list);
+			if (start !== 24 || end !== 0) fail(where, `at the end the fades are ${start}px and ${end}px, not 24 and 0`);
+		} finally {
+			await context.close();
+		}
+	}
+	console.log('Rail fade: at rest, scrolled and at the end, at both widths.');
+
+	// 2c. A code block that scrolls both ways (fade-xy): no fade at rest at the top and left, 24px on all four edges
+	// mid-scroll.
+	{
+		const { page, context, where } = await open(390, '/components/data-table', 'code fade');
+		try {
+			const pre = page.locator('pre.fade-xy').filter({ has: page.locator('code') });
+			const handle = await pre.evaluateAll((els) => els.findIndex((el) => el.scrollHeight > el.clientHeight + 100 && el.scrollWidth > el.clientWidth + 100));
+			if (handle < 0) fail(where, 'no code block that scrolls both ways');
+			else {
+				const box = pre.nth(handle);
+				const [ys, ye, xs, xe] = await fadeEdges(box);
+				if (ys !== 0 || xs !== 0 || ye !== 24 || xe !== 24) fail(where, `at rest the fades are ${ys}/${ye}px down and ${xs}/${xe}px across, not 0/24 and 0/24`);
+				await box.evaluate((el) => { el.scrollTop = 100; el.scrollLeft = 100; });
+				await page.waitForTimeout(100);
+				const mid = await fadeEdges(box);
+				if (mid.some((v) => v !== 24)) fail(where, `mid-scroll the fades are ${mid.join('/')}px, not 24 on every edge`);
+			}
+		} finally {
+			await context.close();
+		}
+		console.log('Code fade: both axes at rest and mid-scroll.');
+	}
+
+	// 3. Overlays: open from the trigger, Escape closes, focus returns to the trigger.
+	// [item, its trigger]: a menu button by default, the example's first button for a dialog it opens.
+	const POPUP = '[aria-haspopup]:visible, [aria-expanded]:visible';
+	const overlays = [
+		['dialog', 'button:visible'], ['alert-dialog', 'button:visible'], ['sheet', 'button:visible'], ['drawer', 'button:visible'],
+		['popover', POPUP], ['menu', POPUP], ['context-menu', '[data-context]'], ['hover-card', 'a'], ['date-picker', POPUP],
+		['combobox', POPUP], ['select', POPUP], ['scope-menu', POPUP], ['filter-chip', POPUP], ['account-menu', POPUP],
+		['workspace-switcher', POPUP], ['menubar', POPUP],
+	].filter(([n]) => items.some((i) => i.name === n));
+	for (const [name, selector] of overlays) {
+		const example = items.find((i) => i.name === name).examples[0];
+		const { page, context, where } = await open(1440, `/preview/${name}/${example}`, `overlay ${name}`);
+		try {
+			const surface = () => page.locator('dialog[open], .ds-pop:visible, [role="dialog"]:visible, [role="menu"]:visible, [role="listbox"]:visible, [role="tooltip"]:visible').first();
+			// Some examples open themselves as they load: close that first, so the trigger is what opens it.
+			if (await surface().isVisible().catch(() => false)) { await page.keyboard.press('Escape'); await page.waitForTimeout(300); }
+			const trigger = page.locator(selector).first();
+			if (!(await trigger.count())) { fail(where, 'no trigger found'); continue; }
+			if (name === 'hover-card') await page.keyboard.press('Tab');
+			else await trigger.focus();
+			if (name === 'context-menu') await trigger.click({ button: 'right' });
+			else if (name !== 'hover-card') await page.keyboard.press('Enter');
+			if (!(await surface().isVisible().catch(() => false))) await trigger.click(name === 'context-menu' ? { button: 'right' } : {});
+			await surface().waitFor({ state: 'visible', timeout: 3000 }).catch(() => fail(where, 'did not open'));
+			await page.waitForTimeout(350);
+			await page.keyboard.press('Escape');
+			await page.waitForTimeout(400);
+			if (await surface().isVisible().catch(() => false)) fail(where, 'Escape did not close it');
+			const back = await trigger.evaluate((t) => t === document.activeElement || t.contains(document.activeElement));
+			if (!back && name !== 'context-menu' && name !== 'hover-card') fail(where, 'focus did not return to the trigger');
+		} finally {
+			await context.close();
+		}
+	}
+	console.log(`Overlays: ${overlays.length} opened, closed with Escape, focus checked.`);
+
+	// 4. Items that compose others: the composed parts render and answer.
+	const checks = {
+		async 'data-table/Product'(page) {
+			const chip = page.locator('button[aria-haspopup]').first();
+			await chip.click();
+			await page.getByRole('menuitemradio').nth(1).click();
+			assert.match(await chip.textContent(), /:/, 'the chip names its pick');
+		},
+		async 'search-run/Product'(page) {
+			const show = page.locator('[data-codepop] > button');
+			await show.waitFor({ timeout: 4000 });
+			await show.click();
+			assert.equal(await show.getAttribute('aria-expanded'), 'true');
+		},
+		async 'search-results/Product'(page) {
+			assert.ok(await page.getByRole('button', { name: /Download/ }).first().isVisible(), 'the best match has Download');
+			const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: /Download/ }).first().click()]);
+			assert.ok(download.suggestedFilename().endsWith('.txt'));
+			await page.getByText('Downloaded').first().waitFor({ timeout: 3000 });
+		},
+		async 'search-box/Product'(page) {
+			const scope = await page.locator('[aria-haspopup]').filter({ hasText: /namespace/i }).first().elementHandle();
+			await scope.click();
+			await page.getByRole('option', { name: /contracts/ }).first().click();
+			assert.match(await scope.textContent(), /contracts/);
+		},
+		async 'hero/Site'(page) {
+			assert.ok(await page.locator('h1.ds-hl').count(), 'the headline is highlight-text');
+			await page.getByRole('tab').nth(2).click();
+			assert.equal(await page.getByRole('tab').nth(2).getAttribute('aria-selected'), 'true');
+			assert.ok(await page.locator('a.ds-btnlink[data-arrow]').count(), 'the action is a button link');
+		},
+		// Agencidev's site footer (no rolling labels, unlike the sibling brands'): the wordmark, the columns, a soon badge.
+		async 'site-footer/Site'(page) {
+			assert.ok(await page.locator('[data-ds="site-footer"] svg.fill-wordmark-gray').count(), 'the wordmark is drawn');
+			assert.ok((await page.locator('[data-ds="site-footer"] nav h2').count()) >= 6, 'six columns');
+			assert.ok(await page.locator('[data-ds="site-footer"] [aria-disabled="true"] [data-ds="badge"]').count(), 'a page that is not live shows its badge');
+		},
+		async 'product-menu/Site'(page) {
+			await page.locator('.ds-product-art[data-active] .ds-viz').first().waitFor({ timeout: 3000 });
+			await page.getByRole('link', { name: /Benchmarks/ }).hover();
+			await page.waitForTimeout(300);
+			assert.ok(await page.locator('.ds-product-art[data-active] .ds-viz').count(), 'the picked item shows its window');
+		},
+		async 'overview-page/Product'(page) {
+			assert.ok(await page.locator('h1.ds-hl').count(), 'the greeting is highlight-text');
+			assert.ok(await page.locator('.ds-viz').count(), 'the key window is a viz window');
+			await page.getByRole('tab', { name: 'Latency' }).click();
+			await page.getByText('Search latency, last 24 hours').first().waitFor({ timeout: 3000 });
+		},
+		async 'call-to-action/Site'(page) {
+			assert.equal(await page.locator('a.ds-btnlink').getAttribute('data-fill'), 'black');
+		},
+		async 'blog-card/Site'(page) {
+			await page.locator('.ds-blog-card .ds-viz').first().waitFor({ timeout: 3000 });
+		},
+		async 'work-panel/Product'(page) {
+			assert.ok(await page.locator('.ds-work-panel .ds-viz').count(), 'the panel plays step-viz');
+		},
+		async 'parse-page/Product'(page) {
+			await page.getByRole('button', { name: /API call/ }).waitFor({ timeout: 5000 });
+		},
+		async 'button/Icon'(page) {
+			const icons = await page.locator('button').evaluateAll((bs) => bs.filter((b) => b.className.includes('w-control-sm')).map((b) => getComputedStyle(b).paddingLeft));
+			for (const p of icons) assert.equal(p, '0px', 'an icon button has no side padding');
+		},
+	};
+	for (const [key, run] of Object.entries(checks)) {
+		const [name, example] = key.split('/');
+		if (!items.find((i) => i.name === name)?.examples.includes(example)) continue;
+		const { page, context, where } = await open(1440, `/preview/${name}/${example}`, `interaction ${key}`);
+		try { await run(page); } catch (e) { fail(where, e.message.split('\n')[0]); } finally { await context.close(); }
+	}
+	console.log(`Interactions: ${Object.keys(checks).length} composed items checked.`);
+} finally {
+	await browser.close();
+}
+
+if (problems.length) {
+	console.error(`\n${problems.length} problem(s):\n${problems.map((p) => `  ${p}`).join('\n')}`);
+	process.exit(1);
+}
+console.log('PASS: the docs site is clean.');
