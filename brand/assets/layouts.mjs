@@ -119,7 +119,7 @@ const copy = (v, gap, o = {}) => {
 /** The stat line over a statement (the homepage's): Diatype 24 in white, its figure in mid after it. */
 const stat = (v, gap, o = {}) => {
 	const px = Math.max(v.f, 24 * v.u);
-	return text('stat', 'body', px, px * 1.4, { gap: gap * v.u, color: 'white', rest: 'figure', restColor: MID, maxLines: 2, ...o });
+	return text('stat', 'body', px, px * 1.5, { gap: gap * v.u, color: 'white', rest: 'figure', restColor: MID, maxLines: 2, ...o });
 };
 /** A label: 12px capitals, untracked, in dim (18 on the canvas). */
 const label = (v, slot, gap, o = {}) => {
@@ -182,7 +182,7 @@ function railPost(c) {
 	const top = cy + h / 2 + 48 * u;
 	return done(v, [
 		...rail(v, cy, h, { ax: wide ? 0.5 : 0.43 }),
-		logo(v, 'top-left'),
+		logo(v, 'top-left'), address(v, 'top-right'),
 		stack([v.x, top, Math.min(v.w, 1000 * u), v.b - top], [stat(v, 0, { w: 900 * u }), statement(v, size, { gap: 24 * u, maxLines: wide ? 3 : 5 })], { valign: 'bottom', grow: v.w }),
 		c.has('page') && page(v, 'top-right'),
 	]);
@@ -193,18 +193,26 @@ function signalPost(c) {
 	const v = canvas(c, 36);
 	const u = v.u;
 	const wide = v.shape === 'wide' || v.shape === 'strip';
-	const strip = v.shape === 'strip';
-	const s = strip ? stripHead(v) : wide ? 44 : DISPLAY;
+	if (v.shape === 'strip') {
+		// A strip has no room under the band: the static takes the right of the frame, the words the left.
+		const s = stripHead(v);
+		const split = v.x + v.w * 0.55;
+		return done(v, [
+			art('signal', [split, 0, v.W - split, v.H]),
+			logo(v, 'top-left'),
+			stack([v.x, v.y, split - v.x - 32, v.h], [head({ ...v, u: 1 }, s, { maxLines: 2 }), copy({ ...v, u: Math.max(0.62, v.u) }, 12, { maxLines: 2 })], { valign: 'center' }),
+		]);
+	}
+	const s = wide ? 44 : DISPLAY;
 	const w = Math.min(v.w, (wide ? 900 : 760) * u);
 	// The band crosses the art from 21% to 62% of its height; the copy goes under it, as on the 404 page. On wide frames
-	// the copy starts a little higher.
-	const artBox = [0, 0, v.W, v.H];
-	const top = strip ? v.y : v.H * (wide ? 0.64 : 0.66);
+	// the art is the whole frame; on taller ones it starts under the lockup's row, so the band never reaches it.
+	const box = wide ? [0, 0, v.W, v.H] : [0, v.y + 80 * u, v.W, v.h * 0.72];
+	const top = box[1] + box[3] * (wide ? 0.64 : 0.66);
 	return done(v, [
-		art('signal', artBox),
-		logo(v, 'top-left'), !strip && address(v, 'top-right'),
-		stack([v.cx - w / 2, top, w, v.b - top], [head(strip ? { ...v, u: 1 } : v, s, { align: 'center', maxLines: 2 }), copy(v, 24, { align: 'center', maxLines: 3 }), key(v, 36)], { align: 'center', valign: strip ? 'center' : 'top', grow: v.w, over: ['signal'] }),
-		c.has('page') && page(v, 'bottom-right'),
+		art('signal', box),
+		logo(v, 'top-left'), address(v, 'top-right'),
+		stack([v.cx - w / 2, top, w, v.b - top], [head(v, s, { align: 'center', maxLines: 2 }), copy(v, 24, { align: 'center', maxLines: 3 }), key(v, 36)], { align: 'center', valign: 'top', grow: v.w, over: ['signal'] }),
 	]);
 }
 
@@ -233,7 +241,7 @@ function quotePost(c) {
 	const wide = v.shape === 'wide' || v.shape === 'strip';
 	const pic = c.pictures > 0;
 	const pw = (wide ? 360 : 240) * u;
-	const items = [head(v, wide ? 36 : 44, { slot: 'quote', maxLines: 8 }), text('name', 'body', Math.max(v.f, 24 * u), 34 * u, { gap: 48 * u, color: 'white', maxLines: 1 }), label(v, 'role', 8)];
+	const items = [head(v, wide ? 36 : 44, { slot: 'quote', maxLines: 8 }), text('name', 'body', Math.max(v.f, 24 * u), Math.max(v.f, 24 * u) * 1.5, { gap: 48 * u, color: 'white', maxLines: 1 }), label(v, 'role', 8)];
 	if (wide) {
 		const tx = pic ? v.x + pw + 64 * u : v.x;
 		return done(v, [
@@ -254,15 +262,17 @@ function processPost(c) {
 	const v = canvas(c, 36);
 	const u = v.u;
 	const wide = v.shape === 'wide' || v.shape === 'strip';
-	const n = ['step-1', 'step-2', 'step-3'].filter((s) => c.has(s)).length || 3;
+	const given = ['step-1', 'step-2', 'step-3'].filter((s) => c.has(s));
+	const steps = given.length ? given : ['step-1', 'step-2', 'step-3'];
 	const rowH = (wide ? 72 : 112) * u;
-	const top = v.b - n * rowH;
-	const rows = list(n).flatMap((i) => {
+	const top = v.b - steps.length * rowH;
+	const rows = steps.flatMap((slot, i) => {
 		const y = top + i * rowH;
+		const k = slot.slice(5);
 		return [
-			{ type: 'rect', id: `rule-${i + 1}`, box: [v.x, y, v.w, 1.5 * u], fill: 'neutral-3' },
-			text(`step-${i + 1}`, 'body', Math.max(v.f, 24 * u), 34 * u, { id: `step-${i + 1}`, x: v.x + 64 * u, top: y + 40 * u, w: v.w - 64 * u, color: 'white', maxLines: 1 }),
-			{ type: 'text', id: `n-${i + 1}`, slot: `n-${i + 1}`, text: String(i + 1), face: 'body', size: Math.max(v.f, 24 * u), leading: 34 * u, x: v.x, top: y + 40 * u, w: 48 * u, color: 'white' },
+			{ type: 'rect', id: `rule-${k}`, box: [v.x, y, v.w, 1.5 * u], fill: 'neutral-3' },
+			text(slot, 'body', Math.max(v.f, 24 * u), Math.max(v.f, 24 * u) * 1.5, { id: slot, x: v.x + 64 * u, top: y + 40 * u, w: v.w - 64 * u, color: 'white', maxLines: 1 }),
+			{ type: 'text', id: `n-${k}`, slot: `n-${k}`, text: String(i + 1), face: 'body', size: Math.max(v.f, 24 * u), leading: Math.max(v.f, 24 * u) * 1.5, x: v.x, top: y + 40 * u, w: 48 * u, color: 'white' },
 		];
 	});
 	return done(v, [
@@ -300,8 +310,8 @@ function railAd(c) {
 	const top = cy + h / 2 + 48 * u;
 	return done(v, [
 		...rail(v, cy, h),
-		logo(v, 'top-left'),
-		stack([v.x, top, Math.min(v.w, 980 * u), v.b - top], [statement(v, wide ? 36 : story ? 56 : 48, { maxLines: wide ? 3 : 5 }), key(v, 40)], { valign: 'bottom', grow: v.w }),
+		logo(v, 'top-left'), address(v, 'top-right'),
+		stack([v.x, top, Math.min(v.w, 980 * u), v.b - top], [stat(v, 0, { w: 900 * u }), statement(v, wide ? 36 : story ? 56 : 48, { gap: 24 * u, maxLines: wide ? 3 : 5 }), key(v, 40)], { valign: 'bottom', grow: v.w }),
 	]);
 }
 
@@ -332,12 +342,14 @@ function planAd(c) {
 function stripStatement(c, withRail, withButton = false) {
 	const v = canvas(c, 36);
 	const s = stripHead(v);
-	const w = Math.min(v.w * (withRail ? 0.5 : 0.62), 980);
+	const w = withRail ? v.cx + 40 - v.x - 40 : Math.min(v.w * 0.62, 980);
 	const h = v.h * 0.86;
 	return done(v, [
 		withRail && rail(v, v.y + v.h / 2, h, { ax: (v.cx + 40 + (h * 100) / 280 / 2) / v.W, n: 12 }),
 		logo(v, 'top-left'),
-		stack([withRail ? v.x : v.r - w, v.y, w, v.h], [statement({ ...v, u: 1 }, s, { maxLines: 2 }), withButton && { type: 'button', slot: 'cta', w: 160, h: Math.max(40, v.f * 2.4), size: Math.max(v.f, 14), radius: 4, gap: s * 0.5, fill: 'plate', color: 'white' }].filter(Boolean), { valign: 'center', align: withRail ? 'left' : 'right', grow: v.w }),
+		// Beside the rail the words keep a column's width clear of the frame's edge, so a grid they are snapped to (design's
+		// compose) never pulls them under a profile picture.
+		stack([withRail ? v.x + 40 : v.r - w, v.y, withRail ? w - 40 : w, v.h], [statement({ ...v, u: 1 }, s, { maxLines: 2 }), withButton && { type: 'button', slot: 'cta', w: 160, h: Math.max(40, v.f * 2.4), size: Math.max(v.f, 14), radius: 4, gap: s * 0.5, fill: 'plate', color: 'white' }].filter(Boolean), { valign: 'center', align: withRail ? 'left' : 'right', ...(withRail ? {} : { grow: v.w }) }),
 	].flat());
 }
 
@@ -348,9 +360,9 @@ function stripStatement(c, withRail, withButton = false) {
 function og(c) {
 	const v = canvas(c, 36);
 	const u = v.u;
-	if (!c.has('headline')) {
+	if (!c.has('headline') && !c.has('body')) {
 		const lw = Math.min(v.w * 0.42, 840 * u);
-		return done(v, [{ type: 'logo', lockup: 'horizontal', color: 'white', box: [v.W / 2 - lw / 2, v.H / 2 - (lw * 110) / 630 / 2, lw, (lw * 110) / 630], align: 'center', required: true }]);
+		return done(v, [{ type: 'logo', lockup: 'horizontal', color: 'white', box: [v.W / 2 - lw / 2, v.H / 2 - (lw * 110) / 630 / 2, lw, (lw * 110) / 630], align: 'center', required: true }, address(v, 'bottom')]);
 	}
 	return statementPost(c);
 }

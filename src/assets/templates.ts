@@ -268,7 +268,7 @@ export function checkDrawn(name: string, scene: Scene, given: string[], drawn: D
 	for (const slot of given) {
 		if (!scene.slots?.[slot]?.trim() || scene.edits?.[slot]?.hidden) continue;
 		const lead = leads.get(slot);
-		if (lead && drawn.layers.some((l) => l.id === lead && l.text)) continue;
+		if (lead && (scene.edits?.[lead]?.hidden || !scene.slots?.[lead]?.trim() || drawn.layers.some((l) => l.id === lead && l.text))) continue;
 		if (!drawn.layers.some((l) => l.id === slot && l.text)) throw new Error(`${name} has no room for --${slot}. Leave it out, or use another size or template.`);
 	}
 }
@@ -322,7 +322,7 @@ export function layersOf(t: Template): { id: string; can: DrawnLayer['can'] }[] 
 			}
 			else if (l.type === 'photo' || l.type === 'panel' || l.type === 'split') add(id, { move: true, scale: [0.6, 1.4], hide: !t.minPhotos });
 			else if (l.type === 'light' && id !== 'pictures') add(id, l.b ? { move: true, scale: [0.6, 1.8], hide: true } : { hide: true });
-			else if (l.type === 'ascii' || l.type === 'art') add(id, { hide: true });
+			else if (l.type === 'signal' || l.type === 'art') add(id, { hide: true });
 			else if (l.type === 'rect') add(id, { move: true, hide: !l.required });
 		}
 	}

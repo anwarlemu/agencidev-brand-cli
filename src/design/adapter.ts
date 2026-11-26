@@ -10,7 +10,7 @@ import { rgbOf } from '../assets/png.js';
 import { encodePixels, readPhoto } from '../assets/io.js';
 import type { Photo } from '../assets/scene.js';
 import { renderVideo, videoDoc, hasFfmpeg } from '../commands/video.js';
-import { illustrate, illustrateData, LIGHT_FRAMES, type StyleId } from '../illustrate/build.js';
+import { illustrate, illustrateData, type StyleId } from '../illustrate/build.js';
 import { checkDesign, checkText, errorsOf, sheetSvg, type Adapter, type DesignDoc, type Finding, type Format, type Painter, type TemplateInfo } from './index.js';
 import { PLATFORMS } from './platforms.js';
 import { BLOCKS, COMPOSE_THEMES, drawCompose, recipeFor } from '../assets/compose.js';
@@ -26,11 +26,8 @@ const PLACEHOLDER = 'sample:placeholder';
 /** The picture slots of a template: `picture`, or `picture-1` and on. */
 const pictureSlots = (n: number) => (n === 1 ? ['picture'] : Array.from({ length: n }, (_, i) => `picture-${i + 1}`));
 
-const LIGHT_OPTIONS = [
-	{ id: 'light', values: ['brand', 'generated'], description: 'The brand heat map, or one generated from the seed' },
-	{ id: 'texture', values: ['true', 'false'], description: 'The ASCII texture' },
-];
-const seeded = (t: Template) => layersOf(t).some((l) => l.id === 'texture' || l.id === 'light');
+const SIGNAL_OPTIONS = [{ id: 'texture', values: ['true', 'false'], description: 'The no-signal static' }];
+const seeded = (t: Template) => layersOf(t).some((l) => l.id === 'signal');
 
 function templateInfo(t: Template, kind: 'image' | 'slide'): TemplateInfo {
 	const pics = pictureSlots(t.photos ?? 0);
@@ -44,7 +41,7 @@ function templateInfo(t: Template, kind: 'image' | 'slide'): TemplateInfo {
 		grounds: Object.fromEntries(themes.map((v) => [v, color(t.variants?.[v]?.ground ?? 'black')])),
 		copy: Object.keys(t.slots).map((id) => ({ id, ...(t.required.includes(id) ? { required: true } : {}), ...(id === 'url' ? { description: 'The address; the brand\'s own when it is not passed' } : id === 'page' ? { description: 'A carousel\'s page number, such as 2 / 5' } : ['features', 'items'].includes(id) ? { description: 'Several points, with | between them' } : {}) })),
 		images: (t.photos ? pics : []).map((id, i) => ({ id, ...(i < (t.minPhotos ?? 0) ? { required: true } : {}), values: [PLACEHOLDER] })),
-		options: seeded(t) ? LIGHT_OPTIONS : [],
+		options: seeded(t) ? SIGNAL_OPTIONS : [],
 		layers: layersOf(t),
 		reflows: reflowsOf(t),
 		formats: kind === 'slide' ? ['png', 'svg', 'jpg', 'webp', 'pdf'] : ['png', 'svg', 'jpg', 'webp'],
@@ -60,7 +57,7 @@ function merchInfo(): TemplateInfo[] {
 		themes: Object.keys(i.variants),
 		copy: Object.keys(i.slots ?? {}).map((id) => ({ id, ...(i.required?.includes(id) ? { required: true } : {}) })),
 		images: [],
-		options: [...('full-color' in i.variants ? LIGHT_OPTIONS : []), { id: 'guides', values: ['true', 'false'], description: 'The trim and safe lines, for proofing' }],
+		options: [{ id: 'guides', values: ['true', 'false'], description: 'The trim and safe lines, for proofing' }],
 		layers: [],
 		formats: ['png', 'svg', 'pdf'] as Format[],
 	}));
@@ -70,10 +67,7 @@ const ILL_SIZES = ['native', 'square', 'portrait', 'story', 'og', 'landscape', '
 function illustrationInfo(): TemplateInfo[] {
 	const d = illustrateData();
 	return Object.entries(d.styles).map(([id, s]) => {
-		const options: TemplateInfo['options'] = [];
-		if (id === 'pattern' || id === 'light') options.push({ id: 'variant', values: Object.keys(LIGHT_FRAMES) }, { id: 'source', values: ['brand', 'generated'] });
-		if (id === 'pattern') options.push({ id: 'texture', values: ['true', 'false'] });
-		if (id === 'pattern' || id === 'texture') options.push({ id: 'density', range: [0, 1] });
+		const options: TemplateInfo['options'] = id === 'signal' || id === 'field' ? [{ id: 'time', range: [0, 600], description: 'Seconds into the static\'s loop: where the band is and which frame' }] : [];
 		return {
 			id,
 			kind: 'illustration' as const,
@@ -82,7 +76,7 @@ function illustrationInfo(): TemplateInfo[] {
 			themes: ['black'],
 			grounds: { black: color('black') } as Record<string, string>,
 			copy: [],
-			images: s.image ? [{ id: 'picture', ...(s.image === 'required' ? { required: true } : {}) }] : [],
+			images: s.image ? Array.from({ length: 8 }, (_, i) => ({ id: i ? `picture-${i + 1}` : 'picture', ...(i === 0 && s.image === 'required' ? { required: true } : {}) })) : [],
 			options,
 			layers: [],
 			formats: ['png', 'svg'] as Format[],
@@ -101,7 +95,7 @@ function videoInfo(): TemplateInfo[] {
 		grounds: { black: color('black') },
 		copy: [],
 		images: [],
-		options: [{ id: 'light', values: ['brand', 'generated'] }, { id: 'seconds', range: [2, 20] as [number, number] }, { id: 'fps', range: [12, 60] as [number, number] }],
+		options: [{ id: 'seconds', range: [2, 20] as [number, number] }, { id: 'fps', range: [12, 60] as [number, number] }],
 		layers: [],
 		formats: (hasFfmpeg() ? ['png', 'mp4'] : ['png']) as Format[],
 	}));
@@ -112,9 +106,7 @@ const allTemplates = () => (infos ??= [...templates('image').map((t) => template
 const kindOf = (id: string) => allTemplates().find((t) => t.id === id)!.kind;
 
 function nativeSize(id: string): [number, number] {
-	const d = illustrateData();
-	if (id === 'light') return LIGHT_FRAMES.band!;
-	return d.styles[id as StyleId]!.size ?? [1080, 1080];
+	return illustrateData().styles[id as StyleId]!.size ?? [1080, 1080];
 }
 
 const yes = (v: unknown) => (v === undefined ? undefined : v === true || v === 'true');
@@ -126,7 +118,7 @@ async function requestOf(doc: DesignDoc, dir: string): Promise<{ t: Template; re
 	const sample = files.includes(PLACEHOLDER);
 	const photos: Photo[] = await Promise.all(files.filter((f) => f !== PLACEHOLDER).map((f) => readPhoto(dir, f)));
 	const custom = doc.size.id === 'custom' ? { width: doc.size.width, height: doc.size.height } : {};
-	return { t, req: { size: doc.size.id, ...custom, variant: doc.theme, slots: doc.copy, photos, placeholders: sample, seed: doc.seed, light: doc.options.light as 'brand' | 'generated' | undefined, texture: yes(doc.options.texture), edits: doc.layers } };
+	return { t, req: { size: doc.size.id, ...custom, variant: doc.theme, slots: doc.copy, photos, placeholders: sample, seed: doc.seed, texture: yes(doc.options.texture), edits: doc.layers } };
 }
 
 async function filesOf(drawn: DrawResult, formats: Format[], scale: number, pdfWidth?: number): Promise<Record<string, Uint8Array>> {
@@ -155,7 +147,7 @@ async function renderCompose(doc: DesignDoc, dir: string, formats: Format[], sca
 
 async function renderMerch(doc: DesignDoc, formats: Format[], scale: number) {
 	const item = findItem(doc.template);
-	const { drawn, widthIn, heightIn, scene } = await drawMerch(item, { variant: doc.theme, seed: doc.seed, light: doc.options.light as 'brand' | 'generated' | undefined, texture: yes(doc.options.texture), guides: yes(doc.options.guides), slots: doc.copy });
+	const { drawn, widthIn, heightIn, scene } = await drawMerch(item, { variant: doc.theme, seed: doc.seed, guides: yes(doc.options.guides), slots: doc.copy });
 	if (!scene.ground && formats.includes('pdf')) throw new Error(`${item.id} in ${doc.theme} is one color on a clear ground, which a PDF page cannot hold: use png or svg.`);
 	const files: Record<string, Uint8Array> = {};
 	const raster = formats.some((f) => f !== 'svg') ? await rasterizeScene(drawn, { scale, dpi: Math.round(PX_PER_IN * scale) }) : undefined;
@@ -168,16 +160,14 @@ async function renderMerch(doc: DesignDoc, formats: Format[], scale: number) {
 async function renderIllustration(doc: DesignDoc, dir: string, formats: Format[], scale: number) {
 	const o = doc.options;
 	const native = doc.size.id === 'native';
-	const photo = doc.images.picture ? await readPhoto(dir, doc.images.picture, { alpha: true }) : undefined;
+	const pics = ['picture', ...Array.from({ length: 7 }, (_, i) => `picture-${i + 2}`)].map((k) => doc.images[k]).filter((v): v is string => Boolean(v) && v !== PLACEHOLDER);
+	const photos = await Promise.all(pics.map((f) => readPhoto(dir, f)));
 	const r = await illustrate({
 		style: doc.template as StyleId,
-		photo,
-		variant: o.variant as string | undefined,
-		source: o.source as 'brand' | 'generated' | undefined,
+		photos,
 		seed: doc.seed,
+		time: o.time as number | undefined,
 		...(native ? {} : { width: doc.size.width, height: doc.size.height }),
-		density: o.density as number | undefined,
-		texture: yes(o.texture),
 	});
 	const files: Record<string, Uint8Array> = {};
 	if (formats.includes('svg')) files.svg = Buffer.from(r.svg);
@@ -189,7 +179,7 @@ async function renderLoop(doc: DesignDoc, formats: Format[]) {
 	const work = mkdtempSync(join(tmpdir(), 'ds-design-video-'));
 	try {
 		const files: Record<string, Uint8Array> = {};
-		const req = { template: doc.template, size: doc.size.id, seed: doc.seed ?? 0, light: (doc.options.light as 'brand' | 'generated' | undefined) ?? 'brand', seconds: doc.options.seconds as number | undefined, fps: doc.options.fps as number | undefined };
+		const req = { template: doc.template, size: doc.size.id, seed: doc.seed ?? 0, light: 'brand' as const, seconds: doc.options.seconds as number | undefined, fps: doc.options.fps as number | undefined };
 		if (formats.includes('png')) files.png = (await renderVideo(req)).still;
 		if (formats.includes('mp4')) files.mp4 = await renderVideo.mp4(req, work);
 		return { files, layers: [] };
@@ -212,12 +202,12 @@ export function adapter(): Adapter {
 			if (kind === 'image' || kind === 'slide') {
 				const t = findTemplate(kind === 'slide' ? 'deck' : 'image', template);
 				const s = size === 'custom' ? { id: 'custom', width: 1200, height: 675 } : resolveSize(t, size);
-				return { size: { id: s.id, width: s.width, height: s.height }, theme: t.variants ? Object.keys(t.variants)[0] : 'black', seed: seeded(t) ? 0 : undefined, options: seeded(t) ? { light: 'brand', texture: true } : {} };
+				return { size: { id: s.id, width: s.width, height: s.height }, theme: t.variants ? Object.keys(t.variants)[0] : 'black', seed: seeded(t) ? 0 : undefined, options: (seeded(t) ? { texture: true } : {}) as DesignDoc['options'] };
 			}
 			if (kind === 'merch') {
 				const i = findItem(template);
 				const px = (n: number) => Math.round((n + 2 * i.bleed) * PX_PER_IN);
-				return { size: { id: 'print', width: px(i.size[0]), height: px(i.size[1]) }, theme: Object.keys(i.variants)[0], seed: 'full-color' in i.variants ? 0 : undefined, options: {} };
+				return { size: { id: 'print', width: px(i.size[0]), height: px(i.size[1]) }, theme: Object.keys(i.variants)[0], seed: undefined, options: {} };
 			}
 			if (kind === 'video') {
 				const [width, height] = videoDoc().sizes[size]!;
@@ -225,9 +215,7 @@ export function adapter(): Adapter {
 			}
 			const p = PLATFORMS.find((x) => x.id === size);
 			const [width, height] = p ? [p.width, p.height] : size === 'custom' ? [1600, 900] : nativeSize(template);
-			const d = illustrateData();
-			const options: DesignDoc['options'] = template === 'pattern' ? { variant: d.pattern.variant, source: 'brand' } : template === 'light' ? { variant: 'band', source: 'brand' } : {};
-			return { size: { id: size, width, height }, theme: 'black', seed: template === 'split' ? undefined : 0, options };
+			return { size: { id: size, width, height }, theme: 'black', seed: template === 'rail' ? undefined : 0, options: {} };
 		},
 		async render(doc, dir, out) {
 			if (doc.template === 'compose') return renderCompose(doc, dir, out.formats, out.scale);
@@ -239,8 +227,7 @@ export function adapter(): Adapter {
 			return { files: await filesOf(drawn, out.formats, out.scale), layers: await groundsOf(drawn) };
 		},
 		compose: {
-			// A layout made from scratch stands on the brand's ASCII texture at full strength, as its feed ads do.
-			ground: ({ grid }) => ({ blocks: [{ id: 'texture', type: 'ascii', at: { col: 0, row: 0, cols: grid.cols, rows: grid.rows } }], options: { 'texture.density': 1 } }),
+			// A layout made from scratch stands on the plain canvas, as every page of the site does: no ground block.
 			blocks: () => BLOCKS,
 			themes: Object.keys(COMPOSE_THEMES),
 			grounds: Object.fromEntries(Object.entries(COMPOSE_THEMES).map(([k, v]) => [k, color(v.ground)])),
@@ -260,10 +247,10 @@ export function adapter(): Adapter {
 		// A chart's points are drawn one under each bar, so the commas between them are not words.
 		words: (t) => t.replace(/,(?=\s|$)/g, ''),
 		aliases: {
-			sizes: { x: 'x-banner', 'linkedin-company': 'linkedin-page', card: 'landscape', tile: 'tile' },
+			sizes: { x: 'x-banner', 'linkedin-company': 'linkedin-page', card: 'landscape', tile: 'tile', share: 'og' },
 			themes: { dark: 'black', light: 'white' },
-			copy: { title: 'headline', text: 'body' },
-			layers: { band: 'light', glow: 'light', ascii: 'texture', address: 'url', photos: 'pictures', picture: 'pictures', image: 'pictures' },
+			copy: { title: 'headline', text: 'body', statement: 'headline' },
+			layers: { static: 'signal', noise: 'signal', band: 'signal', texture: 'signal', address: 'url', photos: 'pictures', picture: 'pictures', image: 'pictures', strips: 'pictures', rail: 'pictures' },
 		},
 	};
 }

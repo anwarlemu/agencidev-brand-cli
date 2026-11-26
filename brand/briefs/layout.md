@@ -9,25 +9,25 @@ A customer story for Acme.
 Instagram portrait, Instagram feed, Instagram story
 
 ## Headline
-Research that used to take a week.
+From first call to launch in six weeks.
 
 ## Stat
-3x | faster campaign research
+6 weeks | from the first call to launch
 
 ## Quote
-We found our next campaign in an afternoon.
+Our product finally looks like what it does.
 
 ## Quote name
-Alex Kim
+Alex Rivera
 
 ## Quote role
-Head of growth, Acme
+Founder, Acme
 
 ## CTA
-Start free
+Book a call
 
 ## Look
-dark, brand light, ASCII texture
+dark, minimal
 
 ## Layout
 - headline top left

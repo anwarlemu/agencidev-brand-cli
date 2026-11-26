@@ -37,7 +37,7 @@ export function figmaHelp(): string {
 		'in order, for an agent to make.',
 		'',
 		row(`${b} figma tokens`, 'The tokens as variables: tokens.json and use_figma scripts'),
-		row(`${b} figma push illustration pattern --variant corner`, 'An illustration (a style, as illustrate takes)'),
+		row(`${b} figma push illustration signal --seed 2`, 'An illustration (a style, as illustrate takes)'),
 		row(`${b} figma push asset imagery/post-offer.svg`, 'An image, slide or any SVG, PNG or JPEG'),
 		row(`${b} figma push component button --example Variants`, 'A library preview as HTML for html_to_figma'),
 		row(`${b} figma push page https://example.com/pricing`, 'A page (URL or saved HTML)'),
@@ -152,10 +152,10 @@ async function pushAction(cwd: string, dir: string, args: string[], flags: Flags
 		if (!target) throw new Error(`Name a style: ${STYLES().join(', ')}, as illustrate takes.`);
 		if (!STYLES().includes(target as StyleId)) throw unknown('style', target, STYLES());
 		const images = listOf(flags.image);
-		const photo = images[0] ? await readPhoto(cwd, images[0], { alpha: true }) : undefined;
+		const photos = await Promise.all(images.map((f) => readPhoto(cwd, f)));
 		const seed = flags.seed === undefined ? 0 : Number(flags.seed);
-		const r = await illustrate({ style: target as StyleId, photo, variant: str(flags.variant), seed });
-		const name = [target, photo ? basename(images[0]!, extname(images[0]!)) : '', str(flags.variant) ?? ''].filter(Boolean).join('-');
+		const r = await illustrate({ style: target as StyleId, photos, seed });
+		const name = [target, images[0] ? basename(images[0]!, extname(images[0]!)) : '', String(seed)].filter(Boolean).join('-');
 		const svg = join(dir, `illustration-${name}.svg`);
 		const png = join(dir, `illustration-${name}.png`);
 		write(svg, r.svg);

@@ -23,11 +23,11 @@ export function deckHelp(): string {
 		'Pitch deck slides at 1920 by 1080: PNG per slide and one PDF (16:9 pages, 13.33 by 7.5 in).',
 		'',
 		row(`${b} deck --input deck.json --out deck`, 'Every slide in the file, then deck.pdf'),
-		row(`${b} deck --slide cover-curved --headline "..."`, 'One slide'),
+		row(`${b} deck --slide cover --headline "..."`, 'One slide'),
 		row(`${b} deck --list`, 'Slide types with their slots'),
 		row(`${b} deck --all`, 'Every slide type with sample copy'),
 		'',
-		'deck.json: { "seed": 0, "label": "...", "slides": [ { "type": "cover-row", "headline": "...", "images": ["a.png"] }, ... ] }.',
+		'deck.json: { "seed": 0, "label": "...", "slides": [ { "type": "cover-rail", "headline": "...", "images": ["a.png"] }, ... ] }.',
 		`Each slide takes its type's slots (${slotNames('deck').join(', ')}); "images" fill its photo slots in order (paths relative to the file) and repeat.`,
 		'"label" is drawn on every slide that has one. Only what you write is drawn; a slot you leave out closes up.',
 		'--format png, svg, jpg, webp, pdf (several with commas), or both (PNG and PDF, the default). --sample fills sample copy.',
@@ -41,7 +41,7 @@ export async function runDeck(cwd: string, args: string[], flags: Flags): Promis
 		const cat = catalogOf('deck');
 		return { json: { slides: cat }, text: cat.map((t) => `${t.id.padEnd(16)}${t.group.padEnd(9)}${t.description}${t.photos ? ` Photos: ${t.photos}.` : ''} Slots: ${Object.keys(t.slots).join(', ') || 'none'}.`).join('\n') };
 	}
-	if (args.length > 1) throw new Error(`deck takes one slide type: ${brand().bin} deck cover-row. Or --input deck.json for several.`);
+	if (args.length > 1) throw new Error(`deck takes one slide type: ${brand().bin} deck cover. Or --input deck.json for several.`);
 	const fmt = formats(flags, DECK_FORMATS, ['png', 'pdf'], { both: ['png', 'pdf'], all: DECK_FORMATS });
 	const light = lightSource(flags);
 	const texture = textureFlag(flags);
@@ -70,7 +70,7 @@ export async function runDeck(cwd: string, args: string[], flags: Flags): Promis
 		if (typeof doc.seed === 'number' && flags.seed === undefined) seed = Math.trunc(doc.seed);
 		base = dirname(path);
 	} else {
-		if (!one) throw new Error(`Pass --input deck.json or a slide type: ${brand().bin} deck cover-row --headline "..." (--list shows them).`);
+		if (!one) throw new Error(`Pass --input deck.json or a slide type: ${brand().bin} deck cover --headline "..." (--list shows them).`);
 		slides = [{ type: one, images: list(flags.image), ...slotFlags(flags, slotNames('deck')) }];
 	}
 

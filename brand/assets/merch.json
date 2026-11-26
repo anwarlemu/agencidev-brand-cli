@@ -1,5 +1,5 @@
 {
- "$comment": "Merch print files only (no mockups). Each item: trim size and bleed and safe area in inches with its source or convention, the variants it takes (full color: the site’s light images and ASCII texture on Black, its text gray for paragraphs; white or black: one color, transparent ground, an approved lockup only), and layouts in inches from the trim. Files are SVG at physical size and PNG at 300 dpi (--dpi) with the bleed included.",
+ "$comment": "Merch print files only (no mockups). Each item: trim size and bleed and safe area in inches with its source or convention, the variants it takes (signal: the 404 page’s no-signal static and the white lockup on the near-black canvas, copy in dim; white or black: one color, transparent ground, an approved lockup only), and layouts in inches from the trim. Files are SVG at physical size and PNG at 300 dpi (--dpi) with the bleed included.",
  "dpi": 300,
  "items": [
   {
@@ -50,7 +50,7 @@
    "method": "DTG or screen print",
    "source": "Common adult tee front print area: 12 by 16 in (DTG standard). Garment prints are not trimmed, so no bleed; keep art inside the safe area. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -64,15 +64,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 12
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "video-light-a",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        7,
@@ -171,7 +167,7 @@
    "method": "DTG or screen print",
    "source": "Common adult tee back print area: 12 by 16 in (DTG standard). No bleed. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -185,15 +181,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 12
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "video-light-a",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -205,8 +197,8 @@
      },
      {
       "type": "art",
-      "id": "light-2",
-      "file": "video-light-b",
+      "id": "signal-2",
+      "file": "signal",
       "box": [
        9.6,
        0,
@@ -300,7 +292,7 @@
     ]
    },
    "slots": {
-    "headline": "Know what changed before your next meeting.",
+    "headline": "Product design thinking and implementation.",
     "url": "{domain}"
    },
    "required": [
@@ -319,7 +311,7 @@
    "method": "DTG or screen print",
    "source": "Pullover hoodie front, above the pouch pocket: 12 by 10 in is a common area (vendors range from 11.5 by 11.5 to 12 by 12 in). No bleed. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -333,15 +325,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 12
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "close-band",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -351,7 +339,7 @@
       "fit": "cover",
       "at": [
        0.5,
-       0.42
+       0.45
       ]
      },
      {
@@ -395,7 +383,7 @@
    "method": "screen print or DTG",
    "source": "Print area on a standard 15 by 16 in canvas tote: 12 by 14 in is common. No bleed. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -409,15 +397,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 12
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "corner-tl",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -428,8 +412,8 @@
      },
      {
       "type": "art",
-      "id": "light-2",
-      "file": "corner-br",
+      "id": "signal-2",
+      "file": "signal",
       "box": [
        5,
        8.75,
@@ -440,7 +424,7 @@
      },
      {
       "type": "logo",
-      "lockup": "vertical",
+      "lockup": "mark",
       "color": "white",
       "box": [
        3,
@@ -454,7 +438,7 @@
     "default": [
      {
       "type": "logo",
-      "lockup": "vertical",
+      "lockup": "mark",
       "color": "$ink",
       "box": [
        3,
@@ -479,7 +463,7 @@
    "method": "sublimation",
    "source": "11 oz mug wrap: 9 by 3.5 in is a common print area (vendors range from 8.5 to 9.5 in wide), with 0.125 in bleed for the full wrap. The lockup sits on each side of the handle. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -493,15 +477,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 9
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "video-light-a",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        1.15,
@@ -578,7 +558,7 @@
     "radius": 0.3
    },
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -592,11 +572,11 @@
     }
    },
    "layers": {
-    "full-color": [
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "corner-br",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0.9,
        0.4,
@@ -646,7 +626,7 @@
    "method": "digital or offset print",
    "source": "Standard 18 by 24 in poster with 0.125 in bleed on every side and a 0.5 in safe margin. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -660,15 +640,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 18
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "close-band",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -678,7 +654,7 @@
       "fit": "cover",
       "at": [
        0.5,
-       0.42
+       0.45
       ]
      },
      {
@@ -707,7 +683,7 @@
         "size": 0.4,
         "leading": 0.53,
         "gap": 0.6,
-        "color": "neutral-11",
+        "color": "dim",
         "w": 10,
         "maxLines": 4
        }
@@ -803,7 +779,7 @@
    },
    "slots": {
     "headline": "{tagline}",
-    "body": "AI search across millions of creatives. Ask a question and get instant, structured results.",
+    "body": "We help YC startups design their brand, product, and websites, then turn it into infrastructure engineers and agents can use.",
     "url": "{domain}"
    },
    "required": [
@@ -822,7 +798,7 @@
    "method": "sublimation",
    "source": "Crew sock leg panel, one side: 3.5 by 7 in is a common sublimation area (print twice for a pair, or mirror for the outside faces); 0.125 in bleed. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -832,15 +808,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 3.5
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "video-light-a",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -915,7 +887,7 @@
    "method": "digital or offset print",
    "source": "Standard 11 by 17 in poster with 0.125 in bleed and a 0.5 in safe margin; the 18 by 24 layout scaled to it. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -929,15 +901,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 11
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "close-band",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -947,7 +915,7 @@
       "fit": "cover",
       "at": [
        0.5,
-       0.42
+       0.45
       ]
      },
      {
@@ -976,7 +944,7 @@
         "size": 0.24444444444444446,
         "leading": 0.32388888888888895,
         "gap": 0.3666666666666667,
-        "color": "neutral-11",
+        "color": "dim",
         "w": 6.111111111111112,
         "maxLines": 4
        }
@@ -1070,7 +1038,7 @@
    },
    "slots": {
     "headline": "{tagline}",
-    "body": "AI search across millions of creatives. Ask a question and get instant, structured results.",
+    "body": "We help YC startups design their brand, product, and websites, then turn it into infrastructure engineers and agents can use.",
     "url": "{domain}"
    },
    "required": [
@@ -1089,7 +1057,7 @@
    "method": "digital or offset print",
    "source": "Standard 24 by 36 in poster with 0.125 in bleed and a 0.5 in safe margin; the 18 by 24 layout scaled to it. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -1103,15 +1071,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 24
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "close-band",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -1121,7 +1085,7 @@
       "fit": "cover",
       "at": [
        0.5,
-       0.42
+       0.45
       ]
      },
      {
@@ -1150,7 +1114,7 @@
         "size": 0.5333333333333333,
         "leading": 0.7066666666666667,
         "gap": 0.7999999999999999,
-        "color": "neutral-11",
+        "color": "dim",
         "w": 13.333333333333332,
         "maxLines": 4
        }
@@ -1244,7 +1208,7 @@
    },
    "slots": {
     "headline": "{tagline}",
-    "body": "AI search across millions of creatives. Ask a question and get instant, structured results.",
+    "body": "We help YC startups design their brand, product, and websites, then turn it into infrastructure engineers and agents can use.",
     "url": "{domain}"
    },
    "required": [
@@ -1263,7 +1227,7 @@
    "method": "kiss-cut vinyl sheet",
    "source": "A letter-size kiss-cut sheet with six stickers (the lockups and the mark), 0.125 in bleed. The cut lines come from the vendor’s template; this file is the art. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -1273,7 +1237,7 @@
     }
    },
    "layers": {
-    "full-color": [
+    "signal": [
      {
       "type": "logo",
       "lockup": "mark",
@@ -1300,7 +1264,7 @@
      },
      {
       "type": "logo",
-      "lockup": "vertical",
+      "lockup": "mark",
       "color": "white",
       "box": [
        0.75,
@@ -1312,7 +1276,7 @@
      },
      {
       "type": "logo",
-      "lockup": "mark-3d",
+      "lockup": "mark",
       "color": "white",
       "box": [
        4.5,
@@ -1374,7 +1338,7 @@
      },
      {
       "type": "logo",
-      "lockup": "vertical",
+      "lockup": "mark",
       "color": "$ink",
       "box": [
        0.75,
@@ -1386,7 +1350,7 @@
      },
      {
       "type": "logo",
-      "lockup": "mark-3d",
+      "lockup": "mark",
       "color": "$ink",
       "box": [
        4.5,
@@ -1435,7 +1399,7 @@
    "method": "digital print",
    "source": "A5 notebook cover (5.83 by 8.27 in) with 0.125 in bleed; the site’s close band comes down from the top, the lockup sits low. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -1445,15 +1409,11 @@
     }
    },
    "layers": {
-    "full-color": [
-     {
-      "type": "ascii",
-      "tile": 5.83
-     },
+    "signal": [
      {
       "type": "art",
-      "id": "light",
-      "file": "close-band",
+      "id": "signal",
+      "file": "signal",
       "box": [
        0,
        0,
@@ -1463,7 +1423,7 @@
       "fit": "cover",
       "at": [
        0.5,
-       0.42
+       0.45
       ]
      },
      {
@@ -1507,7 +1467,7 @@
    "method": "dye sublimation",
    "source": "A 36 by 0.75 in sublimated lanyard strap, the lockup repeated every 6 in, 1/16 in bleed. Vendors fold and stitch the ends, so 1 in stays clear at each end. Confirm against the print vendor’s template for the exact blank before ordering.",
    "variants": {
-    "full-color": {
+    "signal": {
      "ink": "white",
      "ground": "black"
     },
@@ -1517,7 +1477,7 @@
     }
    },
    "layers": {
-    "full-color": [
+    "signal": [
      {
       "type": "logo",
       "lockup": "horizontal",

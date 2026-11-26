@@ -4,16 +4,15 @@ import { packageRoot } from '../lib/brand.js';
 import { color, drawScene, rasterizeScene, type Layer, type Photo, type Scene } from '../assets/scene.js';
 import { unknown } from '../assets/templates.js';
 
-// `illustrate` draws the brand's own imagery (brand/assets/illustrate.json, rules in brand/illustration.md): the
-// pattern (the light with the texture behind it), the light in any variant, the texture and the photo light split,
-// each a scene drawn by the asset engine (vector SVG, rasterized by resvg).
+// `illustrate` draws the brand's own imagery (brand/assets/illustrate.json, rules in brand/illustration.md): the 404
+// page's no-signal static with its glitch band, the static alone, and pictures set as the home rail, each a scene
+// drawn by the asset engine (SVG, rasterized by resvg).
 
-export type StyleId = 'pattern' | 'light' | 'texture' | 'split';
+export type StyleId = 'signal' | 'field' | 'rail';
 type StyleDef = { name: string; from: string; description: string; size: [number, number] | null; image: false | 'required' | 'optional' };
 export type IllustrateData = {
 	styles: Record<StyleId, StyleDef>;
-	split: { shift: number; bleed: number; from: string };
-	pattern: { variant: string; texture: number; from: string };
+	rail: { strip: [number, number]; gap: number; at: number; from: string };
 };
 
 let cached: IllustrateData | undefined;
@@ -23,8 +22,6 @@ export function illustrateData(): IllustrateData {
 }
 
 export const STYLES = (): StyleId[] => Object.keys(illustrateData().styles) as StyleId[];
-/** Light variant frames as the brand assets cut them (the light command's defaults). */
-export const LIGHT_FRAMES: Record<string, [number, number]> = { band: [1080, 240], field: [1080, 612], corner: [1080, 1080], 'strip-left': [160, 1080], 'strip-right': [160, 1080], tile: [200, 200], 'close-up': [280, 208], 'curved-strip': [1920, 619] };
 
 // ----- Subjects -----
 
@@ -47,13 +44,13 @@ export function pictureSize(data: Buffer): { w: number; h: number } {
 export type IllustrateRequest = {
 	style: StyleId;
 	photo?: Photo;
-	variant?: string;
-	source?: 'brand' | 'generated';
+	/** Pictures for the rail, in order (they repeat when there are fewer than strips). */
+	photos?: Photo[];
 	seed?: number;
+	/** Seconds into the static's loop: where the band is and which frame (signal and field). */
+	time?: number;
 	width?: number;
 	height?: number;
-	density?: number;
-	texture?: boolean;
 };
 
 export type Illustration = { svg: string; png: Buffer; width: number; height: number; vector: boolean; meta: Record<string, unknown> };
@@ -76,28 +73,24 @@ export async function illustrate(req: IllustrateRequest): Promise<Illustration> 
 	const def = data.styles[req.style];
 	if (!def) throw unknown('style', req.style, STYLES());
 	const seed = Math.trunc(req.seed ?? 0);
-	if (req.photo && !def.image) throw new Error(`The ${req.style} style takes no --image. Pictures go to: ${STYLES().filter((s) => data.styles[s].image).join(', ')}.`);
-	if (req.style === 'light' || req.style === 'pattern') {
-		const variant = req.variant ?? (req.style === 'pattern' ? data.pattern.variant : 'band');
-		if (!LIGHT_FRAMES[variant]) throw unknown('variant', variant, Object.keys(LIGHT_FRAMES));
-		const [w, h] = size(req, req.style === 'light' ? LIGHT_FRAMES[variant]! : def.size!);
+	const photos = req.photos ?? (req.photo ? [req.photo] : []);
+	if (photos.length && !def.image) throw new Error(`The ${req.style} style takes no --image. Pictures go to: ${STYLES().filter((s) => data.styles[s].image).join(', ')}.`);
+	const [w, h] = size(req, def.size ?? [1080, 1080]);
+	if (req.style === 'signal' || req.style === 'field') {
+		const band = req.style === 'signal';
+		return sceneOut({ width: w, height: h, ground: 'black', layers: [{ type: 'signal', band, ...(req.time !== undefined ? { time: req.time } : {}) }], seed }, { style: req.style, seed, ...(req.time !== undefined ? { time: req.time } : {}) });
+	}
+	if (req.style === 'rail') {
+		if (!photos.length) throw new Error('The rail style needs pictures: --image a.jpg --image b.jpg (up to 8; they repeat).');
+		// The home rail (globals.css .rail-ssr): strips 100 by 280 with 20 between, the focused strip at 43% across and
+		// the row centered, scaled so a strip is 60% of the frame's height; strips run off the right edge.
+		const sh = h * 0.6;
+		const sw = (sh * data.rail.strip[0]) / data.rail.strip[1];
+		const gap = (sh * data.rail.gap) / data.rail.strip[1];
 		const layers: Layer[] = [];
-		if (req.style === 'pattern' && req.texture !== false) layers.push({ type: 'ascii', density: req.density ?? data.pattern.texture });
-		layers.push({ type: 'light', variant, seed, source: req.source ?? 'brand' });
-		return sceneOut({ width: w, height: h, ground: 'black', layers, seed, light: req.source ?? 'brand' }, { style: req.style, variant, seed, source: req.source ?? 'brand' });
-	}
-	if (req.variant) throw new Error(`--variant belongs to the light and pattern styles.`);
-	if (req.style === 'texture') {
-		const [w, h] = size(req, def.size!);
-		return sceneOut({ width: w, height: h, ground: 'black', layers: [{ type: 'ascii', density: req.density ?? 0.5 }], seed }, { style: 'texture', seed, density: req.density ?? 0.5 });
-	}
-	if (req.style === 'split') {
-		if (!req.photo) throw new Error('The split style needs a picture: --image photo.jpg.');
-		const ps = pictureSize(req.photo.data);
-		const [w, h] = size(req, req.width || req.height ? def.size! : fitLong(ps.w, ps.h, def.size![0]));
-		const shift = Math.round(w * data.split.shift * 100) / 100;
-		const bleed = Math.round(w * data.split.bleed * 100) / 100;
-		return sceneOut({ width: w, height: h, ground: 'black', layers: [{ type: 'split', box: [0, 0, w, h], index: 0, shift, bleed }], photos: [req.photo], seed }, { style: 'split', shift, seed });
+		for (let i = 0, x = w * data.rail.at - sw / 2; x < w && i < 24; i++, x += sw + gap) layers.push({ type: 'photo', index: i % photos.length, box: [x, (h - sh) / 2, sw, sh] });
+		const pics = Array.from({ length: Math.max(...layers.map((l) => (l.type === 'photo' ? l.index : 0))) + 1 }, (_, i) => photos[i % photos.length]!);
+		return sceneOut({ width: w, height: h, ground: 'black', layers, photos: pics, seed }, { style: 'rail', strips: layers.length, seed });
 	}
 	throw unknown('style', req.style, STYLES());
 }

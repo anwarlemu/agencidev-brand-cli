@@ -11,7 +11,7 @@ import { MERCH_FLAGS } from './merch.js';
 import { slotNames } from '../assets/templates.js';
 import { ILLUSTRATE_FLAGS } from './illustrate.js';
 import { FIGMA_ACTIONS, FIGMA_FLAGS, PUSH_KINDS } from './figma.js';
-import { illustrateData, LIGHT_FRAMES } from '../illustrate/build.js';
+import { illustrateData } from '../illustrate/build.js';
 import { designManifest } from '../design/index.js';
 import { recipes, RECIPE_FLAGS } from './recipe.js';
 import { ICONS_FLAGS } from './icons.js';
@@ -34,15 +34,13 @@ const COMMANDS = [
 	{ name: 'component', summary: 'list, inspect and emit React for a real component, including props and states.', flags: ['group', 'part', 'state', 'prop', 'source', 'help'] },
 	{ name: 'image', summary: 'Posts, ads, banners, avatar, logo backgrounds, Open Graph and story images (PNG and SVG) from the brand assets layouts.', get flags() { return [...IMAGE_FLAGS, ...slotNames('image'), 'help']; } },
 	{ name: 'deck', summary: 'Pitch deck slides at 1920 by 1080: PNG per slide and one PDF.', get flags() { return [...DECK_FLAGS, ...slotNames('deck'), 'help']; } },
-	{ name: 'video', summary: 'Seamless loops of the brand light: MP4 and WebM through ffmpeg, else PNG frames and a Motion JPEG MP4.', flags: [...VIDEO_FLAGS, 'help'] },
+	{ name: 'video', summary: 'Seamless loops of the no-signal static and stings (the lockup, the statement rising in): MP4 and WebM through ffmpeg, else PNG frames and a Motion JPEG MP4.', flags: [...VIDEO_FLAGS, 'help'] },
 	{ name: 'merch', summary: 'Merch print files: SVG at physical size and PNG at 300 dpi with bleed and safe area.', flags: [...MERCH_FLAGS, 'help'] },
-	{ name: 'light', summary: 'The brand light as SVG or PNG, seeded: windows onto the brand heat map or a generated one.', flags: ['variant', 'seed', 'source', 'width', 'height', 'out', 'format', 'ground', 'list', 'help'] },
-	{ name: 'ascii', summary: 'The ASCII texture as SVG or PNG, seeded.', flags: ['seed', 'width', 'height', 'density', 'out', 'format', 'ground', 'help'] },
 	{ name: 'ad', summary: 'Static ads from a brief (Markdown, JSON or stdin): picks the layouts for each platform size, draws 2 to 4 distinct variants per size that pass the brand check, writes each as a design file with its PNG (JPG and WebP with --format) and one labeled contact sheet. Missing copy fails with the fields named; --sample fills sample copy.', flags: [...AD_FLAGS, 'help'] },
 	{ name: 'recipe', summary: 'Ready compose layouts for what no template covers: display ads, cards, print, email and backgrounds; writes a design file and draws it (the check runs).', flags: [...RECIPE_FLAGS, 'help'] },
 	{ name: 'email', summary: 'Emails as mail clients read them: one 600px table, inline styles, the brand colors and faces, the lockup as a PNG. Kinds: newsletter, announcement, receipt, password-reset.', flags: [...EMAIL_FLAGS, 'help'] },
 	{ name: 'icons', summary: 'The favicon set (svg, ico, 16, 32), app icons (180, 192, 512, maskable), avatars and the web manifest, from the brand favicon.', flags: [...ICONS_FLAGS, 'help'] },
-	{ name: 'illustrate', summary: "The brand's own imagery as PNG and SVG: pattern (the light with the texture behind it), light (any variant), texture, split (a picture split into its color channels).", flags: [...ILLUSTRATE_FLAGS, 'help'] },
+	{ name: 'illustrate', summary: "The brand's own imagery as PNG and SVG: signal (the 404 page's no-signal static with its glitch band), field (the static alone), rail (your pictures as the home rail of portrait strips).", flags: [...ILLUSTRATE_FLAGS, 'help'] },
 	{ name: 'design', summary: 'Make a design (an image, slide, print item, illustration or loop) as a small JSON file, revise it in plain words or exact edits, undo, variants, sizes, compare and check. Every write is checked against the brand; errors change nothing. design --help.', flags: ['json', 'help'] },
 	{ name: 'figma', summary: 'Figma through its MCP tools, which the CLI never calls itself: tokens (variables and use_figma scripts), push (illustration, asset, slide, component, page), pull (read steps for a frame), check (off-brand values with the nearest token; exit 1).', flags: [...FIGMA_FLAGS, 'help'] },
 	{ name: 'list', summary: 'Every library item. In JSON, group is the label and groupId is the id (the groups in this document).', flags: [] },
@@ -72,7 +70,6 @@ export async function manifest(): Promise<Record<string, unknown>> {
 	const ill = illustrateData();
 	const illustrate = {
 		styles: Object.entries(ill.styles).map(([id, st]) => ({ id, name: st.name, description: st.description, from: st.from, image: st.image })),
-		variants: Object.entries(LIGHT_FRAMES).map(([id, [width, height]]) => ({ id, width, height })),
 		rules: 'brand/illustration.md',
 	};
 	const figma = { actions: [...FIGMA_ACTIONS], push: [...PUSH_KINDS], callsFigma: false, workflow: 'brand/agent-guide.md (Work in Figma)' };

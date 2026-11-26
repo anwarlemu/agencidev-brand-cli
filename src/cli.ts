@@ -15,7 +15,6 @@ import { slotNames } from './assets/templates.js';
 import { formatManifest, manifest, manifestHelp } from './commands/manifest.js';
 import { findTokens, list } from './commands/small.js';
 import { runVideo, VIDEO_FLAGS, videoHelp } from './commands/video.js';
-import { patternHelp, runAscii, runLight } from './commands/pattern.js';
 import { helpRow } from './lib/help-row.js';
 import { ILLUSTRATE_FLAGS, illustrateHelp, runIllustrate } from './commands/illustrate.js';
 import { RECIPE_FLAGS, runRecipe } from './commands/recipe.js';
@@ -70,22 +69,20 @@ const HELP = () => {
 		row('component emit <item>', 'React for one state. --state variant:secondary, --state example:Variants, --prop name=value'),
 		'',
 		'Brand graphics:',
-		row('light --variant band --seed 1', 'The brand light as SVG or PNG, seeded (--source brand|generated, --list)'),
-		row('ascii --seed 4', 'The ASCII texture as SVG or PNG, seeded (--density, --ground)'),
 		row('email <kind>', 'Emails as mail clients read them (tables, inline styles): newsletter, announcement, receipt, password-reset'),
 		row('icons', 'The favicon set, app icons, a maskable icon, avatars and the web manifest'),
 		row('ad brief.md', 'Static ads from a brief: 2 to 4 per size, design files and a labeled sheet (--image, --format)'),
 		row('recipe <name>', 'Ready layouts for what no template covers: display ads, cards, print, email, backgrounds (--list)'),
-		row('illustrate <style>', 'Brand imagery: pattern, light, texture, split (--image), --list'),
+		row('illustrate <style>', 'Brand imagery: signal (the 404 static), field, rail (--image), --list'),
 		row('figma tokens|push|pull|check', 'Files and the ordered Figma MCP calls; the CLI never calls Figma'),
 		'',
 		'Assets (PNG and SVG from the brand assets page; --list on each shows templates, sizes and slots):',
-		row('image post-offer --headline "..."', 'Posts, ads, banners, avatar, logo backgrounds, Open Graph, story'),
-		more('--size og,story,x-banner|all|custom   --theme   --image <file> (repeat)   --seed   --light   --input carousel.json   --sample'),
+		row('image post-statement --headline "..." --body "..."', 'Posts, ads, banners, avatar, logo backgrounds, share card, story'),
+		more('--size og,story,x-banner|all|custom   --theme   --image <file> (repeat)   --seed   --input carousel.json   --sample'),
 		more('--format png,svg,jpg,webp   --scale   --out'),
 		row('deck --input deck.json', 'Pitch deck slides at 1920x1080 as PNG and one PDF (--slide <type> for one)'),
-		row('video --template light-band --size square', 'Seamless loops of the light: MP4 and WebM via ffmpeg, else frames'),
-		row('merch --item tee-front --variant full-color', 'Print files: SVG at physical size, PNG at 300 dpi, with bleed (--list)'),
+		row('video --template signal-loop --size square', 'Seamless loops of the static and stings: MP4 and WebM via ffmpeg, else frames'),
+		row('merch --item tee-front --variant black', 'Print files: SVG at physical size, PNG at 300 dpi, with bleed (--list)'),
 		'',
 		'Make it, then revise it until it is right:',
 		row('design new og --headline "..." -o og.design.json', 'A design file and its PNG, checked against the brand'),
@@ -149,8 +146,6 @@ const FLAGS: Record<string, string[]> = {
 	component: ['group', 'part', 'state', 'prop', 'source'],
 	manifest: [],
 	describe: [],
-	light: ['variant', 'seed', 'source', 'width', 'height', 'out', 'format', 'ground', 'list'],
-	ascii: ['seed', 'width', 'height', 'density', 'out', 'format', 'ground'],
 	illustrate: ILLUSTRATE_FLAGS,
 	recipe: RECIPE_FLAGS,
 	icons: ICONS_FLAGS,
@@ -181,7 +176,7 @@ async function main() {
 	const cwd = resolve(typeof flags.cwd === 'string' ? flags.cwd : process.cwd());
 	const json = flags.json === true;
 	const out = (value: unknown, text: string) => console.log(json ? JSON.stringify(value, null, 2) : text);
-	const ownHelp = new Set(['image', 'deck', 'merch', 'video', 'brand', 'principles', 'component', 'manifest', 'describe', 'light', 'ascii', 'illustrate', 'figma', 'recipe', 'icons', 'email', 'ad']);
+	const ownHelp = new Set(['image', 'deck', 'merch', 'video', 'brand', 'principles', 'component', 'manifest', 'describe', 'illustrate', 'figma', 'recipe', 'icons', 'email', 'ad']);
 	if (flags.help && command && !ownHelp.has(command)) {
 		console.log(HELP());
 		return;
@@ -342,16 +337,6 @@ async function main() {
 				return;
 			}
 			const r = await runComponent(cwd, args, flags);
-			out(r.json, r.text);
-			return;
-		}
-		case 'light':
-		case 'ascii': {
-			if (flags.help) {
-				console.log(patternHelp(command));
-				return;
-			}
-			const r = command === 'light' ? await runLight(cwd, args, flags) : await runAscii(cwd, args, flags);
 			out(r.json, r.text);
 			return;
 		}

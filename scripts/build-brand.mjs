@@ -6,8 +6,8 @@
 //   build/theme.css    the Tailwind 4 theme: tokens as utilities (bg-surface, text-fg, border-edge...)
 //   build/tokens.json  every token, its value and its resolved value per theme
 //   build/fonts/, build/logo/  the assets, copied as they are
-//   build/generators/  the brand light and the ASCII texture (registry/lib/light.ts, ascii.ts) bundled for node, so
-//                      the CLI's light, ascii, image and video commands draw with the same code as the components
+//   build/generators/  the no-signal static (registry/lib/signal.ts) bundled for node, so the CLI's image,
+//                      illustrate and video commands draw with the same code as the components
 // It also copies the assets into apps/www/public<assetBase>/ for the docs site.
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -202,7 +202,7 @@ writeFileSync(join(out, 'tokens.json'), `${JSON.stringify(json, null, 2)}\n`);
 
 // The generators, bundled for node (the CLI imports build/generators/*.mjs at run time).
 const esbuild = await import('esbuild');
-esbuild.buildSync({ entryPoints: { light: join(root, 'registry', 'lib', 'light.ts'), ascii: join(root, 'registry', 'lib', 'ascii.ts') }, bundle: true, format: 'esm', platform: 'node', target: 'node20', outdir: join(out, 'generators'), outExtension: { '.js': '.mjs' }, alias: { '@': join(root, 'registry') }, logLevel: 'silent' });
+esbuild.buildSync({ entryPoints: { signal: join(root, 'registry', 'lib', 'signal.ts') }, bundle: true, format: 'esm', platform: 'node', target: 'node20', outdir: join(out, 'generators'), outExtension: { '.js': '.mjs' }, alias: { '@': join(root, 'registry') }, logLevel: 'silent' });
 
 // PNG icons from the favicon (the White logomark on Black), for the docs site and apps.
 const { Resvg } = await import('@resvg/resvg-js');

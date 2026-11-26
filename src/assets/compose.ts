@@ -8,58 +8,45 @@ import { faces } from '../image/fonts.js';
 import { blockHeight, wrap } from '../image/text.js';
 
 // Open composition: the brand's blocks on a grid of the canvas, drawn by the same scene engine as the templates (the
-// same faces, light, texture, buttons and checks). Every block is built from what the templates already draw, at the
-// 1080 canvas's sizes times the canvas unit, which are the site's (brand/site-changes.md): heads with four pixels of
-// leading, text in the secondary gray, the 4px container corner, the 8px control corner, the site's light images and
-// ASCII tile; nothing here is a new value. A light or a picture may carry the exact
-// window a template gives it (`geometry`), which is how every template is recreated as blocks (recipeFor).
+// same faces, static, buttons and checks). Every block is built from what the templates already draw, at the 1080
+// canvas's sizes times the canvas unit, which are the site's at 1.5 (brand/assets/layouts.mjs): heads in Agencidev Sans
+// at leading 1.14 with an optional rest in mid (the two-tone statement), copy in dim, 12px capitals, square corners,
+// the plate button with its 4px corner, the 404 page's no-signal static; nothing here is a new value. A static or a
+// picture may carry the exact window a template gives it (`geometry`), which is how every template is recreated as
+// blocks (recipeFor).
 
 const require = createRequire(import.meta.url);
 
-/** The site's two grounds and the type that stands on each: White on Black (its surface #262626, inset #363636, text
- * gray #D4D4D4), Black on White (the guidelines' light theme). */
-export const COMPOSE_THEMES: Record<string, { ground: string; fg: string; card: string; soft: string; inset: string }> = {
-	black: { ground: 'black', fg: 'white', card: 'neutral-4', soft: 'neutral-11', inset: 'neutral-5' },
-	white: { ground: 'white', fg: 'black', card: 'neutral-14', soft: 'neutral-5', inset: 'neutral-12' },
+/** The site's two grounds and the type that stands on each: white on the near-black canvas (tiles #141414, the plate
+ * #252525, copy in dim #B6B6B6), and the brand kit's black on white. */
+export const COMPOSE_THEMES: Record<string, { ground: string; fg: string; card: string; soft: string; inset: string; rest: string; rule: string }> = {
+	black: { ground: 'black', fg: 'white', card: 'slat', soft: 'dim', inset: 'plate', rest: 'mid', rule: 'neutral-3' },
+	white: { ground: 'white', fg: 'pure-black', card: 'paper-raised', soft: 'ink-soft', inset: 'paper-inset', rest: 'ink-muted', rule: 'paper-inset' },
 };
-/** The light block's variants, as the site's own light images (brand/assets/art). */
-const LIGHT_ART: Record<string, { file: string; turn?: boolean; flip?: 'x' | 'y' | 'xy'; at?: Pt; edge?: 'hard' }> = {
-	band: { file: 'hero-band' },
-	// The brand's feed ads: the pale band a search bar sits on (crisp top and bottom), and the swoosh from the top edge.
-	'ad-band': { file: 'ad-band', edge: 'hard' },
-	swoosh: { file: 'ad-swoosh', at: [0.5, 0] },
-	ribbon: { file: 'video-light-a' },
-	field: { file: 'close-band', at: [0.5, 0.42] },
-	corner: { file: 'corner-tl' },
-	'strip-left': { file: 'video-light-a', turn: true },
-	'strip-right': { file: 'video-light-b', turn: true, flip: 'x' },
-	tile: { file: 'tile-a' },
-	share: { file: 'og-light' },
-};
+/** The static's variants: the band across the middle, or the field alone. */
+const SIGNAL_VARIANTS = ['band', 'field'];
 
-const LOCKUPS = ['horizontal', 'vertical', 'mark', 'wordmark', 'horizontal-3d', 'vertical-3d', 'mark-3d'];
+const LOCKUPS = ['horizontal', 'mark', 'wordmark'];
 const ALIGN = ['left', 'center', 'right'];
 const VALIGN = ['top', 'center', 'bottom'];
 
 export const BLOCKS: BlockInfo[] = [
-	{ type: 'headline', names: ['title', 'heading', 'head'], kind: 'text', description: 'Funnel Display at the page head\'s weight, stepping down to fit its cells.', copy: [{ id: 'text', required: true }], options: [{ id: 'size', range: [16, 400] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 10, rows: 3 }, place: 'left', sample: { text: 'Every creative in one place.' } },
-	{ type: 'body', names: ['text', 'paragraph', 'copy', 'line'], kind: 'text', description: 'DM Sans body copy.', copy: [{ id: 'text', required: true }], options: [{ id: 'size', range: [10, 120] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 8, rows: 2 }, place: 'left', sample: { text: 'Search the ads and posts every brand puts out.' } },
-	{ type: 'eyebrow', names: ['label', 'kicker', 'overline'], kind: 'text', description: 'A label in DM Sans Medium capitals with 6% tracking.', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 1 }, place: 'top-left', sample: { text: 'New' } },
-	{ type: 'badge', names: ['tag', 'chip', 'pill'], kind: 'text', description: 'A short word on the inset fill with the 4px corner (the site\'s badge).', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 1 }, place: 'top-left', sample: { text: 'Coming soon' } },
-	{ type: 'logo', names: ['lockup', 'mark', 'logomark', 'wordmark'], kind: 'logo', description: 'An approved lockup, Black or White by the ground.', copy: [], options: [{ id: 'lockup', values: LOCKUPS }, { id: 'align', values: ALIGN }, { id: 'tone', values: ['auto', 'white', 'black'] }], span: { cols: 4, rows: 1 }, place: 'top-left' },
-	{ type: 'picture', names: ['image', 'photo', 'creative', 'screenshot'], kind: 'picture', description: 'A picture on Black: plain, with the corner, split by the light, or in the browser frame. Without one it is the card fill (to look at a layout).', copy: [], image: {}, options: [{ id: 'treatment', values: ['plain', 'rounded', 'split', 'frame'] }, { id: 'geometry' }], span: { cols: 6, rows: 6 }, place: 'right', under: true },
-	{ type: 'light', names: ['glow', 'pattern', 'band'], kind: 'art', description: 'One of the site\'s own light images over its cells: the hero band, a ribbon, the close band (field), a corner light, a ribbon upright at an edge, a light tile or the share card light. Keep words off it.', copy: [], options: [{ id: 'variant', values: Object.keys(LIGHT_ART) }, { id: 'seed', range: [0, 9999] }, { id: 'geometry' }], span: { cols: 12, rows: 4 }, place: 'bottom', under: true },
-	{ type: 'ascii', names: ['texture', 'field'], kind: 'art', description: 'The site\'s ASCII texture tile, fading out from the middle of its cells as the site\'s drift does (density: 0.5 or less is faint, 1 is the hero\'s).', copy: [], options: [{ id: 'density', range: [0.1, 1] }], span: { cols: 12, rows: 12 }, place: 'center', under: true },
-	{ type: 'card', names: ['panel', 'plan', 'box'], kind: 'panel', description: 'A card on the ground: a title, a line, a list and a button, each optional.', copy: [{ id: 'title' }, { id: 'text' }, { id: 'items' }, { id: 'cta' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 6 }, place: 'center', sample: { title: 'Creator', text: '$20 a month.', items: 'Every network|Unlimited boards', cta: 'Start free' } },
-	{ type: 'stat', names: ['number', 'figure', 'metric'], kind: 'text', description: 'A figure in Funnel Display over a line of DM Sans.', copy: [{ id: 'value', required: true }, { id: 'label' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 3 }, place: 'center', sample: { value: '42%', label: 'more ads tracked' } },
-	{ type: 'quote', names: ['testimonial', 'review'], kind: 'text', description: 'A quote in Funnel Display, the name and role under it (Acme, never a real person).', copy: [{ id: 'text', required: true }, { id: 'name' }, { id: 'role' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 10, rows: 5 }, place: 'center', sample: { text: 'We see every launch the day it ships.', name: 'Alex Kim', role: 'Head of growth, Acme' } },
-	{ type: 'list', names: ['bullets', 'points', 'features'], kind: 'text', description: 'Lines of DM Sans, one per item (separate them with |).', copy: [{ id: 'items', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 4 }, place: 'left', sample: { items: 'Every network|Daily updates|Shared boards' } },
-	{ type: 'button', names: ['cta', 'action'], kind: 'key', description: 'The one White button with a DM Sans Medium label.', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 4, rows: 1 }, place: 'bottom-left', sample: { text: 'Start free' } },
-	{ type: 'search', names: ['search-bar', 'prompt', 'field'], kind: 'panel', description: 'The site\'s prompt: the raised fill with a hairline ring, the words in the text gray and the White send key.', copy: [{ id: 'text', required: true }], options: [{ id: 'key' }], span: { cols: 12, rows: 1 }, place: 'center', sample: { text: 'Longest-running ads in running shoes' } },
-	{ type: 'code', names: ['snippet', 'terminal'], kind: 'panel', description: 'Code in the system mono on the code fill.', copy: [{ id: 'text', required: true }], span: { cols: 8, rows: 3 }, place: 'center', sample: { text: 'npx acme search "running shoes"' } },
-	{ type: 'chart', names: ['graph', 'bars', 'donut'], kind: 'art', description: 'Bars, a line or a donut from your numbers ("Mon 12, Tue 18"), in White and the neutral steps.', copy: [{ id: 'data', required: true }], options: [{ id: 'type', values: ['bar', 'line', 'donut'] }], span: { cols: 6, rows: 4 }, place: 'right', sample: { data: 'Mon 12, Tue 18, Wed 30, Thu 26' } },
-	{ type: 'table', names: ['grid-table', 'comparison'], kind: 'text', description: 'Rows of cells (cells split by |, rows by a new line), the first row as the head.', copy: [{ id: 'rows', required: true }], span: { cols: 10, rows: 4 }, place: 'center', sample: { rows: 'Plan|Price\nFree|$0\nCreator|$20' } },
-	{ type: 'divider', names: ['rule', 'hairline', 'line-break'], kind: 'art', description: 'A hairline across its cells.', copy: [], span: { cols: 12, rows: 1 }, place: 'center' },
+	{ type: 'headline', names: ['title', 'heading', 'head', 'statement'], kind: 'text', description: 'Agencidev Sans at the display step, leading 1.14; `rest` runs on after it in mid on the same lines (the site\'s two-tone statement).', copy: [{ id: 'text', required: true }, { id: 'rest' }], options: [{ id: 'size', range: [16, 400] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 10, rows: 3 }, place: 'left', sample: { text: 'Product design thinking and implementation.', rest: 'We help YC startups design their brand, product, and websites.' } },
+	{ type: 'body', names: ['text', 'paragraph', 'copy', 'line'], kind: 'text', description: 'ABC Diatype running copy in dim.', copy: [{ id: 'text', required: true }], options: [{ id: 'size', range: [10, 120] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 8, rows: 2 }, place: 'left', sample: { text: 'Design partnerships for AI-first startups, cancellable anytime.' } },
+	{ type: 'eyebrow', names: ['label', 'kicker', 'overline'], kind: 'text', description: 'A label in 12px capitals, untracked, in dim (the bar\'s links).', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 1 }, place: 'top-left', sample: { text: 'Current openings' } },
+	{ type: 'badge', names: ['tag', 'chip', 'pill', 'filter'], kind: 'text', description: 'A short word in white capitals on the quiet fill, square (the site\'s chosen filter chip).', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 1 }, place: 'top-left', sample: { text: 'All' } },
+	{ type: 'logo', names: ['lockup', 'mark', 'logomark', 'wordmark', 'square'], kind: 'logo', description: 'The square, the wordmark or the lockup, white or black by the ground.', copy: [], options: [{ id: 'lockup', values: LOCKUPS }, { id: 'align', values: ALIGN }, { id: 'tone', values: ['auto', 'white', 'black'] }], span: { cols: 4, rows: 1 }, place: 'top-left' },
+	{ type: 'picture', names: ['image', 'photo', 'creative', 'screenshot', 'strip'], kind: 'picture', description: 'A picture, square-cornered as the site sets its work. Without one it is the slat fill (to look at a layout). Tall narrow pictures in a row are the home rail.', copy: [], image: {}, options: [{ id: 'treatment', values: ['plain', 'frame'] }, { id: 'geometry' }], span: { cols: 6, rows: 6 }, place: 'right', under: true },
+	{ type: 'signal', names: ['static', 'noise', 'glitch', 'band', 'texture'], kind: 'art', description: 'The 404 page\'s no-signal static over its cells: `band` with the glitch band across the middle, `field` the static alone. Keep words off the band.', copy: [], options: [{ id: 'variant', values: SIGNAL_VARIANTS }, { id: 'seed', range: [0, 9999] }, { id: 'geometry' }], span: { cols: 12, rows: 12 }, place: 'center', under: true },
+	{ type: 'card', names: ['panel', 'plan', 'box', 'tile'], kind: 'panel', description: 'A square tile on the ground: a title, a line, a list and a button, each optional.', copy: [{ id: 'title' }, { id: 'text' }, { id: 'items' }, { id: 'cta' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 6 }, place: 'center', sample: { title: 'Design partnership', text: 'Product design, branding and strategy.', items: 'Weekly design sprints|Cancel anytime', cta: 'Book a call' } },
+	{ type: 'stat', names: ['number', 'figure', 'metric'], kind: 'text', description: 'A figure in Agencidev Sans over a line of Diatype in dim.', copy: [{ id: 'value', required: true }, { id: 'label' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 3 }, place: 'center', sample: { value: '6.06%', label: 'of each YC batch designed by Acme' } },
+	{ type: 'quote', names: ['testimonial', 'review'], kind: 'text', description: 'A quote in Agencidev Sans, the name in white and the role in capitals under it (Acme, never a real person).', copy: [{ id: 'text', required: true }, { id: 'name' }, { id: 'role' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 10, rows: 5 }, place: 'center', sample: { text: 'They shipped our brand, product and site in one partnership.', name: 'Alex Rivera', role: 'Founder, Acme' } },
+	{ type: 'list', names: ['bullets', 'points', 'features', 'steps'], kind: 'text', description: 'Lines of Diatype, one per item (separate them with |).', copy: [{ id: 'items', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 4 }, place: 'left', sample: { items: 'Exploration is fast. Judgement is not.|Speed requires agility.|Strong ideas survive testing.' } },
+	{ type: 'button', names: ['cta', 'action'], kind: 'key', description: 'The plate button: #252525, white capitals, the 4px corner.', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 4, rows: 1 }, place: 'bottom-left', sample: { text: 'Book a call' } },
+	{ type: 'code', names: ['snippet', 'terminal'], kind: 'panel', description: 'Code on the slat fill, square.', copy: [{ id: 'text', required: true }], span: { cols: 8, rows: 3 }, place: 'center', sample: { text: 'npx agencidev-ds init' } },
+	{ type: 'chart', names: ['graph', 'bars', 'donut'], kind: 'art', description: 'Bars, a line or a donut from your numbers ("Mon 12, Tue 18"), in white and the greys.', copy: [{ id: 'data', required: true }], options: [{ id: 'type', values: ['bar', 'line', 'donut'] }], span: { cols: 6, rows: 4 }, place: 'right', sample: { data: 'Mon 12, Tue 18, Wed 30, Thu 26' } },
+	{ type: 'table', names: ['grid-table', 'comparison'], kind: 'text', description: 'Rows of cells (cells split by |, rows by a new line), the first row as the head, hairlines between.', copy: [{ id: 'rows', required: true }], span: { cols: 10, rows: 4 }, place: 'center', sample: { rows: 'Partnership|Per month\nDesign|$5,417\nDev|$7,000 to $20,000' } },
+	{ type: 'divider', names: ['rule', 'hairline', 'line-break'], kind: 'art', description: 'A hairline across its cells (white at 10%).', copy: [], span: { cols: 12, rows: 1 }, place: 'center' },
 	{ type: 'icon', names: ['glyph', 'symbol'], kind: 'art', description: 'A Lucide icon (the library\'s set) at a 1.5 stroke.', copy: [], options: [{ id: 'name' }], span: { cols: 1, rows: 1 }, place: 'top-left' },
 ];
 
@@ -71,7 +58,7 @@ const str = (v: unknown, fallback: string) => (typeof v === 'string' && v ? v : 
 const num = (v: unknown, fallback: number) => (typeof v === 'number' ? v : typeof v === 'string' && v.trim() && !Number.isNaN(Number(v)) ? Number(v) : fallback);
 
 /** A light or picture's exact window, as a template places it. */
-type Geometry = { W0?: number; H0?: number; window?: Box; b?: Box; shift?: number; variant?: string; source?: 'brand' | 'generated'; fixed?: boolean; box?: Box; quad?: [Pt, Pt, Pt, Pt]; radius?: number; split?: number; art?: string; fit?: 'fill' | 'cover'; at?: Pt; flip?: 'x' | 'y' | 'xy'; turn?: boolean; edge?: 'hard' };
+type Geometry = { W0?: number; H0?: number; window?: Box; b?: Box; shift?: number; variant?: string; source?: 'brand' | 'generated'; fixed?: boolean; box?: Box; quad?: [Pt, Pt, Pt, Pt]; radius?: number; split?: number; art?: string; fit?: 'fill' | 'cover'; at?: Pt; flip?: 'x' | 'y' | 'xy'; turn?: boolean; edge?: 'hard'; /** Runs off the canvas on purpose (the rail's last strip). */ bleeds?: boolean };
 const geometryOf = (doc: DesignDoc, id: string): Geometry | undefined => {
 	const v = opt(doc, id, 'geometry');
 	if (typeof v !== 'string' || !v.trim()) return undefined;
@@ -194,6 +181,8 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 	const u = u0;
 	const fl = (px: number) => Math.max(floor, px);
 	const th = themeOf(doc);
+	// The plate button on black; black with white capitals on white (the brand kit's black side).
+	const plate = th.fg === 'white' ? { fill: 'plate', color: 'white' } : { fill: 'pure-black', color: 'white' };
 	const layers: Layer[] = [];
 	const extra: DrawnLayer[] = [];
 	const photos: Photo[] = [];
@@ -213,24 +202,24 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 		const lines = (size: number, leading: number) => Math.max(1, Math.floor((r.h - size * 0.3) / leading) + 1);
 		switch (b.type) {
 			case 'headline': {
-				const s = fitted[id] ?? num(opt(doc, id, 'size'), Math.min(72 * u, r.h * 0.9));
-				layers.push(stackAt(r, [text(id, `${id}.text`, 'display', s, s + 4 * u, { maxLines: lines(s, s + 4 * u), min: fitted[id] ?? Math.max(16 * u, s * 0.5), pinned: fitted[id] !== undefined })], align, valign));
+				const s = fitted[id] ?? num(opt(doc, id, 'size'), Math.min(56 * u, r.h * 0.9));
+				layers.push(stackAt(r, [text(id, `${id}.text`, 'display', s, s * 1.14, { maxLines: lines(s, s * 1.14), min: fitted[id] ?? Math.max(16 * u, s * 0.5), pinned: fitted[id] !== undefined, rest: `${id}.rest`, restColor: th.rest })], align, valign));
 				break;
 			}
 			case 'body': {
 				const s = fitted[id] ?? fl(num(opt(doc, id, 'size'), 24 * u));
-				layers.push(stackAt(r, [text(id, `${id}.text`, 'body', s, s * 1.33, { maxLines: lines(s, s * 1.33), color: th.soft, ...(fitted[id] !== undefined ? { min: s, pinned: true } : {}) })], align, valign));
+				layers.push(stackAt(r, [text(id, `${id}.text`, 'body', s, s * 1.5, { maxLines: lines(s, s * 1.5), color: th.soft, ...(fitted[id] !== undefined ? { min: s, pinned: true } : {}) })], align, valign));
 				break;
 			}
 			case 'eyebrow': {
-				const s = fl(14 * u);
-				layers.push(stackAt(r, [text(id, `${id}.text`, 'label', s, s * (20 / 14), { maxLines: lines(s, s * (20 / 14)), tracking: 0.06, caps: true, color: th.soft })], align, 'center'));
+				const s = fl(18 * u);
+				layers.push(stackAt(r, [text(id, `${id}.text`, 'label', s, s * 1.34, { maxLines: lines(s, s * 1.34), tracking: 0, caps: true, color: th.soft })], align, 'center'));
 				break;
 			}
 			case 'badge': {
-				// The site's badge: 24 tall, 12/16 Medium in the text gray on the inset fill, the 4px corner (at 4/3 for the feed).
-				const h = Math.min(r.h, 32 * u);
-				layers.push({ type: 'button', id, slot: `${id}.text`, box: [r.x, r.y + (r.h - h) / 2, Math.min(r.w, 96 * u), h], size: fl(16 * u), fill: th.inset, color: th.soft, radius: 4 * u, align: align as 'left' });
+				// The site's chosen filter chip: 12px white capitals on the quiet fill, square (at 1.5 on the canvas).
+				const h = Math.min(r.h, 42 * u);
+				layers.push({ type: 'button', id, slot: `${id}.text`, box: [r.x, r.y + (r.h - h) / 2, Math.min(r.w, 72 * u), h], size: fl(18 * u), fill: th.fg === 'white' ? 'neutral-3' : th.inset, color: th.fg, radius: 0, align: align as 'left' });
 				break;
 			}
 			case 'logo': {
@@ -249,82 +238,69 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 				else placeholders = true;
 				const at: Box = g?.box ?? box(r);
 				if (g?.quad) layers.push({ type: 'panel', id, quad: g.quad, index, bleeds: true });
-				else if (treatment === 'split' || g?.split !== undefined) layers.push({ type: 'split', id, box: at, index, shift: g?.split ?? 26 * u });
 				else if (treatment === 'frame') {
-					const bar = 28 * u;
-					layers.push({ type: 'rect', id: `${id}-frame`, box: at, fill: th.card, radius: 4 * u, stroke: 'neutral-6' });
-					layers.push({ type: 'photo', id, box: [at[0] + u, at[1] + bar, at[2] - 2 * u, at[3] - bar - u], index, over: [`${id}-frame`] });
-				} else layers.push({ type: 'photo', id, box: at, index, radius: treatment === 'rounded' ? 4 * u : g?.radius ?? 0 });
+					// The brand kit's tile: a hairline box around the picture.
+					const pad = 24 * u;
+					layers.push({ type: 'rect', id: `${id}-frame`, box: at, fill: th.ground, stroke: th.fg === 'white' ? 'neutral-3' : 'paper-inset' });
+					layers.push({ type: 'photo', id, box: [at[0] + pad, at[1] + pad, at[2] - 2 * pad, at[3] - 2 * pad], index, over: [`${id}-frame`] });
+				} else layers.push({ type: 'photo', id, box: at, index, radius: 0, ...(g?.bleeds ? { bleeds: true } : {}) });
 				break;
 			}
-			case 'light': {
+			case 'signal': {
 				const g = geometryOf(doc, id);
-				const seed = opt(doc, id, 'seed');
-				void seed;
-				if (g?.art && g.box) layers.push({ type: 'art', id, file: g.art, box: g.box, fit: g.fit, at: g.at, flip: g.flip, turn: g.turn, clipQuad: g.quad, ...(g.edge === 'hard' ? { edge: 'hard' as const } : {}) });
+				if (g?.art && g.box) layers.push({ type: 'art', id, file: g.art, box: g.box, fit: g.fit, at: g.at, ...(g.edge === 'hard' ? { edge: 'hard' as const } : {}) });
 				else {
-					// The light is never boxed in: a side whose cells reach the grid's edge runs on to the canvas edge.
+					// The static is never boxed in: a side whose cells reach the grid's edge runs on to the canvas edge.
 					const grid = doc.grid ?? { cols: 12, rows: 12 };
 					const x0 = b.at.col === 0 ? 0 : r.x;
 					const y0 = b.at.row === 0 ? 0 : r.y;
 					const x1 = b.at.col + b.at.cols >= grid.cols ? W : r.x + r.w;
 					const y1 = b.at.row + b.at.rows >= grid.rows ? H : r.y + r.h;
 					const v = str(opt(doc, id, 'variant'), 'band');
-					const a = LIGHT_ART[v];
-					if (!a) throw new Error(`The light is one of the site's images: ${Object.keys(LIGHT_ART).join(', ')} (not "${v}").`);
-					layers.push({ type: 'art', id, file: a.file, box: [x0, y0, x1 - x0, y1 - y0], fit: v === 'share' ? 'fill' : 'cover', at: a.at, flip: a.flip, turn: a.turn, ...(a.edge ? { edge: a.edge } : {}) });
+					if (!SIGNAL_VARIANTS.includes(v)) throw new Error(`The static is ${SIGNAL_VARIANTS.join(' or ')} (not "${v}").`);
+					layers.push({ type: 'signal', id, box: [x0, y0, x1 - x0, y1 - y0], band: v === 'band', seed: num(opt(doc, id, 'seed'), 0) });
 				}
 				break;
 			}
-			case 'ascii':
-				layers.push({ type: 'ascii', id, box: box(r), strength: ((d) => (d >= 0.95 ? 'hero' : d <= 0.5 ? 'faint' : 'quiet'))(num(opt(doc, id, 'density'), 0.7)) });
-				break;
 			case 'card': {
-				const pad = Math.min(40 * u, r.w * 0.08);
+				const pad = Math.min(36 * u, r.w * 0.08);
 				const items: StackItem[] = [
-					{ type: 'text', id: `${id}-title`, slot: `${id}.title`, face: 'display', size: 40 * u, leading: 44 * u, maxLines: 2, color: th.fg },
-					{ type: 'text', id: `${id}-text`, slot: `${id}.text`, face: 'body', size: fl(20 * u), leading: fl(20 * u) * 1.4, maxLines: 3, gap: 16 * u, color: th.soft },
-					{ type: 'list', id: `${id}-items`, slot: `${id}.items`, face: 'body', size: fl(20 * u), leading: fl(20 * u) * 1.4, maxLines: 2, gap: 32 * u, itemGap: 12 * u, color: th.soft },
-					{ type: 'button', id: `${id}-cta`, slot: `${id}.cta`, h: Math.max(56 * u, fl(20 * u) * 2.4), w: r.w - 2 * pad, size: fl(20 * u), radius: 8 * u, gap: 32 * u, align: 'center', ...(th.fg === 'black' ? { fill: 'black', color: 'white' } : {}) },
+					{ type: 'text', id: `${id}-title`, slot: `${id}.title`, face: 'display', size: 32 * u, leading: 32 * 1.14 * u, maxLines: 2, color: th.fg },
+					{ type: 'text', id: `${id}-text`, slot: `${id}.text`, face: 'body', size: fl(24 * u), leading: fl(24 * u) * 1.5, maxLines: 3, gap: 16 * u, color: th.soft },
+					{ type: 'list', id: `${id}-items`, slot: `${id}.items`, face: 'body', size: fl(24 * u), leading: fl(24 * u) * 1.5, maxLines: 2, gap: 24 * u, itemGap: 12 * u, color: th.soft },
+					{ type: 'button', id: `${id}-cta`, slot: `${id}.cta`, h: Math.max(72 * u, fl(18 * u) * 2.8), w: r.w - 2 * pad, size: fl(18 * u), radius: 6 * u, gap: 36 * u, align: 'center', ...plate },
 				];
-				layers.push({ type: 'stack', box: box(r), valign: 'top', align: align as 'left', items: [{ type: 'card', id, w: r.w, pad, fill: th.card, radius: 4 * u, items }] });
+				layers.push({ type: 'stack', box: box(r), valign: 'top', align: align as 'left', items: [{ type: 'card', id, w: r.w, pad, fill: th.card, radius: 0, items }] });
 				break;
 			}
 			case 'stat':
-				layers.push(stackAt(r, [text(id, `${id}.value`, 'display', Math.min(96 * u, r.h * 0.6), Math.min(96 * u, r.h * 0.6) + 4 * u, { maxLines: 1, min: 24 * u }), text(`${id}-label`, `${id}.label`, 'body', fl(20 * u), fl(20 * u) * 1.4, { gap: 24 * u, maxLines: 2, color: th.soft })], align, valign));
+				layers.push(stackAt(r, [text(id, `${id}.value`, 'display', Math.min(84 * u, r.h * 0.6), Math.min(84 * u, r.h * 0.6) * 1.14, { maxLines: 1, min: 24 * u }), text(`${id}-label`, `${id}.label`, 'body', fl(24 * u), fl(24 * u) * 1.5, { gap: 16 * u, maxLines: 2, color: th.soft })], align, valign));
 				break;
 			case 'quote':
 				// Without a name, the role takes the name's place under the quote (and its gap).
-				layers.push(stackAt(r, [text(id, `${id}.text`, 'display', 44 * u, 48 * u, { maxLines: lines(44 * u, 48 * u), min: 24 * u }), text(`${id}-name`, `${id}.name`, 'medium', fl(20 * u), fl(20 * u) * 1.4, { gap: 24 * u, maxLines: 1 }), text(`${id}-role`, `${id}.role`, 'body', fl(20 * u), fl(20 * u) * 1.4, { gap: (doc.copy[`${id}.name`]?.trim() ? 8 : 24) * u, maxLines: 1, color: th.soft })], align, valign));
+				layers.push(stackAt(r, [text(id, `${id}.text`, 'display', 44 * u, 44 * 1.14 * u, { maxLines: lines(44 * u, 44 * 1.14 * u), min: 24 * u }), text(`${id}-name`, `${id}.name`, 'body', fl(24 * u), fl(24 * u) * 1.4, { gap: 36 * u, maxLines: 1 }), text(`${id}-role`, `${id}.role`, 'label', fl(18 * u), fl(18 * u) * 1.34, { gap: (doc.copy[`${id}.name`]?.trim() ? 8 : 36) * u, maxLines: 1, tracking: 0, caps: true, color: th.soft })], align, valign));
 				break;
 			case 'list':
-				layers.push(stackAt(r, [{ type: 'list', id, slot: `${id}.items`, face: 'body', size: fl(24 * u), leading: fl(24 * u) * 1.33, maxLines: 2, itemGap: 12 * u, color: th.soft }], align, valign));
+				layers.push(stackAt(r, [{ type: 'list', id, slot: `${id}.items`, face: 'body', size: fl(24 * u), leading: fl(24 * u) * 1.5, maxLines: 2, itemGap: 12 * u, color: th.soft }], align, valign));
 				break;
 			case 'button':
 			{
 				// The button keeps its size and sits in its cells as `align` and `valign` say (a strip ad's button lines up
 				// with the right margin and the middle of the row).
-				const bw = Math.min(r.w, 160 * u);
-				const bh = Math.max(Math.min(r.h, 56 * u), fl(20 * u) * 2.4);
+				const bw = Math.min(r.w, 200 * u);
+				const bh = Math.max(Math.min(r.h, 72 * u), fl(18 * u) * 2.8);
 				const bx = align === 'right' ? r.x + r.w - bw : align === 'center' ? r.x + (r.w - bw) / 2 : r.x;
 				const by = valign === 'center' ? r.y + (r.h - bh) / 2 : valign === 'bottom' ? r.y + r.h - bh : r.y;
-				layers.push({ type: 'button', id, slot: `${id}.text`, box: [bx, by, bw, bh], size: fl(20 * u), radius: 8 * u, align: align as 'left', ...(th.fg === 'black' ? { fill: 'black', color: 'white' } : {}) });
+				layers.push({ type: 'button', id, slot: `${id}.text`, box: [bx, by, bw, bh], size: fl(18 * u), radius: 6 * u, align: align as 'left', ...plate });
 			}
-				break;
-			case 'search':
-				{
-					// `key`: the feed ads' bar (Black, a White key with its label); without it, the site's prompt with the send key.
-					const key = str(opt(doc, id, 'key'), '');
-					layers.push({ type: 'search', id, slot: `${id}.text`, box: [r.x, r.y + Math.max(0, (r.h - 88 * u) / 2), r.w, Math.min(r.h, 88 * u)], size: fl(24 * u), ...(key ? { button: key } : {}) });
-				}
 				break;
 			case 'code': {
 				const pad = Math.min(24 * u, r.w * 0.06);
-				layers.push({ type: 'stack', box: box(r), valign: 'top', align: 'left', items: [{ type: 'card', id, w: r.w, pad, fill: 'neutral-3', radius: 8 * u, items: [{ type: 'text', id: `${id}-text`, slot: `${id}.text`, face: 'code', size: fl(22 * u), leading: fl(22 * u) * 1.36, maxLines: Math.max(1, Math.floor((r.h - 2 * pad) / (fl(22 * u) * 1.36))), color: 'white' }] }] });
+				layers.push({ type: 'stack', box: box(r), valign: 'top', align: 'left', items: [{ type: 'card', id, w: r.w, pad, fill: th.card, radius: 0, items: [{ type: 'text', id: `${id}-text`, slot: `${id}.text`, face: 'code', size: fl(22 * u), leading: fl(22 * u) * 1.36, maxLines: Math.max(1, Math.floor((r.h - 2 * pad) / (fl(22 * u) * 1.36))), color: th.fg }] }] });
 				break;
 			}
 			case 'divider':
-				layers.push({ type: 'rect', id, box: [r.x, r.y + r.h / 2, r.w, Math.max(1, Math.round(u))], fill: th.fg === 'white' ? 'neutral-5' : 'neutral-11' });
+				layers.push({ type: 'rect', id, box: [r.x, r.y + r.h / 2, r.w, Math.max(1, Math.round(u))], fill: th.rule });
 				break;
 			case 'chart': {
 				const data = dataOf(doc.copy[`${id}.data`] ?? '');
@@ -343,7 +319,7 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 					const cy = r.y + (r.h - labelH) / 2;
 					const R = Math.min(r.w, r.h - labelH) / 2;
 					const total = data.reduce((s, d) => s + Math.max(0, d.value), 0) || 1;
-					const steps = [th.fg, 'neutral-9', 'neutral-7', 'neutral-5', 'neutral-11', 'neutral-6'];
+					const steps = th.fg === 'white' ? ['white', 'mid', 'neutral-5', 'dim', 'plate'] : ['pure-black', 'ink-muted', 'paper-inset', 'ink-soft'];
 					let a0 = -Math.PI / 2;
 					data.forEach((d, i) => {
 						const a1 = a0 + (Math.max(0, d.value) / total) * Math.PI * 2;
@@ -365,7 +341,7 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 					data.forEach((d, i) => {
 						const bh = (d.value / max) * plot.h;
 						const bx = plot.x + step * i + step * 0.15;
-						layers.push({ type: 'rect', id: `${id}-bar-${i + 1}`, box: [bx, plot.y + plot.h - bh, step * 0.7, bh], fill: i === n - 1 ? th.fg : th.fg === 'white' ? 'neutral-6' : 'neutral-10', radius: 4 * u });
+						layers.push({ type: 'rect', id: `${id}-bar-${i + 1}`, box: [bx, plot.y + plot.h - bh, step * 0.7, bh], fill: i === n - 1 ? th.fg : th.fg === 'white' ? 'neutral-5' : 'paper-inset', radius: 0 });
 					});
 				}
 				labelRow();
@@ -382,9 +358,9 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 					const y = r.y + i * rh;
 					row.forEach((c, j) => {
 						if (!c) return;
-						layers.push({ type: 'text', id: i === 0 && j === 0 ? id : `${id}-r${i + 1}c${j + 1}`, text: c, face: i === 0 ? 'medium' : 'body', size: fl(22 * u), leading: fl(22 * u) * 1.3, x: r.x + j * cw, top: y + (rh - 16 * u) / 2, w: cw - 12 * u, maxLines: 1, color: i === 0 ? th.fg : th.soft });
+						layers.push({ type: 'text', id: i === 0 && j === 0 ? id : `${id}-r${i + 1}c${j + 1}`, text: c, face: 'body', size: fl(22 * u), leading: fl(22 * u) * 1.3, x: r.x + j * cw, top: y + (rh - 16 * u) / 2, w: cw - 12 * u, maxLines: 1, color: i === 0 ? th.fg : th.soft });
 					});
-					if (i > 0) layers.push({ type: 'rect', id: `${id}-rule-${i}`, box: [r.x, y, r.w, Math.max(1, Math.round(u))], fill: th.fg === 'white' ? 'neutral-5' : 'neutral-11' });
+					if (i > 0) layers.push({ type: 'rect', id: `${id}-rule-${i}`, box: [r.x, y, r.w, Math.max(1, Math.round(u))], fill: th.rule });
 				});
 				break;
 			}
@@ -414,12 +390,14 @@ export async function drawCompose(doc: DesignDoc, pictures: Record<string, Photo
 	const u = unitOf(W, H);
 	for (const { block: b, rect: r } of blockRects(doc)) {
 		if (b.type !== 'headline' && b.type !== 'body') continue;
-		const words = (doc.copy[`${b.id}.text`] ?? '').trim();
+		const lead = (doc.copy[`${b.id}.text`] ?? '').trim();
+		const rest = b.type === 'headline' ? (doc.copy[`${b.id}.rest`] ?? '').trim() : '';
+		const words = lead && rest ? `${lead} ${rest}` : lead;
 		if (!words || doc.layers[b.id]?.hidden) continue;
 		const display = b.type === 'headline';
 		const face = display ? f.heading : f.text;
-		const ratio = display ? 1.07 : 1.33; // a head's four pixels over its size, at the sizes fitted here
-		const start = num(doc.options[`${b.id}.size`], display ? Math.min(72 * u, r.h * 0.9) : 24 * u) * (doc.layers[b.id]?.scale ?? 1);
+		const ratio = display ? 1.14 : 1.5; // the site's head and copy leading
+		const start = num(doc.options[`${b.id}.size`], display ? Math.min(56 * u, r.h * 0.9) : 24 * u) * (doc.layers[b.id]?.scale ?? 1);
 		const low = Math.max(z.floor, display ? 16 * u : 12 * u);
 		let size = Math.max(low, Math.floor(start));
 		for (; size >= low; size--) {
@@ -433,7 +411,7 @@ export async function drawCompose(doc: DesignDoc, pictures: Record<string, Photo
 	const { layers, extra, photos, placeholders } = composeScene(doc, tagged, z.floor, fitted);
 	const g = gridOf(doc);
 	const frame: Box = [g.m, g.m, W - 2 * g.m, H - 2 * g.m];
-	const drawn = await drawScene({ width: W, height: H, ground: th.ground, layers, slots: doc.copy, photos, placeholders, seed: doc.seed, light: 'brand', texture: true, frame, unit: unitOf(W, H), floor: z.floor, edits: doc.layers });
+	const drawn = await drawScene({ width: W, height: H, ground: th.ground, layers, slots: doc.copy, photos, placeholders, seed: doc.seed, texture: true, frame, unit: unitOf(W, H), floor: z.floor, edits: doc.layers });
 	const reported = await groundsOf(drawn);
 	const ids = new Set(reported.map((l) => l.id));
 	return { drawn, layers: [...reported, ...extra.filter((l) => !ids.has(l.id))] };
@@ -488,11 +466,12 @@ export function recipeFor(template: string, size: string, copy: Record<string, s
 	const slotsOf = scene.slots ?? {};
 	const value = (slot?: string) => (slot ? (slotsOf[slot] ?? '').trim() : '');
 	const textBlock = (face: string) => (face === 'display' ? 'headline' : face === 'label' ? 'eyebrow' : 'body');
-	const estimate = (it: { size: number; leading: number; slot?: string; face?: string; w?: number }, w: number) => {
-		const v = value(it.slot);
+	const estimate = (it: { size: number; leading: number; slot?: string; face?: string; w?: number; rest?: string }, w: number) => {
+		const v = [value(it.slot), value(it.rest)].filter(Boolean).join(' ');
 		const chars = v.length * it.size * (it.face === 'display' ? 0.52 : 0.5);
 		const lines = Math.max(1, Math.ceil(chars / Math.max(1, it.w ?? w)));
-		return it.size * 0.8 + (lines - 1) * it.leading + it.size * 0.35;
+		// A line box is the line's leading (the site sets copy at 1.5 and heads at 1.14), and a little for the descenders.
+		return lines * it.leading + it.size * 0.2;
 	};
 	// What the template sets (words, logo, buttons) mapped into the grid's area when the template uses more of the canvas
 	// than the grid covers (a story's foot, a platform's safe area), so its parts keep their order and spacing.
@@ -511,17 +490,19 @@ export function recipeFor(template: string, size: string, copy: Record<string, s
 	const map = (b: Box): Box => [ox + (b[0] - F[0]!) * kx, oy + (b[1] - F[1]!) * ky, b[2] * kx, b[3] * ky];
 	const place = (b: Box, mode?: 'words' | 'words-up' | 'inside' | 'near') => snap(doc, map(b), grid, mode);
 	for (const l of scene.layers) {
-		if (l.type === 'ascii') {
-			blocks.push({ id: idFor('texture'), type: 'ascii', at: full });
+		if (l.type === 'signal') {
+			const id = idFor(l.id ?? 'signal');
+			blocks.push({ id, type: 'signal', at: full });
+			options[`${id}.variant`] = l.band === false ? 'field' : 'band';
 		} else if (l.type === 'art' && l.id !== 'pictures') {
-			const id = idFor(l.id ?? 'light');
-			blocks.push({ id, type: 'light', at: full });
-			options[`${id}.geometry`] = JSON.stringify({ W0: width, H0: height, art: l.file, box: l.box, fit: l.fit, at: l.at, flip: l.flip, turn: l.turn, quad: l.clipQuad });
+			const id = idFor(l.id ?? 'signal');
+			blocks.push({ id, type: 'signal', at: full });
+			options[`${id}.geometry`] = JSON.stringify({ W0: width, H0: height, art: l.file, box: l.box, fit: l.fit, at: l.at, edge: l.edge });
 		} else if (l.type === 'photo' || l.type === 'split' || l.type === 'panel') {
 			const id = idFor(l.id ?? `picture-${l.index + 1}`);
 			const b: Box = l.type === 'panel' ? [Math.min(...l.quad.map((p) => p[0])), Math.min(...l.quad.map((p) => p[1])), Math.max(...l.quad.map((p) => p[0])) - Math.min(...l.quad.map((p) => p[0])), Math.max(...l.quad.map((p) => p[1])) - Math.min(...l.quad.map((p) => p[1]))] : l.box;
 			blocks.push({ id, type: 'picture', at: place(b) });
-			options[`${id}.geometry`] = JSON.stringify({ W0: width, H0: height, ...(l.type === 'panel' ? { quad: l.quad } : l.type === 'split' ? { box: l.box, split: l.shift } : { box: l.box, radius: l.radius }) });
+			options[`${id}.geometry`] = JSON.stringify({ W0: width, H0: height, ...(l.type === 'panel' ? { quad: l.quad } : { box: l.box, ...(l.bleeds ? { bleeds: true } : {}) }) });
 		} else if (l.type === 'logo') {
 			const id = idFor('logo');
 			blocks.push({ id, type: 'logo', at: place(logoBox(l)) });
@@ -540,10 +521,6 @@ export function recipeFor(template: string, size: string, copy: Record<string, s
 			blocks.push({ id, type: 'button', at: place(l.box, 'words') });
 			out[`${id}.text`] = value(l.slot);
 			if (l.align) options[`${id}.align`] = l.align;
-		} else if (l.type === 'search' && value(l.slot)) {
-			const id = idFor(l.slot!);
-			blocks.push({ id, type: 'search', at: place(l.box, 'words') });
-			out[`${id}.text`] = value(l.slot);
 		} else if (l.type === 'stack') {
 			// The stack's items one under another, as the template sets them, from the top or the foot of its box.
 			const items = l.items.filter((i) => (i.type === 'card' ? i.items.some((c) => 'slot' in c && value(c.slot as string)) : value((i as { slot?: string }).slot)));
@@ -580,6 +557,11 @@ export function recipeFor(template: string, size: string, copy: Record<string, s
 					const id = idFor(i.slot ?? 'text');
 					blocks.push({ id, type: textBlock(i.face), at: place(b, l.valign === 'bottom' ? 'words-up' : 'words') });
 					out[`${id}.text`] = value(i.slot);
+					const restSlot = (i as { rest?: string }).rest;
+					if (restSlot && value(restSlot)) {
+						if (i.face === 'display') out[`${id}.rest`] = value(restSlot);
+						else out[`${id}.text`] = `${value(i.slot)} ${value(restSlot)}`;
+					}
 					if (i.face !== 'label') options[`${id}.size`] = Math.round(i.size * 10) / 10;
 					options[`${id}.align`] = i.align ?? l.align ?? 'left';
 					if (l.valign && l.valign !== 'top') options[`${id}.valign`] = l.valign;

@@ -1,13 +1,24 @@
-# Product designer
+# Hiring
 
-<!-- Hiring, on the light theme with no brand light. Run: agencidev-ds ad brand/briefs/hiring.md -->
+<!-- A hiring post. Run: agencidev-ds ad brand/briefs/hiring.md -->
 
-Goal: Hiring a product designer to join the team.
-Platforms: LinkedIn, Instagram feed, Instagram story, X
-Headline: Design the tool marketers open first.
-Label: We are hiring
-CTA: See the role
-Look: light theme, minimal, type-led
+## Goal
+Hire a product designer.
 
-## Don'ts
-- no brand light
+## Platforms
+LinkedIn, Instagram feed, X
+
+## Label
+Current openings
+
+## Headline
+Product designer, fully remote.
+
+## Supporting line
+Explore in code first, then polish in Figma.
+
+## CTA
+See the role
+
+## Look
+dark, minimal, type-led

@@ -199,7 +199,7 @@ export function candidates(b: Brief, goal: string, needs: Needs, size: string): 
 		if (b.look.lead && !l.look.includes(b.look.lead)) score += d.score.lead;
 		if (!b.look.lead && b.images.length && l.look.includes('picture') && Object.keys(pictures).length) score += d.score.look;
 		if (l.logo === false) score += d.score.noLogo;
-		const seeded = l.from === 'template' && (infos().find((t) => t.id === l.id)?.options ?? []).some((o) => o.id === 'light');
+		const seeded = l.from === 'template' && (infos().find((t) => t.id === l.id)?.options ?? []).some((o) => o.id === 'texture');
 		list.push({ layout: l, score, draws, leftOut, themes, pictures, seeded });
 	});
 	// Layouts made from the brief itself: its Layout words (ranked first), or stacked, centered and split arrangements
@@ -207,15 +207,15 @@ export function candidates(b: Brief, goal: string, needs: Needs, size: string): 
 	const spec = SIZES.find((s) => s.id === size);
 	if (spec) {
 		const themes = themesFor({ id: 'composed', from: 'recipe', fields: {}, goals: [], look: [] }, b, needs).filter((t) => t === 'black' || t === 'white');
-		const hideLight = needs.donts.some((r) => r.hide === 'light');
-		const hideTexture = needs.donts.some((r) => r.hide === 'texture');
+		const hideSignal = needs.donts.some((r) => r.hide === 'signal');
 		const noPictures = needs.donts.some((r) => r.no === 'picture');
 		const brief = noPictures ? { ...b, images: [] } : b;
-		for (const a of arrangements(brief, size, spec.width, spec.height, { light: !hideLight, texture: !hideTexture })) {
+		const wantSignal = !hideSignal && (b.look.elements.includes('signal') || needs.musts.some((r) => r.layer === 'signal'));
+		for (const a of arrangements(brief, size, spec.width, spec.height, { signal: wantSignal, rail: b.look.elements.includes('rail'), statement: b.look.elements.includes('statement') })) {
 			if (!themes.length) break;
 			const draws = a.draws;
 			const leftOut = given.filter((f) => !draws.includes(f));
-			const layout: AdLayout = { id: `composed-${a.id}`, from: 'composed', arrangement: a, fields: Object.fromEntries(draws.map((f) => [f, f])), goals: [goal], look: ['composed', 'light', 'ascii', ...(Object.keys(a.pictures).length ? ['picture'] : ['type'])] };
+			const layout: AdLayout = { id: `composed-${a.id}`, from: 'composed', arrangement: a, fields: Object.fromEntries(draws.map((f) => [f, f])), goals: [goal], look: ['composed', ...(wantSignal ? ['signal'] : []), ...(b.look.elements.includes('rail') ? ['rail'] : []), ...(b.look.elements.includes('statement') ? ['statement'] : []), ...(Object.keys(a.pictures).length ? ['picture'] : ['type'])] };
 			const mustMiss = needs.musts.filter((r) => r.field && !draws.includes(r.field)).map((r) => headingOf(r.field!));
 			if (mustMiss.length) {
 				refused.push({ layout: layout.id, reason: `it has no place for ${mustMiss.join(' and ')}, a must-have` });
@@ -239,14 +239,13 @@ export type Ad = { size: string; width: number; height: number; n: number; layou
 type Attempt = { c: Candidate; theme: string; seed?: number; alt?: Alternate };
 
 const rel = (from: string, file: string) => relative(from, file).split(sep).join('/') || file;
-const isLight = (id: string) => id === 'light' || /^light-\d+$/.test(id);
+const isSignal = (id: string) => id === 'signal' || /^signal-\d+$/.test(id);
 
 /** The design document for one attempt, as `design new` or `recipe` would write it. */
 function docFor(a: Attempt, b: Brief, needs: Needs, size: string, outDir: string, imageDir: (img: BriefImage) => string): DesignDoc {
 	const ad = adapter();
 	const l = a.c.layout;
-	const hideLight = needs.donts.some((r) => r.hide === 'light');
-	const hideTexture = needs.donts.some((r) => r.hide === 'texture');
+	const hideSignal = needs.donts.some((r) => r.hide === 'signal');
 	const picture = (img: BriefImage) => rel(outDir, resolve(imageDir(img), img.file));
 	if (l.from === 'template') {
 		const info = infoFor(ad, { template: l.id });
@@ -255,10 +254,10 @@ function docFor(a: Attempt, b: Brief, needs: Needs, size: string, outDir: string
 		for (const [slot, img] of Object.entries(a.c.pictures)) edits.push({ op: 'image', slot, value: picture(img) });
 		if (a.theme && info.themes.length > 1) edits.push({ op: 'theme', value: a.theme });
 		if (a.seed !== undefined && a.c.seeded) edits.push({ op: 'seed', value: a.seed });
-		if (hideTexture && info.options.some((o) => o.id === 'texture')) edits.push({ op: 'option', id: 'texture', value: 'false' });
+		if (hideSignal && info.options.some((o) => o.id === 'texture')) edits.push({ op: 'option', id: 'texture', value: 'false' });
 		for (const layer of info.layers) {
 			if (!layer.can.hide) continue;
-			if ((hideLight && isLight(layer.id)) || (hideTexture && layer.id === 'texture' && !info.options.some((o) => o.id === 'texture'))) edits.push({ op: 'layer', layer: layer.id, set: { hidden: true } });
+			if (hideSignal && isSignal(layer.id)) edits.push({ op: 'layer', layer: layer.id, set: { hidden: true } });
 		}
 		return create(ad, l.id, size, edits).doc;
 	}
@@ -282,11 +281,10 @@ function docFor(a: Attempt, b: Brief, needs: Needs, size: string, outDir: string
 	}
 	const images: Record<string, string> = {};
 	for (const [block, img] of Object.entries(a.c.pictures)) images[block] = picture(img);
-	// A block is kept when it draws: the light and texture unless a don't takes them out, words only when the brief has them.
-	const words = new Set(['headline', 'body', 'eyebrow', 'badge', 'stat', 'quote', 'list', 'button', 'search', 'code', 'chart', 'table', 'card']);
+	// A block is kept when it draws: the static unless a don't takes it out, words only when the brief has them.
+	const words = new Set(['headline', 'body', 'eyebrow', 'badge', 'stat', 'quote', 'list', 'button', 'code', 'chart', 'table', 'card']);
 	const blocks = r.blocks.map((blk) => (a.alt?.at?.[blk.id] ? { ...blk, at: a.alt.at[blk.id]! } : blk)).filter((blk) => {
-		if (blk.type === 'light') return !hideLight;
-		if (blk.type === 'ascii') return !hideTexture;
+		if (blk.type === 'signal') return !hideSignal;
 		if (blk.type === 'picture') return Boolean(images[blk.id]);
 		if (words.has(blk.type)) return Object.keys(copy).some((k) => k.startsWith(`${blk.id}.`));
 		return true;
@@ -316,14 +314,12 @@ async function tryAttempt(a: Attempt, b: Brief, needs: Needs, size: string, outD
 	}
 	const has = (pred: (l: DrawnLayer) => boolean) => r.layers.some(pred);
 	for (const m of needs.musts) {
-		if (m.layer === 'light' && !has((l) => isLight(l.id))) return { ok: false, reason: 'it draws no brand light, a must-have' };
-		if (m.layer === 'texture' && !has((l) => l.id === 'texture' || l.id.startsWith('texture'))) return { ok: false, reason: 'it draws no texture, a must-have' };
+		if (m.layer === 'signal' && !has((l) => isSignal(l.id))) return { ok: false, reason: 'it draws no no-signal static, a must-have' };
 		if (m.layer === 'logo' && !has((l) => l.kind === 'logo')) return { ok: false, reason: 'it draws no logo, a must-have' };
 		if (m.kind === 'picture' && !has((l) => l.kind === 'picture')) return { ok: false, reason: 'it draws no picture, a must-have' };
 		if (m.kind === 'panel' && !has((l) => l.kind === 'panel')) return { ok: false, reason: 'it draws no card, a must-have' };
 	}
-	if (needs.donts.some((d) => d.hide === 'light') && has((l) => isLight(l.id))) return { ok: false, reason: "its light cannot be taken out, and the don'ts rule it out" };
-	if (needs.donts.some((d) => d.hide === 'texture') && has((l) => l.id === 'texture')) return { ok: false, reason: "its texture cannot be taken out, and the don'ts rule it out" };
+	if (needs.donts.some((d) => d.hide === 'signal') && has((l) => isSignal(l.id))) return { ok: false, reason: "its static cannot be taken out, and the don'ts rule it out" };
 	if (needs.donts.some((d) => d.no === 'panel') && has((l) => l.kind === 'panel')) return { ok: false, reason: "it draws a card, and the don'ts rule cards out" };
 	return { ok: true, doc, files: r.files, layers: r.layers, findings };
 }

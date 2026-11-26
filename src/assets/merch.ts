@@ -96,7 +96,7 @@ export function merchScene(item: MerchItem, req: MerchRequest): { scene: Scene; 
 	const th = item.size[1] * PX_PER_IN;
 	const rect = (x: number, y: number, w: number, h: number, r = 0) =>
 		r ? `M${x + r} ${y}H${x + w - r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${y + h}H${x + r}A${r} ${r} 0 0 1 ${x} ${y + h - r}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z` : `M${x} ${y}H${x + w}V${y + h}H${x}Z`;
-	if (item.cut) layers.push({ type: 'path', id: 'CutContour', d: rect(o, o, tw, th, item.cut.radius * PX_PER_IN), stroke: 'magenta', strokeWidth: 3, svgOnly: true });
+	if (item.cut) layers.push({ type: 'path', id: 'CutContour', d: rect(o, o, tw, th, item.cut.radius * PX_PER_IN), stroke: '#FF00FF', strokeWidth: 3, svgOnly: true });
 	if (req.guides) {
 		const s = item.safe * PX_PER_IN;
 		if (item.bleed) layers.push({ type: 'path', id: 'Trim', d: rect(o, o, tw, th), stroke: 'cyan', strokeWidth: 3 });

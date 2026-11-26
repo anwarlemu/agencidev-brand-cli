@@ -96,9 +96,9 @@ export type Layer =
 	| StackLayer
 	| (Named & { type: 'logo'; lockup: string; color: string; box: Box; align?: 'left' | 'center' | 'right'; /** `auto`: Black where the light under it is pale. */ tone?: 'auto'; /** For stings that bring the lockup in: 0 to 1. */ opacity?: number })
 	| (Named & { type: 'light'; window?: Box; b?: Box; shift?: number; variant?: string; seed?: number; source?: 'brand' | 'generated'; clipQuad?: [Pt, Pt, Pt, Pt]; /** Stays where it is: it is not moved to keep copy clear. */ fixed?: boolean })
-	/** The site's ASCII texture tile (brand/assets/art/ascii.png), repeated at `tile` pixels (default 1080 times the unit)
-	 * and fading out radially from `from` as the site's drift does. `strength`: quiet (0.5), faint (0.32) or hero (1). */
-	| (Named & { type: 'ascii'; box?: Box; seed?: number; density?: number; size?: number; tile?: number; from?: 'centre' | 'left' | 'right' | 'top' | 'bottom'; strength?: 'quiet' | 'faint' | 'hero'; core?: number })
+	/** The site's no-signal static (the 404 page's field, registry/lib/signal.ts), drawn at the box's size: `band` keeps
+	 * the glitch band across the middle (default true), `time` picks the frame (seconds into the loop), `seed` the grain. */
+	| (Named & { type: 'signal'; box?: Box; band?: boolean; time?: number; /** The flow's time (a loop swings it). */ warp?: number; /** The grain's frame. */ frame?: number; seed?: number; grain?: boolean; opacity?: number })
 	| InlineLayer
 	| (Named & { type: 'photo'; box: Box; index: number; radius?: number; clip?: Box })
 	| (Named & { type: 'panel'; quad: [Pt, Pt, Pt, Pt]; index: number })
@@ -180,10 +180,10 @@ export function color(value: string | undefined, fallback = '#FFFFFF'): string {
 
 // ----- Generators -----
 
-type AsciiModule = { asciiSvg: (o: Record<string, unknown>) => string };
+type SignalModule = { signalFrame: (w: number, h: number, o?: Record<string, unknown>) => Uint8ClampedArray; signalInk: (p: Uint8ClampedArray, w: number, h: number, cell?: number, lit?: number) => [number, number, number, number][]; SIGNAL_BAND_TIME: number; SIGNAL_FIELD_TIME: number };
 
 const loaded = new Map<string, unknown>();
-export async function generator<T>(name: 'light' | 'ascii'): Promise<T> {
+export async function generator<T>(name: 'light' | 'signal'): Promise<T> {
 	if (loaded.has(name)) return loaded.get(name) as T;
 	const file = join(packageRoot, 'build', 'generators', `${name}.mjs`);
 	if (!existsSync(file)) throw new Error(`build/generators/${name}.mjs is missing: run the build first.`);
@@ -197,7 +197,7 @@ export async function generator<T>(name: 'light' | 'ascii'): Promise<T> {
 const logoCache = new Map<string, { viewBox: string; body: string; vw: number; vh: number }>();
 export function logoNames(): string[] {
 	const dir = join(packageRoot, 'brand', 'logo', 'svg');
-	return ['horizontal', 'vertical', 'mark', 'wordmark', 'horizontal-3d', 'vertical-3d', 'mark-3d'].filter((n) => existsSync(join(dir, `${n}-white.svg`)));
+	return ['horizontal', 'mark', 'wordmark'].filter((n) => existsSync(join(dir, `${n}-white.svg`)));
 }
 function logo(lockup: string, tone: string) {
 	const key = `${lockup}-${tone}`;
@@ -430,7 +430,7 @@ export function layerId(l: Layer): string {
 	if (l.id) return l.id;
 	if (l.type === 'text' || l.type === 'button' || l.type === 'search' || l.type === 'inline') return l.slot ?? l.type;
 	if (l.type === 'photo' || l.type === 'panel' || l.type === 'split') return 'pictures';
-	if (l.type === 'ascii') return 'texture';
+	if (l.type === 'signal') return 'signal';
 	return l.type;
 }
 
@@ -445,15 +445,6 @@ export function named(layers: Layer[]): Layer[] {
 }
 
 const arts = new Map<string, { data: string; width: number; height: number; ink: [number, number, number, number][] }>();
-let asciiTile: string | undefined;
-/** The site's ASCII tile: White characters on transparent, as the site ships it (ascii-texture-alpha@2x). */
-function asciiArt(): string {
-	asciiTile ??= `data:image/png;base64,${readFileSync(join(packageRoot, 'brand', 'assets', 'art', 'ascii.png')).toString('base64')}`;
-	return asciiTile;
-}
-/** The site's four drift crops (ui/AsciiDrift: mass, column, cluster, scatter), as fractions of the 1080 tile. */
-const ASCII_CROPS: Pt[] = [[-120, -592], [0, -16], [-336, -248], [-808, -560]].map(([x, y]) => [x / 1080, y / 1080] as Pt);
-const ASCII_AT: Record<string, [number, number]> = { centre: [0.5, 0.5], left: [0, 0.5], right: [1, 0.5], top: [0.5, 0], bottom: [0.5, 1] };
 /** The brand's pre-made art: the PNG as base64 and where it is lit, in its own pixels. */
 function artOf(file: string) {
 	let a = arts.get(file);
@@ -528,7 +519,7 @@ export function clearOf(lockup: string, h: number): number {
 async function applyEdits(scene: Scene, all: Faces4): Promise<Layer[]> {
 	const edits = scene.edits ?? {};
 	const ids = Object.keys(edits).filter((k) => edits[k] && Object.keys(edits[k]!).length);
-	let layers = named(scene.layers).filter((l) => !(l.type === 'ascii' && scene.texture === false));
+	let layers = named(scene.layers).filter((l) => !(l.type === 'signal' && scene.texture === false));
 	if (!ids.length) return layers;
 	const W = scene.width;
 	const H = scene.height;
@@ -842,7 +833,7 @@ export async function drawScene(scene: Scene, opts: { embedFonts?: boolean } = {
 		});
 	};
 	/** The texture sits under everything by design; the light only where a layer says so (its lit part is its ink). */
-	const underneath = (_b: Box): string[] => (layers.some((l) => l.type === 'ascii') ? ['texture'] : []);
+	const underneath = (_b: Box): string[] => (layers.some((l) => l.type === 'signal') ? ['signal'] : []);
 	const drawPlaced = (list: Placed[], anchors?: Anchor[]) => {
 		for (const p of list) {
 			if (p.kind === 'text') {
@@ -995,25 +986,19 @@ export async function drawScene(scene: Scene, opts: { embedFonts?: boolean } = {
 				if (runs.length) note(id, 'art', fl.box, { ink: runs, bleeds: l.bleeds ?? true, over: ['texture', ...(l.over ?? [])], can: fl.p.b ? { move: true, scale: [0.6, 1.8], hide: true } : { hide: true } });
 				break;
 			}
-			case 'ascii': {
+			case 'signal': {
 				const [x, y, w, h] = l.box ?? [0, 0, W, H];
-				const tile = l.tile ?? 1080 * unit;
-				const [cx, cy] = ASCII_CROPS[Math.abs(seed + (l.seed ?? 0)) % ASCII_CROPS.length]!;
-				const [ax, ay] = ASCII_AT[l.from ?? 'centre']!;
-				const strength = l.strength === 'hero' ? 1 : l.strength === 'faint' ? Number(tokens()['--ds-ascii-faint']?.light ?? 0.32) : Number(tokens()['--ds-ascii-quiet']?.light ?? 0.5);
-				const core = l.core ?? (l.strength === 'hero' ? 0.56 : 0.24);
-				const pid = nextId('ascii');
-				// The fade is the site's: radial, farthest side, opaque to `core`, gone at the edge.
-				const rx = Math.max(ax, 1 - ax) * w;
-				const ry = Math.max(ay, 1 - ay) * h;
-				const dark = ground !== 'none' && luma(ground) > 0.5;
-				defs.push(`<pattern id="${pid}p" patternUnits="userSpaceOnUse" x="${f(x + cx * tile)}" y="${f(y + cy * tile)}" width="${f(tile)}" height="${f(tile)}"><image href="${asciiArt()}" width="${f(tile)}" height="${f(tile)}"/></pattern>`);
-				defs.push(`<radialGradient id="${pid}g" gradientUnits="userSpaceOnUse" cx="${f(x + ax * w)}" cy="${f(y + ay * h)}" r="${f(Math.max(rx, ry))}" gradientTransform="translate(${f(x + ax * w)} ${f(y + ay * h)}) scale(${f(rx / Math.max(rx, ry))} ${f(ry / Math.max(rx, ry))}) translate(${f(-(x + ax * w))} ${f(-(y + ay * h))})"><stop offset="${core}" stop-color="#FFFFFF"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/></radialGradient>`);
-				defs.push(`<mask id="${pid}m" maskUnits="userSpaceOnUse" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}"><rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="url(#${pid}g)"/></mask>`);
-				// On a White ground the characters are Black.
-				if (dark) defs.push(`<filter id="${pid}f" color-interpolation-filters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0"/></filter>`);
-				parts.push({ svg: `<g mask="url(#${pid}m)" opacity="${strength}"${dark ? ` filter="url(#${pid}f)"` : ''}><rect x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" fill="url(#${pid}p)"/></g>` });
-				note(id, 'art', [x, y, w, h], { ink: [], bleeds: true, can: { hide: true } });
+				const gen = await generator<SignalModule>('signal');
+				// Drawn at the box's pixels (up to 2400 on the long side, then scaled): the grain is part of the picture.
+				const k = Math.min(1, 2400 / Math.max(w, h));
+				const pw = Math.max(1, Math.round(w * k));
+				const ph = Math.max(1, Math.round(h * k));
+				const time = l.time ?? (l.band === false ? gen.SIGNAL_FIELD_TIME : gen.SIGNAL_BAND_TIME);
+				const px = gen.signalFrame(pw, ph, { time, warp: l.warp, frame: l.frame, seed: seed + (l.seed ?? 0), grain: l.grain, density: 1.5 * (pw / Math.max(1, W * k)) * (W / 1080) });
+				const data = `data:image/png;base64,${encodePng(Buffer.from(px.buffer, px.byteOffset, px.byteLength), pw, ph).toString('base64')}`;
+				parts.push({ svg: `<image href="${data}" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" preserveAspectRatio="none"${l.opacity !== undefined ? ` opacity="${l.opacity}"` : ''}/>` });
+				const ink = gen.signalInk(px, pw, ph).map(([ix, iy, iw, ih]) => rect([x + ix / k, y + iy / k, iw / k, ih / k]));
+				note(id, 'art', [x, y, w, h], { ink, bleeds: true, can: { hide: !l.required } });
 				break;
 			}
 			case 'photo':

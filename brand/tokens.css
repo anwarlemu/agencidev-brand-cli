@@ -41,6 +41,11 @@
   --ds-color-plate: #252525; /* the one raised surface: the primary button */
   --ds-color-slat: #141414; /* an image slot before its picture lands (globals.css .rail-ssr, the gallery's unloaded slat) */
   --ds-color-press: rgba(255, 255, 255, 0.8); /* a pressed plate (page-tokens.ts PRESS_FILL, bg-white/80) */
+  /* The brand kit's black-on-white side, as solids (the light theme below and the renderers' white ground). */
+  --ds-color-paper-raised: #F2F2F2;
+  --ds-color-paper-inset: #E0E0E0;
+  --ds-color-ink-soft: #494949;
+  --ds-color-ink-muted: #6F6F6F;
 
   /* The tints as solids over the page black, for places an alpha cannot go (the renderers, borders on raised fills). */
   --ds-color-neutral-1: #050505;
@@ -275,7 +280,7 @@
 /* The brand kit's black on white: documents, print and light blocks. */
 [data-theme="light"] {
   --ds-color-surface: var(--ds-color-white);
-  --ds-color-surface-raised: #F2F2F2;
+  --ds-color-surface-raised: var(--ds-color-paper-raised);
   --ds-color-surface-subtle: #EBEBEB;
   --ds-color-surface-sunken: #F7F7F7;
   --ds-color-surface-inset: #E0E0E0;
@@ -283,8 +288,8 @@
   --ds-color-surface-inverse: var(--ds-color-pure-black);
   --ds-color-surface-accent: var(--ds-color-pure-black);
   --ds-color-fg: var(--ds-color-pure-black);
-  --ds-color-fg-soft: #494949;
-  --ds-color-fg-muted: #6F6F6F;
+  --ds-color-fg-soft: var(--ds-color-ink-soft);
+  --ds-color-fg-muted: var(--ds-color-ink-muted);
   --ds-color-fg-faint: rgba(0, 0, 0, 0.6);
   --ds-color-fg-inverse: var(--ds-color-white);
   --ds-color-fg-on-accent: var(--ds-color-white);

@@ -1,5 +1,5 @@
 {
- "$comment": "Compose recipes: ready layouts of the brand's blocks, drawn in the site's materials (its text gray, cards, buttons, ASCII tile and light images), for the graphics no template covers (display ads, cards, documents, print, email, backgrounds). `recipe <name>` writes a compose design file from one and draws it; the words are yours (--set block.slot=..., or --sample for the sample copy below, Acme only). Every recipe draws clean at its size with its sample copy (test/recipes.test.ts).",
+ "$comment": "Compose recipes: ready layouts of the brand's blocks, drawn in the site's materials (its greys, square tiles, the plate button and the 404 page's no-signal static), for the graphics no template covers (display ads, cards, documents, print, email, backgrounds). `recipe <name>` writes a compose design file from one and draws it; the words are yours (--set block.slot=..., or --sample for the sample copy below, Acme only). Every recipe draws clean at its size with its sample copy (test/recipes.test.ts).",
  "recipes": {
   "ad-300x250": {
    "group": "ad",
@@ -39,8 +39,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {}
   },
@@ -82,8 +82,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {}
   },
@@ -125,8 +125,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative.",
-    "button.text": "Start"
+    "headline.text": "Design partners.",
+    "button.text": "Book"
    },
    "options": {
     "logo.lockup": "mark"
@@ -170,8 +170,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {
     "headline.size": 20,
@@ -218,8 +218,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {
     "headline.size": 30,
@@ -230,13 +230,13 @@
   },
   "ad-300x600": {
    "group": "ad",
-   "description": "Display ad at 300x600: the lockup on top, the headline, the light and the button.",
+   "description": "Display ad at 300x600: the lockup on top, the headline, the static and the button.",
    "size": "ad-300x600",
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 6,
@@ -276,23 +276,23 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {
-    "light.variant": "ribbon",
+    "signal.variant": "band",
     "headline.size": 30
    }
   },
   "ad-160x600": {
    "group": "ad",
-   "description": "Display ad at 160x600: the lockup on top, the headline, the light and the button.",
+   "description": "Display ad at 160x600: the lockup on top, the headline, the static and the button.",
    "size": "ad-160x600",
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 6,
@@ -332,17 +332,17 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "button.text": "Book a call"
    },
    "options": {
-    "light.variant": "ribbon",
+    "signal.variant": "band",
     "headline.size": 20
    }
   },
   "meta-feed": {
    "group": "ad",
-   "description": "Meta feed ad: the light across the top, the headline, a line and the button.",
+   "description": "Meta feed ad: the static across the top, the headline, a line and the button.",
    "size": "square",
    "sizes": [
     "square",
@@ -354,18 +354,8 @@
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -415,33 +405,23 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
-    "body.text": "Search the ads every brand runs.",
-    "button.text": "Start free"
+    "headline.text": "Product design thinking and implementation.",
+    "body.text": "Brand, product and websites for YC startups.",
+    "button.text": "Book a call"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "quote-card": {
    "group": "card",
-   "description": "A quote in Funnel Display with the name and role, the light at the foot.",
+   "description": "A quote in Agencidev Sans with the name and role, the static at the foot.",
    "size": "square",
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 9,
@@ -471,12 +451,12 @@
     }
    ],
    "sample": {
-    "quote.text": "We see every launch the day it ships.",
-    "quote.name": "Alex Kim",
-    "quote.role": "Head of growth, Acme"
+    "quote.text": "They shipped our brand, product and site in one partnership.",
+    "quote.name": "Alex Rivera",
+    "quote.role": "Founder, Acme"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "stat-card": {
@@ -485,16 +465,6 @@
    "size": "square",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -516,8 +486,8 @@
      }
     },
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 9,
@@ -527,11 +497,11 @@
     }
    ],
    "sample": {
-    "stat.value": "42%",
-    "stat.label": "more launches tracked each week"
+    "stat.value": "6.06%",
+    "stat.label": "of each YC batch designed by Acme"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "launch-card": {
@@ -541,18 +511,8 @@
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -603,12 +563,12 @@
    ],
    "sample": {
     "badge.text": "New",
-    "headline.text": "Alerts for every launch.",
-    "body.text": "Know the day a brand ships a new ad.",
-    "button.text": "See what changed"
+    "headline.text": "Design systems for teams and LLMs.",
+    "body.text": "Your engineers and agents ship on-brand interfaces.",
+    "button.text": "Read more"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "feature-card": {
@@ -617,16 +577,6 @@
    "size": "square",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -669,11 +619,11 @@
     }
    ],
    "sample": {
-    "headline.text": "Search every network.",
-    "body.text": "Meta, TikTok, Instagram and YouTube in one place."
+    "headline.text": "Exploration is fast. Judgement is not.",
+    "body.text": "We explore design variants in code first, then refine them in Figma."
    },
    "options": {
-    "icon.name": "search"
+    "icon.name": "square"
    }
   },
   "comparison": {
@@ -682,16 +632,6 @@
    "size": "landscape",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -724,8 +664,8 @@
     }
    ],
    "sample": {
-    "headline.text": "Plans side by side.",
-    "table.rows": "Plan|Searches|Seats\nFree|500|1\nCreator|Unlimited|3"
+    "headline.text": "Two partnerships.",
+    "table.rows": "Partnership|Covers|Per month\nDesign|Product design, branding, strategy|$5,417\nDev|Full-stack development|$7,000 to $20,000"
    },
    "options": {}
   },
@@ -735,16 +675,6 @@
    "size": "square",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -767,10 +697,10 @@
     }
    ],
    "sample": {
-    "card.title": "Creator",
-    "card.text": "$20 a month.",
-    "card.items": "Every network|Unlimited boards",
-    "card.cta": "Start free"
+    "card.title": "Design partnership",
+    "card.text": "$5,417 a month.",
+    "card.items": "Weekly design sprints|Cancel anytime",
+    "card.cta": "Book a call"
    },
    "options": {}
   },
@@ -781,18 +711,8 @@
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -843,12 +763,12 @@
    ],
    "sample": {
     "eyebrow.text": "June 12, 10am PT",
-    "headline.text": "Reading a competitor's ads.",
+    "headline.text": "Designing for agents.",
     "body.text": "With Alex Kim, Head of growth, Acme",
     "button.text": "Save a seat"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "hiring-card": {
@@ -858,18 +778,8 @@
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 10,
@@ -919,30 +829,20 @@
     }
    ],
    "sample": {
-    "eyebrow.text": "We are hiring",
-    "headline.text": "Founding designer.",
+    "eyebrow.text": "Current openings",
+    "headline.text": "Product designer.",
     "button.text": "See the role"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "screenshot-card": {
    "group": "card",
-   "description": "A screenshot in the site's browser frame under a headline.",
+   "description": "A screenshot in the brand kit's hairline tile under a headline.",
    "size": "landscape",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -975,7 +875,7 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place."
+    "headline.text": "Product design thinking and implementation."
    },
    "options": {
     "picture.treatment": "frame"
@@ -1033,8 +933,8 @@
     "after.text": "After"
    },
    "options": {
-    "picture-1.treatment": "rounded",
-    "picture-2.treatment": "rounded"
+    "picture-1.treatment": "plain",
+    "picture-2.treatment": "plain"
    }
   },
   "chart-card": {
@@ -1043,16 +943,6 @@
    "size": "square",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -1085,7 +975,7 @@
     }
    ],
    "sample": {
-    "headline.text": "Launches this week.",
+    "headline.text": "Releases this month.",
     "chart.data": "Mon 12, Tue 18, Wed 30, Thu 26, Fri 34"
    },
    "options": {}
@@ -1096,16 +986,6 @@
    "size": "landscape",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "headline",
      "type": "headline",
@@ -1148,13 +1028,13 @@
     }
    ],
    "sample": {
-    "headline.text": "From question to answer.",
-    "step-1.title": "Ask",
-    "step-1.text": "Type a question.",
-    "step-2.title": "Search",
-    "step-2.text": "Every network at once.",
-    "step-3.title": "Act",
-    "step-3.text": "Share the board."
+    "headline.text": "How a partnership starts.",
+    "step-1.title": "Call",
+    "step-1.text": "A free strategy call.",
+    "step-2.title": "Sprint",
+    "step-2.text": "Weekly design sprints.",
+    "step-3.title": "Ship",
+    "step-3.text": "Live links, tested continuously."
    },
    "options": {}
   },
@@ -1164,16 +1044,6 @@
    "size": "landscape",
    "theme": "black",
    "blocks": [
-    {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
     {
      "id": "logo",
      "type": "logo",
@@ -1206,11 +1076,11 @@
     }
    ],
    "sample": {
-    "quote.text": "We found our next campaign in a week.",
-    "quote.name": "Alex Kim",
-    "quote.role": "Head of growth, Acme",
-    "stat.value": "3x",
-    "stat.label": "faster research"
+    "quote.text": "Our product finally looks like what it does.",
+    "quote.name": "Alex Rivera",
+    "quote.role": "Founder, Acme",
+    "stat.value": "6 weeks",
+    "stat.label": "from call to launch"
    },
    "options": {}
   },
@@ -1252,8 +1122,8 @@
     }
    ],
    "sample": {
-    "name.text": "Alex Kim",
-    "details.text": "Head of growth, Acme. alex@acme.com"
+    "name.text": "Alex Rivera",
+    "details.text": "Founder, Acme. alex@acme.com"
    },
    "options": {}
   },
@@ -1368,25 +1238,25 @@
     }
    ],
    "sample": {
-    "headline.text": "Every creative in one place.",
+    "headline.text": "Product design thinking and implementation.",
     "body.text": "Search the ads every brand runs, across every network.",
-    "stat.value": "42%",
+    "stat.value": "6.06%",
     "stat.label": "more launches tracked",
     "list.items": "Every network|Daily updates|Shared boards"
    },
    "options": {
-    "picture.treatment": "rounded"
+    "picture.treatment": "plain"
    }
   },
   "report-cover": {
    "group": "print",
-   "description": "A report cover on A4: the light and the title.",
+   "description": "A report cover on A4: the static and the title.",
    "size": "a4",
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -1426,11 +1296,11 @@
     }
    ],
    "sample": {
-    "headline.text": "The state of creative, 2026.",
+    "headline.text": "Designing for agents, 2026.",
     "eyebrow.text": "Annual report"
    },
    "options": {
-    "light.variant": "field"
+    "signal.variant": "field"
    }
   },
   "certificate": {
@@ -1482,8 +1352,8 @@
    ],
    "sample": {
     "eyebrow.text": "Certificate of completion",
-    "name.text": "Alex Kim",
-    "body.text": "Creative research, level one."
+    "name.text": "Alex Rivera",
+    "body.text": "Design systems, level one."
    },
    "options": {
     "eyebrow.align": "center",
@@ -1493,23 +1363,13 @@
   },
   "email-header": {
    "group": "email",
-   "description": "An email header: the lockup, a headline and the site's share card light at the right.",
+   "description": "An email header: the lockup, a headline and the static at the right.",
    "size": "email",
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 6,
       "row": 0,
@@ -1539,10 +1399,10 @@
     }
    ],
    "sample": {
-    "headline.text": "What changed this week."
+    "headline.text": "What we shipped this month."
    },
    "options": {
-    "light.variant": "share"
+    "signal.variant": "band"
    }
   },
   "email-signature": {
@@ -1583,8 +1443,8 @@
     }
    ],
    "sample": {
-    "name.text": "Alex Kim",
-    "details.text": "Head of growth, Acme"
+    "name.text": "Alex Rivera",
+    "details.text": "Founder, Acme"
    },
    "options": {}
   },
@@ -1595,8 +1455,8 @@
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -1636,22 +1496,22 @@
     }
    ],
    "sample": {
-    "name.text": "Alex Kim",
-    "role.text": "Head of growth, Acme"
+    "name.text": "Alex Rivera",
+    "role.text": "Founder, Acme"
    },
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "meeting-background": {
    "group": "background",
-   "description": "A video-call background: the lockup and the light at the sides, the middle clear for the person.",
+   "description": "A video-call background: the lockup and the static at the sides, the middle clear for the person.",
    "size": "meeting",
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 0,
@@ -1672,28 +1532,18 @@
    ],
    "sample": {},
    "options": {
-    "light.variant": "strip-left"
+    "signal.variant": "field"
    }
   },
   "desktop-wallpaper": {
    "group": "background",
-   "description": "A desktop wallpaper: a light ribbon and the texture with the lockup small.",
+   "description": "A desktop wallpaper: the static across the lower half, the lockup small.",
    "size": "desktop",
    "theme": "black",
    "blocks": [
     {
-     "id": "texture",
-     "type": "ascii",
-     "at": {
-      "col": 0,
-      "row": 0,
-      "cols": 12,
-      "rows": 12
-     }
-    },
-    {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 6,
@@ -1714,18 +1564,18 @@
    ],
    "sample": {},
    "options": {
-    "light.variant": "ribbon"
+    "signal.variant": "band"
    }
   },
   "phone-wallpaper": {
    "group": "background",
-   "description": "A phone wallpaper: the light across the lower half, the lockup small.",
+   "description": "A phone wallpaper: the static across the lower half, the lockup small.",
    "size": "phone-wallpaper",
    "theme": "black",
    "blocks": [
     {
-     "id": "light",
-     "type": "light",
+     "id": "signal",
+     "type": "signal",
      "at": {
       "col": 0,
       "row": 6,
@@ -1746,7 +1596,7 @@
    ],
    "sample": {},
    "options": {
-    "light.variant": "field"
+    "signal.variant": "field"
    }
   }
  }

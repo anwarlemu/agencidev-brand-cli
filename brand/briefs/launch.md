@@ -1,30 +1,30 @@
-# Boards launch
+# Design systems launch
 
 <!-- A launch on social and Google display. Run: agencidev-ds ad brand/briefs/launch.md -->
 
 ## Goal
-Launch Boards: shared folders for the ads a team is tracking.
+Launch design systems that teams and agents both use.
 
 ## Audience
-Growth marketers at mid-size brands.
+Founders and product leads at YC startups.
 
 ## Platforms
 LinkedIn, Instagram feed, Instagram story, X, Google display
 
 ## Headline
-Boards are here.
+Design systems for teams and LLMs.
 
 ## Supporting line
-Save the ads your market runs and share them with your team.
+Your engineers and agents ship on-brand interfaces from one source.
 
 ## CTA
-Try Boards
+Book a call
 
 ## Label
 New
 
 ## Look
-dark, bold, type-led, brand light
+dark, minimal, type-led, two-tone statement
 
 ## Must-haves
 - the CTA

@@ -1,38 +1,31 @@
-# Creator plan offer
+# Design partnership
 
-<!-- A price offer with a pricing card. Run: agencidev-ds ad brand/briefs/offer.md -->
+<!-- An offer with a price. Run: agencidev-ds ad brand/briefs/offer.md -->
 
 ## Goal
-Sell the Creator plan: a price offer for solo marketers.
-
-## Audience
-Freelance marketers and small agencies.
+Sell the design partnership.
 
 ## Platforms
-Instagram feed, Instagram portrait, Facebook, LinkedIn
+Instagram feed, Instagram portrait, LinkedIn
 
 ## Headline
-Stop screenshotting at midnight.
-
-## Supporting line
-Every ad in your market, saved for you.
-
-## CTA
-Start free
-
-## Offer
-$20 a month
+An embedded product team, not a vendor.
 
 ## Plan
-Creator
+Design partnership
 
-## Features
-- Every network
-- Daily updates
-- Shared boards
+## Offer
+$5,417 a month
+
+## Supporting line
+Product design, branding and strategy. Cancel anytime.
+
+## CTA
+Book a call
 
 ## Look
-dark, bold, pricing card
+dark, minimal, pricing card
 
 ## Must-haves
 - the price
+- the CTA

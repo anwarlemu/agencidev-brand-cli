@@ -1,8 +1,8 @@
 import type { BriefImage, Brief, CopyField } from './brief.js';
 import { gridOf } from '../design/compose.js';
 
-// Layouts made from the brief itself, not picked from the templates: the brief's parts (headline, stat, quote, search
-// bar, pricing card, pictures, button) laid out as compose blocks on a grid. The brief's `Layout` section says how in
+// Layouts made from the brief itself, not picked from the templates: the brief's parts (headline, stat, quote, pricing
+// card, pictures, button) laid out as compose blocks on a grid. The brief's `Layout` section says how in
 // plain words, one row per line from the top, parts side by side split by commas ("stat left, quote right"); without
 // it, three arrangements of every part the brief gives (stacked, centered, split in two columns). Every block is drawn
 // by the compose engine and checked like any other design, so what passes is on brand whatever the arrangement.
@@ -23,14 +23,13 @@ export type Arrangement = {
 	asked: boolean;
 };
 
-type Kind = 'eyebrow' | 'headline' | 'body' | 'stat' | 'quote' | 'search' | 'card' | 'list' | 'pictures' | 'chart' | 'button' | 'logo';
+type Kind = 'eyebrow' | 'headline' | 'body' | 'stat' | 'quote' | 'card' | 'list' | 'pictures' | 'chart' | 'button' | 'logo';
 type Part = { kind: Kind; count?: number; align?: 'left' | 'center' | 'right'; big?: boolean; small?: boolean };
 type Group = { parts: Part[]; pin?: 'top' | 'bottom' };
 
 const WORDS: [Kind, string[]][] = [
-	['search', ['search bar', 'search', 'prompt', 'query', 'search box']],
 	['card', ['pricing card', 'plan card', 'price card', 'card', 'pricing', 'plan', 'price', 'offer']],
-	['pictures', ['photos', 'photo', 'images', 'image', 'pictures', 'picture', 'creatives', 'creative', 'screenshots', 'screenshot', 'photo grid', 'photo row']],
+	['pictures', ['photos', 'photo', 'images', 'image', 'pictures', 'picture', 'creatives', 'creative', 'screenshots', 'screenshot', 'photo grid', 'photo row', 'rail', 'work rail', 'strips', 'work']],
 	['headline', ['headline', 'title', 'heading', 'head']],
 	['body', ['supporting line', 'supporting', 'subhead', 'body', 'line', 'text', 'copy', 'description']],
 	['eyebrow', ['label', 'eyebrow', 'kicker', 'badge', 'tag']],
@@ -56,7 +55,7 @@ function partOf(text: string): Part {
 				at = i;
 			}
 		}
-	if (!kind) throw new Error(`Layout: "${text.trim()}" names no part. Name one of: headline, supporting line, label, stat, quote, search bar, pricing card, features, photos, chart, button, logo (with left, right, center, top, bottom, big or small).`);
+	if (!kind) throw new Error(`Layout: "${text.trim()}" names no part. Name one of: headline, supporting line, label, stat, quote, pricing card, features, photos (or the rail), chart, button, logo (with left, right, center, top, bottom, big or small).`);
 	const n = /\b(\d)\b/.exec(t)?.[1];
 	const word = Object.keys(COUNTS).find((w) => t.includes(` ${w} `) && w !== 'a');
 	const align = / left /.test(t) ? 'left' : / right /.test(t) ? 'right' : / (center|centre|centered|middle) /.test(t) ? 'center' : undefined;
@@ -87,7 +86,6 @@ function partsOf(b: Brief): Part[] {
 	if (has(b, 'supporting')) out.push({ kind: 'body' });
 	if (has(b, 'stat')) out.push({ kind: 'stat' });
 	if (has(b, 'quote')) out.push({ kind: 'quote' });
-	if (has(b, 'search')) out.push({ kind: 'search' });
 	const card = has(b, 'plan') || has(b, 'offer');
 	if (card) out.push({ kind: 'card' });
 	else if (has(b, 'features')) out.push({ kind: 'list' });
@@ -100,7 +98,7 @@ const TEXT: Kind[] = ['eyebrow', 'headline', 'body'];
 const FLEX: Kind[] = ['pictures', 'chart'];
 
 /** Arrangements for one canvas: the brief's own Layout first (when it has one), else stacked, centered and split. */
-export function arrangements(b: Brief, size: string, W: number, H: number, opts: { light: boolean; texture: boolean; theme?: string }): Arrangement[] {
+export function arrangements(b: Brief, size: string, W: number, H: number, opts: { signal: boolean; rail?: boolean; statement?: boolean; theme?: string }): Arrangement[] {
 	const R = Math.max(4, Math.min(24, Math.round((12 * H) / W)));
 	const grid = { cols: 12, rows: R };
 	// The grid as the compose engine lays it (inside the platform's safe area and the margins).
@@ -135,9 +133,9 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 	if (centered) out.push(centered);
 	// Two columns: the words on the left, what shows it on the right (a stat, a quote, a card, pictures, a chart).
 	const words = body.filter((p) => TEXT.includes(p.kind));
-	const shows = body.filter((p) => !TEXT.includes(p.kind) && p.kind !== 'search');
+	const shows = body.filter((p) => !TEXT.includes(p.kind));
 	if (shows.length && words.length && W / H > 0.55) {
-		const split = build('split', 'two columns', [{ parts: [{ kind: 'headline', count: -1 }, ...shows.slice(0, 1)] }, ...shows.slice(1).map((p) => ({ parts: [p] })), ...body.filter((p) => p.kind === 'search').map((p) => ({ parts: [p] }))], button && { parts: [button] }, 'left', false, words);
+		const split = build('split', 'two columns', [{ parts: [{ kind: 'headline', count: -1 }, ...shows.slice(0, 1)] }, ...shows.slice(1).map((p) => ({ parts: [p] }))], button && { parts: [button] }, 'left', false, words);
 		if (split) out.push(split);
 	}
 	return out;
@@ -163,13 +161,14 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 		const logoAsked = logoPart ? groupsIn.find((x) => x.parts.includes(logoPart))?.pin : undefined;
 		const groups = groupsIn.map((x) => ({ ...x, parts: x.parts.filter((p) => p.kind !== 'logo') })).filter((x) => x.parts.length);
 
-		// The swoosh from the top edge when the words sit under it (centered, tall canvases, no search bar to carry the
-		// light); the logo then stands at the foot, as the feed ads set it, unless the layout puts it at the top.
-		const hasSearch = groups.some((x) => x.parts.some((p) => p.kind === 'search'));
-		const swoosh = opts.light && !hasSearch && !wide && H / W >= 1.2 && (align === 'center' || asked) && logoAsked !== 'top';
-		const logoFoot = logoAsked === 'bottom' || swoosh;
-		// Under the swoosh: below its left tail (about 30% of the width down).
-		const top0 = swoosh ? Math.max(logoFoot ? 0 : 1, Math.ceil((0.31 * W - cell0.y) / rowPx)) : logoFoot ? 0 : 1;
+		// The no-signal static, as the 404 page sets it: the band across the upper part of the canvas (under the logo's row),
+		// the words under it. On a wide canvas there is no room for both: the static is left to the templates there.
+		const band = opts.signal && !wide;
+		const logoFoot = logoAsked === 'bottom';
+		const bandRows = band ? Math.max(2, Math.round(R * (H / W >= 1.6 ? 0.36 : 0.32))) : 0;
+		const top0 = (logoFoot ? 0 : 1) + bandRows;
+		// The two-tone statement: the supporting line runs on after the headline, on its lines, in mid.
+		const statement = Boolean(opts.statement && has(b, 'headline') && has(b, 'supporting'));
 		const end = R - (foot || logoFoot ? 1 : 0);
 
 		// The rows each group needs.
@@ -179,14 +178,13 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 			const lines = (text: string | undefined, size: number) => Math.max(1, Math.ceil(((text?.length ?? 20) * size * 0.56) / w));
 			switch (p.kind) {
 				case 'eyebrow': return rowsFor(28);
-				case 'headline': { const s = (wide ? 48 : 56) * k; return rowsFor(lines(b.copy.headline, s) * (s + 4) + 24); }
-				case 'body': return rowsFor(lines(b.copy.supporting, 24) * 32 + 8);
+				case 'headline': { const s = (wide ? 44 : 56) * k; return rowsFor(lines(statement ? `${b.copy.headline} ${b.copy.supporting}` : b.copy.headline, s) * s * 1.14 + 24); }
+				case 'body': return statement ? 0 : rowsFor(lines(b.copy.supporting, 24) * 36 + 8);
 				case 'stat': return rowsFor(220 * k);
-				case 'quote': return rowsFor(lines(b.copy.quote, 44 * k) * 48 * k + 84);
-				case 'search': return rowsFor(opts.light ? 240 : 88);
+				case 'quote': return rowsFor(lines(b.copy.quote, 44 * k) * 50 * k + 96);
 				case 'card': { const items = (b.copy.features ?? '').split('|').filter((s) => s.trim()).length; return rowsFor(40 + 44 + 56 + (has(b, 'offer') ? 48 : 0) + items * 44 + (has(b, 'cta') ? 104 : 0) + 40); }
 				case 'list': { const items = (b.copy.features ?? '').split('|').filter((s) => s.trim()).length; return rowsFor(items * 44); }
-				case 'pictures': return rowsFor((p.big ? 460 : 300) * (story ? 1.2 : 1));
+				case 'pictures': return rowsFor((opts.rail ? 420 : p.big ? 460 : 300) * (story ? 1.2 : 1));
 				case 'chart': return rowsFor(300);
 				case 'button': return 1;
 				default: return 1;
@@ -196,8 +194,10 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 		const colHeight = column ? column.reduce((s, p) => s + heightOf(p, 6), 0) + Math.max(0, column.length - 1) * 0 : 0;
 		const rowsOf = (x: Group) => Math.max(...x.parts.map((p) => (p.count === -1 ? colHeight : heightOf(p, Math.floor(12 / x.parts.length)))));
 		const need = groups.map(rowsOf);
+		// A two-tone statement carries the supporting line: its own row closes up.
+		for (let i = need.length - 1; i >= 0; i--) if (need[i] === 0) { need.splice(i, 1); groups.splice(i, 1); }
 		let room = end - top0;
-		const air = !logoFoot && !swoosh ? 1 : 0;
+		const air = !logoFoot && !band ? 1 : 0;
 		let gap = 1;
 		const total = () => need.reduce((s, n) => s + n, 0) + gap * Math.max(0, groups.length - 1);
 		if (total() + air <= room) room -= air;
@@ -236,12 +236,10 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 			row += h + gap;
 		});
 
-		// The texture under everything, the logo, the foot.
-		if (opts.texture) blocks.unshift({ id: 'texture', type: 'ascii', at: { col: 0, row: 0, cols: 12, rows: R } }), (options['texture.density'] = 1);
-		if (swoosh) {
-			const lh = W * (1100 / 2160);
-			blocks.splice(opts.texture ? 1 : 0, 0, { id: 'light', type: 'light', at: { col: 0, row: 0, cols: 12, rows: Math.min(R, rowsFor(lh / u)) } });
-			options['light.geometry'] = JSON.stringify({ W0: W, H0: H, art: 'ad-swoosh', box: [0, 0, W, lh] });
+		// The static under the logo's row, edge to edge; the logo; the foot.
+		if (band) {
+			blocks.unshift({ id: 'signal', type: 'signal', at: { col: 0, row: logoFoot ? 0 : 1, cols: 12, rows: bandRows } });
+			options['signal.variant'] = 'band';
 		}
 		blocks.push({ id: 'logo', type: 'logo', at: { col: 0, row: logoFoot ? R - 1 : 0, cols: Math.max(2, Math.round((230 * u) / (cell0.w + g))), rows: 1 } });
 		if (foot) {
@@ -250,7 +248,7 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 			const center = !logoFoot && (p.align === 'center' || align === 'center');
 			place(p, { col: right ? 8 : center ? 4 : 0, row: R - 1, cols: 4, rows: 1 }, right ? 'right' : center ? 'center' : 'left');
 		}
-		if (blocks.filter((x) => !['ascii', 'light', 'logo'].includes(x.type)).length === 0) return undefined;
+		if (blocks.filter((x) => !['signal', 'logo'].includes(x.type)).length === 0) return undefined;
 		return { id, name, grid, blocks, copy, options, pictures, draws: [...draws], asked };
 
 		function widthOf(p: Part): number {
@@ -293,12 +291,13 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 				case 'headline': {
 					const id = idFor('headline');
 					if (!set(id, 'text', 'headline')) break;
+					if (statement) set(id, 'rest', 'supporting');
 					blocks.push({ id, type: 'headline', at });
-					options[`${id}.size`] = Math.round((wide ? 48 : 56) * (p.big ? 1.3 : p.small ? 0.8 : 1) * u);
+					options[`${id}.size`] = Math.round((wide ? 44 : 56) * (p.big ? 1.3 : p.small ? 0.8 : 1) * u);
 					align(id);
 					break;
 				}
-				case 'body': { const id = idFor('body'); if (set(id, 'text', 'supporting')) { blocks.push({ id, type: 'body', at }); options[`${id}.size`] = Math.round(24 * u); align(id); } break; }
+				case 'body': { if (statement) break; const id = idFor('body'); if (set(id, 'text', 'supporting')) { blocks.push({ id, type: 'body', at }); options[`${id}.size`] = Math.round(24 * u); align(id); } break; }
 				case 'stat': {
 					const id = idFor('stat');
 					const [value, ...label] = (b.copy.stat ?? '').split('|');
@@ -319,21 +318,6 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 					align(id);
 					break;
 				}
-				case 'search': {
-					const id = idFor('search');
-					if (!set(id, 'text', 'search')) break;
-					if (opts.light) {
-						// The pale band behind the bar, edge to edge, as the feed ads set it.
-						const lid = idFor('light');
-						blocks.push({ id: lid, type: 'light', at: { ...at, col: 0, cols: 12 } });
-						options[`${lid}.variant`] = 'ad-band';
-					}
-					const sr = Math.min(at.rows, rowsFor(88));
-					const mid = at.row + Math.floor((at.rows - sr) / 2);
-					blocks.push({ id, type: 'search', at: { col: 0, row: mid, cols: 12, rows: sr } });
-					options[`${id}.key`] = 'Search';
-					break;
-				}
 				case 'card': {
 					const id = idFor('card');
 					let any = set(id, 'title', 'plan');
@@ -345,14 +329,14 @@ export function arrangements(b: Brief, size: string, W: number, H: number, opts:
 				}
 				case 'list': { const id = idFor('list'); if (b.copy.features?.trim() && set(id, 'items', 'features', b.copy.features.split('|').map((s) => s.trim()).filter(Boolean).join('|'))) { blocks.push({ id, type: 'list', at }); align(id); } break; }
 				case 'pictures': {
-					const n = Math.max(1, Math.min(p.count ?? images.length, images.length, 4));
+					// The work rail: portrait strips two columns wide, side by side across the canvas; else up to four pictures.
+					const n = Math.max(1, Math.min(p.count ?? images.length, images.length, opts.rail ? 6 : 4));
 					if (!images.length) break;
-					const each = Math.floor((at.cols + 1) / n);
+					const each = opts.rail ? 2 : Math.floor((at.cols + 1) / n);
 					for (let i = 0; i < n; i++) {
 						const id = idFor('picture');
 						pictures[id] = images[i]!;
-						blocks.push({ id, type: 'picture', at: { col: at.col + i * each, row: at.row, cols: i === n - 1 ? at.cols - i * each : each - (n > 1 ? 0 : 0), rows: at.rows } });
-						options[`${id}.treatment`] = 'rounded';
+						blocks.push({ id, type: 'picture', at: { col: at.col + i * each, row: at.row, cols: opts.rail ? each : i === n - 1 ? at.cols - i * each : each, rows: at.rows } });
 					}
 					images = images.slice(n);
 					break;

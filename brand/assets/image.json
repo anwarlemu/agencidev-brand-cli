@@ -12,8 +12,7 @@
     "body": "We help YC startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.",
     "stat": "YC26 startups each batch designed by Agencidev:",
     "figure": "6.06%",
-    "url": "{domain}",
-    "page": ""
+    "url": "{domain}"
    },
    "required": [
     "headline"
@@ -21,9 +20,7 @@
    "logoAnchors": [
     "top-left",
     "top",
-    "top-right",
-    "bottom-left",
-    "bottom-right"
+    "top-right"
    ],
    "aliases": {
     "rest": "body"
@@ -62,16 +59,14 @@
     "body": "We help YC startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.",
     "stat": "",
     "figure": "",
-    "url": "{domain}",
-    "page": ""
+    "url": "{domain}"
    },
    "required": [
     "headline"
    ],
    "logoAnchors": [
     "top-left",
-    "top-right",
-    "bottom-right"
+    "top-right"
    ],
    "aliases": {
     "rest": "body"
@@ -102,16 +97,12 @@
     "headline": "Page not found.",
     "body": "The content you're looking for doesn't exist or has been moved.",
     "cta": "Back home",
-    "url": "{domain}",
-    "page": ""
+    "url": "{domain}"
    },
    "required": [
     "headline"
    ],
    "logoAnchors": [
-    "top-left",
-    "top",
-    "top-right",
     "bottom-left",
     "bottom-right"
    ],
@@ -146,8 +137,7 @@
     "headline": "Our bets:",
     "body": "Companies don't want designers to implement styles or design. They'd much rather use AI to do it themselves, faster and cheaper. | Products and websites need to be geared for agent usage.",
     "close": "This is why we build design systems for both teams and LLMs.",
-    "url": "{domain}",
-    "page": ""
+    "url": "{domain}"
    },
    "required": [
     "headline",
@@ -305,7 +295,9 @@
     "linkedin-square",
     "pinterest",
     "facebook",
-    "phone-wallpaper"
+    "phone-wallpaper",
+    "linkedin",
+    "landscape"
    ]
   },
   {
@@ -358,9 +350,6 @@
     "headline"
    ],
    "logoAnchors": [
-    "top-left",
-    "top",
-    "top-right",
     "bottom-left",
     "bottom-right"
    ],
@@ -371,7 +360,9 @@
     "linkedin-square",
     "pinterest",
     "facebook",
-    "phone-wallpaper"
+    "phone-wallpaper",
+    "linkedin",
+    "landscape"
    ]
   },
   {
@@ -402,7 +393,9 @@
     "linkedin-square",
     "pinterest",
     "facebook",
-    "phone-wallpaper"
+    "phone-wallpaper",
+    "linkedin",
+    "landscape"
    ]
   },
   {
