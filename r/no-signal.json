@@ -1,0 +1,249 @@
+{
+  "name": "no-signal",
+  "title": "No signal",
+  "type": "registry:ui",
+  "group": "visuals",
+  "description": "The 404 page's no-signal static as a box: a dead channel's charcoal static and grain, with the glitch band rolling up through it and revealing white. It runs at about twenty frames a second and holds still under reduced motion.",
+  "use_for": "A not-found or error page, an announcement's ground, a sting's background: the brand's one expressive surface.",
+  "never": [
+    "Words on the band: they sit under it, as the 404 page sets them",
+    "Color: the static is monochrome by construction",
+    "More than one on a page, or behind long reading"
+  ],
+  "source": "components/no-signal-404.tsx and lib/no-signal-engine.ts (NOISE_FRAGMENT: the liquid warp, the rolling band, the tone roll, the scanlines; the grain canvas at a third of the screen, overlaid at 50%), run on the CPU by lib/signal.ts.",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/visuals/NoSignal.tsx",
+      "content": "'use client'\nimport { useEffect, useRef, type HTMLAttributes } from 'react'\nimport { runNoSignal } from '@/lib/no-signal'\nimport { cn } from '@/react/lib/cn'\n\n// The 404 page's no-signal static (components/no-signal-404.tsx, lib/no-signal-engine.ts) as a box: a dead channel's\n// charcoal static with its grain, and the glitch band that rolls up through it revealing white (`band`, the default).\n// It fills the box it is given; put words over it (they sit under the band, as the 404 page sets \"Page not found\").\n// It runs at about twenty frames a second on a canvas a third of the box's pixels, and holds still under reduced\n// motion or with `still`. Monochrome by construction.\nexport interface NoSignalProps extends HTMLAttributes<HTMLDivElement> {\n  /** The glitch band rolling through (default), or only the static. */\n  band?: boolean\n  /** Holds the first frame instead of running. */\n  still?: boolean\n  /** The grain's seed. */\n  seed?: number\n}\n\nexport function NoSignal({ band = true, still = false, seed = 0, className, children, ...rest }: NoSignalProps) {\n  const canvas = useRef<HTMLCanvasElement>(null)\n  useEffect(() => (canvas.current ? runNoSignal(canvas.current, { band, animate: !still, seed }) : undefined), [band, still, seed])\n  return (\n    <div data-ds=\"no-signal\" className={cn('isolate block overflow-hidden bg-surface-sunken', !/\\b(absolute|fixed|sticky)\\b/.test(className ?? '') && 'relative', className)} {...rest}>\n      <canvas ref={canvas} aria-hidden=\"true\" className=\"absolute inset-0 -z-1 size-full\" />\n      {children}\n    </div>\n  )\n}\n\nexport default NoSignal\n"
+    },
+    {
+      "path": "lib/no-signal.ts",
+      "content": "// The no-signal static on a canvas, shared by both flavors: a third of the box's pixels (the site's grain canvas is a\n// third of the screen's), redrawn about twenty times a second while it runs. `band` rolls the glitch band up through\n// the box as the 404 page does; without it only the static and its grain run. A still frame when it should not move\n// (reduced motion, or animate off). Framework-free.\nimport { signalFrame, SIGNAL_BAND_TIME, SIGNAL_FIELD_TIME } from '@/lib/signal'\n\nexport type NoSignalOptions = { band: boolean; animate: boolean; seed: number }\n\n/** Starts drawing into `canvas`; returns the function that stops it. */\nexport function runNoSignal(canvas: HTMLCanvasElement, o: NoSignalOptions): () => void {\n\tconst ctx = canvas.getContext('2d')\n\tif (!ctx) return () => {}\n\tconst base = o.band ? SIGNAL_BAND_TIME : SIGNAL_FIELD_TIME\n\tlet w = 0\n\tlet h = 0\n\tlet image: ImageData | undefined\n\tlet raf = 0\n\tlet last = 0\n\tconst start = performance.now()\n\tconst draw = (s: number) => {\n\t\tif (!image) return\n\t\t// The band rolls on real time; the static's flow and grain run on it too.\n\t\tconst time = o.band ? base + s : base\n\t\timage.data.set(signalFrame(w, h, { time, warp: base + s, frame: Math.floor(s * 10), seed: o.seed, density: 1 / 3, band: o.band }))\n\t\tctx.putImageData(image, 0, 0)\n\t}\n\tconst size = () => {\n\t\tconst box = canvas.getBoundingClientRect()\n\t\tw = Math.max(1, Math.min(480, Math.round(box.width / 3)))\n\t\th = Math.max(1, Math.round((w * box.height) / Math.max(1, box.width)))\n\t\tcanvas.width = w\n\t\tcanvas.height = h\n\t\timage = ctx.createImageData(w, h)\n\t}\n\tsize()\n\tdraw(0)\n\tconst observer = new ResizeObserver(() => {\n\t\tsize()\n\t\tdraw((performance.now() - start) / 1000)\n\t})\n\tobserver.observe(canvas)\n\tconst still = !o.animate || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches)\n\tif (!still) {\n\t\tconst tick = (now: number) => {\n\t\t\traf = requestAnimationFrame(tick)\n\t\t\tif (now - last < 50) return\n\t\t\tlast = now\n\t\t\tdraw((now - start) / 1000)\n\t\t}\n\t\traf = requestAnimationFrame(tick)\n\t}\n\treturn () => {\n\t\tcancelAnimationFrame(raf)\n\t\tobserver.disconnect()\n\t}\n}\n"
+    },
+    {
+      "path": "lib/signal.ts",
+      "content": "// The site's \"no signal\" static, framework-free: the 404 page's dead-channel field (AGD lib/no-signal-engine.ts,\n// NOISE_FRAGMENT) and its grain canvas (components/no-signal-404.tsx: uniform noise at a third of the screen's pixels,\n// overlaid at 50%), line for line on the CPU. The component draws it into a canvas; the CLI's image, illustrate and\n// video commands draw the same frames (bundled into build/generators/signal.mjs), so a seed gives the same picture.\n//\n// Monochrome by construction: a charcoal base, a grey tone roll, and the glitch band that rolls up the screen and\n// reveals white through the black.\n\nconst fract = (x: number) => x - Math.floor(x)\nconst rand = (x: number, y: number) => fract(Math.sin(x * 12.9898 + y * 78.233) * 43758.5453123)\nconst smooth = (a: number, b: number, x: number) => {\n\tconst t = Math.min(1, Math.max(0, (x - a) / (b - a)))\n\treturn t * t * (3 - 2 * t)\n}\nconst mix = (a: number, b: number, t: number) => a + (b - a) * t\n\n/** The time the band's middle crosses the frame's middle (bandPos 0.09 at uv.y 0.5). */\nexport const SIGNAL_BAND_TIME = (0.4 - 0.09) / 0.12\n/** Half a roll on, where the band is at its farthest from the middle (`band: false` takes it out altogether). */\nexport const SIGNAL_FIELD_TIME = SIGNAL_BAND_TIME + 4.2\n/** One full roll of the band (bandPos runs 0 to 1 as time runs 1 / 0.12 seconds). */\nexport const SIGNAL_ROLL = 1 / 0.12\n\nexport interface SignalOptions {\n\t/** Seconds into the loop: picks where the band is and the frame of the static. Default: the band across the middle. */\n\ttime?: number\n\t/** The time the field's flow (its warp, tone roll, tear and scanlines) is drawn at; default `time`. A loop holds the\n\t * band's roll on `time` and swings this back and forth, so its last frame meets its first. */\n\twarp?: number\n\t/** Which frame of the grain and the row jitter (default: tenths of a second into `time`). */\n\tframe?: number\n\t/** The grain's seed (a different speckle per seed). */\n\tseed?: number\n\t/** The grain overlay (default true). */\n\tgrain?: boolean\n\t/** The glitch band (default true); false leaves only the static, its tone roll and grain. */\n\tband?: boolean\n\t/** How many frame pixels one screen pixel is: the grain cell is three screen pixels (default 1.5, a 1440 page on a\n\t * 2160 frame). */\n\tdensity?: number\n}\n\n/** One frame of the static as gray RGBA pixels, `width` by `height`. */\nexport function signalFrame(width: number, height: number, o: SignalOptions = {}): Uint8ClampedArray {\n\tconst W = Math.max(1, Math.round(width))\n\tconst H = Math.max(1, Math.round(height))\n\tconst time = o.time ?? SIGNAL_BAND_TIME\n\tconst warp = o.warp ?? time\n\tconst seed = o.seed ?? 0\n\tconst cell = 3 * (o.density ?? 1.5)\n\tconst grainOn = o.grain !== false\n\tconst bandOn = o.band !== false\n\tconst out = new Uint8ClampedArray(W * H * 4)\n\tconst t = o.frame ?? Math.floor(time * 10)\n\tfor (let py = 0; py < H; py++) {\n\t\tconst vy = 1 - (py + 0.5) / H\n\t\tfor (let px = 0; px < W; px++) {\n\t\t\tconst vx = (px + 0.5) / W\n\t\t\tlet ux = vx\n\t\t\tlet uy = vy\n\t\t\tux += Math.sin(uy * 6 + warp * 1.1) * 0.022 + Math.sin(uy * 13 - warp * 0.7) * 0.012 + Math.sin(ux * 4 + warp * 0.6) * 0.01\n\t\t\tuy += Math.sin(vx * 5 - warp * 0.9) * 0.016 + Math.cos(vy * 9 + warp * 1.3) * 0.01\n\t\t\tconst line = Math.floor((uy * H) / 3)\n\t\t\tconst jitter = (rand(line, t) - 0.5) * 0.015\n\t\t\tconst bandPos = fract(uy * 0.8 - time * 0.12)\n\t\t\tconst band = bandOn ? smooth(0, 0.06, bandPos) * smooth(0.34, 0.12, bandPos) : 0\n\t\t\tconst wave = Math.sin(uy * 7 - warp * 3) * 0.16 + Math.sin(uy * 23 - warp * 6) * 0.05\n\t\t\tconst chaos = (rand(line * 0.37, t) - 0.5) * 0.22\n\t\t\tconst x = ux + jitter + (wave + chaos) * band\n\t\t\tconst tone = Math.sin(x * 6.2831 + warp * 0.4) * 0.5 + 0.5\n\t\t\tlet col = mix(0.03, 0.085, tone)\n\t\t\tcol *= mix(0.78, 1.08, smooth(1.1, 0.18, Math.abs(uy - 0.5)))\n\t\t\tcol = mix(col, 0.92, band * Math.min(1, Math.max(0, Math.abs(wave + chaos) * 3.5)))\n\t\t\tconst gF = rand(Math.floor(vx * W * 0.85) + t * 2.3, Math.floor(vy * H * 0.85) + t * 2.3) - 0.5\n\t\t\tconst gC = rand(Math.floor(vx * W * 0.18) + t * 0.9, Math.floor(vy * H * 0.32) + t * 0.9) - 0.5\n\t\t\tlet tint = mix(0.012, 0.3, gF * 0.55 + gC * 0.45 + 0.5)\n\t\t\ttint = mix(tint, 0.92, band * 0.4)\n\t\t\tcol = mix(col, tint, 0.14 + band * 0.18)\n\t\t\tcol *= 0.9 + 0.06 * Math.sin(vy * H * 1.35) + 0.04 * Math.sin(vy * H * 0.42 - warp * 6.5)\n\t\t\tcol += 0.018 * Math.sin(vy * 140 - warp * 11 + gC * 4) * (0.3 + band * 0.7)\n\t\t\tlet b = Math.min(1, Math.max(0, col))\n\t\t\tif (grainOn) {\n\t\t\t\tconst g = rand(Math.floor(px / cell) * 1.37 + 11.1 + seed * 17.3 + t * 0.61, Math.floor(py / cell) * 0.71 + 3.3 + seed * 5.9)\n\t\t\t\tb = mix(b, b < 0.5 ? 2 * b * g : 1 - 2 * (1 - b) * (1 - g), 0.5)\n\t\t\t}\n\t\t\tconst v = Math.round(b * 255)\n\t\t\tconst i = (py * W + px) * 4\n\t\t\tout[i] = out[i + 1] = out[i + 2] = v\n\t\t\tout[i + 3] = 255\n\t\t}\n\t}\n\treturn out\n}\n\n/** Where a frame is lit (a cell whose brightest pixel passes `lit`, 0 to 255), in `cell`-pixel runs along each row:\n * what copy and the logo keep clear of. */\nexport function signalInk(pixels: Uint8ClampedArray, width: number, height: number, cell = 16, lit = 96): [number, number, number, number][] {\n\tconst ink: [number, number, number, number][] = []\n\tfor (let y = 0; y < height; y += cell) {\n\t\tlet run: [number, number, number, number] | undefined\n\t\tfor (let x = 0; x < width; x += cell) {\n\t\t\tlet on = false\n\t\t\tfor (let yy = y; yy < Math.min(height, y + cell) && !on; yy += 2)\n\t\t\t\tfor (let xx = x; xx < Math.min(width, x + cell); xx += 2) if (pixels[(yy * width + xx) * 4]! > lit) { on = true; break }\n\t\t\tif (on) run ? (run[2] += cell) : ink.push((run = [x, y, cell, cell]))\n\t\t\telse run = undefined\n\t\t}\n\t}\n\treturn ink\n}\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "NotFound",
+      "label": "The 404 composition",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/no-signal/NotFound.tsx",
+      "content": "import { NoSignal } from '@/react/components/visuals/NoSignal'\nimport { Button } from '@/react/components/ui/Button'\n// The 404 page's composition: the static behind, the head and line centered under the band.\n\nexport default function NotFound() {\n  return (\n    <NoSignal still className=\"flex h-120 w-full flex-col items-center justify-end px-6 pb-16 text-center\">\n      <h2 className=\"type-section text-fg\">Page not found.</h2>\n      <p className=\"mt-6 max-w-72 type-ui text-fg-soft\">The content you're looking for doesn't exist or has been moved.</p>\n      <Button href=\"#\" variant=\"secondary\" className=\"mt-6\">Back home</Button>\n    </NoSignal>\n  )\n}\n",
+      "requires": [
+        "button"
+      ],
+      "packages": []
+    },
+    {
+      "name": "Field",
+      "label": "The static alone",
+      "center": true,
+      "half": false,
+      "path": "react/examples/no-signal/Field.tsx",
+      "content": "import { NoSignal } from '@/react/components/visuals/NoSignal'\n// The static alone, without the band: a quiet ground for a tile.\n\nexport default function Field() {\n  return <NoSignal band={false} still className=\"h-64 w-96 max-w-full\" />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/visuals/NoSignal.tsx",
+          "content": "'use client'\nimport { useEffect, useRef, type HTMLAttributes } from 'react'\nimport { runNoSignal } from '@/lib/no-signal'\nimport { cn } from '@/react/lib/cn'\n\n// The 404 page's no-signal static (components/no-signal-404.tsx, lib/no-signal-engine.ts) as a box: a dead channel's\n// charcoal static with its grain, and the glitch band that rolls up through it revealing white (`band`, the default).\n// It fills the box it is given; put words over it (they sit under the band, as the 404 page sets \"Page not found\").\n// It runs at about twenty frames a second on a canvas a third of the box's pixels, and holds still under reduced\n// motion or with `still`. Monochrome by construction.\nexport interface NoSignalProps extends HTMLAttributes<HTMLDivElement> {\n  /** The glitch band rolling through (default), or only the static. */\n  band?: boolean\n  /** Holds the first frame instead of running. */\n  still?: boolean\n  /** The grain's seed. */\n  seed?: number\n}\n\nexport function NoSignal({ band = true, still = false, seed = 0, className, children, ...rest }: NoSignalProps) {\n  const canvas = useRef<HTMLCanvasElement>(null)\n  useEffect(() => (canvas.current ? runNoSignal(canvas.current, { band, animate: !still, seed }) : undefined), [band, still, seed])\n  return (\n    <div data-ds=\"no-signal\" className={cn('isolate block overflow-hidden bg-surface-sunken', !/\\b(absolute|fixed|sticky)\\b/.test(className ?? '') && 'relative', className)} {...rest}>\n      <canvas ref={canvas} aria-hidden=\"true\" className=\"absolute inset-0 -z-1 size-full\" />\n      {children}\n    </div>\n  )\n}\n\nexport default NoSignal\n"
+        },
+        {
+          "path": "lib/no-signal.ts",
+          "content": "// The no-signal static on a canvas, shared by both flavors: a third of the box's pixels (the site's grain canvas is a\n// third of the screen's), redrawn about twenty times a second while it runs. `band` rolls the glitch band up through\n// the box as the 404 page does; without it only the static and its grain run. A still frame when it should not move\n// (reduced motion, or animate off). Framework-free.\nimport { signalFrame, SIGNAL_BAND_TIME, SIGNAL_FIELD_TIME } from '@/lib/signal'\n\nexport type NoSignalOptions = { band: boolean; animate: boolean; seed: number }\n\n/** Starts drawing into `canvas`; returns the function that stops it. */\nexport function runNoSignal(canvas: HTMLCanvasElement, o: NoSignalOptions): () => void {\n\tconst ctx = canvas.getContext('2d')\n\tif (!ctx) return () => {}\n\tconst base = o.band ? SIGNAL_BAND_TIME : SIGNAL_FIELD_TIME\n\tlet w = 0\n\tlet h = 0\n\tlet image: ImageData | undefined\n\tlet raf = 0\n\tlet last = 0\n\tconst start = performance.now()\n\tconst draw = (s: number) => {\n\t\tif (!image) return\n\t\t// The band rolls on real time; the static's flow and grain run on it too.\n\t\tconst time = o.band ? base + s : base\n\t\timage.data.set(signalFrame(w, h, { time, warp: base + s, frame: Math.floor(s * 10), seed: o.seed, density: 1 / 3, band: o.band }))\n\t\tctx.putImageData(image, 0, 0)\n\t}\n\tconst size = () => {\n\t\tconst box = canvas.getBoundingClientRect()\n\t\tw = Math.max(1, Math.min(480, Math.round(box.width / 3)))\n\t\th = Math.max(1, Math.round((w * box.height) / Math.max(1, box.width)))\n\t\tcanvas.width = w\n\t\tcanvas.height = h\n\t\timage = ctx.createImageData(w, h)\n\t}\n\tsize()\n\tdraw(0)\n\tconst observer = new ResizeObserver(() => {\n\t\tsize()\n\t\tdraw((performance.now() - start) / 1000)\n\t})\n\tobserver.observe(canvas)\n\tconst still = !o.animate || (typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches)\n\tif (!still) {\n\t\tconst tick = (now: number) => {\n\t\t\traf = requestAnimationFrame(tick)\n\t\t\tif (now - last < 50) return\n\t\t\tlast = now\n\t\t\tdraw((now - start) / 1000)\n\t\t}\n\t\traf = requestAnimationFrame(tick)\n\t}\n\treturn () => {\n\t\tcancelAnimationFrame(raf)\n\t\tobserver.disconnect()\n\t}\n}\n"
+        },
+        {
+          "path": "lib/signal.ts",
+          "content": "// The site's \"no signal\" static, framework-free: the 404 page's dead-channel field (AGD lib/no-signal-engine.ts,\n// NOISE_FRAGMENT) and its grain canvas (components/no-signal-404.tsx: uniform noise at a third of the screen's pixels,\n// overlaid at 50%), line for line on the CPU. The component draws it into a canvas; the CLI's image, illustrate and\n// video commands draw the same frames (bundled into build/generators/signal.mjs), so a seed gives the same picture.\n//\n// Monochrome by construction: a charcoal base, a grey tone roll, and the glitch band that rolls up the screen and\n// reveals white through the black.\n\nconst fract = (x: number) => x - Math.floor(x)\nconst rand = (x: number, y: number) => fract(Math.sin(x * 12.9898 + y * 78.233) * 43758.5453123)\nconst smooth = (a: number, b: number, x: number) => {\n\tconst t = Math.min(1, Math.max(0, (x - a) / (b - a)))\n\treturn t * t * (3 - 2 * t)\n}\nconst mix = (a: number, b: number, t: number) => a + (b - a) * t\n\n/** The time the band's middle crosses the frame's middle (bandPos 0.09 at uv.y 0.5). */\nexport const SIGNAL_BAND_TIME = (0.4 - 0.09) / 0.12\n/** Half a roll on, where the band is at its farthest from the middle (`band: false` takes it out altogether). */\nexport const SIGNAL_FIELD_TIME = SIGNAL_BAND_TIME + 4.2\n/** One full roll of the band (bandPos runs 0 to 1 as time runs 1 / 0.12 seconds). */\nexport const SIGNAL_ROLL = 1 / 0.12\n\nexport interface SignalOptions {\n\t/** Seconds into the loop: picks where the band is and the frame of the static. Default: the band across the middle. */\n\ttime?: number\n\t/** The time the field's flow (its warp, tone roll, tear and scanlines) is drawn at; default `time`. A loop holds the\n\t * band's roll on `time` and swings this back and forth, so its last frame meets its first. */\n\twarp?: number\n\t/** Which frame of the grain and the row jitter (default: tenths of a second into `time`). */\n\tframe?: number\n\t/** The grain's seed (a different speckle per seed). */\n\tseed?: number\n\t/** The grain overlay (default true). */\n\tgrain?: boolean\n\t/** The glitch band (default true); false leaves only the static, its tone roll and grain. */\n\tband?: boolean\n\t/** How many frame pixels one screen pixel is: the grain cell is three screen pixels (default 1.5, a 1440 page on a\n\t * 2160 frame). */\n\tdensity?: number\n}\n\n/** One frame of the static as gray RGBA pixels, `width` by `height`. */\nexport function signalFrame(width: number, height: number, o: SignalOptions = {}): Uint8ClampedArray {\n\tconst W = Math.max(1, Math.round(width))\n\tconst H = Math.max(1, Math.round(height))\n\tconst time = o.time ?? SIGNAL_BAND_TIME\n\tconst warp = o.warp ?? time\n\tconst seed = o.seed ?? 0\n\tconst cell = 3 * (o.density ?? 1.5)\n\tconst grainOn = o.grain !== false\n\tconst bandOn = o.band !== false\n\tconst out = new Uint8ClampedArray(W * H * 4)\n\tconst t = o.frame ?? Math.floor(time * 10)\n\tfor (let py = 0; py < H; py++) {\n\t\tconst vy = 1 - (py + 0.5) / H\n\t\tfor (let px = 0; px < W; px++) {\n\t\t\tconst vx = (px + 0.5) / W\n\t\t\tlet ux = vx\n\t\t\tlet uy = vy\n\t\t\tux += Math.sin(uy * 6 + warp * 1.1) * 0.022 + Math.sin(uy * 13 - warp * 0.7) * 0.012 + Math.sin(ux * 4 + warp * 0.6) * 0.01\n\t\t\tuy += Math.sin(vx * 5 - warp * 0.9) * 0.016 + Math.cos(vy * 9 + warp * 1.3) * 0.01\n\t\t\tconst line = Math.floor((uy * H) / 3)\n\t\t\tconst jitter = (rand(line, t) - 0.5) * 0.015\n\t\t\tconst bandPos = fract(uy * 0.8 - time * 0.12)\n\t\t\tconst band = bandOn ? smooth(0, 0.06, bandPos) * smooth(0.34, 0.12, bandPos) : 0\n\t\t\tconst wave = Math.sin(uy * 7 - warp * 3) * 0.16 + Math.sin(uy * 23 - warp * 6) * 0.05\n\t\t\tconst chaos = (rand(line * 0.37, t) - 0.5) * 0.22\n\t\t\tconst x = ux + jitter + (wave + chaos) * band\n\t\t\tconst tone = Math.sin(x * 6.2831 + warp * 0.4) * 0.5 + 0.5\n\t\t\tlet col = mix(0.03, 0.085, tone)\n\t\t\tcol *= mix(0.78, 1.08, smooth(1.1, 0.18, Math.abs(uy - 0.5)))\n\t\t\tcol = mix(col, 0.92, band * Math.min(1, Math.max(0, Math.abs(wave + chaos) * 3.5)))\n\t\t\tconst gF = rand(Math.floor(vx * W * 0.85) + t * 2.3, Math.floor(vy * H * 0.85) + t * 2.3) - 0.5\n\t\t\tconst gC = rand(Math.floor(vx * W * 0.18) + t * 0.9, Math.floor(vy * H * 0.32) + t * 0.9) - 0.5\n\t\t\tlet tint = mix(0.012, 0.3, gF * 0.55 + gC * 0.45 + 0.5)\n\t\t\ttint = mix(tint, 0.92, band * 0.4)\n\t\t\tcol = mix(col, tint, 0.14 + band * 0.18)\n\t\t\tcol *= 0.9 + 0.06 * Math.sin(vy * H * 1.35) + 0.04 * Math.sin(vy * H * 0.42 - warp * 6.5)\n\t\t\tcol += 0.018 * Math.sin(vy * 140 - warp * 11 + gC * 4) * (0.3 + band * 0.7)\n\t\t\tlet b = Math.min(1, Math.max(0, col))\n\t\t\tif (grainOn) {\n\t\t\t\tconst g = rand(Math.floor(px / cell) * 1.37 + 11.1 + seed * 17.3 + t * 0.61, Math.floor(py / cell) * 0.71 + 3.3 + seed * 5.9)\n\t\t\t\tb = mix(b, b < 0.5 ? 2 * b * g : 1 - 2 * (1 - b) * (1 - g), 0.5)\n\t\t\t}\n\t\t\tconst v = Math.round(b * 255)\n\t\t\tconst i = (py * W + px) * 4\n\t\t\tout[i] = out[i + 1] = out[i + 2] = v\n\t\t\tout[i + 3] = 255\n\t\t}\n\t}\n\treturn out\n}\n\n/** Where a frame is lit (a cell whose brightest pixel passes `lit`, 0 to 255), in `cell`-pixel runs along each row:\n * what copy and the logo keep clear of. */\nexport function signalInk(pixels: Uint8ClampedArray, width: number, height: number, cell = 16, lit = 96): [number, number, number, number][] {\n\tconst ink: [number, number, number, number][] = []\n\tfor (let y = 0; y < height; y += cell) {\n\t\tlet run: [number, number, number, number] | undefined\n\t\tfor (let x = 0; x < width; x += cell) {\n\t\t\tlet on = false\n\t\t\tfor (let yy = y; yy < Math.min(height, y + cell) && !on; yy += 2)\n\t\t\t\tfor (let xx = x; xx < Math.min(width, x + cell); xx += 2) if (pixels[(yy * width + xx) * 4]! > lit) { on = true; break }\n\t\t\tif (on) run ? (run[2] += cell) : ink.push((run = [x, y, cell, cell]))\n\t\t\telse run = undefined\n\t\t}\n\t}\n\treturn ink\n}\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "NoSignal",
+            "file": "react/components/visuals/NoSignal.tsx",
+            "props": [
+              {
+                "name": "band",
+                "type": "boolean",
+                "required": false,
+                "default": "true",
+                "description": "The glitch band rolling through (default), or only the static."
+              },
+              {
+                "name": "still",
+                "type": "boolean",
+                "required": false,
+                "default": "false",
+                "description": "Holds the first frame instead of running."
+              },
+              {
+                "name": "seed",
+                "type": "number",
+                "required": false,
+                "default": "0",
+                "description": "The grain's seed."
+              }
+            ],
+            "extends": [
+              "HTMLAttributes<HTMLDivElement>"
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "NotFound",
+          "label": "The 404 composition",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/no-signal/NotFound.tsx",
+          "content": "import { NoSignal } from '@/react/components/visuals/NoSignal'\nimport { Button } from '@/react/components/ui/Button'\n// The 404 page's composition: the static behind, the head and line centered under the band.\n\nexport default function NotFound() {\n  return (\n    <NoSignal still className=\"flex h-120 w-full flex-col items-center justify-end px-6 pb-16 text-center\">\n      <h2 className=\"type-section text-fg\">Page not found.</h2>\n      <p className=\"mt-6 max-w-72 type-ui text-fg-soft\">The content you're looking for doesn't exist or has been moved.</p>\n      <Button href=\"#\" variant=\"secondary\" className=\"mt-6\">Back home</Button>\n    </NoSignal>\n  )\n}\n",
+          "registryDependencies": [
+            "button"
+          ],
+          "dependencies": []
+        },
+        {
+          "name": "Field",
+          "label": "The static alone",
+          "center": true,
+          "half": false,
+          "path": "react/examples/no-signal/Field.tsx",
+          "content": "import { NoSignal } from '@/react/components/visuals/NoSignal'\n// The static alone, without the band: a quiet ground for a tile.\n\nexport default function Field() {\n  return <NoSignal band={false} still className=\"h-64 w-96 max-w-full\" />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/visuals/no-signal.ts",
+          "content": "import { html, type PropertyValues } from 'lit'\nimport { DsElement, define } from '@/elements/lib/element'\nimport { runNoSignal } from '@/lib/no-signal'\nimport styles from 'virtual:tw'\n\n// NoSignal.tsx as <agd-no-signal>: the 404 page's no-signal static as a box, the glitch band rolling through it\n// (`band`, the default) or only the static. The host is the box (no-signal.css); what is slotted sits over it. Still\n// under reduced motion or with `still`.\n\n/**\n * @summary The 404 page's no-signal static, filling its box.\n * @slot - What sits over the static.\n */\nexport class NoSignal extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tstatic properties = {\n\t\tband: { type: Boolean, converter: { fromAttribute: (v: string | null) => v !== 'false' } },\n\t\tstill: { type: Boolean },\n\t\tseed: { type: Number },\n\t}\n\t/** The glitch band rolling through (default), or only the static (band=\"false\"). */\n\tband = true\n\t/** Holds the first frame instead of running. */\n\tstill = false\n\t/** The grain's seed. */\n\tseed = 0\n\tprivate stop?: () => void\n\n\tprotected updated(changed: PropertyValues) {\n\t\tsuper.updated(changed)\n\t\tif (changed.has('band') || changed.has('still') || changed.has('seed')) this.start()\n\t}\n\tdisconnectedCallback() {\n\t\tsuper.disconnectedCallback()\n\t\tthis.stop?.()\n\t\tthis.stop = undefined\n\t}\n\tconnectedCallback() {\n\t\tsuper.connectedCallback()\n\t\tif (this.hasUpdated) this.start()\n\t}\n\tprivate start() {\n\t\tthis.stop?.()\n\t\tconst canvas = this.renderRoot.querySelector('canvas')\n\t\tthis.stop = canvas ? runNoSignal(canvas, { band: this.band, animate: !this.still, seed: this.seed }) : undefined\n\t}\n\n\trender() {\n\t\treturn html`<canvas aria-hidden=\"true\" class=\"absolute inset-0 -z-1 size-full\"></canvas><slot></slot>`\n\t}\n}\n\ndefine('no-signal', NoSignal)\n"
+        },
+        {
+          "path": "elements/components/visuals/no-signal.css",
+          "content": "/* The host is the box (NoSignal.tsx's root div), so a class on <agd-no-signal> lands on it as on <NoSignal>. */\n:host { @apply relative isolate block overflow-hidden bg-surface-sunken; }\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/no-signal.js",
+        "elements/button.js"
+      ],
+      "tag": "agd-no-signal",
+      "tags": [
+        "agd-no-signal"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-no-signal",
+            "name": "NoSignal",
+            "module": "elements/no-signal.js",
+            "description": "The 404 page's no-signal static, filling its box.",
+            "attributes": [
+              {
+                "name": "band",
+                "field": "band",
+                "type": "boolean",
+                "default": "true",
+                "description": "The glitch band rolling through (default), or only the static (band=\"false\")."
+              },
+              {
+                "name": "still",
+                "field": "still",
+                "type": "boolean",
+                "default": "false",
+                "description": "Holds the first frame instead of running."
+              },
+              {
+                "name": "seed",
+                "field": "seed",
+                "type": "number",
+                "default": "0",
+                "description": "The grain's seed."
+              }
+            ],
+            "properties": [
+              {
+                "name": "band",
+                "type": "boolean",
+                "default": "true",
+                "description": "The glitch band rolling through (default), or only the static (band=\"false\").",
+                "attribute": "band"
+              },
+              {
+                "name": "still",
+                "type": "boolean",
+                "default": "false",
+                "description": "Holds the first frame instead of running.",
+                "attribute": "still"
+              },
+              {
+                "name": "seed",
+                "type": "number",
+                "default": "0",
+                "description": "The grain's seed.",
+                "attribute": "seed"
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "",
+                "description": "What sits over the static."
+              }
+            ],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "NotFound",
+          "label": "The 404 composition",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/no-signal/NotFound.html",
+          "content": "<!-- The 404 page's composition: the static behind, the head and line centered under the band. -->\n<agd-no-signal still class=\"flex h-120 w-full flex-col items-center justify-end px-6 pb-16 text-center\">\n  <h2 class=\"type-section text-fg\">Page not found.</h2>\n  <p class=\"mt-6 max-w-72 type-ui text-fg-soft\">The content you're looking for doesn't exist or has been moved.</p>\n  <agd-button href=\"#\" variant=\"secondary\" class=\"mt-6\">Back home</agd-button>\n</agd-no-signal>\n"
+        },
+        {
+          "name": "Field",
+          "label": "The static alone",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/no-signal/Field.html",
+          "content": "<!-- The static alone, without the band: a quiet ground for a tile. -->\n<agd-no-signal band=\"false\" still class=\"h-64 w-96 max-w-full\"></agd-no-signal>\n"
+        }
+      ]
+    }
+  }
+}

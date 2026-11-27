@@ -1,0 +1,4361 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "agencidev-elements",
+  "homepage": "https://agencidev-ds.vercel.app",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "about-page",
+      "type": "registry:item",
+      "title": "About page",
+      "description": "The about page template from library items: the bets centered in two tones of paragraph, the team's names, the process statement over numbered rows, and the openings.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/openings.json",
+        "https://agencidev-ds.vercel.app/r/elements/process-list.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json",
+        "https://agencidev-ds.vercel.app/r/elements/team-list.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/about-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/about-page.js"
+        },
+        {
+          "path": "elements/about-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/about-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/team-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/team-list.js"
+        },
+        {
+          "path": "elements/team-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/team-list.d.ts"
+        },
+        {
+          "path": "elements/process-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/process-list.js"
+        },
+        {
+          "path": "elements/process-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/process-list.d.ts"
+        },
+        {
+          "path": "elements/openings.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.js"
+        },
+        {
+          "path": "elements/openings.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-about-page",
+        "tags": [
+          "agd-about-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/about-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/team-list.js",
+          "elements/process-list.js",
+          "elements/openings.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "accordion",
+      "type": "registry:item",
+      "title": "Accordion",
+      "description": "A stack of disclosures on black: neutral hairlines between the rows, an ABC Diatype question, a muted answer that opens in place and a chevron that turns. One open at a time, or several.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/accordion.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/accordion.js"
+        },
+        {
+          "path": "elements/accordion.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/accordion.d.ts"
+        },
+        {
+          "path": "elements/accordion-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/accordion-item.js"
+        },
+        {
+          "path": "elements/accordion-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/accordion-item.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-accordion",
+        "tags": [
+          "agd-accordion",
+          "agd-accordion-item"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/accordion.js",
+          "elements/accordion-item.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert-dialog",
+      "type": "registry:item",
+      "title": "Alert dialog",
+      "description": "A question that needs an answer before anything else, on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, one line saying what happens, Cancel and the action (red for what removes something).",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/alert-dialog.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/alert-dialog.js"
+        },
+        {
+          "path": "elements/alert-dialog.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/alert-dialog.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-alert-dialog",
+        "tags": [
+          "agd-alert-dialog"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/alert-dialog.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:item",
+      "title": "Alert",
+      "description": "A note or a problem in a #141414 box on black: a Lucide icon, the subject in ABC Diatype, a muted line under it and the button that goes with it. Red for what broke.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/alert.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/alert.js"
+        },
+        {
+          "path": "elements/alert.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/alert.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-alert",
+        "tags": [
+          "agd-alert"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/alert.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "article-card",
+      "type": "registry:item",
+      "title": "Article card",
+      "description": "An article in the list: the cover at 16:10 on the plate fill, the date and reading time in 14px capitals in mid, the title in white and three lines of the excerpt in dim; the whole card is the link.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/article-card.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-card.js"
+        },
+        {
+          "path": "elements/article-card.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-card.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-article-card",
+        "tags": [
+          "agd-article-card"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/article-card.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "article-page",
+      "type": "registry:item",
+      "title": "Article page",
+      "description": "An article template from library items: the way back, the title at the display step, the date and reading time in capitals, the cover at 16:10 and the body in a 36rem reading measure.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/article-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-page.js"
+        },
+        {
+          "path": "elements/article-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-article-page",
+        "tags": [
+          "agd-article-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/article-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "articles-page",
+      "type": "registry:item",
+      "title": "Articles page",
+      "description": "The articles page template from library items: a line in dim, then the articles in a grid of one, two or three columns.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/article-card.json",
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/articles-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/articles-page.js"
+        },
+        {
+          "path": "elements/articles-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/articles-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/article-card.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-card.js"
+        },
+        {
+          "path": "elements/article-card.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/article-card.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-articles-page",
+        "tags": [
+          "agd-articles-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/articles-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/article-card.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "aspect-ratio",
+      "type": "registry:item",
+      "title": "Aspect ratio",
+      "description": "A box that keeps its shape as it grows: a 1:1 post, a 4:5 story, a 16:9 slide. It draws nothing itself; square corners and a #141414 ground are classes on it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/aspect-ratio.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/aspect-ratio.js"
+        },
+        {
+          "path": "elements/aspect-ratio.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/aspect-ratio.d.ts"
+        },
+        {
+          "path": "elements/no-signal.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.js"
+        },
+        {
+          "path": "elements/no-signal.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-aspect-ratio",
+        "tags": [
+          "agd-aspect-ratio"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/aspect-ratio.js",
+          "elements/no-signal.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:item",
+      "title": "Avatar",
+      "description": "Who or what something belongs to, in a circle: a picture cropped round, or the name's initials in white ABC Diatype on #141414. Three sizes.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/avatar.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/avatar.js"
+        },
+        {
+          "path": "elements/avatar.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/avatar.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-avatar",
+        "tags": [
+          "agd-avatar"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/avatar.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "badge",
+      "type": "registry:item",
+      "title": "Badge",
+      "description": "A short label for a state or a kind in 12px capitals, square: the quiet fill (the site's chosen filter chip), the plate, a hairline, or a red wash. A small white or mid dot can lead it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/badge.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/badge.js"
+        },
+        {
+          "path": "elements/badge.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/badge.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-badge",
+        "tags": [
+          "agd-badge"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/badge.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:item",
+      "title": "Breadcrumb",
+      "description": "Where you are, in ABC Diatype: each step back a muted link that turns white under the pointer, a small chevron between, the page itself in white.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/breadcrumb.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/breadcrumb.js"
+        },
+        {
+          "path": "elements/breadcrumb.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/breadcrumb.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-breadcrumb",
+        "tags": [
+          "agd-breadcrumb"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/breadcrumb.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button-group",
+      "type": "registry:item",
+      "title": "Button group",
+      "description": "Buttons that belong together, joined into one block: square corners on the outer corners only and a 1px black seam between them. A field with its button, a button with its menu arrow, or a vertical stack.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/button-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button-group.js"
+        },
+        {
+          "path": "elements/button-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button-group.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-button-group",
+        "tags": [
+          "agd-button-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/button-group.js",
+          "elements/button.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button",
+      "type": "registry:item",
+      "title": "Button",
+      "description": "The site's button: the plate (#252525) with white 12px capitals and the 4px corner for the one main action, mid with black ink under the pointer; the quiet button, bare dim capitals that turn white, for the rest; a ghost for tools in rows. Sizes and a square icon button.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-button",
+        "tags": [
+          "agd-button"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "calendar",
+      "type": "registry:item",
+      "title": "Calendar",
+      "description": "A month to pick a day from: 40px day cells with square corners, the picked day on the plate with a white figure, today in a neutral hairline ring, the months either side faint. Arrows, Home, End and Page Up and Down move; Enter picks.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/calendar.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/calendar.js"
+        },
+        {
+          "path": "elements/calendar.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/calendar.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-calendar",
+        "tags": [
+          "agd-calendar"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/calendar.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "card",
+      "type": "registry:item",
+      "title": "Card",
+      "description": "The brand's card: a #141414 fill on black with square corners, an Agencidev Sans title, a line of ABC Diatype and the body, with actions at the foot. No border, no shadow.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/card.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/card.js"
+        },
+        {
+          "path": "elements/card.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/card.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-card",
+        "tags": [
+          "agd-card"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/card.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "careers-page",
+      "type": "registry:item",
+      "title": "Careers page",
+      "description": "The careers page template from library items: the page head in two tones and the openings with their department filter.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/openings.json",
+        "https://agencidev-ds.vercel.app/r/elements/page-head.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/careers-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/careers-page.js"
+        },
+        {
+          "path": "elements/careers-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/careers-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/page-head.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.js"
+        },
+        {
+          "path": "elements/page-head.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.d.ts"
+        },
+        {
+          "path": "elements/openings.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.js"
+        },
+        {
+          "path": "elements/openings.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-careers-page",
+        "tags": [
+          "agd-careers-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/careers-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/page-head.js",
+          "elements/openings.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "carousel",
+      "type": "registry:item",
+      "title": "Carousel",
+      "description": "Slides in a row on the black ground, 16px apart, one to three in view, with ghost arrow buttons and the place in tabular figures. Native scroll snap: a swipe, a trackpad, the arrows and the arrow keys all move it. It never plays on its own. The track's edges fade while there are slides past them.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/carousel.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/carousel.js"
+        },
+        {
+          "path": "elements/carousel.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/carousel.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-carousel",
+        "tags": [
+          "agd-carousel"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/carousel.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "case-study-page",
+      "type": "registry:item",
+      "title": "Case study page",
+      "description": "A case study template from library items: the client's name with its live link, then the work in masonry columns.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/case-wall.json",
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/case-study-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-study-page.js"
+        },
+        {
+          "path": "elements/case-study-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-study-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/case-wall.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-wall.js"
+        },
+        {
+          "path": "elements/case-wall.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-wall.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-case-study-page",
+        "tags": [
+          "agd-case-study-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/case-study-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/case-wall.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "case-wall",
+      "type": "registry:item",
+      "title": "Case wall",
+      "description": "A case study's wall of work: the client's name at the display step with a plate link beside it, then the work in masonry columns 20px apart, square-cornered; a piece in the works is a hairline box with its caption in capitals.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/case-wall.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-wall.js"
+        },
+        {
+          "path": "elements/case-wall.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/case-wall.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-case-wall",
+        "tags": [
+          "agd-case-wall"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/case-wall.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "chart",
+      "type": "registry:item",
+      "title": "Chart",
+      "description": "How a number is drawn: white bars per day under a total, and lines over time in the brand's series order (white, mid (#909090), the subtle grey, dim, then the plate; every other one dashed). Five series at most. Axes from 0 on hairlines (white at 10%); pointing reads a value.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/bar-chart.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/bar-chart.js"
+        },
+        {
+          "path": "elements/bar-chart.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/bar-chart.d.ts"
+        },
+        {
+          "path": "elements/line-chart.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/line-chart.js"
+        },
+        {
+          "path": "elements/line-chart.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/line-chart.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-bar-chart",
+        "tags": [
+          "agd-bar-chart",
+          "agd-line-chart"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/bar-chart.js",
+          "elements/line-chart.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:item",
+      "title": "Checkbox",
+      "description": "A yes or no that is part of a form: a 16px box in a hairline (white at 20%) on black that fills white with a black check, a bar for a group partly on, and an ABC Diatype label beside it. Form-associated.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/checkbox.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/checkbox.js"
+        },
+        {
+          "path": "elements/checkbox.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/checkbox.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-checkbox",
+        "tags": [
+          "agd-checkbox"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/checkbox.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "code-block",
+      "type": "registry:item",
+      "title": "Code block",
+      "description": "Tabs of code: a slat panel (#141414) with a head of tabs (a white line under the chosen one) and a copy button whose label turns to Copied, over code in white with its punctuation and comments muted, scrolling across. Code and the copy button also stand alone.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/code-block.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/code-block.js"
+        },
+        {
+          "path": "elements/code-block.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/code-block.d.ts"
+        },
+        {
+          "path": "elements/code.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/code.js"
+        },
+        {
+          "path": "elements/code.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/code.d.ts"
+        },
+        {
+          "path": "elements/copy-button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/copy-button.js"
+        },
+        {
+          "path": "elements/copy-button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/copy-button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-code-block",
+        "tags": [
+          "agd-code-block",
+          "agd-code",
+          "agd-copy-button"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/code-block.js",
+          "elements/code.js",
+          "elements/copy-button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "collapsible",
+      "type": "registry:item",
+      "title": "Collapsible",
+      "description": "A part that opens in place and pushes what follows: a quiet ABC Diatype trigger with a muted chevron that turns, and content that grows to its height and settles in.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/collapsible.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/collapsible.js"
+        },
+        {
+          "path": "elements/collapsible.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/collapsible.d.ts"
+        },
+        {
+          "path": "elements/checkbox.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/checkbox.js"
+        },
+        {
+          "path": "elements/checkbox.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/checkbox.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-collapsible",
+        "tags": [
+          "agd-collapsible"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/collapsible.js",
+          "elements/checkbox.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "combobox",
+      "type": "registry:item",
+      "title": "Combobox",
+      "description": "A field-like trigger that opens a list to pick one option from, with a filter over it, on the #141414 overlay panel: the menus' rows, a #141414 fill on the row the arrows or the pointer are on, the pick checked at the end. The list scrolls with fading edges, so no row is cut off.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/combobox.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/combobox.js"
+        },
+        {
+          "path": "elements/combobox.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/combobox.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-combobox",
+        "tags": [
+          "agd-combobox"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/combobox.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "command",
+      "type": "registry:item",
+      "title": "Command",
+      "description": "A box to type in over a list of actions and places, on the overlay surface (#141414): the field on top over a hairline, groups with a capital label, the menus' rows with an icon and a shortcut. On the page, or in a window opened with Cmd+K. The list scrolls with fading edges, so no row is cut off.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/command.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/command.js"
+        },
+        {
+          "path": "elements/command.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/command.d.ts"
+        },
+        {
+          "path": "elements/command-dialog.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/command-dialog.js"
+        },
+        {
+          "path": "elements/command-dialog.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/command-dialog.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-command",
+        "tags": [
+          "agd-command",
+          "agd-command-dialog"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/command.js",
+          "elements/command-dialog.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-page",
+      "type": "registry:item",
+      "title": "Contact page",
+      "description": "The contact page template from library items: the two-tone head with a plate button and the email as a quiet one, the ways to get in touch as rows, and notes in dim running copy.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json",
+        "https://agencidev-ds.vercel.app/r/elements/detail-list.json",
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/page-head.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/contact-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/contact-page.js"
+        },
+        {
+          "path": "elements/contact-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/contact-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/page-head.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.js"
+        },
+        {
+          "path": "elements/page-head.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.d.ts"
+        },
+        {
+          "path": "elements/detail-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/detail-list.js"
+        },
+        {
+          "path": "elements/detail-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/detail-list.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-contact-page",
+        "tags": [
+          "agd-contact-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/contact-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/page-head.js",
+          "elements/detail-list.js",
+          "elements/button.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "context-menu",
+      "type": "registry:item",
+      "title": "Context menu",
+      "description": "The dropdown menu's rows on the #141414 overlay panel, opened where the pointer right-clicks, or under the focused row with Shift+F10 or the menu key. Arrows, Home, End and Escape are handled; focus returns to what was clicked.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/context-menu.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/context-menu.js"
+        },
+        {
+          "path": "elements/context-menu.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/context-menu.d.ts"
+        },
+        {
+          "path": "elements/menu-label.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-label.js"
+        },
+        {
+          "path": "elements/menu-label.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-label.d.ts"
+        },
+        {
+          "path": "elements/menu-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.js"
+        },
+        {
+          "path": "elements/menu-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.d.ts"
+        },
+        {
+          "path": "elements/menu-separator.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-separator.js"
+        },
+        {
+          "path": "elements/menu-separator.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-separator.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-context-menu",
+        "tags": [
+          "agd-context-menu"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/context-menu.js",
+          "elements/menu-label.js",
+          "elements/menu-item.js",
+          "elements/menu-separator.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "data-table",
+      "type": "registry:item",
+      "title": "Data table",
+      "description": "A table people filter, sort and page through: a dropdown per filter, heads in capitals that sort, 40px rows on neutral hairlines that take the #141414 fill under the pointer, numbers in tabular figures, Previous and Next under it. It scrolls sideways with fading edges inside the frame.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json",
+        "https://agencidev-ds.vercel.app/r/elements/dropdown-menu.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/data-table.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/data-table.js"
+        },
+        {
+          "path": "elements/data-table.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/data-table.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        },
+        {
+          "path": "elements/dropdown-menu.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dropdown-menu.js"
+        },
+        {
+          "path": "elements/dropdown-menu.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dropdown-menu.d.ts"
+        },
+        {
+          "path": "elements/menu-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.js"
+        },
+        {
+          "path": "elements/menu-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-data-table",
+        "tags": [
+          "agd-data-table"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/data-table.js",
+          "elements/button.js",
+          "elements/dropdown-menu.js",
+          "elements/menu-item.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-picker",
+      "type": "registry:item",
+      "title": "Date picker",
+      "description": "A date in a field: a button drawn as the text field that opens the calendar on the #141414 overlay panel under it. Opening puts focus on the picked day, picking closes it and returns focus, Escape closes it unchanged.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json",
+        "https://agencidev-ds.vercel.app/r/elements/calendar.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/date-picker.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/date-picker.js"
+        },
+        {
+          "path": "elements/date-picker.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/date-picker.d.ts"
+        },
+        {
+          "path": "elements/calendar.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/calendar.js"
+        },
+        {
+          "path": "elements/calendar.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/calendar.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-date-picker",
+        "tags": [
+          "agd-date-picker"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/date-picker.js",
+          "elements/calendar.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "detail-list",
+      "type": "registry:item",
+      "title": "Detail list",
+      "description": "The contact page's rows: a label in white and its description in dim running copy beside it (a 248px label column from 640), 40px between rows.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/detail-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/detail-list.js"
+        },
+        {
+          "path": "elements/detail-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/detail-list.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-detail-list",
+        "tags": [
+          "agd-detail-list"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/detail-list.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:item",
+      "title": "Dialog",
+      "description": "A modal window on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, a line under it, a ghost close button, a short form or a partnership, and buttons at the foot.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/dialog.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dialog.js"
+        },
+        {
+          "path": "elements/dialog.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dialog.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-dialog",
+        "tags": [
+          "agd-dialog"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/dialog.js",
+          "elements/button.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "direction",
+      "type": "registry:item",
+      "title": "Direction",
+      "description": "Sets the reading direction for what is inside it, so logical spacing and the components follow right-to-left text. Code stays left to right.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/direction.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/direction.js"
+        },
+        {
+          "path": "elements/direction.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/direction.d.ts"
+        },
+        {
+          "path": "elements/breadcrumb.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/breadcrumb.js"
+        },
+        {
+          "path": "elements/breadcrumb.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/breadcrumb.d.ts"
+        },
+        {
+          "path": "elements/badge.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/badge.js"
+        },
+        {
+          "path": "elements/badge.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/badge.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-direction",
+        "tags": [
+          "agd-direction"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/direction.js",
+          "elements/breadcrumb.js",
+          "elements/badge.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "drawer",
+      "type": "registry:item",
+      "title": "Drawer",
+      "description": "A panel that slides in from an edge over a black scrim, on the overlay surface (#141414): from the bottom with square corners on its top edge and a grab handle, or from the left or right at full height. The body's edges fade while there is more to scroll.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/drawer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/drawer.js"
+        },
+        {
+          "path": "elements/drawer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/drawer.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-drawer",
+        "tags": [
+          "agd-drawer"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/drawer.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dropdown-menu",
+      "type": "registry:item",
+      "title": "Dropdown menu",
+      "description": "A button that opens a short list of actions or choices on the overlay surface (#141414): a neutral hairline, square corners, rows that take a #141414 fill under the pointer. Arrows, Home, End, Escape and Tab are handled.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/dropdown-menu.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dropdown-menu.js"
+        },
+        {
+          "path": "elements/dropdown-menu.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/dropdown-menu.d.ts"
+        },
+        {
+          "path": "elements/menu-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.js"
+        },
+        {
+          "path": "elements/menu-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-item.d.ts"
+        },
+        {
+          "path": "elements/menu-label.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-label.js"
+        },
+        {
+          "path": "elements/menu-label.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-label.d.ts"
+        },
+        {
+          "path": "elements/menu-separator.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-separator.js"
+        },
+        {
+          "path": "elements/menu-separator.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menu-separator.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-dropdown-menu",
+        "tags": [
+          "agd-dropdown-menu",
+          "agd-menu-item",
+          "agd-menu-label",
+          "agd-menu-separator"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/dropdown-menu.js",
+          "elements/menu-item.js",
+          "elements/menu-label.js",
+          "elements/menu-separator.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "empty",
+      "type": "registry:item",
+      "title": "Empty",
+      "description": "What shows where a list has nothing in it yet: a dashed hairline with square corners, a Lucide icon in a #141414 tile, an Agencidev Sans title, one muted line and the actions that fill it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/empty.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/empty.js"
+        },
+        {
+          "path": "elements/empty.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/empty.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-empty",
+        "tags": [
+          "agd-empty"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/empty.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "field",
+      "type": "registry:item",
+      "title": "Field",
+      "description": "A label over one control, with a description or an error under it. The label speaks in capitals; the help is muted; an error takes the help's place in red.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/field.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/field.js"
+        },
+        {
+          "path": "elements/field.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/field.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-field",
+        "tags": [
+          "agd-field"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/field.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "filter-list",
+      "type": "registry:item",
+      "title": "Filter list",
+      "description": "A single-choice filter: the options as 14px capitals in mid, the chosen one white, in a row or a column; color changes only, on pointer down.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/filter-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/filter-list.js"
+        },
+        {
+          "path": "elements/filter-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/filter-list.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-filter-list",
+        "tags": [
+          "agd-filter-list"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/filter-list.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form",
+      "type": "registry:item",
+      "title": "Form",
+      "description": "Fields stacked 24px apart, a failure from the server in a dark red box, and the actions at the end, the main one last. Errors wait until a field is left or the form is sent.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/form.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/form.js"
+        },
+        {
+          "path": "elements/form.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/form.d.ts"
+        },
+        {
+          "path": "elements/field.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/field.js"
+        },
+        {
+          "path": "elements/field.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/field.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        },
+        {
+          "path": "elements/native-select.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/native-select.js"
+        },
+        {
+          "path": "elements/native-select.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/native-select.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-form",
+        "tags": [
+          "agd-form"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/form.js",
+          "elements/field.js",
+          "elements/input.js",
+          "elements/native-select.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "home-page",
+      "type": "registry:item",
+      "title": "Home page",
+      "description": "The home page template from library items: the bar, the rail of work across the first screen, and the statement at its foot with the stat line over it.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json",
+        "https://agencidev-ds.vercel.app/r/elements/statement.json",
+        "https://agencidev-ds.vercel.app/r/elements/work-rail.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/home-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/home-page.js"
+        },
+        {
+          "path": "elements/home-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/home-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/statement.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/statement.js"
+        },
+        {
+          "path": "elements/statement.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/statement.d.ts"
+        },
+        {
+          "path": "elements/work-rail.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/work-rail.js"
+        },
+        {
+          "path": "elements/work-rail.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/work-rail.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-home-page",
+        "tags": [
+          "agd-home-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/home-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/statement.js",
+          "elements/work-rail.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hover-card",
+      "type": "registry:item",
+      "title": "Hover Card",
+      "description": "More about a link while the pointer rests on it: the card's #141414 fill, a hairline and square corners. The pointer can cross into it; on touch the link just works.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/hover-card.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/hover-card.js"
+        },
+        {
+          "path": "elements/hover-card.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/hover-card.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-hover-card",
+        "tags": [
+          "agd-hover-card"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/hover-card.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-group",
+      "type": "registry:item",
+      "title": "Input Group",
+      "description": "A field with an icon, a prefix, a unit or a small button inside its hairline, drawn and sized as the input is. The hairline turns white while the field has focus.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/input-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input-group.js"
+        },
+        {
+          "path": "elements/input-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input-group.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-input-group",
+        "tags": [
+          "agd-input-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/input-group.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-otp",
+      "type": "registry:item",
+      "title": "Input OTP",
+      "description": "A one-time code, one cell per character, each cell drawn as the input. It is one real field, so paste and the phone's code suggestion work.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/input-otp.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input-otp.js"
+        },
+        {
+          "path": "elements/input-otp.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input-otp.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-input-otp",
+        "tags": [
+          "agd-input-otp"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/input-otp.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input",
+      "type": "registry:item",
+      "title": "Input",
+      "description": "A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype, a mid (#909090) placeholder and square corners. Sizes match the button's.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-input",
+        "tags": [
+          "agd-input"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "item",
+      "type": "registry:item",
+      "title": "Item",
+      "description": "A row: media, a title in ABC Diatype with a muted line under it, and actions at the end. No fill, a hairline box or the card's #141414 fill. ItemGroup puts a hairline between rows.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/item.js"
+        },
+        {
+          "path": "elements/item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/item.d.ts"
+        },
+        {
+          "path": "elements/item-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/item-group.js"
+        },
+        {
+          "path": "elements/item-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/item-group.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-item",
+        "tags": [
+          "agd-item",
+          "agd-item-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/item.js",
+          "elements/item-group.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "kbd",
+      "type": "registry:item",
+      "title": "Kbd",
+      "description": "A key: ABC Diatype 12px in the soft neutral, in a 20px box in the quiet fill with a hairline and the small corner. KbdGroup holds the keys of one shortcut.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/kbd.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/kbd.js"
+        },
+        {
+          "path": "elements/kbd.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/kbd.d.ts"
+        },
+        {
+          "path": "elements/kbd-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/kbd-group.js"
+        },
+        {
+          "path": "elements/kbd-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/kbd-group.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-kbd",
+        "tags": [
+          "agd-kbd",
+          "agd-kbd-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/kbd.js",
+          "elements/kbd-group.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "label",
+      "type": "registry:item",
+      "title": "Label",
+      "description": "A field's label: ABC Diatype in capitals, in the soft gray, over the control it names. A muted hint can follow it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/label.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/label.js"
+        },
+        {
+          "path": "elements/label.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/label.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-label",
+        "tags": [
+          "agd-label"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/label.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "legal-page",
+      "type": "registry:item",
+      "title": "Legal page",
+      "description": "A legal page template from library items: the title in white and when it changed in mid, then titled rows of dim running copy.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json",
+        "https://agencidev-ds.vercel.app/r/elements/page-head.json",
+        "https://agencidev-ds.vercel.app/r/elements/row.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/elements/site-header.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/legal-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/legal-page.js"
+        },
+        {
+          "path": "elements/legal-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/legal-page.d.ts"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/page-head.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.js"
+        },
+        {
+          "path": "elements/page-head.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.d.ts"
+        },
+        {
+          "path": "elements/row.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/row.js"
+        },
+        {
+          "path": "elements/row.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/row.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-legal-page",
+        "tags": [
+          "agd-legal-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/legal-page.js",
+          "elements/site-header.js",
+          "elements/site-footer.js",
+          "elements/page-head.js",
+          "elements/row.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo",
+      "type": "registry:item",
+      "title": "Logo",
+      "description": "The square, the wordmark and the lockup from the site's own files, white or black only, sized by height.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-logo",
+        "tags": [
+          "agd-logo"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "menubar",
+      "type": "registry:item",
+      "title": "Menubar",
+      "description": "Menu triggers in a row: a black strip in a hairline with square corners, triggers in ABC Diatype, each opening a panel of rows in the card's #141414 fill. Arrow keys move along the bar and through the rows.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/menubar.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar.js"
+        },
+        {
+          "path": "elements/menubar.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar.d.ts"
+        },
+        {
+          "path": "elements/menubar-menu.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-menu.js"
+        },
+        {
+          "path": "elements/menubar-menu.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-menu.d.ts"
+        },
+        {
+          "path": "elements/menubar-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-item.js"
+        },
+        {
+          "path": "elements/menubar-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-item.d.ts"
+        },
+        {
+          "path": "elements/menubar-label.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-label.js"
+        },
+        {
+          "path": "elements/menubar-label.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-label.d.ts"
+        },
+        {
+          "path": "elements/menubar-separator.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-separator.js"
+        },
+        {
+          "path": "elements/menubar-separator.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/menubar-separator.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-menubar",
+        "tags": [
+          "agd-menubar",
+          "agd-menubar-menu",
+          "agd-menubar-item",
+          "agd-menubar-label",
+          "agd-menubar-separator"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/menubar.js",
+          "elements/menubar-menu.js",
+          "elements/menubar-item.js",
+          "elements/menubar-label.js",
+          "elements/menubar-separator.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "native-select",
+      "type": "registry:item",
+      "title": "Native Select",
+      "description": "The browser's own select, drawn as the input: a hairline (white at 20%) on black that turns white on focus, square corners and a muted chevron. Phones open the system picker.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/native-select.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/native-select.js"
+        },
+        {
+          "path": "elements/native-select.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/native-select.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-native-select",
+        "tags": [
+          "agd-native-select"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/native-select.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "navigation-menu",
+      "type": "registry:item",
+      "title": "Navigation Menu",
+      "description": "A site's top navigation: triggers and links in ABC Diatype, each trigger opening a panel of links in the card's #141414 fill. It opens under a resting pointer, switches at once between triggers, and opens at once from the keyboard.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/navigation-menu.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu.js"
+        },
+        {
+          "path": "elements/navigation-menu.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu.d.ts"
+        },
+        {
+          "path": "elements/navigation-menu-item.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu-item.js"
+        },
+        {
+          "path": "elements/navigation-menu-item.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu-item.d.ts"
+        },
+        {
+          "path": "elements/navigation-menu-link.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu-link.js"
+        },
+        {
+          "path": "elements/navigation-menu-link.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/navigation-menu-link.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-navigation-menu",
+        "tags": [
+          "agd-navigation-menu",
+          "agd-navigation-menu-item",
+          "agd-navigation-menu-link"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/navigation-menu.js",
+          "elements/navigation-menu-item.js",
+          "elements/navigation-menu-link.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "no-signal",
+      "type": "registry:item",
+      "title": "No signal",
+      "description": "The 404 page's no-signal static as a box: a dead channel's charcoal static and grain, with the glitch band rolling up through it and revealing white. It runs at about twenty frames a second and holds still under reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/no-signal.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.js"
+        },
+        {
+          "path": "elements/no-signal.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-no-signal",
+        "tags": [
+          "agd-no-signal"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/no-signal.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "not-found-page",
+      "type": "registry:item",
+      "title": "Not found page",
+      "description": "The not found page: the no-signal static filling the screen, the head centered under the band, a line in dim, and the way home with a white dot and an arrow in a ring.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/no-signal.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/not-found-page.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/not-found-page.js"
+        },
+        {
+          "path": "elements/not-found-page.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/not-found-page.d.ts"
+        },
+        {
+          "path": "elements/no-signal.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.js"
+        },
+        {
+          "path": "elements/no-signal.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/no-signal.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-not-found-page",
+        "tags": [
+          "agd-not-found-page"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/not-found-page.js",
+          "elements/no-signal.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "openings",
+      "type": "registry:item",
+      "title": "Openings",
+      "description": "The careers page's open roles: the heading in capitals, department chips on the right, and each role a full-width row, the title in white and the department in mid, a quiet fill under the pointer.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/openings.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.js"
+        },
+        {
+          "path": "elements/openings.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/openings.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-openings",
+        "tags": [
+          "agd-openings"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/openings.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "page-head",
+      "type": "registry:item",
+      "title": "Page head",
+      "description": "The page's H1 set like the homepage statement: one size in two tones, the lead in white running on into the rest in mid, centered in a 64rem measure, with a plate and a quiet button under it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/page-head.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.js"
+        },
+        {
+          "path": "elements/page-head.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/page-head.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-page-head",
+        "tags": [
+          "agd-page-head"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/page-head.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pagination",
+      "type": "registry:item",
+      "title": "Pagination",
+      "description": "Previous and Next around the page numbers: 32px ghost buttons that fill under the pointer, the current page in a hairline (white at 20%) box in white. First and last always show, an ellipsis stands for the rest.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/pagination.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/pagination.js"
+        },
+        {
+          "path": "elements/pagination.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/pagination.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-pagination",
+        "tags": [
+          "agd-pagination"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/pagination.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "popover",
+      "type": "registry:item",
+      "title": "Popover",
+      "description": "A panel for any content, opened from a button: the card's #141414 fill on black, a hairline and square corners. It grows from its trigger and flips to the side with room.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/popover.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/popover.js"
+        },
+        {
+          "path": "elements/popover.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/popover.d.ts"
+        },
+        {
+          "path": "elements/popover-panel.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/popover-panel.js"
+        },
+        {
+          "path": "elements/popover-panel.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/popover-panel.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-popover",
+        "tags": [
+          "agd-popover",
+          "agd-popover-panel"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/popover.js",
+          "elements/popover-panel.js",
+          "elements/input.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "process-list",
+      "type": "registry:item",
+      "title": "Process list",
+      "description": "The about page's process: numbered rows, each the number, a title, a white hairline at 10% and the body in mid; four columns from 1024, the body under the title below.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/process-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/process-list.js"
+        },
+        {
+          "path": "elements/process-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/process-list.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-process-list",
+        "tags": [
+          "agd-process-list"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/process-list.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "progress",
+      "type": "registry:item",
+      "title": "Progress",
+      "description": "How far a task has got: a white bar on a 6px track of white at 20%, with round ends, sliding to each new value on transform. Without a value, a short bar sweeps across at a steady pace.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/progress.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/progress.js"
+        },
+        {
+          "path": "elements/progress.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/progress.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-progress",
+        "tags": [
+          "agd-progress"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/progress.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:item",
+      "title": "Radio Group",
+      "description": "One of a few, all in view: round marks in a hairline, the picked one edged in white with a white dot. Arrows move the pick.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/radio-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/radio-group.js"
+        },
+        {
+          "path": "elements/radio-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/radio-group.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-radio-group",
+        "tags": [
+          "agd-radio-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/radio-group.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "resizable",
+      "type": "registry:item",
+      "title": "Resizable",
+      "description": "Two panes and the hairline (white at 20%) between them. The hairline is the handle: it turns white under the pointer, while dragged and when focused, and can carry a small grip. Arrow keys move it too. A pane that overflows scrolls with fading edges.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/resizable.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/resizable.js"
+        },
+        {
+          "path": "elements/resizable.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/resizable.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-resizable",
+        "tags": [
+          "agd-resizable"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/resizable.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "row",
+      "type": "registry:item",
+      "title": "Row",
+      "description": "One section of an inner page: 24px in, 40px above and below (56 from 640), a title read by screen readers and shown when asked, an aside under it and the body under that.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/row.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/row.js"
+        },
+        {
+          "path": "elements/row.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/row.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-row",
+        "tags": [
+          "agd-row"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/row.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "scroll-area",
+      "type": "registry:item",
+      "title": "Scroll Area",
+      "description": "A region that scrolls on its own with thin scrollbars: a white at 20% thumb on a clear track. Native scrolling, so wheel, touch and keyboard all work; overscroll stays inside. An edge with more past it fades (fade-y, fade-x, fade-xy) instead of cutting rows off.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/scroll-area.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/scroll-area.js"
+        },
+        {
+          "path": "elements/scroll-area.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/scroll-area.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-scroll-area",
+        "tags": [
+          "agd-scroll-area"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/scroll-area.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:item",
+      "title": "Select",
+      "description": "One choice from a short list, drawn as the field is: a black field, a hairline that turns white while open, a chevron. The list opens in the card's #141414 panel, the chosen row checked. A long list scrolls with fading edges.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/select.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/select.js"
+        },
+        {
+          "path": "elements/select.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/select.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-select",
+        "tags": [
+          "agd-select"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/select.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "separator",
+      "type": "registry:item",
+      "title": "Separator",
+      "description": "The hairline: 1px in the edge (white at 10%), across or down. Agencidev separates with a fill or a hairline, never a shadow.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/separator.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/separator.js"
+        },
+        {
+          "path": "elements/separator.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/separator.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-separator",
+        "tags": [
+          "agd-separator"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/separator.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sheet",
+      "type": "registry:item",
+      "title": "Sheet",
+      "description": "A modal panel at an edge of the screen: the card's #141414 fill with a hairline on its inner edge, an Agencidev Sans title, the body scrolling on its own and buttons at the foot. It slides in on the drawer curve; Escape closes it at once. The body's edges fade while there is more to scroll.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/sheet.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sheet.js"
+        },
+        {
+          "path": "elements/sheet.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sheet.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        },
+        {
+          "path": "elements/input.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.js"
+        },
+        {
+          "path": "elements/input.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/input.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-sheet",
+        "tags": [
+          "agd-sheet"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/sheet.js",
+          "elements/button.js",
+          "elements/input.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sidebar",
+      "type": "registry:item",
+      "title": "Sidebar",
+      "description": "The app's rail: black with a hairline at its edge, the logo at the top, groups named in capitals, the page you are on on the plate, the account at the foot. It folds to icons with one button. Its body scrolls with fading edges, so no row is cut off.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/sidebar.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar.js"
+        },
+        {
+          "path": "elements/sidebar.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar.d.ts"
+        },
+        {
+          "path": "elements/sidebar-label.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar-label.js"
+        },
+        {
+          "path": "elements/sidebar-label.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar-label.d.ts"
+        },
+        {
+          "path": "elements/sidebar-link.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar-link.js"
+        },
+        {
+          "path": "elements/sidebar-link.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sidebar-link.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-sidebar",
+        "tags": [
+          "agd-sidebar",
+          "agd-sidebar-label",
+          "agd-sidebar-link"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/sidebar.js",
+          "elements/sidebar-label.js",
+          "elements/sidebar-link.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "site-footer",
+      "type": "registry:item",
+      "title": "Site footer",
+      "description": "The site's footer: one quiet row, the lockup on the left and every link in a single run on the right in mid, white under the pointer.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/site-footer.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.js"
+        },
+        {
+          "path": "elements/site-footer.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-footer.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-site-footer",
+        "tags": [
+          "agd-site-footer"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/site-footer.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "site-header",
+      "type": "registry:item",
+      "title": "Site header",
+      "description": "The site's bar: the lockup and the sections in 12px capitals on the left, a quiet link and the plate button on the right; a frosted fade once the page scrolls under it, and a full-screen menu under 640.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/logo.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/site-header.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.js"
+        },
+        {
+          "path": "elements/site-header.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/site-header.d.ts"
+        },
+        {
+          "path": "elements/logo.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.js"
+        },
+        {
+          "path": "elements/logo.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/logo.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-site-header",
+        "tags": [
+          "agd-site-header"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/site-header.js",
+          "elements/logo.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:item",
+      "title": "Skeleton",
+      "description": "A placeholder in the shape of what is loading: a block in the quiet fill with square corners, or a circle, that breathes between full and half opacity. Never a shimmer; still with reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/skeleton.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/skeleton.js"
+        },
+        {
+          "path": "elements/skeleton.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/skeleton.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-skeleton",
+        "tags": [
+          "agd-skeleton"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/skeleton.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "slider",
+      "type": "registry:item",
+      "title": "Slider",
+      "description": "A value on a range: a 4px white at 20% track, white up to the value, and a white thumb with the small corner. It follows the hand without easing.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/slider.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/slider.js"
+        },
+        {
+          "path": "elements/slider.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/slider.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-slider",
+        "tags": [
+          "agd-slider"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/slider.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sonner",
+      "type": "registry:item",
+      "title": "Sonner",
+      "description": "The corner where notes from toast() show: the newest in front, two more peeking out above. Pointing at the stack spreads it out and holds their time. A note rises in from below and leaves faster.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json",
+        "https://agencidev-ds.vercel.app/r/elements/toast.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/sonner.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sonner.js"
+        },
+        {
+          "path": "elements/sonner.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/sonner.d.ts"
+        },
+        {
+          "path": "elements/toast.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toast.js"
+        },
+        {
+          "path": "elements/toast.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toast.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-sonner",
+        "tags": [
+          "agd-sonner"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/sonner.js",
+          "elements/toast.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "spinner",
+      "type": "registry:item",
+      "title": "Spinner",
+      "description": "Work with no known end: a quarter arc in the color around it, white on black, turning on a white at 20% ring at a constant speed. With reduced motion it breathes instead of turning.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/spinner.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/spinner.js"
+        },
+        {
+          "path": "elements/spinner.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/spinner.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-spinner",
+        "tags": [
+          "agd-spinner"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/spinner.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "statement",
+      "type": "registry:item",
+      "title": "Statement",
+      "description": "The homepage statement: a stat line in white with its figure in mid, then one statement at the display step in two tones, the lead in white running on into the rest in mid, left aligned across the page.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/statement.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/statement.js"
+        },
+        {
+          "path": "elements/statement.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/statement.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-statement",
+        "tags": [
+          "agd-statement"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/statement.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "switch",
+      "type": "registry:item",
+      "title": "Switch",
+      "description": "On or off, with no words: a hairline track with a gray thumb when off, white with a black thumb when on. The thumb slides on the strong ease-out.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/switch.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/switch.js"
+        },
+        {
+          "path": "elements/switch.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/switch.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-switch",
+        "tags": [
+          "agd-switch"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/switch.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "table",
+      "type": "registry:item",
+      "title": "Table",
+      "description": "Rows of one kind of thing on black: heads as capital labels in muted ABC Diatype, cells in ABC Diatype 14px, a hairline (white at 20%) between rows and the ghost fill under the pointer. Framed, it sits in a hairline box with square corners. It scrolls sideways with fading edges inside the frame.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/table.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/table.js"
+        },
+        {
+          "path": "elements/table.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/table.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-table",
+        "tags": [
+          "agd-table"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/table.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:item",
+      "title": "Tabs",
+      "description": "Views of one thing, one at a time. The default is a segmented control: a #141414 track, the current view on the plate with a white label. Line tabs sit over a hairline with a 2px white line under the current one.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/tabs.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/tabs.js"
+        },
+        {
+          "path": "elements/tabs.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/tabs.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-tabs",
+        "tags": [
+          "agd-tabs"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/tabs.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "team-list",
+      "type": "registry:item",
+      "title": "Team list",
+      "description": "The about page's team: the names in one centered run of 14px white at line height 2 (role and place read beside each); under 640 a list with role and place in dim.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/team-list.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/team-list.js"
+        },
+        {
+          "path": "elements/team-list.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/team-list.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-team-list",
+        "tags": [
+          "agd-team-list"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/team-list.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "testimonial",
+      "type": "registry:item",
+      "title": "Testimonial",
+      "description": "The homepage's testimonial card: a white plate with the face at the top left, the quote in Agencidev Sans at 20 (16 on phones), and the name and role on one line, the role quieter.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/testimonial.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/testimonial.js"
+        },
+        {
+          "path": "elements/testimonial.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/testimonial.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-testimonial",
+        "tags": [
+          "agd-testimonial"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/testimonial.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "textarea",
+      "type": "registry:item",
+      "title": "Textarea",
+      "description": "Several lines of text, drawn as the input is: a hairline (white at 20%) on black that turns white on focus, ABC Diatype, square corners. It grows by hand downward.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/textarea.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/textarea.js"
+        },
+        {
+          "path": "elements/textarea.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/textarea.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-textarea",
+        "tags": [
+          "agd-textarea"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/textarea.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toast",
+      "type": "registry:item",
+      "title": "Toast",
+      "description": "One note, what just happened: the card's #141414 fill, a hairline and square corners, an ABC Diatype title, a muted line, one small plate button when there is something to do, and a close button.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/elements/button.json"
+      ],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/toast.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toast.js"
+        },
+        {
+          "path": "elements/toast.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toast.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-toast",
+        "tags": [
+          "agd-toast"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/toast.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle-group",
+      "type": "registry:item",
+      "title": "Toggle Group",
+      "description": "Buttons that stay pressed, side by side on one track with square corners. Each pressed one takes the inset fill with white text. On a narrow screen the track scrolls with fading edges.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/toggle-group.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toggle-group.js"
+        },
+        {
+          "path": "elements/toggle-group.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toggle-group.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-toggle-group",
+        "tags": [
+          "agd-toggle-group"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/toggle-group.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle",
+      "type": "registry:item",
+      "title": "Toggle",
+      "description": "A button that stays pressed: no fill or a hairline at rest, the plate with white text while it is on. Sizes match the button's.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/toggle.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toggle.js"
+        },
+        {
+          "path": "elements/toggle.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/toggle.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-toggle",
+        "tags": [
+          "agd-toggle"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/toggle.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:item",
+      "title": "Tooltip",
+      "description": "A control's name, for icon buttons: a white fill with black caption text and the small corner. It waits 300ms under the pointer, shows at once on keyboard focus, and the next one in a row shows at once.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/tooltip.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/tooltip.js"
+        },
+        {
+          "path": "elements/tooltip.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/tooltip.d.ts"
+        },
+        {
+          "path": "elements/button.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.js"
+        },
+        {
+          "path": "elements/button.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/button.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-tooltip",
+        "tags": [
+          "agd-tooltip"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/tooltip.js",
+          "elements/button.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "typography",
+      "type": "registry:item",
+      "title": "Typography",
+      "description": "The brand's type scale as one part. Agencidev Sans for titles, ABC Diatype for text, Medium for small, labels in regular capitals, the system mono for code. Every variant is a type utility from the tokens.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/text.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/text.js"
+        },
+        {
+          "path": "elements/text.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/text.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-text",
+        "tags": [
+          "agd-text"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/text.js"
+        ]
+      }
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "work-rail",
+      "type": "registry:item",
+      "title": "Work rail",
+      "description": "The home rail: portrait strips of work in one row, 100 by 280 with 20px between, the first strip a little left of the middle and the row running off the right edge. Square corners; an empty strip is the slat fill.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "elements/shared.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/shared.js"
+        },
+        {
+          "path": "elements/work-rail.js",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/work-rail.js"
+        },
+        {
+          "path": "elements/work-rail.d.ts",
+          "type": "registry:file",
+          "target": "public/agencidev-ds/elements/work-rail.d.ts"
+        }
+      ],
+      "meta": {
+        "tag": "agd-work-rail",
+        "tags": [
+          "agd-work-rail"
+        ],
+        "modules": [
+          "elements/shared.js",
+          "elements/work-rail.js"
+        ]
+      }
+    }
+  ]
+}

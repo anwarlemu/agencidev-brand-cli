@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "type": "registry:ui",
+  "title": "Badge",
+  "description": "A short label for a state or a kind in 12px capitals, square: the quiet fill (the site's chosen filter chip), the plate, a hairline, or a red wash. A small white or mid dot can lead it.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/ui/Badge.tsx",
+      "type": "registry:ui",
+      "content": "import type { HTMLAttributes } from 'react'\nimport { cn } from '@/lib/cn'\n\n// shadcn's badge in the site's look: a short label for a state or a kind in 12px capitals (the filter chips on the\n// about and careers pages), 24px tall, square. default is the quiet fill (white at 10% over the canvas) with a white\n// label, as the chosen filter; secondary is the plate (#252525); outline a hairline (white at 20%) with a dim label;\n// destructive a red wash with a red label, always with the word. `dot` leads it with a small round dot, white (on) or\n// mid (off), as the 404 page leads its link: never a color, and the word carries the meaning.\nexport type BadgeVariant = 'default' | 'secondary' | 'outline' | 'destructive'\nexport type BadgeDot = 'on' | 'off'\n\nconst VARIANTS: Record<BadgeVariant, string> = {\n  default: 'border-transparent bg-surface-subtle text-fg',\n  secondary: 'border-transparent bg-surface-inset text-fg',\n  outline: 'border-edge-strong bg-transparent text-fg-soft',\n  destructive: 'border-transparent bg-surface-danger text-fg-danger',\n}\nconst DOTS: Record<BadgeDot, string> = {\n  on: 'bg-fg',\n  off: 'bg-fg-muted',\n}\n\nexport interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {\n  /** default (the quiet fill), secondary (the plate), outline or destructive. */\n  variant?: BadgeVariant\n  /** A small dot before the word: on (white) or off (mid). */\n  dot?: BadgeDot\n}\n\nexport function Badge({ variant = 'default', dot, className, children, ...rest }: BadgeProps) {\n  return (\n    <span data-ds=\"badge\" className={cn('inline-flex h-6 shrink-0 items-center gap-1.5 rounded-ds-sm border px-2 type-label whitespace-nowrap', VARIANTS[variant] ?? VARIANTS.default, className)} {...rest}>\n      {dot && <span className={cn('size-1.5 shrink-0 rounded-full', DOTS[dot])} aria-hidden=\"true\" />}\n      {children}\n    </span>\n  )\n}\n\nexport default Badge\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

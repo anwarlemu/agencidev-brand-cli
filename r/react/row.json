@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "row",
+  "type": "registry:ui",
+  "title": "Row",
+  "description": "One section of an inner page: 24px in, 40px above and below (56 from 640), a title read by screen readers and shown when asked, an aside under it and the body under that.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/Row.tsx",
+      "type": "registry:ui",
+      "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/lib/cn'\n\n// One section of an inner page (components/row.tsx): 24px in from the edges, 40px above and below (56 from 640). Its\n// title is read by screen readers and shown only when `titled` (16px white, leading tight); an `aside` (a filter, a\n// note) sits 24px under the title and the body 40px under that, or 16px under a lone title.\nexport interface RowProps {\n  /** The section's name. */\n  label: string\n  /** Shows the name as a title. */\n  titled?: boolean\n  /** A filter or a note between the title and the body. */\n  aside?: ReactNode\n  id?: string\n  children?: ReactNode\n  className?: string\n}\n\nexport function Row({ label, titled = false, aside, id, children, className }: RowProps) {\n  return (\n    <section data-ds=\"row\" id={id} className={cn('mx-6 py-10 sm:py-14', className)}>\n      <h2 className={titled ? 'type-heading-4 text-fg' : 'sr-only'}>{label}</h2>\n      {aside ? <div className={titled ? 'mt-6' : undefined}>{aside}</div> : null}\n      <div className={cn('min-w-0', aside ? 'mt-10' : titled ? 'mt-4' : undefined)}>{children}</div>\n    </section>\n  )\n}\n\nexport default Row\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

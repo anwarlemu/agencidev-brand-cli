@@ -1,0 +1,1957 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "agencidev-react",
+  "homepage": "https://agencidev-ds.vercel.app",
+  "items": [
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "about-page",
+      "type": "registry:block",
+      "title": "About page",
+      "description": "The about page template from library items: the bets centered in two tones of paragraph, the team's names, the process statement over numbered rows, and the openings.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/openings.json",
+        "https://agencidev-ds.vercel.app/r/react/process-list.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json",
+        "https://agencidev-ds.vercel.app/r/react/team-list.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/AboutPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/about.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "A stack of disclosures on black: neutral hairlines between the rows, an ABC Diatype question, a muted answer that opens in place and a chevron that turns. One open at a time, or several.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Accordion.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/AccordionItem.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useAccordion.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert dialog",
+      "description": "A question that needs an answer before anything else, on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, one line saying what happens, Cancel and the action (red for what removes something).",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/AlertDialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "A note or a problem in a #141414 box on black: a Lucide icon, the subject in ABC Diatype, a muted line under it and the button that goes with it. Red for what broke.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Alert.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "article-card",
+      "type": "registry:ui",
+      "title": "Article card",
+      "description": "An article in the list: the cover at 16:10 on the plate fill, the date and reading time in 14px capitals in mid, the title in white and three lines of the excerpt in dim; the whole card is the link.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/ArticleCard.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "article-page",
+      "type": "registry:block",
+      "title": "Article page",
+      "description": "An article template from library items: the way back, the title at the display step, the date and reading time in capitals, the cover at 16:10 and the body in a 36rem reading measure.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/ArticlePage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/article.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "articles-page",
+      "type": "registry:block",
+      "title": "Articles page",
+      "description": "The articles page template from library items: a line in dim, then the articles in a grid of one, two or three columns.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/article-card.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/ArticlesPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/articles.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect ratio",
+      "description": "A box that keeps its shape as it grows: a 1:1 post, a 4:5 story, a 16:9 slide. It draws nothing itself; square corners and a #141414 ground are classes on it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/AspectRatio.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Who or what something belongs to, in a circle: a picture cropped round, or the name's initials in white ABC Diatype on #141414. Three sizes.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Avatar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A short label for a state or a kind in 12px capitals, square: the quiet fill (the site's chosen filter chip), the plate, a hairline, or a red wash. A small white or mid dot can lead it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Badge.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Where you are, in ABC Diatype: each step back a muted link that turns white under the pointer, a small chevron between, the page itself in white.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Breadcrumb.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "Button group",
+      "description": "Buttons that belong together, joined into one block: square corners on the outer corners only and a 1px black seam between them. A field with its button, a button with its menu arrow, or a vertical stack.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/ButtonGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "The site's button: the plate (#252525) with white 12px capitals and the 4px corner for the one main action, mid with black ink under the pointer; the quiet button, bare dim capitals that turn white, for the rest; a ghost for tools in rows. Sizes and a square icon button.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "A month to pick a day from: 40px day cells with square corners, the picked day on the plate with a white figure, today in a neutral hairline ring, the months either side faint. Arrows, Home, End and Page Up and Down move; Enter picks.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Calendar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "The brand's card: a #141414 fill on black with square corners, an Agencidev Sans title, a line of ABC Diatype and the body, with actions at the foot. No border, no shadow.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Card.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "careers-page",
+      "type": "registry:block",
+      "title": "Careers page",
+      "description": "The careers page template from library items: the page head in two tones and the openings with their department filter.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/openings.json",
+        "https://agencidev-ds.vercel.app/r/react/page-head.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/CareersPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/careers.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Slides in a row on the black ground, 16px apart, one to three in view, with ghost arrow buttons and the place in tabular figures. Native scroll snap: a swipe, a trackpad, the arrows and the arrow keys all move it. It never plays on its own. The track's edges fade while there are slides past them.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Carousel.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "case-study-page",
+      "type": "registry:block",
+      "title": "Case study page",
+      "description": "A case study template from library items: the client's name with its live link, then the work in masonry columns.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/case-wall.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/CaseStudyPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/case-study.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "case-wall",
+      "type": "registry:ui",
+      "title": "Case wall",
+      "description": "A case study's wall of work: the client's name at the display step with a plate link beside it, then the work in masonry columns 20px apart, square-cornered; a piece in the works is a hairline box with its caption in capitals.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/CaseWall.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "How a number is drawn: white bars per day under a total, and lines over time in the brand's series order (white, mid (#909090), the subtle grey, dim, then the plate; every other one dashed). Five series at most. Axes from 0 on hairlines (white at 10%); pointing reads a value.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/BarChart.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/LineChart.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/chart.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A yes or no that is part of a form: a 16px box in a hairline (white at 20%) on black that fills white with a black check, a bar for a group partly on, and an ABC Diatype label beside it. Form-associated.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Checkbox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "code-block",
+      "type": "registry:ui",
+      "title": "Code block",
+      "description": "Tabs of code: a slat panel (#141414) with a head of tabs (a white line under the chosen one) and a copy button whose label turns to Copied, over code in white with its punctuation and comments muted, scrolling across. Code and the copy button also stand alone.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/CodeBlock.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/site/Code.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/site/CopyButton.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/code.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A part that opens in place and pushes what follows: a quiet ABC Diatype trigger with a muted chevron that turns, and content that grows to its height and settles in.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Collapsible.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "A field-like trigger that opens a list to pick one option from, with a filter over it, on the #141414 overlay panel: the menus' rows, a #141414 fill on the row the arrows or the pointer are on, the pick checked at the end. The list scrolls with fading edges, so no row is cut off.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Combobox.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "A box to type in over a list of actions and places, on the overlay surface (#141414): the field on top over a hairline, groups with a capital label, the menus' rows with an icon and a shortcut. On the page, or in a window opened with Cmd+K. The list scrolls with fading edges, so no row is cut off.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Command.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/CommandDialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "contact-page",
+      "type": "registry:block",
+      "title": "Contact page",
+      "description": "The contact page template from library items: the two-tone head with a plate button and the email as a quiet one, the ways to get in touch as rows, and notes in dim running copy.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json",
+        "https://agencidev-ds.vercel.app/r/react/detail-list.json",
+        "https://agencidev-ds.vercel.app/r/react/page-head.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/ContactPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/contact.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context menu",
+      "description": "The dropdown menu's rows on the #141414 overlay panel, opened where the pointer right-clicks, or under the focused row with Shift+F10 or the menu key. Arrows, Home, End and Escape are handled; focus returns to what was clicked.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/dropdown-menu.json",
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/ContextMenu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "Data table",
+      "description": "A table people filter, sort and page through: a dropdown per filter, heads in capitals that sort, 40px rows on neutral hairlines that take the #141414 fill under the pointer, numbers in tabular figures, Previous and Next under it. It scrolls sideways with fading edges inside the frame.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json",
+        "https://agencidev-ds.vercel.app/r/react/dropdown-menu.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/DataTable.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date picker",
+      "description": "A date in a field: a button drawn as the text field that opens the calendar on the #141414 overlay panel under it. Opening puts focus on the picked day, picking closes it and returns focus, Escape closes it unchanged.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/calendar.json",
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/DatePicker.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "detail-list",
+      "type": "registry:ui",
+      "title": "Detail list",
+      "description": "The contact page's rows: a label in white and its description in dim running copy beside it (a 248px label column from 640), 40px between rows.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/DetailList.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A modal window on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, a line under it, a ghost close button, a short form or a partnership, and buttons at the foot.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Dialog.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "direction",
+      "type": "registry:ui",
+      "title": "Direction",
+      "description": "Sets the reading direction for what is inside it, so logical spacing and the components follow right-to-left text. Code stays left to right.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Direction.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useDirection.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "A panel that slides in from an edge over a black scrim, on the overlay surface (#141414): from the bottom with square corners on its top edge and a grab handle, or from the left or right at full height. The body's edges fade while there is more to scroll.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json",
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Drawer.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "hooks/useSheet.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown menu",
+      "description": "A button that opens a short list of actions or choices on the overlay surface (#141414): a neutral hairline, square corners, rows that take a #141414 fill under the pointer. Arrows, Home, End, Escape and Tab are handled.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/DropdownMenu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenuItem.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenuLabel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenuSeparator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useMenu.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "What shows where a list has nothing in it yet: a dashed hairline with square corners, a Lucide icon in a #141414 tile, an Agencidev Sans title, one muted line and the actions that fill it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Empty.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "A label over one control, with a description or an error under it. The label speaks in capitals; the help is muted; an error takes the help's place in red.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Field.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "filter-list",
+      "type": "registry:ui",
+      "title": "Filter list",
+      "description": "A single-choice filter: the options as 14px capitals in mid, the chosen one white, in a row or a column; color changes only, on pointer down.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/FilterList.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Fields stacked 24px apart, a failure from the server in a dark red box, and the actions at the end, the main one last. Errors wait until a field is left or the form is sent.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Form.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useForm.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "home-page",
+      "type": "registry:block",
+      "title": "Home page",
+      "description": "The home page template from library items: the bar, the rail of work across the first screen, and the statement at its foot with the stat line over it.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json",
+        "https://agencidev-ds.vercel.app/r/react/statement.json",
+        "https://agencidev-ds.vercel.app/r/react/work-rail.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/HomePage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/home.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "More about a link while the pointer rests on it: the card's #141414 fill, a hairline and square corners. The pointer can cross into it; on touch the link just works.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/HoverCard.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "Input Group",
+      "description": "A field with an icon, a prefix, a unit or a small button inside its hairline, drawn and sized as the input is. The hairline turns white while the field has focus.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/InputGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "A one-time code, one cell per character, each cell drawn as the input. It is one real field, so paste and the phone's code suggestion work.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/InputOtp.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype, a mid (#909090) placeholder and square corners. Sizes match the button's.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Input.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "item",
+      "type": "registry:ui",
+      "title": "Item",
+      "description": "A row: media, a title in ABC Diatype with a muted line under it, and actions at the end. No fill, a hairline box or the card's #141414 fill. ItemGroup puts a hairline between rows.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Item.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/ItemGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A key: ABC Diatype 12px in the soft neutral, in a 20px box in the quiet fill with a hairline and the small corner. KbdGroup holds the keys of one shortcut.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Kbd.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/KbdGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A field's label: ABC Diatype in capitals, in the soft gray, over the control it names. A muted hint can follow it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Label.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "legal-page",
+      "type": "registry:block",
+      "title": "Legal page",
+      "description": "A legal page template from library items: the title in white and when it changed in mid, then titled rows of dim running copy.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/page-head.json",
+        "https://agencidev-ds.vercel.app/r/react/row.json",
+        "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+        "https://agencidev-ds.vercel.app/r/react/site-header.json",
+        "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/LegalPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/legal.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "logo",
+      "type": "registry:ui",
+      "title": "Logo",
+      "description": "The square, the wordmark and the lockup from the site's own files, white or black only, sized by height.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/visuals/Logo.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/logos.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "Menu triggers in a row: a black strip in a hairline with square corners, triggers in ABC Diatype, each opening a panel of rows in the card's #141414 fill. Arrow keys move along the bar and through the rows.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Menubar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenubarMenu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenubarItem.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenubarLabel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/MenubarSeparator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "The browser's own select, drawn as the input: a hairline (white at 20%) on black that turns white on focus, square corners and a muted chevron. Phones open the system picker.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/NativeSelect.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "A site's top navigation: triggers and links in ABC Diatype, each trigger opening a panel of links in the card's #141414 fill. It opens under a resting pointer, switches at once between triggers, and opens at once from the keyboard.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/NavigationMenu.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/NavigationMenuItem.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/NavigationMenuLink.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "no-signal",
+      "type": "registry:ui",
+      "title": "No signal",
+      "description": "The 404 page's no-signal static as a box: a dead channel's charcoal static and grain, with the glitch band rolling up through it and revealing white. It runs at about twenty frames a second and holds still under reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/visuals/NoSignal.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/no-signal.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/signal.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "not-found-page",
+      "type": "registry:block",
+      "title": "Not found page",
+      "description": "The not found page: the no-signal static filling the screen, the head centered under the band, a line in dim, and the way home with a white dot and an arrow in a ring.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/no-signal.json"
+      ],
+      "files": [
+        {
+          "path": "components/pages/NotFoundPage.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/not-found.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "openings",
+      "type": "registry:ui",
+      "title": "Openings",
+      "description": "The careers page's open roles: the heading in capitals, department chips on the right, and each role a full-width row, the title in white and the department in mid, a quiet fill under the pointer.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/Openings.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "page-head",
+      "type": "registry:ui",
+      "title": "Page head",
+      "description": "The page's H1 set like the homepage statement: one size in two tones, the lead in white running on into the rest in mid, centered in a 64rem measure, with a plate and a quiet button under it.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/PageHead.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Previous and Next around the page numbers: 32px ghost buttons that fill under the pointer, the current page in a hairline (white at 20%) box in white. First and last always show, an ellipsis stands for the rest.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Pagination.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A panel for any content, opened from a button: the card's #141414 fill on black, a hairline and square corners. It grows from its trigger and flips to the side with room.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/PopoverPanel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/usePopover.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/transition.tsx",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "process-list",
+      "type": "registry:ui",
+      "title": "Process list",
+      "description": "The about page's process: numbered rows, each the number, a title, a white hairline at 10% and the body in mid; four columns from 1024, the body under the title below.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/ProcessList.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "How far a task has got: a white bar on a 6px track of white at 20%, with round ends, sliding to each new value on transform. Without a value, a short bar sweeps across at a steady pace.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Progress.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "One of a few, all in view: round marks in a hairline, the picked one edged in white with a white dot. Arrows move the pick.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/RadioGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Two panes and the hairline (white at 20%) between them. The hairline is the handle: it turns white under the pointer, while dragged and when focused, and can carry a small grip. Arrow keys move it too. A pane that overflows scrolls with fading edges.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Resizable.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "row",
+      "type": "registry:ui",
+      "title": "Row",
+      "description": "One section of an inner page: 24px in, 40px above and below (56 from 640), a title read by screen readers and shown when asked, an aside under it and the body under that.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/Row.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A region that scrolls on its own with thin scrollbars: a white at 20% thumb on a clear track. Native scrolling, so wheel, touch and keyboard all work; overscroll stays inside. An edge with more past it fades (fade-y, fade-x, fade-xy) instead of cutting rows off.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/ScrollArea.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "One choice from a short list, drawn as the field is: a black field, a hairline that turns white while open, a chevron. The list opens in the card's #141414 panel, the chosen row checked. A long list scrolls with fading edges.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Select.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "The hairline: 1px in the edge (white at 10%), across or down. Agencidev separates with a fill or a hairline, never a shadow.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Separator.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "A modal panel at an edge of the screen: the card's #141414 fill with a hairline on its inner edge, an Agencidev Sans title, the body scrolling on its own and buttons at the foot. It slides in on the drawer curve; Escape closes it at once. The body's edges fade while there is more to scroll.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Sheet.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "The app's rail: black with a hairline at its edge, the logo at the top, groups named in capitals, the page you are on on the plate, the account at the foot. It folds to icons with one button. Its body scrolls with fading edges, so no row is cut off.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Sidebar.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/SidebarLabel.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "components/ui/SidebarLink.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "site-footer",
+      "type": "registry:ui",
+      "title": "Site footer",
+      "description": "The site's footer: one quiet row, the lockup on the left and every link in a single run on the right in mid, white under the pointer.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/logo.json"
+      ],
+      "files": [
+        {
+          "path": "components/site/SiteFooter.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "site-header",
+      "type": "registry:ui",
+      "title": "Site header",
+      "description": "The site's bar: the lockup and the sections in 12px capitals on the left, a quiet link and the plate button on the right; a frosted fade once the page scrolls under it, and a full-screen menu under 640.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/logo.json"
+      ],
+      "files": [
+        {
+          "path": "components/site/SiteHeader.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/pages/chrome.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A placeholder in the shape of what is loading: a block in the quiet fill with square corners, or a circle, that breathes between full and half opacity. Never a shimmer; still with reduced motion.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Skeleton.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/image.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "A value on a range: a 4px white at 20% track, white up to the value, and a white thumb with the small corner. It follows the hand without easing.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Slider.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "The corner where notes from toast() show: the newest in front, two more peeking out above. Pointing at the stack spreads it out and holds their time. A note rises in from below and leaves faster.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/toast.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Sonner.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/sonner.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Work with no known end: a quarter arc in the color around it, white on black, turning on a white at 20% ring at a constant speed. With reduced motion it breathes instead of turning.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Spinner.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "statement",
+      "type": "registry:ui",
+      "title": "Statement",
+      "description": "The homepage statement: a stat line in white with its figure in mid, then one statement at the display step in two tones, the lead in white running on into the rest in mid, left aligned across the page.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/Statement.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On or off, with no words: a hairline track with a gray thumb when off, white with a black thumb when on. The thumb slides on the strong ease-out.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Switch.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Rows of one kind of thing on black: heads as capital labels in muted ABC Diatype, cells in ABC Diatype 14px, a hairline (white at 20%) between rows and the ghost fill under the pointer. Framed, it sits in a hairline box with square corners. It scrolls sideways with fading edges inside the frame.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Table.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Views of one thing, one at a time. The default is a segmented control: a #141414 track, the current view on the plate with a white label. Line tabs sit over a hairline with a 2px white line under the current one.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Tabs.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "team-list",
+      "type": "registry:ui",
+      "title": "Team list",
+      "description": "The about page's team: the names in one centered run of 14px white at line height 2 (role and place read beside each); under 640 a list with role and place in dim.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/TeamList.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "testimonial",
+      "type": "registry:ui",
+      "title": "Testimonial",
+      "description": "The homepage's testimonial card: a white plate with the face at the top left, the quote in Agencidev Sans at 20 (16 on phones), and the name and role on one line, the role quieter.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/site/Testimonial.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Several lines of text, drawn as the input is: a hairline (white at 20%) on black that turns white on focus, ABC Diatype, square corners. It grows by hand downward.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Textarea.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "One note, what just happened: the card's #141414 fill, a hairline and square corners, an ABC Diatype title, a muted line, one small plate button when there is something to do, and a close button.",
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/button.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Toast.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Buttons that stay pressed, side by side on one track with square corners. Each pressed one takes the inset fill with white text. On a narrow screen the track scrolls with fading edges.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/ToggleGroup.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "A button that stays pressed: no fill or a hairline at rest, the plate with white text while it is on. Sizes match the button's.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Toggle.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "hooks/useControllable.ts",
+          "type": "registry:hook"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A control's name, for icon buttons: a white fill with black caption text and the small corner. It waits 300ms under the pointer, shows at once on keyboard focus, and the next one in a row shows at once.",
+      "dependencies": [],
+      "registryDependencies": [
+        "https://agencidev-ds.vercel.app/r/react/popover.json"
+      ],
+      "files": [
+        {
+          "path": "components/ui/Tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "description": "The brand's type scale as one part. Agencidev Sans for titles, ABC Diatype for text, Medium for small, labels in regular capitals, the system mono for code. Every variant is a type utility from the tokens.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/ui/Text.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+      "name": "work-rail",
+      "type": "registry:ui",
+      "title": "Work rail",
+      "description": "The home rail: portrait strips of work in one row, 100 by 280 with 20px between, the first strip a little left of the middle and the row running off the right edge. Square corners; an empty strip is the slat fill.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "components/visuals/WorkRail.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "lib/cn.ts",
+          "type": "registry:lib"
+        }
+      ]
+    }
+  ]
+}

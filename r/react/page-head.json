@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "page-head",
+  "type": "registry:ui",
+  "title": "Page head",
+  "description": "The page's H1 set like the homepage statement: one size in two tones, the lead in white running on into the rest in mid, centered in a 64rem measure, with a plate and a quiet button under it.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/PageHead.tsx",
+      "type": "registry:ui",
+      "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/lib/cn'\n\n// The site's page head (components/page-head.tsx): the page's H1 set like the homepage statement, one size in two\n// tones (the lead in white running on into the rest in mid), Agencidev Sans at the display step (28, 36 from 640),\n// leading 1.14, centered in a 64rem measure; its actions 40px under it (48 from 640), 8px apart. 128px above (176\n// from 640) and 64px below (96 from 640), so it clears the bar.\nexport interface PageHeadProps {\n  /** Names the heading (`<id>-heading`). */\n  id?: string\n  /** The lead, in white. */\n  lead: string\n  /** The rest, in mid, on the same lines. */\n  rest?: string\n  /** Actions under it: a plate button and a quiet one. */\n  children?: ReactNode\n  className?: string\n}\n\nexport function PageHead({ id = 'page', lead, rest, children, className }: PageHeadProps) {\n  return (\n    <header data-ds=\"page-head\" aria-labelledby={`${id}-heading`} className={cn('px-6 pt-32 pb-16 text-center sm:pt-44 sm:pb-24', className)}>\n      <h1 id={`${id}-heading`} className=\"mx-auto max-w-(--ds-layout-page) type-section text-balance\">\n        <span className=\"text-fg\">{lead}</span>\n        {rest ? <> <span className=\"text-fg-muted\">{rest}</span></> : null}\n      </h1>\n      {children ? <div className=\"mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12\">{children}</div> : null}\n    </header>\n  )\n}\n\nexport default PageHead\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

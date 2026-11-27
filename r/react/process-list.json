@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "process-list",
+  "type": "registry:ui",
+  "title": "Process list",
+  "description": "The about page's process: numbered rows, each the number, a title, a white hairline at 10% and the body in mid; four columns from 1024, the body under the title below.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/ProcessList.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/cn'\n\n// The about page's process (components/about-view.tsx): numbered rows, each the number, a title, a hairline (white at\n// 10%) and the body in mid. From 1024 the four sit in one row (48px, then three equal columns); below, the body drops\n// under the title. 32px above and below each row (40 from 1024).\nexport interface ProcessStep {\n  title: string\n  body?: string\n}\n\nexport interface ProcessListProps {\n  steps: ProcessStep[]\n  className?: string\n}\n\nexport function ProcessList({ steps, className }: ProcessListProps) {\n  return (\n    <ol data-ds=\"process-list\" className={cn('w-full', className)}>\n      {steps.map((s, i) => (\n        <li key={`${i}-${s.title}`} className=\"grid grid-cols-[48px_minmax(0,1fr)] gap-y-3 py-8 lg:grid-cols-[48px_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:py-10\">\n          <span className=\"type-heading-4 text-fg\">{i + 1}</span>\n          <h3 className=\"type-heading-4 text-fg lg:pr-12\">{s.title}</h3>\n          <span aria-hidden=\"true\" className=\"hidden h-px bg-edge lg:mr-12 lg:block\" />\n          {s.body ? <p className=\"col-start-2 type-body text-fg-muted lg:col-start-auto\">{s.body}</p> : null}\n        </li>\n      ))}\n    </ol>\n  )\n}\n\nexport default ProcessList\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

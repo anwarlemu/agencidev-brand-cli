@@ -1,0 +1,215 @@
+{
+  "name": "about-page",
+  "title": "About page",
+  "type": "registry:block",
+  "group": "pages",
+  "description": "The about page template from library items: the bets centered in two tones of paragraph, the team's names, the process statement over numbered rows, and the openings.",
+  "use_for": "An about page that states what the studio believes, who it is and how it works. Edit lib/pages/about.ts or pass `content`; `sections` reorders or leaves sections out.",
+  "never": [
+    "New colors, shadows, radii or type sizes added to a section: use the items' props",
+    "People, clients or quotes you have no right to show: the defaults are Acme",
+    "A second plate button in a view"
+  ],
+  "source": "Built from the library's site items, after the site's components/about-view.tsx.",
+  "body": "",
+  "requires": [
+    "openings",
+    "process-list",
+    "site-footer",
+    "site-header",
+    "skeleton",
+    "team-list"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/pages/AboutPage.tsx",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { TeamList } from '@/react/components/site/TeamList'\nimport { ProcessList } from '@/react/components/site/ProcessList'\nimport { Openings } from '@/react/components/site/Openings'\nimport { aboutContent, aboutSections, type AboutContent, type AboutSection } from '@/lib/pages/about'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The about page from library items (components/about-view.tsx): the bets centered at the display step (the title\n// and the closing line in white, the bets in mid, a blank line between), the team's names, the process (its statement\n// in two tones over the numbered rows) and the openings. `content` replaces the copy (lib/pages/about.ts).\nexport interface AboutPageProps {\n  content?: AboutContent\n  sections?: readonly AboutSection[]\n  className?: string\n}\n\nexport function AboutPage({ content: c = aboutContent, sections, className }: AboutPageProps) {\n  const parts: Record<AboutSection, ReactNode> = {\n    bets: (\n      <section aria-labelledby=\"bets-heading\" className=\"px-6 pt-32 pb-24 text-center sm:pt-44\">\n        <h1 id=\"bets-heading\" className=\"type-section text-fg\">{c.bets.title}</h1>\n        <div className=\"mx-auto mt-10 flex max-w-(--ds-layout-page) flex-col gap-10 type-section text-balance\">\n          {c.bets.lines.map((l) => <p key={l} className=\"text-fg-muted\">{l}</p>)}\n          <p className=\"text-fg\">{c.bets.close}</p>\n        </div>\n      </section>\n    ),\n    team: <section aria-label=\"Team\" className=\"py-24\"><TeamList members={c.team} /></section>,\n    process: (\n      <section aria-labelledby=\"process-heading\" className=\"px-6 py-14\">\n        <h2 id=\"process-heading\" className=\"max-w-(--ds-layout-page) type-section\"><span className=\"text-fg\">{c.process.lead}</span> <span className=\"text-fg\">{c.process.rest}</span></h2>\n        <ProcessList steps={c.process.steps} className=\"mt-12\" />\n      </section>\n    ),\n    openings: <Openings roles={c.roles} />,\n  }\n  return (\n    <div data-ds=\"about-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/about' }))} />\n      <main className=\"flex-1\">{pageSections(aboutSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default AboutPage\n"
+    },
+    {
+      "path": "lib/pages/about.ts",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The about page template's copy (components/about-view.tsx): the bets, the team, the process and the openings. The\n// bets and the process are the studio's own words; the team and the roles are Acme's.\nexport const aboutContent = {\n\theader,\n\tbets: {\n\t\ttitle: 'Our bets:',\n\t\tlines: [\n\t\t\t\"Companies don't want designers to implement styles or design. They'd much rather use AI to do it themselves, faster and cheaper.\",\n\t\t\t'The job of designers will become almost completely about design thinking. AI will handle almost all execution, and designers will solve problems and come up with ideas.',\n\t\t\t'Products and websites need to be geared for agent usage. Agents will become major users of websites and products themselves.',\n\t\t],\n\t\tclose: 'This is why we build design systems for both teams and LLMs.',\n\t},\n\tteam: [\n\t\t{ name: 'Alex Rivera', role: 'Founder', location: 'London' },\n\t\t{ name: 'Sam Lee', role: 'Design', location: 'Lagos' },\n\t\t{ name: 'Jordan Park', role: 'Engineering', location: 'Berlin' },\n\t\t{ name: 'Casey Morgan', role: 'Design', location: 'Manila' },\n\t\t{ name: 'Riley Chen', role: 'Engineering', location: 'Cairo' },\n\t],\n\tprocess: {\n\t\tlead: 'Harnessing an AI-first approach to accelerate our craft.',\n\t\trest: \"Our agentic design and engineering process keeps us at the forefront of what's possible.\",\n\t\tsteps: [\n\t\t\t{ title: 'Exploration is fast. Judgement is not.', body: 'We explore design variants in code first, then refine and polish them in Figma, not the other way around.' },\n\t\t\t{ title: 'Speed requires agility.', body: 'Working faster increases the need for a clear process. Ours is structured yet agile and autonomous, so it lets us move even faster.' },\n\t\t\t{ title: 'Strong ideas survive testing.', body: 'When many directions are explored, weak ideas reveal themselves quickly. The strongest hold up as they are tested, expanded and refined.' },\n\t\t],\n\t},\n\troles: [\n\t\t{ title: 'Product designer', department: 'Design', href: '/careers' },\n\t\t{ title: 'Design engineer', department: 'Engineering', href: '/careers' },\n\t],\n\tfooter,\n}\nexport type AboutContent = typeof aboutContent\nexport const aboutSections = ['bets', 'team', 'process', 'openings'] as const\nexport type AboutSection = (typeof aboutSections)[number]\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Page",
+      "label": "About page",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/about-page/Page.tsx",
+      "content": "import { AboutPage } from '@/react/components/pages/AboutPage'\n// The about page with its default copy.\n\nexport default function Page() {\n  return <AboutPage />\n}\n",
+      "requires": [
+        "openings",
+        "process-list",
+        "site-footer",
+        "site-header",
+        "skeleton",
+        "team-list"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/pages/AboutPage.tsx",
+          "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { TeamList } from '@/react/components/site/TeamList'\nimport { ProcessList } from '@/react/components/site/ProcessList'\nimport { Openings } from '@/react/components/site/Openings'\nimport { aboutContent, aboutSections, type AboutContent, type AboutSection } from '@/lib/pages/about'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The about page from library items (components/about-view.tsx): the bets centered at the display step (the title\n// and the closing line in white, the bets in mid, a blank line between), the team's names, the process (its statement\n// in two tones over the numbered rows) and the openings. `content` replaces the copy (lib/pages/about.ts).\nexport interface AboutPageProps {\n  content?: AboutContent\n  sections?: readonly AboutSection[]\n  className?: string\n}\n\nexport function AboutPage({ content: c = aboutContent, sections, className }: AboutPageProps) {\n  const parts: Record<AboutSection, ReactNode> = {\n    bets: (\n      <section aria-labelledby=\"bets-heading\" className=\"px-6 pt-32 pb-24 text-center sm:pt-44\">\n        <h1 id=\"bets-heading\" className=\"type-section text-fg\">{c.bets.title}</h1>\n        <div className=\"mx-auto mt-10 flex max-w-(--ds-layout-page) flex-col gap-10 type-section text-balance\">\n          {c.bets.lines.map((l) => <p key={l} className=\"text-fg-muted\">{l}</p>)}\n          <p className=\"text-fg\">{c.bets.close}</p>\n        </div>\n      </section>\n    ),\n    team: <section aria-label=\"Team\" className=\"py-24\"><TeamList members={c.team} /></section>,\n    process: (\n      <section aria-labelledby=\"process-heading\" className=\"px-6 py-14\">\n        <h2 id=\"process-heading\" className=\"max-w-(--ds-layout-page) type-section\"><span className=\"text-fg\">{c.process.lead}</span> <span className=\"text-fg\">{c.process.rest}</span></h2>\n        <ProcessList steps={c.process.steps} className=\"mt-12\" />\n      </section>\n    ),\n    openings: <Openings roles={c.roles} />,\n  }\n  return (\n    <div data-ds=\"about-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/about' }))} />\n      <main className=\"flex-1\">{pageSections(aboutSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default AboutPage\n"
+        },
+        {
+          "path": "lib/pages/about.ts",
+          "content": "import { footer, header } from '@/lib/pages/chrome'\n// The about page template's copy (components/about-view.tsx): the bets, the team, the process and the openings. The\n// bets and the process are the studio's own words; the team and the roles are Acme's.\nexport const aboutContent = {\n\theader,\n\tbets: {\n\t\ttitle: 'Our bets:',\n\t\tlines: [\n\t\t\t\"Companies don't want designers to implement styles or design. They'd much rather use AI to do it themselves, faster and cheaper.\",\n\t\t\t'The job of designers will become almost completely about design thinking. AI will handle almost all execution, and designers will solve problems and come up with ideas.',\n\t\t\t'Products and websites need to be geared for agent usage. Agents will become major users of websites and products themselves.',\n\t\t],\n\t\tclose: 'This is why we build design systems for both teams and LLMs.',\n\t},\n\tteam: [\n\t\t{ name: 'Alex Rivera', role: 'Founder', location: 'London' },\n\t\t{ name: 'Sam Lee', role: 'Design', location: 'Lagos' },\n\t\t{ name: 'Jordan Park', role: 'Engineering', location: 'Berlin' },\n\t\t{ name: 'Casey Morgan', role: 'Design', location: 'Manila' },\n\t\t{ name: 'Riley Chen', role: 'Engineering', location: 'Cairo' },\n\t],\n\tprocess: {\n\t\tlead: 'Harnessing an AI-first approach to accelerate our craft.',\n\t\trest: \"Our agentic design and engineering process keeps us at the forefront of what's possible.\",\n\t\tsteps: [\n\t\t\t{ title: 'Exploration is fast. Judgement is not.', body: 'We explore design variants in code first, then refine and polish them in Figma, not the other way around.' },\n\t\t\t{ title: 'Speed requires agility.', body: 'Working faster increases the need for a clear process. Ours is structured yet agile and autonomous, so it lets us move even faster.' },\n\t\t\t{ title: 'Strong ideas survive testing.', body: 'When many directions are explored, weak ideas reveal themselves quickly. The strongest hold up as they are tested, expanded and refined.' },\n\t\t],\n\t},\n\troles: [\n\t\t{ title: 'Product designer', department: 'Design', href: '/careers' },\n\t\t{ title: 'Design engineer', department: 'Engineering', href: '/careers' },\n\t],\n\tfooter,\n}\nexport type AboutContent = typeof aboutContent\nexport const aboutSections = ['bets', 'team', 'process', 'openings'] as const\nexport type AboutSection = (typeof aboutSections)[number]\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "openings",
+        "process-list",
+        "site-footer",
+        "site-header",
+        "skeleton",
+        "team-list"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "AboutPage",
+            "file": "react/components/pages/AboutPage.tsx",
+            "props": [
+              {
+                "name": "content",
+                "type": "AboutContent",
+                "required": false
+              },
+              {
+                "name": "sections",
+                "type": "readonly AboutSection[]",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "About page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/about-page/Page.tsx",
+          "content": "import { AboutPage } from '@/react/components/pages/AboutPage'\n// The about page with its default copy.\n\nexport default function Page() {\n  return <AboutPage />\n}\n",
+          "registryDependencies": [
+            "openings",
+            "process-list",
+            "site-footer",
+            "site-header",
+            "skeleton",
+            "team-list"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/pages/about-page.ts",
+          "content": "import { html, nothing, type TemplateResult } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport { pageSections } from '@/lib/image'\nimport '@/elements/components/site/site-header'\nimport '@/elements/components/site/site-footer'\nimport '@/elements/components/site/team-list'\nimport '@/elements/components/site/process-list'\nimport '@/elements/components/site/openings'\nimport styles from 'virtual:tw'\nimport { aboutContent, aboutSections, type AboutContent, type AboutSection } from '@/lib/pages/about'\n\n// AboutPage.tsx as <agd-about-page>: the bets, the team, the process and the openings.\n\n/**\n * @summary The about page template.\n */\nexport class AboutPage extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"about-page\"]'))\n\tstatic properties = { content: { type: Object }, sections: { type: Array } }\n\t/** The page's copy (lib/pages/about.ts by default). */\n\tcontent: AboutContent = aboutContent\n\t/** The sections to show, in order. */\n\tsections?: AboutSection[]\n\n\trender() {\n\t\tconst c = this.content\n\t\tconst parts: Record<AboutSection, TemplateResult | typeof nothing> = {\n\t\t\tbets: html`<section aria-labelledby=\"bets-heading\" class=\"px-6 pt-32 pb-24 text-center sm:pt-44\"><h1 id=\"bets-heading\" class=\"type-section text-fg\">${c.bets.title}</h1><div class=\"mx-auto mt-10 flex max-w-(--ds-layout-page) flex-col gap-10 type-section text-balance\">${c.bets.lines.map((l) => html`<p class=\"text-fg-muted\">${l}</p>`)}<p class=\"text-fg\">${c.bets.close}</p></div></section>`,\n\t\t\tteam: html`<section aria-label=\"Team\" class=\"py-24\"><agd-team-list .members=${c.team}></agd-team-list></section>`,\n\t\t\tprocess: html`<section aria-labelledby=\"process-heading\" class=\"px-6 py-14\"><h2 id=\"process-heading\" class=\"max-w-(--ds-layout-page) type-section\"><span class=\"text-fg\">${c.process.lead}</span> <span class=\"text-fg\">${c.process.rest}</span></h2><agd-process-list .steps=${c.process.steps} class=\"mt-12\"></agd-process-list></section>`,\n\t\t\topenings: html`<agd-openings .roles=${c.roles}></agd-openings>`,\n\t\t}\n\t\tconst order = pageSections(aboutSections, this.sections)\n\t\treturn html`<div data-ds=\"about-page\" class=\"flex min-h-screen w-full flex-col bg-surface text-fg\"><agd-site-header .links=${c.header.links.map((l) => ({ ...l, current: l.href === '/about' }))} .secondary=${c.header.secondary} .primary=${c.header.primary} email=${c.header.email}></agd-site-header><main class=\"flex-1\">${order.map((k) => parts[k])}</main><agd-site-footer .links=${c.footer.links}></agd-site-footer></div>`\n\t}\n}\n\ndefine('about-page', AboutPage)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/about-page.js",
+        "elements/site-header.js",
+        "elements/site-footer.js",
+        "elements/team-list.js",
+        "elements/process-list.js",
+        "elements/openings.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-about-page",
+      "tags": [
+        "agd-about-page"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "logo",
+        "openings",
+        "process-list",
+        "site-footer",
+        "site-header",
+        "team-list"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-about-page",
+            "name": "AboutPage",
+            "module": "elements/about-page.js",
+            "description": "The about page template.",
+            "attributes": [
+              {
+                "name": "content",
+                "field": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; bets: { title: string; lines: string[]; close: string; }; team: { name: string; role: string; location: string; }[]; process: { lead: string; rest: string; steps: { title: string; body: string; }[]; }; roles: { title: string; department: string; href: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "aboutContent",
+                "description": "The page's copy (lib/pages/about.ts by default)."
+              },
+              {
+                "name": "sections",
+                "field": "sections",
+                "type": "(\"bets\" | \"team\" | \"process\" | \"openings\")[] | undefined",
+                "description": "The sections to show, in order."
+              }
+            ],
+            "properties": [
+              {
+                "name": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; bets: { title: string; lines: string[]; close: string; }; team: { name: string; role: string; location: string; }[]; process: { lead: string; rest: string; steps: { title: string; body: string; }[]; }; roles: { title: string; department: string; href: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "aboutContent",
+                "description": "The page's copy (lib/pages/about.ts by default).",
+                "attribute": "content"
+              },
+              {
+                "name": "sections",
+                "type": "(\"bets\" | \"team\" | \"process\" | \"openings\")[] | undefined",
+                "description": "The sections to show, in order.",
+                "attribute": "sections"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "About page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/about-page/Page.html",
+          "content": "<!-- The about page with its default copy. -->\n<agd-about-page></agd-about-page>\n"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "careers-page",
+  "type": "registry:block",
+  "title": "Careers page",
+  "description": "The careers page template from library items: the page head in two tones and the openings with their department filter.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/openings.json",
+    "https://agencidev-ds.vercel.app/r/react/page-head.json",
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/CareersPage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { PageHead } from '@/components/site/PageHead'\nimport { Openings } from '@/components/site/Openings'\nimport { careersContent, careersSections, type CareersContent, type CareersSection } from '@/lib/pages/careers'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// The careers page from library items: the page head in two tones and the openings with their department filter.\n// `content` replaces the copy (lib/pages/careers.ts).\nexport interface CareersPageProps {\n  content?: CareersContent\n  sections?: readonly CareersSection[]\n  className?: string\n}\n\nexport function CareersPage({ content: c = careersContent, sections, className }: CareersPageProps) {\n  const parts: Record<CareersSection, ReactNode> = {\n    head: <PageHead id=\"careers\" lead={c.lead} rest={c.rest} />,\n    openings: <Openings roles={c.roles} />,\n  }\n  return (\n    <div data-ds=\"careers-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/careers' }))} />\n      <main className=\"flex-1\">{pageSections(careersSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default CareersPage\n"
+    },
+    {
+      "path": "lib/pages/careers.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The careers page template's copy (components/careers-view.tsx, careers-section.tsx): the head and the openings.\n// The roles are Acme's.\nexport const careersContent = {\n\theader,\n\tlead: 'Careers.',\n\trest: 'A fully distributed studio of designers and engineers. Explore in code first, then polish in Figma.',\n\troles: [\n\t\t{ title: 'Product designer', department: 'Design', href: '#' },\n\t\t{ title: 'Brand designer', department: 'Design', href: '#' },\n\t\t{ title: 'Design engineer', department: 'Engineering', href: '#' },\n\t],\n\tfooter,\n}\nexport type CareersContent = typeof careersContent\nexport const careersSections = ['head', 'openings'] as const\nexport type CareersSection = (typeof careersSections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

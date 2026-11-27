@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "contact-page",
+  "type": "registry:block",
+  "title": "Contact page",
+  "description": "The contact page template from library items: the two-tone head with a plate button and the email as a quiet one, the ways to get in touch as rows, and notes in dim running copy.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/button.json",
+    "https://agencidev-ds.vercel.app/r/react/detail-list.json",
+    "https://agencidev-ds.vercel.app/r/react/page-head.json",
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/ContactPage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { PageHead } from '@/components/site/PageHead'\nimport { DetailList } from '@/components/site/DetailList'\nimport { Button } from '@/components/ui/Button'\nimport { contactContent, contactSections, type ContactContent, type ContactSection } from '@/lib/pages/contact'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// The contact page from library items (app/contact/page.tsx): the two-tone head with the plate button and the email\n// as a quiet one, the ways to get in touch as label and description rows, and the notes in dim running copy, one per\n// row. `content` replaces the copy (lib/pages/contact.ts).\nexport interface ContactPageProps {\n  content?: ContactContent\n  sections?: readonly ContactSection[]\n  className?: string\n}\n\nexport function ContactPage({ content: c = contactContent, sections, className }: ContactPageProps) {\n  const parts: Record<ContactSection, ReactNode> = {\n    head: (\n      <PageHead id=\"contact\" lead={c.lead} rest={c.rest}>\n        <Button href={c.primary.href}>{c.primary.label}</Button>\n        <Button href={c.secondary.href} variant=\"secondary\">{c.secondary.label}</Button>\n      </PageHead>\n    ),\n    ways: <section aria-label=\"Ways to reach us\" className=\"px-6 py-16\"><DetailList items={c.ways} /></section>,\n    notes: <section aria-label=\"Notes\" className=\"flex flex-col gap-16 px-6 py-16\">{c.notes.map((n) => <p key={n} className=\"type-body text-fg-soft\">{n}</p>)}</section>,\n  }\n  return (\n    <div data-ds=\"contact-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(contactSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ContactPage\n"
+    },
+    {
+      "path": "lib/pages/contact.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The contact page template's copy (app/contact/page.tsx): the two-tone head and its calls, the ways to get in touch,\n// and three notes. No address is stated: the studio keeps no public office.\nexport const contactContent = {\n\theader,\n\tlead: \"Tell us what you're building.\",\n\trest: 'Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.',\n\tprimary: { label: 'Book a free strategy call', href: '#' },\n\tsecondary: { label: 'hello@acme.com', href: 'mailto:hello@acme.com' },\n\tways: [\n\t\t{ label: 'Email', body: 'The fastest route for new project enquiries, press, and anything about work already in progress. We read every message and reply to genuine enquiries within two working days.' },\n\t\t{ label: 'Free strategy call', body: 'A 30-minute conversation about what you are building and whether a design or dev partnership is the right shape for it. No charge, no obligation.' },\n\t\t{ label: 'LinkedIn and X', body: 'Where we post new work and studio updates. Fine for a quick question, though anything involving scope or timelines is better over email.' },\n\t],\n\tnotes: [\n\t\t'If you are writing about a new engagement, it helps to know four things: what you are building, what stage you are at, roughly when you would want to start, and whether you need design, development, or both.',\n\t\t'We sell ongoing monthly partnerships rather than fixed-scope projects, and either tier can be cancelled at any time. If continuous capacity is not what your product needs right now, we will say so.',\n\t],\n\tfooter,\n}\nexport type ContactContent = typeof contactContent\nexport const contactSections = ['head', 'ways', 'notes'] as const\nexport type ContactSection = (typeof contactSections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

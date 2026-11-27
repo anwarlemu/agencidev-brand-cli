@@ -1,0 +1,2644 @@
+{
+  "name": "Agencidev",
+  "registryUrl": "https://agencidev-ds.vercel.app",
+  "registryHost": "https://agencidev-ds.vercel.app",
+  "elementPrefix": "agd",
+  "coverage": {
+    "total": 86,
+    "react": 86,
+    "elements": 86
+  },
+  "items": [
+    {
+      "name": "about-page",
+      "title": "About page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The about page template from library items: the bets centered in two tones of paragraph, the team's names, the process statement over numbered rows, and the openings.",
+      "use_for": "An about page that states what the studio believes, who it is and how it works. Edit lib/pages/about.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's components/about-view.tsx.",
+      "body": "",
+      "requires": [
+        "openings",
+        "process-list",
+        "site-footer",
+        "site-header",
+        "skeleton",
+        "team-list"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/AboutPage.tsx",
+        "lib/pages/about.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A stack of disclosures on black: neutral hairlines between the rows, an ABC Diatype question, a muted answer that opens in place and a chevron that turns. One open at a time, or several.",
+      "use_for": "Questions on a contact or help page, filters a person opens one by one, settings that would crowd a view.",
+      "never": [
+        "Hiding the one thing a person came for: put it on the page",
+        "A #141414 card per row: rows are hairlines on black",
+        "A chevron that moves on hover"
+      ],
+      "source": "shadcn's accordion, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Accordion.tsx",
+        "react/components/ui/AccordionItem.tsx",
+        "react/hooks/useAccordion.ts",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Faq",
+        "Multiple"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert dialog",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A question that needs an answer before anything else, on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, one line saying what happens, Cancel and the action (red for what removes something).",
+      "use_for": "Confirming what can't be undone: archiving a project, removing a teammate, ending a partnership. Say exactly what goes away.",
+      "never": [
+        "Confirming what can be undone: do it and offer undo",
+        "A scrim that closes it: only a choice does",
+        "A vague action label (\"OK\", \"Yes\"): name the action (\"Archive project\")",
+        "A shadow around the window"
+      ],
+      "source": "shadcn's alert dialog, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/AlertDialog.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Delete"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A note or a problem in a #141414 box on black: a Lucide icon, the subject in ABC Diatype, a muted line under it and the button that goes with it. Red for what broke.",
+      "use_for": "A review reminder, a failed payment, a build that needs a change: one box per message, with the action that settles it.",
+      "never": [
+        "A color fill or a glow",
+        "A border or a shadow around the box",
+        "Red for anything that did not break",
+        "Several messages in one box"
+      ],
+      "source": "shadcn's alert, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Alert.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Variants"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "article-card",
+      "title": "Article card",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "An article in the list: the cover at 16:10 on the plate fill, the date and reading time in 14px capitals in mid, the title in white and three lines of the excerpt in dim; the whole card is the link.",
+      "use_for": "An articles index (one, two or three columns) or related reading under a post.",
+      "never": [
+        "A border or a card fill around it",
+        "Tags or author faces on the card"
+      ],
+      "source": "app/articles/page.tsx (aspect-[16/10] bg-plate, mt-5 text-sml uppercase text-mid that turns white, mt-3 text-md leading-[1.25] title, line-clamp-3 text-md leading-relaxed text-dim; the grid gap-x-6 gap-y-14, 1, 2 then 3 columns).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/ArticleCard.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Grid"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "article-page",
+      "title": "Article page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "An article template from library items: the way back, the title at the display step, the date and reading time in capitals, the cover at 16:10 and the body in a 36rem reading measure.",
+      "use_for": "A post or an essay. Edit lib/pages/article.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's app/articles/[slug]/page.tsx, content/articles.",
+      "body": "",
+      "requires": [
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/ArticlePage.tsx",
+        "lib/pages/article.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "articles-page",
+      "title": "Articles page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The articles page template from library items: a line in dim, then the articles in a grid of one, two or three columns.",
+      "use_for": "An articles or writing index. Edit lib/pages/articles.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's app/articles/page.tsx.",
+      "body": "",
+      "requires": [
+        "article-card",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/ArticlesPage.tsx",
+        "lib/pages/articles.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect ratio",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A box that keeps its shape as it grows: a 1:1 post, a 4:5 story, a 16:9 slide. It draws nothing itself; square corners and a #141414 ground are classes on it.",
+      "use_for": "Work in a grid, previews of posts and stories, a video or a slide that must not reflow while it loads.",
+      "never": [
+        "Stretching or cropping a logo to fit the box",
+        "Grading or filtering the work inside: show it as posted"
+      ],
+      "source": "shadcn's aspect ratio, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/AspectRatio.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Formats"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Who or what something belongs to, in a circle: a picture cropped round, or the name's initials in white ABC Diatype on #141414. Three sizes.",
+      "use_for": "A project's team, the account in a header, who left a comment.",
+      "never": [
+        "A real person's photo or name in examples: use Acme",
+        "A color behind the initials",
+        "The logomark as an avatar for anything but the brand itself"
+      ],
+      "source": "shadcn's avatar, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Avatar.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Sizes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A short label for a state or a kind in 12px capitals, square: the quiet fill (the site's chosen filter chip), the plate, a hairline, or a red wash. A small white or mid dot can lead it.",
+      "use_for": "A filter's chosen option, a role's department, a state beside a title.",
+      "never": [
+        "A color as the badge's fill or dot: the brand is monochrome",
+        "Color alone for the meaning: the word says it",
+        "Sentences in a badge"
+      ],
+      "source": "shadcn's badge, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Badge.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Variants"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Where you are, in ABC Diatype: each step back a muted link that turns white under the pointer, a small chevron between, the page itself in white.",
+      "use_for": "A screen inside a project, a setting inside a section: two or more levels deep.",
+      "never": [
+        "A breadcrumb on a page one level deep",
+        "Colors for the links",
+        "Icons that move on hover"
+      ],
+      "source": "shadcn's breadcrumb, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Breadcrumb.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Project"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "button-group",
+      "title": "Button group",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Buttons that belong together, joined into one block: square corners on the outer corners only and a 1px black seam between them. A field with its button, a button with its menu arrow, or a vertical stack.",
+      "use_for": "Paging, a pair of views, share with its options, an email field with its Invite button.",
+      "never": [
+        "Unrelated actions in one group",
+        "Two primary buttons in one group",
+        "A border around the whole group"
+      ],
+      "source": "shadcn's button group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/ButtonGroup.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Toolbar",
+        "Field"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The site's button: the plate (#252525) with white 12px capitals and the 4px corner for the one main action, mid with black ink under the pointer; the quiet button, bare dim capitals that turn white, for the rest; a ghost for tools in rows. Sizes and a square icon button.",
+      "use_for": "Any action: book a call, see the work, send an enquiry, save. One plate per view or asset; the rest quiet or ghost. 48px tall, as the site sets it (40px in the bar).",
+      "never": [
+        "Two primary buttons in one view",
+        "A color as a button fill",
+        "A faded button for \"not yet\": disabled keeps its fill and dims the label",
+        "A press that scales the button: the site's buttons hold still",
+        "An icon that moves on hover, or a size change on hover"
+      ],
+      "source": "shadcn's button, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Button.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Variants",
+        "Sizes",
+        "States"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A month to pick a day from: 40px day cells with square corners, the picked day on the plate with a white figure, today in a neutral hairline ring, the months either side faint. Arrows, Home, End and Page Up and Down move; Enter picks.",
+      "use_for": "Picking a kickoff, a launch day or a review on a page with room for the month. In a field, use the date picker.",
+      "never": [
+        "A color for the picked day or today",
+        "Animating the change of month: it is pressed many times in a row",
+        "A calendar where a typed date would do (a birthday)"
+      ],
+      "source": "shadcn's calendar, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Calendar.tsx",
+        "react/lib/cn.ts",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Single",
+        "Window"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The brand's card: a #141414 fill on black with square corners, an Agencidev Sans title, a line of ABC Diatype and the body, with actions at the foot. No border, no shadow.",
+      "use_for": "A partnership, a stat or a group of settings set apart from the black ground.",
+      "never": [
+        "A shadow or a glow around it",
+        "A border instead of the fill",
+        "A card on a card"
+      ],
+      "source": "shadcn's card, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Card.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Partnership",
+        "Stats"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "careers-page",
+      "title": "Careers page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The careers page template from library items: the page head in two tones and the openings with their department filter.",
+      "use_for": "A careers page. Edit lib/pages/careers.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's components/careers-view.tsx, careers-section.tsx.",
+      "body": "",
+      "requires": [
+        "openings",
+        "page-head",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/CareersPage.tsx",
+        "lib/pages/careers.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Slides in a row on the black ground, 16px apart, one to three in view, with ghost arrow buttons and the place in tabular figures. Native scroll snap: a swipe, a trackpad, the arrows and the arrow keys all move it. It never plays on its own. The track's edges fade while there are slides past them.",
+      "use_for": "A row of recent work or quotes that would crowd the page side by side. One slide in view on phones.",
+      "never": [
+        "Autoplay",
+        "Icons that move when the arrows are hovered",
+        "Dots in colors: the place reads in figures",
+        "Hiding the only copy of something important on a later slide"
+      ],
+      "source": "shadcn's carousel, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Carousel.tsx"
+      ],
+      "examples": [
+        "Work",
+        "Quotes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "case-study-page",
+      "title": "Case study page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "A case study template from library items: the client's name with its live link, then the work in masonry columns.",
+      "use_for": "A case study whose work carries the argument. Edit lib/pages/case-study.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's components/case-wall.tsx, app/work/[slug]/page.tsx.",
+      "body": "",
+      "requires": [
+        "case-wall",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/CaseStudyPage.tsx",
+        "lib/pages/case-study.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "case-wall",
+      "title": "Case wall",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "A case study's wall of work: the client's name at the display step with a plate link beside it, then the work in masonry columns 20px apart, square-cornered; a piece in the works is a hairline box with its caption in capitals.",
+      "use_for": "A case study page: the work carries the argument and the copy stays short.",
+      "never": [
+        "Rounded pieces, shadows or hover zooms",
+        "Captions on finished pieces: the work speaks",
+        "Client work you have no right to show"
+      ],
+      "source": "components/case-wall.tsx (pt-[128px] sm:pt-[176px], the text-lg title and PLATE_BUTTON, columns-2 lg:columns-4 gap-5 mb-5, bg-plate, the placeholder's border-subtle and text-xsml uppercase text-muted caption).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/CaseWall.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Wall"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "How a number is drawn: white bars per day under a total, and lines over time in the brand's series order (white, mid (#909090), the subtle grey, dim, then the plate; every other one dashed). Five series at most. Axes from 0 on hairlines (white at 10%); pointing reads a value.",
+      "use_for": "Hours per day, screens shipped per week, enquiries over a quarter. Every chart has a caption; every series is named in the legend.",
+      "never": [
+        "Series out of order, or a color: the brand is monochrome",
+        "Color alone to tell series apart: every other series is dashed and every series is in the legend",
+        "An axis that starts above 0",
+        "Bars that regrow on every hover: they rise once"
+      ],
+      "source": "shadcn's chart, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "`lib/chart.ts` holds the series colors (`CHART_COLORS`, five in order) and the axis helpers both flavors use; draw your\nown charts with them so the order stays the brand's.",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/BarChart.tsx",
+        "react/components/ui/LineChart.tsx",
+        "lib/chart.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Visits",
+        "Categories"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A yes or no that is part of a form: a 16px box in a hairline (white at 20%) on black that fills white with a black check, a bar for a group partly on, and an ABC Diatype label beside it. Form-associated.",
+      "use_for": "Filters a person combines, consent in a form, picking rows. A setting that takes effect at once is a switch.",
+      "never": [
+        "A color for the checked box",
+        "A checkbox that acts at once without a form or an apply step",
+        "Faded labels for disabled: they go to the faint neutral"
+      ],
+      "source": "shadcn's checkbox, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Checkbox.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "States",
+        "Group"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "code-block",
+      "title": "Code block",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "Tabs of code: a slat panel (#141414) with a head of tabs (a white line under the chosen one) and a copy button whose label turns to Copied, over code in white with its punctuation and comments muted, scrolling across. Code and the copy button also stand alone.",
+      "use_for": "Requests and setup steps on product, docs and resource pages (`tabs` of { id, label, code, language }); `Code` alone inside a response panel or a card; `CopyButton` beside a URL or a key.",
+      "never": [
+        "Colored syntax highlighting: only the muted gray and White",
+        "Code that wraps: it scrolls across and fades at its edges",
+        "A filled copy button: it is quiet"
+      ],
+      "source": "The site sets no code blocks of its own; drawn in the Agencidev tokens (the slat, square corners, the system mono) for docs and articles.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/CodeBlock.tsx",
+        "react/components/site/Code.tsx",
+        "react/components/site/CopyButton.tsx",
+        "lib/code.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Tabs",
+        "Single",
+        "Copy"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A part that opens in place and pushes what follows: a quiet ABC Diatype trigger with a muted chevron that turns, and content that grows to its height and settles in.",
+      "use_for": "More filters under a search, the rest of a list, details a person asks for. Several questions in a stack are an accordion.",
+      "never": [
+        "Hiding what most people need",
+        "A chevron that moves on hover",
+        "Animating it when it is toggled from the keyboard"
+      ],
+      "source": "shadcn's collapsible, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Collapsible.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Filters",
+        "Projects"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A field-like trigger that opens a list to pick one option from, with a filter over it, on the #141414 overlay panel: the menus' rows, a #141414 fill on the row the arrows or the pointer are on, the pick checked at the end. The list scrolls with fading edges, so no row is cut off.",
+      "use_for": "One choice from a list long enough to filter: a discipline, a client, a project. With the filter off it is a plain listbox for a handful of options.",
+      "never": [
+        "Many picks at once: it holds one value",
+        "Writing your own arrow, Escape or outside-press handling",
+        "A shadow under the panel, or a color on the highlighted row"
+      ],
+      "source": "shadcn's combobox, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "The value is `value` with `onValueChange` (React) or the `value` property with `change` (web component). `pinned`\noptions stay above a hairline and are never filtered (\"All formats\").",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Combobox.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Category",
+        "Format"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A box to type in over a list of actions and places, on the overlay surface (#141414): the field on top over a hairline, groups with a capital label, the menus' rows with an icon and a shortcut. On the page, or in a window opened with Cmd+K. The list scrolls with fading edges, so no row is cut off.",
+      "use_for": "Jumping anywhere and running anything from the keyboard: projects, clients, settings. CommandDialog for the app-wide Cmd+K menu.",
+      "never": [
+        "Motion on opening or closing: it opens many times a day",
+        "Tab between rows: the field keeps focus and the arrows move",
+        "A color on the highlighted row",
+        "The only way to an action: keep it in the interface too"
+      ],
+      "source": "shadcn's command, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "Rows are data: `groups` of `{ heading, items: [{ id, label, keywords, shortcut, icon, disabled }] }`. In the web\ncomponent, a row's icon is page content with `slot=\"icon-<id>\"`.",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Command.tsx",
+        "react/components/ui/CommandDialog.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Menu",
+        "Palette"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "contact-page",
+      "title": "Contact page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The contact page template from library items: the two-tone head with a plate button and the email as a quiet one, the ways to get in touch as rows, and notes in dim running copy.",
+      "use_for": "A contact page: a call or an email, never a form you cannot answer. Edit lib/pages/contact.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's app/contact/page.tsx.",
+      "body": "",
+      "requires": [
+        "button",
+        "detail-list",
+        "page-head",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/ContactPage.tsx",
+        "lib/pages/contact.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "context-menu",
+      "title": "Context menu",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The dropdown menu's rows on the #141414 overlay panel, opened where the pointer right-clicks, or under the focused row with Shift+F10 or the menu key. Arrows, Home, End and Escape are handled; focus returns to what was clicked.",
+      "use_for": "Shortcuts for a row in a dense list (open, copy a link, move, remove), alongside a visible way to do the same.",
+      "never": [
+        "The only way to an action: right-clicks are hidden; keep a dropdown menu or a button in the row",
+        "Destructive actions that don't confirm: confirm with an alert dialog",
+        "A shadow under the panel"
+      ],
+      "source": "shadcn's context menu, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "Put `data-context=\"<id>\"` on each row; `onOpen` (React) or the `open` event (web component) gets the id of the row\nthat was clicked, so one menu serves the list. `PopoverPanel` is the floating panel every overlay here draws (the\ncontext menu, the combobox, the date picker): portalled, placed beside its anchor or the pointer, flipped to the side\nwith room.",
+      "requires": [
+        "dropdown-menu",
+        "popover"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/ContextMenu.tsx"
+      ],
+      "examples": [
+        "Project"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "data-table",
+      "title": "Data table",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A table people filter, sort and page through: a dropdown per filter, heads in capitals that sort, 40px rows on neutral hairlines that take the #141414 fill under the pointer, numbers in tabular figures, Previous and Next under it. It scrolls sideways with fading edges inside the frame.",
+      "use_for": "A studio's projects, a client's screens, a team's hours: rows of one kind of thing that people narrow and order.",
+      "never": [
+        "Zebra stripes or a shadow: hairlines separate rows",
+        "Bold heads: ABC Diatype capitals, not tracked",
+        "A color for a sorted column or a picked filter",
+        "A table wider than the page without its own scroll"
+      ],
+      "source": "shadcn's data table, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button",
+        "dropdown-menu"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/DataTable.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Projects"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "date-picker",
+      "title": "Date picker",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A date in a field: a button drawn as the text field that opens the calendar on the #141414 overlay panel under it. Opening puts focus on the picked day, picking closes it and returns focus, Escape closes it unchanged.",
+      "use_for": "A single date in a form: when a project starts, when a review is due. The field reads the day in words.",
+      "never": [
+        "A shadow under the panel: the hairline and the #141414 fill set it apart",
+        "Typing a date into the button: it is picked from the calendar",
+        "A red edge for anything but an error"
+      ],
+      "source": "shadcn's date picker, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "The web component is form-associated: give it a `name` and the form sends the day as an ISO date (2026-11-03).",
+      "requires": [
+        "calendar",
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/DatePicker.tsx",
+        "react/lib/cn.ts",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Field",
+        "Picked"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "detail-list",
+      "title": "Detail list",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The contact page's rows: a label in white and its description in dim running copy beside it (a 248px label column from 640), 40px between rows.",
+      "use_for": "Ways to get in touch, terms, facts about an engagement.",
+      "never": [
+        "Icons before the labels",
+        "Rules between the rows: space separates them"
+      ],
+      "source": "app/contact/page.tsx (the Email, Free strategy call, LinkedIn and X rows: text-md white labels at x 24, dim copy from x 272).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/DetailList.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Contact"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A modal window on the overlay surface (#141414) over a black scrim: an Agencidev Sans title, a line under it, a ghost close button, a short form or a partnership, and buttons at the foot.",
+      "use_for": "A short task that needs the whole attention for a moment: naming a new project, a partnership, a setting with a few fields. Escape, the close button and the scrim close it.",
+      "never": [
+        "A long flow or a whole page in a window",
+        "Two primary buttons in the foot",
+        "A shadow or a glow around the window",
+        "Opening one with the page"
+      ],
+      "source": "shadcn's dialog, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Dialog.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "NewProject",
+        "Partnership"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "direction",
+      "title": "Direction",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Sets the reading direction for what is inside it, so logical spacing and the components follow right-to-left text. Code stays left to right.",
+      "use_for": "An interface in Arabic or Hebrew, or one block of right-to-left text inside a left-to-right page.",
+      "never": [
+        "Mirroring the logo",
+        "Flipping code, IDs or numbers"
+      ],
+      "source": "shadcn's direction, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Direction.tsx",
+        "react/hooks/useDirection.ts"
+      ],
+      "examples": [
+        "Rtl"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A panel that slides in from an edge over a black scrim, on the overlay surface (#141414): from the bottom with square corners on its top edge and a grab handle, or from the left or right at full height. The body's edges fade while there is more to scroll.",
+      "use_for": "A choice or a short list on a phone (a discipline, a sort, the pages), where a dropdown would be cramped. The scrim, Escape and the close button close it.",
+      "never": [
+        "A long form: use a page",
+        "A shadow on its edge: the hairline sets it apart",
+        "Corners on the edge it slides from"
+      ],
+      "source": "shadcn's drawer, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button",
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Drawer.tsx",
+        "react/hooks/useControllable.ts",
+        "react/hooks/useSheet.ts"
+      ],
+      "examples": [
+        "Format",
+        "Navigation"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown menu",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A button that opens a short list of actions or choices on the overlay surface (#141414): a neutral hairline, square corners, rows that take a #141414 fill under the pointer. Arrows, Home, End, Escape and Tab are handled.",
+      "use_for": "A project's actions, a sort order, account actions: a handful of choices that don't need to stay on screen. Radio rows for one choice from a few.",
+      "never": [
+        "Writing your own outside-click or arrow handling",
+        "A shadow under the panel: the hairline and the #141414 fill set it apart",
+        "A color for a row or its marker",
+        "Two or three views of one thing (use tabs)"
+      ],
+      "source": "shadcn's dropdown menu, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "`MenuItem`, `MenuLabel` and `MenuSeparator` are the rows of every menu here (the context menu uses them too); they are\nalso exported under shadcn's names (`DropdownMenuItem`, `DropdownMenuLabel`, `DropdownMenuSeparator`).",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/DropdownMenu.tsx",
+        "react/components/ui/MenuItem.tsx",
+        "react/components/ui/MenuLabel.tsx",
+        "react/components/ui/MenuSeparator.tsx",
+        "react/hooks/useMenu.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Actions",
+        "Sort"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "What shows where a list has nothing in it yet: a dashed hairline with square corners, a Lucide icon in a #141414 tile, an Agencidev Sans title, one muted line and the actions that fill it.",
+      "use_for": "A new project, a search with no results, a list before the first item.",
+      "never": [
+        "Illustrations or the no-signal static inside it",
+        "An empty state with no way forward",
+        "A color for the icon"
+      ],
+      "source": "shadcn's empty, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Empty.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Project",
+        "Search"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A label over one control, with a description or an error under it. The label speaks in capitals; the help is muted; an error takes the help's place in red.",
+      "use_for": "Every labeled control in a form: an email, a project name, a note, a pick from a list. One Field per control.",
+      "never": [
+        "A placeholder in place of the label",
+        "A red hairline before anything is wrong: errors show once a field is left or the form is sent",
+        "Fields under 16px on phones (the input switches to 16px there)"
+      ],
+      "source": "shadcn's field, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Field.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Fields"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "filter-list",
+      "title": "Filter list",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "A single-choice filter: the options as 14px capitals in mid, the chosen one white, in a row or a column; color changes only, on pointer down.",
+      "use_for": "Choosing a department, a year or a kind of work above a list.",
+      "never": [
+        "Underlines, pills or fills for the chosen option: white is the mark",
+        "Several choices at once: it is a single choice"
+      ],
+      "source": "components/filter-list.tsx (gap-x-6 gap-y-1, text-sml uppercase, text-mid or text-white, PRESS_INK, aria-pressed in a fieldset).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/FilterList.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Departments"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "form",
+      "title": "Form",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Fields stacked 24px apart, a failure from the server in a dark red box, and the actions at the end, the main one last. Errors wait until a field is left or the form is sent.",
+      "use_for": "Any form with more than one field: an enquiry, inviting a teammate, account settings. useForm holds the values, the rules and the send.",
+      "never": [
+        "Errors while the first value is still being typed",
+        "The browser's own error bubbles",
+        "A red hairline at rest",
+        "Two primary buttons: one plate, the rest quiet or ghost"
+      ],
+      "source": "shadcn's form, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Form.tsx",
+        "react/hooks/useForm.ts"
+      ],
+      "examples": [
+        "Enquiry"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "home-page",
+      "title": "Home page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The home page template from library items: the bar, the rail of work across the first screen, and the statement at its foot with the stat line over it.",
+      "use_for": "A studio or product home page whose work carries the argument. Pass your pictures as `content.rail`. Edit lib/pages/home.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's app/page.tsx, components/home-gallery.tsx, lib/home-content.ts.",
+      "body": "",
+      "requires": [
+        "site-footer",
+        "site-header",
+        "skeleton",
+        "statement",
+        "work-rail"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/HomePage.tsx",
+        "lib/pages/home.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "hover-card",
+      "title": "Hover Card",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "More about a link while the pointer rests on it: the card's #141414 fill, a hairline and square corners. The pointer can cross into it; on touch the link just works.",
+      "use_for": "A preview of a client, a person or a project named in text, with a few numbers. The link must lead to the same thing on its own.",
+      "never": [
+        "The only way to reach what it shows: the link must work on its own",
+        "Actions someone has to take: use Popover or Dropdown Menu",
+        "A shadow or a glow: the fill and the hairline set it apart"
+      ],
+      "source": "shadcn's hover card, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/HoverCard.tsx"
+      ],
+      "examples": [
+        "Client"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "input-group",
+      "title": "Input Group",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A field with an icon, a prefix, a unit or a small button inside its hairline, drawn and sized as the input is. The hairline turns white while the field has focus.",
+      "use_for": "Fields that read better with their context attached: a search icon, a link's fixed start, a currency and its period, an invite button beside an email.",
+      "never": [
+        "A field that needs no context: use Input",
+        "Icons that do nothing at the end of a field",
+        "More than one button inside a field"
+      ],
+      "source": "shadcn's input group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/InputGroup.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Addons",
+        "Sizes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "input-otp",
+      "title": "Input OTP",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A one-time code, one cell per character, each cell drawn as the input. It is one real field, so paste and the phone's code suggestion work.",
+      "use_for": "Sign-in and verification codes sent by email or text. Say under it where the code went.",
+      "never": [
+        "Passwords or keys",
+        "Cells that move focus on their own: it is one field",
+        "A colored or glowing cell for the one being typed: its hairline turns white"
+      ],
+      "source": "shadcn's input otp, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/InputOtp.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Verify",
+        "States"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype, a mid (#909090) placeholder and square corners. Sizes match the button's.",
+      "use_for": "Free text in forms and filters: an email, a company, a project name. Label every field (a visible label, or aria-label).",
+      "never": [
+        "A placeholder as the only label",
+        "A colored or glowing focus ring: the hairline turns white",
+        "A filled or gray field on black"
+      ],
+      "source": "shadcn's input, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Input.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Field",
+        "Sizes",
+        "Invalid"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "item",
+      "title": "Item",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A row: media, a title in ABC Diatype with a muted line under it, and actions at the end. No fill, a hairline box or the card's #141414 fill. ItemGroup puts a hairline between rows.",
+      "use_for": "A project, a client, a setting or a notification as one row; a list of them in a card. With href the whole row is a link.",
+      "never": [
+        "Buttons inside a row that is a link",
+        "A chevron or arrow that moves on hover",
+        "A row of rows for many columns: use Table",
+        "A shadow under an outlined row"
+      ],
+      "source": "shadcn's item, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Item.tsx",
+        "react/components/ui/ItemGroup.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Variants",
+        "Projects"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "kbd",
+      "title": "Kbd",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A key: ABC Diatype 12px in the soft neutral, in a 20px box in the quiet fill with a hairline and the small corner. KbdGroup holds the keys of one shortcut.",
+      "use_for": "Keyboard shortcuts beside the action they run (in a menu, a tooltip, a help list) and a key named in a sentence.",
+      "never": [
+        "The only way to learn an action: the action must be visible on its own",
+        "Key names in capitals or in mono",
+        "Shortcuts shown on touch screens with no keyboard"
+      ],
+      "source": "shadcn's kbd, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Kbd.tsx",
+        "react/components/ui/KbdGroup.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Shortcuts"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A field's label: ABC Diatype in capitals, in the soft gray, over the control it names. A muted hint can follow it.",
+      "use_for": "Naming a field or a control when Field's layout does not fit: a label beside a switch, over a slider, over a group of radios.",
+      "never": [
+        "A placeholder in place of a label",
+        "Bold, color or a color accent on a label",
+        "Sentence case or long text in a label: say it in two or three words, and put the rest in a hint under the field"
+      ],
+      "source": "shadcn's label, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Label.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Fields"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "legal-page",
+      "title": "Legal page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "A legal page template from library items: the title in white and when it changed in mid, then titled rows of dim running copy.",
+      "use_for": "Privacy, terms and accessibility statements. Edit lib/pages/legal.ts or pass `content`; `sections` reorders or leaves sections out.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's app/privacy/page.tsx, app/accessibility/page.tsx.",
+      "body": "",
+      "requires": [
+        "page-head",
+        "row",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/LegalPage.tsx",
+        "lib/pages/legal.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "logo",
+      "title": "Logo",
+      "type": "registry:ui",
+      "group": "visuals",
+      "description": "The square, the wordmark and the lockup from the site's own files, white or black only, sized by height.",
+      "use_for": "The bar (18px lockup), the footer (20px), sign-offs, share cards and anywhere the brand signs a page.",
+      "never": [
+        "Recoloring, outlining, stretching or rotating it",
+        "A color other than white or black",
+        "Text, images or other marks inside its clear space"
+      ],
+      "source": "The site's lockup (public/agd-lockup.svg, 630 by 110: the square at 0,24 and the wordmark from 116), the brand kit at /branding (Mark, white and black; Lockup; Wordmark) and the bar's 18px lockup (components/nav-bar.tsx).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/visuals/Logo.tsx",
+        "lib/logos.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Lockups",
+        "Tones"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Menu triggers in a row: a black strip in a hairline with square corners, triggers in ABC Diatype, each opening a panel of rows in the card's #141414 fill. Arrow keys move along the bar and through the rows.",
+      "use_for": "A tool's commands grouped under a few words, as in an editor: a project's actions, its view, its sharing. Three to five menus.",
+      "never": [
+        "Site or app navigation: use the Sidebar or Navigation Menu",
+        "One menu alone: use Dropdown Menu",
+        "A color for the open trigger: it takes the #141414 fill"
+      ],
+      "source": "shadcn's menubar, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Menubar.tsx",
+        "react/components/ui/MenubarMenu.tsx",
+        "react/components/ui/MenubarItem.tsx",
+        "react/components/ui/MenubarLabel.tsx",
+        "react/components/ui/MenubarSeparator.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Project"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "native-select",
+      "title": "Native Select",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The browser's own select, drawn as the input: a hairline (white at 20%) on black that turns white on focus, square corners and a muted chevron. Phones open the system picker.",
+      "use_for": "A pick of one from a short, plain list in a form or a filter row: a platform, a date range, a sort order.",
+      "never": [
+        "A list that needs search or custom rows: use Select",
+        "Options that do something at once: use Dropdown Menu",
+        "A filled or gray field on black"
+      ],
+      "source": "shadcn's native select, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/NativeSelect.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Filters",
+        "Sizes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A site's top navigation: triggers and links in ABC Diatype, each trigger opening a panel of links in the card's #141414 fill. It opens under a resting pointer, switches at once between triggers, and opens at once from the keyboard.",
+      "use_for": "The website's header: the work, the studio, articles and contact. A few entries, each panel a handful of links with a line each.",
+      "never": [
+        "App navigation: use the Sidebar",
+        "Actions: use Dropdown Menu or Menubar",
+        "A chevron that turns or moves on hover"
+      ],
+      "source": "shadcn's navigation menu, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/NavigationMenu.tsx",
+        "react/components/ui/NavigationMenuItem.tsx",
+        "react/components/ui/NavigationMenuLink.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Site"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "no-signal",
+      "title": "No signal",
+      "type": "registry:ui",
+      "group": "visuals",
+      "description": "The 404 page's no-signal static as a box: a dead channel's charcoal static and grain, with the glitch band rolling up through it and revealing white. It runs at about twenty frames a second and holds still under reduced motion.",
+      "use_for": "A not-found or error page, an announcement's ground, a sting's background: the brand's one expressive surface.",
+      "never": [
+        "Words on the band: they sit under it, as the 404 page sets them",
+        "Color: the static is monochrome by construction",
+        "More than one on a page, or behind long reading"
+      ],
+      "source": "components/no-signal-404.tsx and lib/no-signal-engine.ts (NOISE_FRAGMENT: the liquid warp, the rolling band, the tone roll, the scanlines; the grain canvas at a third of the screen, overlaid at 50%), run on the CPU by lib/signal.ts.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/visuals/NoSignal.tsx",
+        "lib/no-signal.ts",
+        "lib/signal.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "NotFound",
+        "Field"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "not-found-page",
+      "title": "Not found page",
+      "type": "registry:block",
+      "group": "pages",
+      "description": "The not found page: the no-signal static filling the screen, the head centered under the band, a line in dim, and the way home with a white dot and an arrow in a ring.",
+      "use_for": "A 404 page. Edit lib/pages/not-found.ts or pass `content`; `still` holds the static.",
+      "never": [
+        "New colors, shadows, radii or type sizes added to a section: use the items' props",
+        "People, clients or quotes you have no right to show: the defaults are Acme",
+        "A second plate button in a view"
+      ],
+      "source": "Built from the library's site items, after the site's components/no-signal-404.tsx.",
+      "body": "",
+      "requires": [
+        "no-signal"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/pages/NotFoundPage.tsx",
+        "lib/pages/not-found.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Page"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "openings",
+      "title": "Openings",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The careers page's open roles: the heading in capitals, department chips on the right, and each role a full-width row, the title in white and the department in mid, a quiet fill under the pointer.",
+      "use_for": "Open roles on a careers or about page.",
+      "never": [
+        "Cards per role, or icons for the department",
+        "An empty list: a department with no roles says so"
+      ],
+      "source": "components/careers-section.tsx (text-sml uppercase heading, rounded-[4px] px-3 py-1.5 text-xsml chips on white at 10%, mt-20 list, grid-cols-2 gap-8 px-6 py-4 rows with hover:bg-white/10).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/Openings.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Roles"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "page-head",
+      "title": "Page head",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The page's H1 set like the homepage statement: one size in two tones, the lead in white running on into the rest in mid, centered in a 64rem measure, with a plate and a quiet button under it.",
+      "use_for": "The top of an inner page: contact, careers, articles, a case study.",
+      "never": [
+        "A second size or a bold word for emphasis: color does the work",
+        "More than one plate button",
+        "An eyebrow or a label over it"
+      ],
+      "source": "components/page-head.tsx (pt-[128px] sm:pt-[176px], pb-16 sm:pb-24, max-w-[64rem], text-lg leading-[1.14], text-white then text-mid; actions mt-10 sm:mt-12 gap-2).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/PageHead.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Contact",
+        "Plain"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Previous and Next around the page numbers: 32px ghost buttons that fill under the pointer, the current page in a hairline (white at 20%) box in white. First and last always show, an ellipsis stands for the rest.",
+      "use_for": "Pages of a long list people come back to by place: a project's screens, an archive of articles.",
+      "never": [
+        "A filled current page: one primary per view, and this is not it",
+        "Infinite scroll for a list people need to come back to",
+        "Pages for a short list that fits on one screen"
+      ],
+      "source": "shadcn's pagination, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Pagination.tsx",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Results"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A panel for any content, opened from a button: the card's #141414 fill on black, a hairline and square corners. It grows from its trigger and flips to the side with room.",
+      "use_for": "A short form or a few settings beside the button that opens them: share a project, a filter with two fields. Focus moves into it; Escape closes it and returns focus.",
+      "never": [
+        "A list of actions: use Dropdown Menu",
+        "Content someone must read to go on: put it on the page",
+        "A shadow or a glow: the fill and the hairline set it apart"
+      ],
+      "source": "shadcn's popover, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Popover.tsx",
+        "react/components/ui/PopoverPanel.tsx",
+        "react/hooks/usePopover.ts",
+        "react/lib/transition.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Project"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "process-list",
+      "title": "Process list",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The about page's process: numbered rows, each the number, a title, a white hairline at 10% and the body in mid; four columns from 1024, the body under the title below.",
+      "use_for": "How the work runs: principles, steps, phases.",
+      "never": [
+        "Icons or big numerals: the number is the same size as the title",
+        "Cards around the rows"
+      ],
+      "source": "components/about-view.tsx (the process ol: grid-cols-[48px_1fr] then [48px_1fr_1fr_1fr] at lg, py-8 lg:py-10, h-px bg-white/10, text-md leading-relaxed text-mid).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/ProcessList.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Process"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "How far a task has got: a white bar on a 6px track of white at 20%, with round ends, sliding to each new value on transform. Without a value, a short bar sweeps across at a steady pace.",
+      "use_for": "An import, an upload or a scan that can be counted, with the number in text beside it; a long build with no known end.",
+      "never": [
+        "Percentages with no label or number beside the bar",
+        "A striped, glowing or colored bar",
+        "Work that ends in under a second: show nothing"
+      ],
+      "source": "shadcn's progress, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Progress.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Import"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "One of a few, all in view: round marks in a hairline, the picked one edged in white with a white dot. Arrows move the pick.",
+      "use_for": "A pick of one from two to five choices that each need a word of explanation: who can see a project, how often to send a digest.",
+      "never": [
+        "More than five options: use Native Select or Select",
+        "Views of one thing: use Tabs",
+        "A color for the picked mark"
+      ],
+      "source": "shadcn's radio group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/RadioGroup.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Visibility",
+        "Inline"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "resizable",
+      "title": "Resizable",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Two panes and the hairline (white at 20%) between them. The hairline is the handle: it turns white under the pointer, while dragged and when focused, and can carry a small grip. Arrow keys move it too. A pane that overflows scrolls with fading edges.",
+      "use_for": "A list beside the thing that is open (projects and a screen), or results over notes, where people want to choose how much room each gets.",
+      "never": [
+        "A thick or colored divider: the hairline is the handle",
+        "Panes that can close to nothing: set a minimum",
+        "Easing on the drag: the split follows the hand"
+      ],
+      "source": "shadcn's resizable, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Resizable.tsx",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Panes",
+        "Vertical"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "row",
+      "title": "Row",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "One section of an inner page: 24px in, 40px above and below (56 from 640), a title read by screen readers and shown when asked, an aside under it and the body under that.",
+      "use_for": "Every section of an about, careers, contact or legal page.",
+      "never": [
+        "Borders or fills between rows: space separates them",
+        "A title in capitals or with a number before it"
+      ],
+      "source": "components/row.tsx (mx-6 py-10 sm:py-14, h2 text-md leading-tight text-white or sr-only, aside mt-6, body mt-10 or mt-4).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/Row.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Note"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A region that scrolls on its own with thin scrollbars: a white at 20% thumb on a clear track. Native scrolling, so wheel, touch and keyboard all work; overscroll stays inside. An edge with more past it fades (fade-y, fade-x, fade-xy) instead of cutting rows off.",
+      "use_for": "A long list in a short box (projects in a side panel) or a row of work that scrolls across. Give it a label so a keyboard can reach it.",
+      "never": [
+        "Custom drawn scrollbars that break native scrolling",
+        "A scroll box a keyboard can't reach: give it a label",
+        "Hiding the scrollbar on content people need to find",
+        "A scroll box inside a scroll box going the same way"
+      ],
+      "source": "shadcn's scroll area, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/ScrollArea.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Lists"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "One choice from a short list, drawn as the field is: a black field, a hairline that turns white while open, a chevron. The list opens in the card's #141414 panel, the chosen row checked. A long list scrolls with fading edges.",
+      "use_for": "Picking one of a few known values in a form or a filter: a discipline, an order, a stage. Label it as any field.",
+      "never": [
+        "A list that needs a filter: use Combobox",
+        "Options that do something at once: use Dropdown Menu",
+        "A colored or glowing focus ring: the hairline turns white"
+      ],
+      "source": "shadcn's select, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Select.tsx",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Filters"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The hairline: 1px in the edge (white at 10%), across or down. Agencidev separates with a fill or a hairline, never a shadow.",
+      "use_for": "Splitting a card's head from its body, or links in a row. Decorative by default; mark it semantic when it splits content a screen reader should hear as split.",
+      "never": [
+        "A shadow or a thicker rule to separate",
+        "A rule where spacing already separates",
+        "A colored or glowing line: the brand is monochrome"
+      ],
+      "source": "shadcn's separator, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Separator.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Profile"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "sheet",
+      "title": "Sheet",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A modal panel at an edge of the screen: the card's #141414 fill with a hairline on its inner edge, an Agencidev Sans title, the body scrolling on its own and buttons at the foot. It slides in on the drawer curve; Escape closes it at once. The body's edges fade while there is more to scroll.",
+      "use_for": "Details, filters or settings beside what someone is doing: a list's filters, a client's details. Right is the default; left, top and bottom when the layout asks for it.",
+      "never": [
+        "A short question or a confirmation: use Dialog or Alert Dialog",
+        "A shadow or a glow: the fill, the hairline and the scrim set it apart",
+        "Two sheets open at once"
+      ],
+      "source": "shadcn's sheet, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Sheet.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Filters",
+        "Sides"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The app's rail: black with a hairline at its edge, the logo at the top, groups named in capitals, the page you are on on the plate, the account at the foot. It folds to icons with one button. Its body scrolls with fading edges, so no row is cut off.",
+      "use_for": "The main navigation of the product: search, work, clients, projects and settings. One per app, at the left.",
+      "never": [
+        "A second level of rows: a page's own sections go in Tabs",
+        "A color for the page you are on: it takes the plate, as the main button does",
+        "Animating the fold: it is pressed many times a day"
+      ],
+      "source": "shadcn's sidebar, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Sidebar.tsx",
+        "react/components/ui/SidebarLabel.tsx",
+        "react/components/ui/SidebarLink.tsx",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "App"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "site-footer",
+      "title": "Site footer",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The site's footer: one quiet row, the lockup on the left and every link in a single run on the right in mid, white under the pointer.",
+      "use_for": "The foot of every marketing page.",
+      "never": [
+        "Columns of links or a big wordmark: it is a sign-off, not a section",
+        "Icons for the social links: their names are the links"
+      ],
+      "source": "components/footer.tsx (mx-6 mt-16 sm:mt-24, py-8 sm:py-10, text-sml text-mid, the 20px lockup, gap-x-8 gap-y-3).",
+      "body": "",
+      "requires": [
+        "logo"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/site/SiteFooter.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Footer"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "site-header",
+      "title": "Site header",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The site's bar: the lockup and the sections in 12px capitals on the left, a quiet link and the plate button on the right; a frosted fade once the page scrolls under it, and a full-screen menu under 640.",
+      "use_for": "The top of every marketing page.",
+      "never": [
+        "A second plate button: one loud call, one quiet",
+        "Motion on the bar itself: it stays where it was painted",
+        "Hover effects on touch"
+      ],
+      "source": "components/nav-bar.tsx (p-6 around an h-12 row, the 18px lockup, gap-6 links, QUIET_SKIN and PLATE_SKIN, px-10 on the plate), globals.css .nav-surface (12px blur, the fade 32px past the bar, 260ms) and .menu-panel (250ms fade, links rising 24px over 350ms, 40ms apart).",
+      "body": "",
+      "requires": [
+        "logo"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/site/SiteHeader.tsx",
+        "lib/pages/chrome.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Bar"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A placeholder in the shape of what is loading: a block in the quiet fill with square corners, or a circle, that breathes between full and half opacity. Never a shimmer; still with reduced motion.",
+      "use_for": "Holding the place of a project card, a row or a chart while it loads, sized to the part it stands for so nothing moves when it lands.",
+      "never": [
+        "A shimmer, a gradient sweep or a colors",
+        "A layout that jumps when the content lands: size each block to its part",
+        "A skeleton for something that loads in under 300ms"
+      ],
+      "source": "shadcn's skeleton, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "When the picture it holds the place of arrives, pass it as `src` (with `alt`, `fit` and `position`): the block shows it, still,\nin the same shape and corner. Without `src` the block carries `data-ds-placeholder`, so a page can be checked for\npictures still to fill.",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Skeleton.tsx",
+        "lib/image.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Work"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A value on a range: a 4px white at 20% track, white up to the value, and a white thumb with the small corner. It follows the hand without easing.",
+      "use_for": "A rough value where the range matters more than the digit: how long a project ran, a share, hours per week. Show the value beside it.",
+      "never": [
+        "Exact values a person would rather type: use Input",
+        "A round, glowing or growing thumb",
+        "Animating the thumb: it follows the hand"
+      ],
+      "source": "shadcn's slider, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Slider.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Filter",
+        "States"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "sonner",
+      "title": "Sonner",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The corner where notes from toast() show: the newest in front, two more peeking out above. Pointing at the stack spreads it out and holds their time. A note rises in from below and leaves faster.",
+      "use_for": "Saying something just happened, for a moment: a project shared, an enquiry sent, a link copied. Mount one Toaster per app and call toast(title, { description, action }) from anywhere.",
+      "never": [
+        "Errors that need an answer: keep them where they happened",
+        "What the page already shows",
+        "Notes that leave while someone is reading them: the time holds while the stack is pointed at"
+      ],
+      "source": "shadcn's sonner, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "toast"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Sonner.tsx",
+        "lib/sonner.ts"
+      ],
+      "examples": [
+        "Project"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Work with no known end: a quarter arc in the color around it, white on black, turning on a white at 20% ring at a constant speed. With reduced motion it breathes instead of turning.",
+      "use_for": "A search, a save or a load that takes more than a moment, beside the words that say what is happening or inside the busy button.",
+      "never": [
+        "A spinner where the shape of the content is known: use Skeleton",
+        "Progress that can be counted: use Progress",
+        "A colored or glowing spinner",
+        "A blank screen with only a spinner"
+      ],
+      "source": "shadcn's spinner, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Spinner.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "States"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "statement",
+      "title": "Statement",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The homepage statement: a stat line in white with its figure in mid, then one statement at the display step in two tones, the lead in white running on into the rest in mid, left aligned across the page.",
+      "use_for": "The foot of a home page's first screen (under the work rail), or a section's argument in one sentence.",
+      "never": [
+        "A second size for the rest: one size, two tones",
+        "Bold or italic for emphasis"
+      ],
+      "source": "app/page.tsx and lib/home-content.ts (HOME_STATEMENT lead and rest), the stat line over it (text-sml, its figure in mid), globals.css --text-size-lg (28, 36 from 640).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/Statement.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Home"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "On or off, with no words: a hairline track with a gray thumb when off, white with a black thumb when on. The thumb slides on the strong ease-out.",
+      "use_for": "A setting that takes effect at once: a digest, an alert, a sharing option. The row beside it says what it turns.",
+      "never": [
+        "On and Off written beside it",
+        "A switch with no line saying what it does",
+        "A color for the on state",
+        "A choice that waits for a Save button: use a checkbox"
+      ],
+      "source": "shadcn's switch, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Switch.tsx",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Settings"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Rows of one kind of thing on black: heads as capital labels in muted ABC Diatype, cells in ABC Diatype 14px, a hairline (white at 20%) between rows and the ghost fill under the pointer. Framed, it sits in a hairline box with square corners. It scrolls sideways with fading edges inside the frame.",
+      "use_for": "Projects, clients, hours with a few columns to compare. Numbers right-aligned in tabular figures; a total in the footer; a caption under it.",
+      "never": [
+        "A table for one record: use Item or a card",
+        "Zebra stripes, colored rows or shadows: the hairline separates",
+        "A scroll box a keyboard can't reach: give a framed table a label",
+        "Bold heads: labels are regular capitals"
+      ],
+      "source": "shadcn's table, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Table.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Projects",
+        "Clients"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Views of one thing, one at a time. The default is a segmented control: a #141414 track, the current view on the plate with a white label. Line tabs sit over a hairline with a 2px white line under the current one.",
+      "use_for": "Two to six views of the same thing: kinds of work, a project's sections. Arrow keys move between tabs; the panel follows.",
+      "never": [
+        "Actions: use Button",
+        "More than six views: use a Select or a menu",
+        "Bold or a color on the current tab: the plate or the white line marks it",
+        "A sliding or bouncing indicator"
+      ],
+      "source": "shadcn's tabs, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Tabs.tsx",
+        "react/hooks/useControllable.ts",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Segmented",
+        "Line"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "team-list",
+      "title": "Team list",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The about page's team: the names in one centered run of 14px white at line height 2 (role and place read beside each); under 640 a list with role and place in dim.",
+      "use_for": "The team on an about page, with portraits shown by the page if it has them.",
+      "never": [
+        "Stock portraits or invented people: names are yours",
+        "Cards or titles in capitals"
+      ],
+      "source": "components/about-view.tsx (the team list: text-sml leading-[2] centered in 72rem, px-1 per name; the phone list text-md white over text-sml dim).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/TeamList.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Team"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "testimonial",
+      "title": "Testimonial",
+      "type": "registry:ui",
+      "group": "site",
+      "description": "The homepage's testimonial card: a white plate with the face at the top left, the quote in Agencidev Sans at 20 (16 on phones), and the name and role on one line, the role quieter.",
+      "use_for": "A client's words over a picture or on the canvas.",
+      "never": [
+        "A real person's words without their consent; examples use Acme",
+        "Quote marks or stars",
+        "A dark plate: the card is the white one"
+      ],
+      "source": "components/testimonials.tsx (the quote plate: rounded-[4px] bg-white p-6 text-black, size-16 face, mt-16, font-display text-md2 leading-[1.3], name and role text-sml with the role at black/40).",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/site/Testimonial.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Quote"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Several lines of text, drawn as the input is: a hairline (white at 20%) on black that turns white on focus, ABC Diatype, square corners. It grows by hand downward.",
+      "use_for": "Text longer than a line: a project brief, a note on a screen, feedback. Label it, and say under it what the text is for.",
+      "never": [
+        "A one-line answer: use Input",
+        "A red hairline before anything is wrong",
+        "Under 16px on phones (it switches to 16px there)"
+      ],
+      "source": "shadcn's textarea, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Textarea.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Brief",
+        "Invalid"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "One note, what just happened: the card's #141414 fill, a hairline and square corners, an ABC Diatype title, a muted line, one small plate button when there is something to do, and a close button.",
+      "use_for": "The surface of a note: Sonner stacks and times these in a corner. On its own, a note that stays where it is.",
+      "never": [
+        "Errors that need an answer: keep them where they happened",
+        "More than one button in a note",
+        "A colored fill or an icon in a color for success"
+      ],
+      "source": "shadcn's toast, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "button"
+      ],
+      "dependencies": [
+        "lucide-react@0.479.0"
+      ],
+      "files": [
+        "react/components/ui/Toast.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Notes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "Buttons that stay pressed, side by side on one track with square corners. Each pressed one takes the inset fill with white text. On a narrow screen the track scrolls with fading edges.",
+      "use_for": "Options that are on or off together in a filter row: which disciplines to show, a grid size. `multiple` for several at once.",
+      "never": [
+        "Views of one thing: use Tabs",
+        "Actions: use Button",
+        "A color or a glow on the pressed block"
+      ],
+      "source": "shadcn's toggle group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/ToggleGroup.tsx",
+        "react/lib/cn.ts",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Disciplines"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A button that stays pressed: no fill or a hairline at rest, the plate with white text while it is on. Sizes match the button's.",
+      "use_for": "One option that is on or off in a row of filters or tools: product only, saved only, show comments.",
+      "never": [
+        "A setting saved at once: use Switch",
+        "A pick of one from several: use Toggle Group or Tabs",
+        "A color for the pressed state"
+      ],
+      "source": "shadcn's toggle, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Toggle.tsx",
+        "react/lib/cn.ts",
+        "react/hooks/useControllable.ts"
+      ],
+      "examples": [
+        "Toolbar",
+        "Sizes"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "A control's name, for icon buttons: a white fill with black caption text and the small corner. It waits 300ms under the pointer, shows at once on keyboard focus, and the next one in a row shows at once.",
+      "use_for": "Naming icon buttons in a row of tools: share, copy link, download. The button still carries its aria-label.",
+      "never": [
+        "Anything someone needs to read or act on: put it on the page",
+        "A tooltip on a button that already shows its label",
+        "Showing on touch: a tap presses the button"
+      ],
+      "source": "shadcn's tooltip, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [
+        "popover"
+      ],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Tooltip.tsx"
+      ],
+      "examples": [
+        "Tools"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "typography",
+      "title": "Typography",
+      "type": "registry:ui",
+      "group": "ui",
+      "description": "The brand's type scale as one part. Agencidev Sans for titles, ABC Diatype for text, Medium for small, labels in regular capitals, the system mono for code. Every variant is a type utility from the tokens.",
+      "use_for": "Any text: page and card titles, a lead under a hero, body copy, captions, the capital label over a field or a list, inline code. Pick the step by role, not by look.",
+      "never": [
+        "A size, weight or line height outside the scale: every step comes from tokens.css",
+        "Bold or semibold: Agencidev Sans runs at Regular, ABC Diatype at Regular and Medium",
+        "Capitals anywhere but labels and buttons, or tracking on them: the site's capitals are not tracked",
+        "Agencidev Sans for body text, or ABC Diatype for titles",
+        "Colors on text: type is white on black, muted in the neutral steps"
+      ],
+      "source": "shadcn's typography, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/ui/Text.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Scale",
+        "Article"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    },
+    {
+      "name": "work-rail",
+      "title": "Work rail",
+      "type": "registry:ui",
+      "group": "visuals",
+      "description": "The home rail: portrait strips of work in one row, 100 by 280 with 20px between, the first strip a little left of the middle and the row running off the right edge. Square corners; an empty strip is the slat fill.",
+      "use_for": "A home or case-study hero that shows the work before it describes it; a row of portraits or screens.",
+      "never": [
+        "Rounded strips or a shadow",
+        "Captions on the strips: the statement under the rail does the talking",
+        "Stock pictures: the rail is your work"
+      ],
+      "source": "components/home-gallery.tsx and globals.css .rail-ssr (--sw 100px, --sh 280px, --gap 20px, --ax 0.43; 72, 208 and 14 under 640; the #141414 unloaded slat). The site's WebGL drift is left to the page.",
+      "body": "",
+      "requires": [],
+      "dependencies": [],
+      "files": [
+        "react/components/visuals/WorkRail.tsx",
+        "react/lib/cn.ts"
+      ],
+      "examples": [
+        "Rail"
+      ],
+      "flavors": [
+        "react",
+        "elements"
+      ]
+    }
+  ]
+}

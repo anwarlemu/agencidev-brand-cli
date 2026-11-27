@@ -1,0 +1,244 @@
+{
+  "name": "statement",
+  "title": "Statement",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The homepage statement: a stat line in white with its figure in mid, then one statement at the display step in two tones, the lead in white running on into the rest in mid, left aligned across the page.",
+  "use_for": "The foot of a home page's first screen (under the work rail), or a section's argument in one sentence.",
+  "never": [
+    "A second size for the rest: one size, two tones",
+    "Bold or italic for emphasis"
+  ],
+  "source": "app/page.tsx and lib/home-content.ts (HOME_STATEMENT lead and rest), the stat line over it (text-sml, its figure in mid), globals.css --text-size-lg (28, 36 from 640).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/Statement.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// The homepage statement (app/page.tsx, lib/home-content.ts): the stat line over it in 14px white with its figure in\n// mid (\"YC26 startups each batch designed by Agencidev: 6.06%\"), then the statement at the display step in two tones,\n// the lead in white running on into the rest in mid, left aligned across the page, 24px in from the edge. It sits at\n// the foot of the first screen on the site, under the rail.\nexport interface StatementProps {\n  /** Names the heading (`<id>-heading`). */\n  id?: string\n  /** The lead, in white. */\n  lead: string\n  /** The rest, in mid, on the same lines. */\n  rest?: string\n  /** The stat line over it. */\n  stat?: string\n  /** The stat's figure, in mid after it. */\n  figure?: string\n  /** The heading level: h1 on a home page, h2 elsewhere. */\n  as?: 'h1' | 'h2'\n  className?: string\n}\n\nexport function Statement({ id = 'statement', lead, rest, stat, figure, as: H = 'h1', className }: StatementProps) {\n  return (\n    <section data-ds=\"statement\" aria-labelledby={`${id}-heading`} className={cn('px-6 pb-6', className)}>\n      {stat ? (\n        <p className=\"mb-6 type-ui text-fg\">\n          {stat}\n          {figure ? <span className=\"ml-2 text-fg-muted\">{figure}</span> : null}\n        </p>\n      ) : null}\n      <H id={`${id}-heading`} className=\"max-w-(--ds-layout-content) type-section\">\n        <span className=\"text-fg\">{lead}</span>\n        {rest ? <> <span className=\"text-fg-muted\">{rest}</span></> : null}\n      </H>\n    </section>\n  )\n}\n\nexport default Statement\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Home",
+      "label": "With the stat line",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/statement/Home.tsx",
+      "content": "import { Statement } from '@/react/components/site/Statement'\n// The homepage's statement with its stat line.\n\nexport default function Home() {\n  return <Statement stat=\"Startups each batch designed by Acme:\" figure=\"6.06%\" lead=\"Product design thinking and implementation.\" rest=\"We help startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.\" />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/Statement.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// The homepage statement (app/page.tsx, lib/home-content.ts): the stat line over it in 14px white with its figure in\n// mid (\"YC26 startups each batch designed by Agencidev: 6.06%\"), then the statement at the display step in two tones,\n// the lead in white running on into the rest in mid, left aligned across the page, 24px in from the edge. It sits at\n// the foot of the first screen on the site, under the rail.\nexport interface StatementProps {\n  /** Names the heading (`<id>-heading`). */\n  id?: string\n  /** The lead, in white. */\n  lead: string\n  /** The rest, in mid, on the same lines. */\n  rest?: string\n  /** The stat line over it. */\n  stat?: string\n  /** The stat's figure, in mid after it. */\n  figure?: string\n  /** The heading level: h1 on a home page, h2 elsewhere. */\n  as?: 'h1' | 'h2'\n  className?: string\n}\n\nexport function Statement({ id = 'statement', lead, rest, stat, figure, as: H = 'h1', className }: StatementProps) {\n  return (\n    <section data-ds=\"statement\" aria-labelledby={`${id}-heading`} className={cn('px-6 pb-6', className)}>\n      {stat ? (\n        <p className=\"mb-6 type-ui text-fg\">\n          {stat}\n          {figure ? <span className=\"ml-2 text-fg-muted\">{figure}</span> : null}\n        </p>\n      ) : null}\n      <H id={`${id}-heading`} className=\"max-w-(--ds-layout-content) type-section\">\n        <span className=\"text-fg\">{lead}</span>\n        {rest ? <> <span className=\"text-fg-muted\">{rest}</span></> : null}\n      </H>\n    </section>\n  )\n}\n\nexport default Statement\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "Statement",
+            "file": "react/components/site/Statement.tsx",
+            "props": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": false,
+                "default": "'statement'",
+                "description": "Names the heading (`<id>-heading`)."
+              },
+              {
+                "name": "lead",
+                "type": "string",
+                "required": true,
+                "description": "The lead, in white."
+              },
+              {
+                "name": "rest",
+                "type": "string",
+                "required": false,
+                "description": "The rest, in mid, on the same lines."
+              },
+              {
+                "name": "stat",
+                "type": "string",
+                "required": false,
+                "description": "The stat line over it."
+              },
+              {
+                "name": "figure",
+                "type": "string",
+                "required": false,
+                "description": "The stat's figure, in mid after it."
+              },
+              {
+                "name": "as",
+                "type": "'h1' | 'h2'",
+                "required": false,
+                "description": "The heading level: h1 on a home page, h2 elsewhere."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Home",
+          "label": "With the stat line",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/statement/Home.tsx",
+          "content": "import { Statement } from '@/react/components/site/Statement'\n// The homepage's statement with its stat line.\n\nexport default function Home() {\n  return <Statement stat=\"Startups each batch designed by Acme:\" figure=\"6.06%\" lead=\"Product design thinking and implementation.\" rest=\"We help startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.\" />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/statement.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// Statement.tsx as <agd-statement>: the stat line, then the statement in two tones at the display step, left aligned.\n\n/**\n * @summary The homepage statement: a stat line over one statement in two tones.\n */\nexport class Statement extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"statement\"]'))\n\tstatic properties = { headId: { attribute: 'head-id' }, lead: {}, rest: {}, stat: {}, figure: {}, level: {} }\n\t/** Names the heading (`<head-id>-heading`; React's `id`). */\n\theadId = 'statement'\n\t/** The lead, in white. */\n\tlead = ''\n\t/** The rest, in mid. */\n\trest?: string\n\t/** The stat line over it. */\n\tstat?: string\n\t/** The stat's figure, in mid. */\n\tfigure?: string\n\t/** h1 (default) or h2 (React's `as`). */\n\tlevel: 'h1' | 'h2' = 'h1'\n\n\trender() {\n\t\tconst body = html`<span class=\"text-fg\">${this.lead}</span>${this.rest ? html` <span class=\"text-fg-muted\">${this.rest}</span>` : nothing}`\n\t\tconst cls = 'max-w-(--ds-layout-content) type-section'\n\t\tconst id = `${this.headId}-heading`\n\t\treturn html`<section data-ds=\"statement\" aria-labelledby=${id} class=\"px-6 pb-6\">${this.stat ? html`<p class=\"mb-6 type-ui text-fg\">${this.stat}${this.figure ? html`<span class=\"ml-2 text-fg-muted\">${this.figure}</span>` : nothing}</p>` : nothing}${this.level === 'h2' ? html`<h2 id=${id} class=${cls}>${body}</h2>` : html`<h1 id=${id} class=${cls}>${body}</h1>`}</section>`\n\t}\n}\n\ndefine('statement', Statement)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/statement.js"
+      ],
+      "tag": "agd-statement",
+      "tags": [
+        "agd-statement"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-statement",
+            "name": "Statement",
+            "module": "elements/statement.js",
+            "description": "The homepage statement: a stat line over one statement in two tones.",
+            "attributes": [
+              {
+                "name": "head-id",
+                "field": "headId",
+                "type": "string",
+                "default": "'statement'",
+                "description": "Names the heading (`<head-id>-heading`; React's `id`)."
+              },
+              {
+                "name": "lead",
+                "field": "lead",
+                "type": "string",
+                "default": "''",
+                "description": "The lead, in white."
+              },
+              {
+                "name": "rest",
+                "field": "rest",
+                "type": "string | undefined",
+                "description": "The rest, in mid."
+              },
+              {
+                "name": "stat",
+                "field": "stat",
+                "type": "string | undefined",
+                "description": "The stat line over it."
+              },
+              {
+                "name": "figure",
+                "field": "figure",
+                "type": "string | undefined",
+                "description": "The stat's figure, in mid."
+              },
+              {
+                "name": "level",
+                "field": "level",
+                "type": "\"h1\" | \"h2\"",
+                "default": "'h1'",
+                "description": "h1 (default) or h2 (React's `as`)."
+              }
+            ],
+            "properties": [
+              {
+                "name": "headId",
+                "type": "string",
+                "default": "'statement'",
+                "description": "Names the heading (`<head-id>-heading`; React's `id`).",
+                "attribute": "head-id"
+              },
+              {
+                "name": "lead",
+                "type": "string",
+                "default": "''",
+                "description": "The lead, in white.",
+                "attribute": "lead"
+              },
+              {
+                "name": "rest",
+                "type": "string | undefined",
+                "description": "The rest, in mid.",
+                "attribute": "rest"
+              },
+              {
+                "name": "stat",
+                "type": "string | undefined",
+                "description": "The stat line over it.",
+                "attribute": "stat"
+              },
+              {
+                "name": "figure",
+                "type": "string | undefined",
+                "description": "The stat's figure, in mid.",
+                "attribute": "figure"
+              },
+              {
+                "name": "level",
+                "type": "\"h1\" | \"h2\"",
+                "default": "'h1'",
+                "description": "h1 (default) or h2 (React's `as`).",
+                "attribute": "level"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Home",
+          "label": "With the stat line",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/statement/Home.html",
+          "content": "<!-- The homepage's statement with its stat line. -->\n<agd-statement stat=\"Startups each batch designed by Acme:\" figure=\"6.06%\" lead=\"Product design thinking and implementation.\" rest=\"We help startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.\"></agd-statement>\n"
+        }
+      ]
+    }
+  }
+}

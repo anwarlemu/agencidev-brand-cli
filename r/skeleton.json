@@ -1,0 +1,208 @@
+{
+  "name": "skeleton",
+  "title": "Skeleton",
+  "type": "registry:ui",
+  "group": "ui",
+  "description": "A placeholder in the shape of what is loading: a block in the quiet fill with square corners, or a circle, that breathes between full and half opacity. Never a shimmer; still with reduced motion.",
+  "use_for": "Holding the place of a project card, a row or a chart while it loads, sized to the part it stands for so nothing moves when it lands.",
+  "never": [
+    "A shimmer, a gradient sweep or a colors",
+    "A layout that jumps when the content lands: size each block to its part",
+    "A skeleton for something that loads in under 300ms"
+  ],
+  "source": "shadcn's skeleton, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only.",
+  "body": "When the picture it holds the place of arrives, pass it as `src` (with `alt`, `fit` and `position`): the block shows it, still,\nin the same shape and corner. Without `src` the block carries `data-ds-placeholder`, so a page can be checked for\npictures still to fill.",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/ui/Skeleton.tsx",
+      "content": "import type { HTMLAttributes } from 'react'\nimport { cn } from '@/react/lib/cn'\nimport { imageFit, type ImageSlot } from '@/lib/image'\n\n// A placeholder in the shape of what is loading: a block in the quiet fill with square corners (or a circle) that breathes\n// between full and half opacity every 2 seconds, never a shimmer. Size it with classes (h-4 w-48) to the part it holds\n// the place of, so nothing moves when the content lands. Still with reduced motion. Hidden from assistive tech: say\n// \"Loading\" once on the region (aria-busy) instead. When the picture it holds the place of arrives, pass it (`src`,\n// `alt`, `fit`, `position`): the block shows it, still, in the same shape. Without one it carries data-ds-placeholder.\nexport interface SkeletonProps extends HTMLAttributes<HTMLDivElement>, ImageSlot {\n  /** A circle (an avatar or a logo) in place of square corners. */\n  circle?: boolean\n}\n\nexport function Skeleton({ circle, src, alt = '', fit, position, className, ...rest }: SkeletonProps) {\n  const shape = circle ? 'rounded-full' : 'rounded-control'\n  if (src) {\n    return (\n      <div data-ds=\"skeleton\" className={cn('overflow-hidden bg-surface-subtle', shape, className)} {...rest}>\n        <img src={src} alt={alt} decoding=\"async\" className=\"block size-full object-cover\" style={imageFit({ fit, position })} />\n      </div>\n    )\n  }\n  return (\n    <>\n      <style href=\"ds-skeleton\" precedence=\"ds\">{css}</style>\n      <div data-ds=\"skeleton\" data-ds-placeholder=\"\" aria-hidden=\"true\" className={cn('ds-skeleton bg-surface-subtle', shape, className)} {...rest} />\n    </>\n  )\n}\n\nexport default Skeleton\n\nconst css = `\n.ds-skeleton { animation: ds-skeleton-breathe 2s var(--ds-easing-in-out) infinite; }\n@keyframes ds-skeleton-breathe { 50% { opacity: 0.5; } }\n@media (prefers-reduced-motion: reduce) { .ds-skeleton { animation: none; } }\n`\n"
+    },
+    {
+      "path": "lib/image.ts",
+      "content": "// An image slot: what every picture in the library takes in place of its placeholder, in both flavors. `src` is the\n// image (the user's own, used as posted), `alt` what it shows ('' when it is decoration), `fit` how it fills its box\n// (object-fit: cover by default) and `position` where it is anchored (object-position, for example \"50% 20%\" or\n// \"top\"). Without `src` an item keeps its placeholder, and every placeholder carries `data-ds-placeholder`, so a page\n// can be checked for pictures still to fill.\n\nexport type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'\n\nexport interface ImageSlot {\n\t/** The image. */\n\tsrc?: string\n\t/** What it shows; empty when it is decoration. */\n\talt?: string\n\t/** How it fills its box (object-fit); cover by default. */\n\tfit?: ImageFit\n\t/** Where it is anchored in its box (object-position), for example \"50% 20%\" or \"top\". */\n\tposition?: string\n}\n\n/** The attribute every placeholder carries (a picture still to fill). */\nexport const PLACEHOLDER_ATTR = 'data-ds-placeholder'\n\n/** The object-fit and object-position an image asks for, as a style object both flavors take; undefined when it asks for neither. */\nexport function imageFit(slot?: { fit?: ImageFit; position?: string } | null): { objectFit?: ImageFit; objectPosition?: string } | undefined {\n\tif (!slot || (!slot.fit && !slot.position)) return undefined\n\treturn { ...(slot.fit ? { objectFit: slot.fit } : {}), ...(slot.position ? { objectPosition: slot.position } : {}) }\n}\n\n/** The same as a style attribute's text, for markup written as a string; '' when it asks for neither. */\nexport function imageFitText(slot?: { fit?: ImageFit; position?: string } | null): string {\n\tif (!slot) return ''\n\treturn [slot.fit ? `object-fit: ${slot.fit}` : '', slot.position ? `object-position: ${slot.position}` : ''].filter(Boolean).join('; ')\n}\n\n/** A string or a slot as a slot (lists of pictures take either). */\nexport const toSlot = (v?: string | ImageSlot | null): ImageSlot => (typeof v === 'string' ? { src: v } : v ?? {})\n\n/**\n * The page's sections in the order given: the keys it knows, each once, in the order listed; the page's own order when\n * none is given. Leave a key out to omit that section.\n */\nexport function pageSections<K extends string>(all: readonly K[], given?: readonly string[] | null): K[] {\n\tif (!Array.isArray(given)) return [...all]\n\tconst out: K[] = []\n\tfor (const k of given) if ((all as readonly string[]).includes(k) && !out.includes(k as K)) out.push(k as K)\n\treturn out\n}\n\n/** Whether a src is a placeholder: none, or a generated blank that carries the placeholder attribute in its markup. */\nexport const isPlaceholderSrc = (src?: string) => !src || src.includes(PLACEHOLDER_ATTR)\n\n/**\n * The sections in order with those that live inside one element (an article's head, cover and body) gathered into a\n * list where the first of them falls, so a page can keep that element whole whatever the order.\n */\nexport function groupSections<K extends string>(order: readonly K[], inside: readonly K[]): (K | K[])[] {\n\tconst group = order.filter((k) => inside.includes(k))\n\tconst out: (K | K[])[] = []\n\tfor (const k of order) if (!inside.includes(k)) out.push(k)\n\telse if (k === group[0]) out.push(group)\n\treturn out\n}\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Work",
+      "label": "A work card",
+      "center": true,
+      "half": false,
+      "path": "react/examples/skeleton/Work.tsx",
+      "content": "import { Skeleton } from '@/react/components/ui/Skeleton'\n// A project card while it loads: the picture, the client's logo and two lines, in the shapes they will take.\n\nexport default function Work() {\n  return (\n    <div className=\"flex w-72 max-w-full flex-col gap-4 rounded-container bg-surface-raised p-4\" aria-busy=\"true\" aria-label=\"Loading project\">\n      <Skeleton className=\"aspect-square w-full\" />\n      <div className=\"flex items-center gap-3\">\n        <Skeleton circle className=\"size-10 shrink-0\" />\n        <div className=\"flex flex-1 flex-col gap-2\">\n          <Skeleton className=\"h-4 w-3/4\" />\n          <Skeleton className=\"h-3 w-1/2\" />\n        </div>\n      </div>\n    </div>\n  )\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/ui/Skeleton.tsx",
+          "content": "import type { HTMLAttributes } from 'react'\nimport { cn } from '@/react/lib/cn'\nimport { imageFit, type ImageSlot } from '@/lib/image'\n\n// A placeholder in the shape of what is loading: a block in the quiet fill with square corners (or a circle) that breathes\n// between full and half opacity every 2 seconds, never a shimmer. Size it with classes (h-4 w-48) to the part it holds\n// the place of, so nothing moves when the content lands. Still with reduced motion. Hidden from assistive tech: say\n// \"Loading\" once on the region (aria-busy) instead. When the picture it holds the place of arrives, pass it (`src`,\n// `alt`, `fit`, `position`): the block shows it, still, in the same shape. Without one it carries data-ds-placeholder.\nexport interface SkeletonProps extends HTMLAttributes<HTMLDivElement>, ImageSlot {\n  /** A circle (an avatar or a logo) in place of square corners. */\n  circle?: boolean\n}\n\nexport function Skeleton({ circle, src, alt = '', fit, position, className, ...rest }: SkeletonProps) {\n  const shape = circle ? 'rounded-full' : 'rounded-control'\n  if (src) {\n    return (\n      <div data-ds=\"skeleton\" className={cn('overflow-hidden bg-surface-subtle', shape, className)} {...rest}>\n        <img src={src} alt={alt} decoding=\"async\" className=\"block size-full object-cover\" style={imageFit({ fit, position })} />\n      </div>\n    )\n  }\n  return (\n    <>\n      <style href=\"ds-skeleton\" precedence=\"ds\">{css}</style>\n      <div data-ds=\"skeleton\" data-ds-placeholder=\"\" aria-hidden=\"true\" className={cn('ds-skeleton bg-surface-subtle', shape, className)} {...rest} />\n    </>\n  )\n}\n\nexport default Skeleton\n\nconst css = `\n.ds-skeleton { animation: ds-skeleton-breathe 2s var(--ds-easing-in-out) infinite; }\n@keyframes ds-skeleton-breathe { 50% { opacity: 0.5; } }\n@media (prefers-reduced-motion: reduce) { .ds-skeleton { animation: none; } }\n`\n"
+        },
+        {
+          "path": "lib/image.ts",
+          "content": "// An image slot: what every picture in the library takes in place of its placeholder, in both flavors. `src` is the\n// image (the user's own, used as posted), `alt` what it shows ('' when it is decoration), `fit` how it fills its box\n// (object-fit: cover by default) and `position` where it is anchored (object-position, for example \"50% 20%\" or\n// \"top\"). Without `src` an item keeps its placeholder, and every placeholder carries `data-ds-placeholder`, so a page\n// can be checked for pictures still to fill.\n\nexport type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'\n\nexport interface ImageSlot {\n\t/** The image. */\n\tsrc?: string\n\t/** What it shows; empty when it is decoration. */\n\talt?: string\n\t/** How it fills its box (object-fit); cover by default. */\n\tfit?: ImageFit\n\t/** Where it is anchored in its box (object-position), for example \"50% 20%\" or \"top\". */\n\tposition?: string\n}\n\n/** The attribute every placeholder carries (a picture still to fill). */\nexport const PLACEHOLDER_ATTR = 'data-ds-placeholder'\n\n/** The object-fit and object-position an image asks for, as a style object both flavors take; undefined when it asks for neither. */\nexport function imageFit(slot?: { fit?: ImageFit; position?: string } | null): { objectFit?: ImageFit; objectPosition?: string } | undefined {\n\tif (!slot || (!slot.fit && !slot.position)) return undefined\n\treturn { ...(slot.fit ? { objectFit: slot.fit } : {}), ...(slot.position ? { objectPosition: slot.position } : {}) }\n}\n\n/** The same as a style attribute's text, for markup written as a string; '' when it asks for neither. */\nexport function imageFitText(slot?: { fit?: ImageFit; position?: string } | null): string {\n\tif (!slot) return ''\n\treturn [slot.fit ? `object-fit: ${slot.fit}` : '', slot.position ? `object-position: ${slot.position}` : ''].filter(Boolean).join('; ')\n}\n\n/** A string or a slot as a slot (lists of pictures take either). */\nexport const toSlot = (v?: string | ImageSlot | null): ImageSlot => (typeof v === 'string' ? { src: v } : v ?? {})\n\n/**\n * The page's sections in the order given: the keys it knows, each once, in the order listed; the page's own order when\n * none is given. Leave a key out to omit that section.\n */\nexport function pageSections<K extends string>(all: readonly K[], given?: readonly string[] | null): K[] {\n\tif (!Array.isArray(given)) return [...all]\n\tconst out: K[] = []\n\tfor (const k of given) if ((all as readonly string[]).includes(k) && !out.includes(k as K)) out.push(k as K)\n\treturn out\n}\n\n/** Whether a src is a placeholder: none, or a generated blank that carries the placeholder attribute in its markup. */\nexport const isPlaceholderSrc = (src?: string) => !src || src.includes(PLACEHOLDER_ATTR)\n\n/**\n * The sections in order with those that live inside one element (an article's head, cover and body) gathered into a\n * list where the first of them falls, so a page can keep that element whole whatever the order.\n */\nexport function groupSections<K extends string>(order: readonly K[], inside: readonly K[]): (K | K[])[] {\n\tconst group = order.filter((k) => inside.includes(k))\n\tconst out: (K | K[])[] = []\n\tfor (const k of order) if (!inside.includes(k)) out.push(k)\n\telse if (k === group[0]) out.push(group)\n\treturn out\n}\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "Skeleton",
+            "file": "react/components/ui/Skeleton.tsx",
+            "props": [
+              {
+                "name": "circle",
+                "type": "boolean",
+                "required": false,
+                "description": "A circle (an avatar or a logo) in place of square corners."
+              }
+            ],
+            "extends": [
+              "HTMLAttributes<HTMLDivElement>",
+              "ImageSlot"
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Work",
+          "label": "A work card",
+          "center": true,
+          "half": false,
+          "path": "react/examples/skeleton/Work.tsx",
+          "content": "import { Skeleton } from '@/react/components/ui/Skeleton'\n// A project card while it loads: the picture, the client's logo and two lines, in the shapes they will take.\n\nexport default function Work() {\n  return (\n    <div className=\"flex w-72 max-w-full flex-col gap-4 rounded-container bg-surface-raised p-4\" aria-busy=\"true\" aria-label=\"Loading project\">\n      <Skeleton className=\"aspect-square w-full\" />\n      <div className=\"flex items-center gap-3\">\n        <Skeleton circle className=\"size-10 shrink-0\" />\n        <div className=\"flex flex-1 flex-col gap-2\">\n          <Skeleton className=\"h-4 w-3/4\" />\n          <Skeleton className=\"h-3 w-1/2\" />\n        </div>\n      </div>\n    </div>\n  )\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/ui/skeleton.ts",
+          "content": "import { html, nothing, type PropertyValues } from 'lit'\nimport { styleMap } from 'lit/directives/style-map.js'\nimport { imageFit, type ImageFit } from '@/lib/image'\nimport { DsElement, define } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// Skeleton.tsx as <agd-skeleton>: a placeholder in the shape of what is loading, a block in the quiet fill with the brand\n// corner (or a circle) that breathes between full and half opacity, never a shimmer; still with reduced motion. The\n// host is the block, so size classes on the element (h-4 w-48) land on it. Hidden from assistive tech. With `src` (and\n// `alt`, `fit`, `position`) it shows the picture that arrived, still, in the same shape; without, the host carries\n// data-ds-placeholder.\n\n/** @summary A placeholder block in the shape of what is loading. */\nexport class Skeleton extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tstatic properties = { circle: { type: Boolean, reflect: true }, src: { reflect: true }, alt: {}, fit: {}, position: {} }\n\n\t/** A circle (an avatar or a logo) in place of square corners. */\n\tcircle = false\n\t/** The picture that arrived. */\n\tsrc?: string\n\t/** What it shows. */\n\talt = ''\n\t/** How it fills the block (object-fit); cover by default. */\n\tfit?: ImageFit\n\t/** Where it is anchored (object-position). */\n\tposition?: string\n\n\tprotected updated(changed: PropertyValues) {\n\t\tsuper.updated(changed)\n\t\tif (this.src) this.removeAttribute('aria-hidden')\n\t\telse this.setAttribute('aria-hidden', 'true')\n\t\tthis.toggleAttribute('data-ds-placeholder', !this.src)\n\t}\n\n\trender() {\n\t\treturn this.src ? html`<img src=${this.src} alt=${this.alt} decoding=\"async\" class=\"block size-full object-cover\" style=${styleMap(imageFit(this) ?? {})}>` : nothing\n\t}\n}\n\ndefine('skeleton', Skeleton)\n"
+        },
+        {
+          "path": "elements/components/ui/skeleton.css",
+          "content": "/* The host is the block (Skeleton.tsx's root div), so size classes on the element land on it. */\n:host { @apply block bg-surface-subtle rounded-control; animation: ds-skeleton-breathe 2s var(--ds-easing-in-out) infinite; }\n:host([circle]) { @apply rounded-full; }\n:host([src]) { overflow: hidden; animation: none; }\n@keyframes ds-skeleton-breathe { 50% { opacity: 0.5; } }\n@media (prefers-reduced-motion: reduce) { :host { animation: none; } }\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/skeleton.js"
+      ],
+      "tag": "agd-skeleton",
+      "tags": [
+        "agd-skeleton"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-skeleton",
+            "name": "Skeleton",
+            "module": "elements/skeleton.js",
+            "description": "A placeholder block in the shape of what is loading.",
+            "attributes": [
+              {
+                "name": "circle",
+                "field": "circle",
+                "type": "boolean",
+                "default": "false",
+                "description": "A circle (an avatar or a logo) in place of square corners."
+              },
+              {
+                "name": "src",
+                "field": "src",
+                "type": "string | undefined",
+                "description": "The picture that arrived."
+              },
+              {
+                "name": "alt",
+                "field": "alt",
+                "type": "string",
+                "default": "''",
+                "description": "What it shows."
+              },
+              {
+                "name": "fit",
+                "field": "fit",
+                "type": "ImageFit | undefined",
+                "description": "How it fills the block (object-fit); cover by default."
+              },
+              {
+                "name": "position",
+                "field": "position",
+                "type": "string | undefined",
+                "description": "Where it is anchored (object-position)."
+              }
+            ],
+            "properties": [
+              {
+                "name": "circle",
+                "type": "boolean",
+                "default": "false",
+                "description": "A circle (an avatar or a logo) in place of square corners.",
+                "attribute": "circle"
+              },
+              {
+                "name": "src",
+                "type": "string | undefined",
+                "description": "The picture that arrived.",
+                "attribute": "src"
+              },
+              {
+                "name": "alt",
+                "type": "string",
+                "default": "''",
+                "description": "What it shows.",
+                "attribute": "alt"
+              },
+              {
+                "name": "fit",
+                "type": "ImageFit | undefined",
+                "description": "How it fills the block (object-fit); cover by default.",
+                "attribute": "fit"
+              },
+              {
+                "name": "position",
+                "type": "string | undefined",
+                "description": "Where it is anchored (object-position).",
+                "attribute": "position"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Work",
+          "label": "A work card",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/skeleton/Work.html",
+          "content": "<!-- A project card while it loads: the picture, the client's logo and two lines, in the shapes they will take. -->\n<div class=\"flex w-72 max-w-full flex-col gap-4 rounded-container bg-surface-raised p-4\" aria-busy=\"true\" aria-label=\"Loading project\">\n  <agd-skeleton class=\"aspect-square w-full\"></agd-skeleton>\n  <div class=\"flex items-center gap-3\">\n    <agd-skeleton circle class=\"size-10 shrink-0\"></agd-skeleton>\n    <div class=\"flex flex-1 flex-col gap-2\">\n      <agd-skeleton class=\"h-4 w-3/4\"></agd-skeleton>\n      <agd-skeleton class=\"h-3 w-1/2\"></agd-skeleton>\n    </div>\n  </div>\n</div>\n"
+        }
+      ]
+    }
+  }
+}

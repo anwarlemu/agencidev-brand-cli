@@ -1,0 +1,44 @@
+{
+ "$comment": "illustrate: the brand's own imagery as code. Styles, each with its source. brand/illustration.md holds the rules.",
+ "styles": {
+  "signal": {
+   "name": "No signal",
+   "from": "The 404 page (components/no-signal-404.tsx, lib/no-signal-engine.ts): the dead-channel static, its glitch band and the grain overlay",
+   "description": "The no-signal static with its glitch band across the middle, on black. A background for announcements and stings.",
+   "size": [
+    1920,
+    1080
+   ],
+   "image": false
+  },
+  "field": {
+   "name": "Static",
+   "from": "The same field with the band rolled off the frame",
+   "description": "The charcoal static alone, without the band. A quiet ground under copy.",
+   "size": [
+    1920,
+    1080
+   ],
+   "image": false
+  },
+  "rail": {
+   "name": "Work rail",
+   "from": "The home rail (components/home-gallery.tsx, globals.css .rail-ssr): portrait strips 100 by 280, 20 apart, the focused strip at 43% across",
+   "description": "Your pictures as the home rail: a row of portrait strips running off the right edge, on black.",
+   "size": [
+    1920,
+    1080
+   ],
+   "image": "required"
+  }
+ },
+ "rail": {
+  "strip": [
+   100,
+   280
+  ],
+  "gap": 20,
+  "at": 0.43,
+  "from": "globals.css .rail-ssr --sw, --sh, --gap, --ax"
+ }
+}

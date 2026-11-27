@@ -1,0 +1,2129 @@
+{
+ "$comment": "Deck slides at 1920 by 1080, drawn as the Agencidev site draws at 4/3 of its pixels: the homepage statement, the work rail and the 404 page's no-signal static as covers, and content slides by the same rules (the two-tone statement, Diatype copy in dim, 16px capitals, square tiles, hairlines, the plate button). A deck is a list of slides: `deck --input deck.json` with { \"slides\": [{ \"type\": \"cover\", \"headline\": \"...\", \"body\": \"...\" }] }.",
+ "templates": [
+  {
+   "id": "cover",
+   "group": "cover",
+   "name": "Cover, statement",
+   "source": "The homepage (app/page.tsx): the two-tone statement at the foot, the stat line over it",
+   "description": "The lockup top left, the stat line and the two-tone statement at the foot.",
+   "slots": {
+    "headline": "{tagline}",
+    "body": "We help YC startups design their brand, product, and websites.",
+    "stat": "",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        300,
+        1640,
+        684
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "stat",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 0,
+         "color": "white",
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 72,
+         "leading": 84,
+         "gap": 40,
+         "rest": "body",
+         "restColor": "mid",
+         "maxLines": 4
+        }
+       ],
+       "valign": "bottom"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "cover-rail",
+   "group": "cover",
+   "name": "Cover, work rail",
+   "source": "The home hero (components/home-gallery.tsx): portrait strips of work, the statement under them",
+   "description": "A row of your work as the home rail, running off the right edge, the statement under it.",
+   "photos": 6,
+   "slots": {
+    "headline": "{tagline}",
+    "body": "",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "minPhotos": 1,
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "photo",
+       "index": 0,
+       "box": [
+        836,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-1",
+       "bleeds": false
+      },
+      {
+       "type": "photo",
+       "index": 1,
+       "box": [
+        1028,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-2",
+       "bleeds": false
+      },
+      {
+       "type": "photo",
+       "index": 2,
+       "box": [
+        1220,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-3",
+       "bleeds": false
+      },
+      {
+       "type": "photo",
+       "index": 3,
+       "box": [
+        1412,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-4",
+       "bleeds": false
+      },
+      {
+       "type": "photo",
+       "index": 4,
+       "box": [
+        1604,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-5",
+       "bleeds": false
+      },
+      {
+       "type": "photo",
+       "index": 5,
+       "box": [
+        1796,
+        180,
+        160,
+        448
+       ],
+       "id": "picture-6",
+       "bleeds": true
+      },
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        700,
+        1640,
+        284
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 64,
+         "leading": 72,
+         "gap": 0,
+         "rest": "body",
+         "restColor": "mid",
+         "maxLines": 3
+        }
+       ],
+       "valign": "bottom"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "cover-signal",
+   "group": "cover",
+   "name": "Cover, no signal",
+   "source": "The 404 page (components/no-signal-404.tsx): the static with its band, a centered head under it",
+   "description": "The no-signal static behind a centered head under the band.",
+   "slots": {
+    "headline": "{tagline}",
+    "body": ""
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "art",
+       "id": "signal",
+       "file": "signal",
+       "box": [
+        0,
+        0,
+        1920,
+        1080
+       ],
+       "fit": "cover"
+      },
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "stack",
+       "box": [
+        360,
+        720,
+        1200,
+        264
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 64,
+         "leading": 72,
+         "gap": 0,
+         "align": "center",
+         "maxLines": 2
+        },
+        {
+         "type": "text",
+         "slot": "body",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 24,
+         "color": "dim",
+         "align": "center",
+         "maxLines": 2
+        }
+       ],
+       "align": "center"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "section",
+   "group": "content",
+   "name": "Section",
+   "source": "The about page's section heads",
+   "description": "A section opener: a label and the title at the foot left.",
+   "slots": {
+    "kicker": "01",
+    "headline": "Our bets.",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        240,
+        1400,
+        744
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "kicker",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 0,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 96,
+         "leading": 108,
+         "gap": 24,
+         "maxLines": 2
+        }
+       ],
+       "valign": "bottom"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "statement",
+   "group": "content",
+   "name": "Statement",
+   "source": "The homepage and contact heads: one size in two tones",
+   "description": "One two-tone statement, the lead in white and the rest in mid.",
+   "slots": {
+    "headline": "Exploration is fast. Judgement is not.",
+    "body": "We explore design variants in code first, then refine them in Figma.",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        200,
+        1500,
+        784
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 72,
+         "leading": 84,
+         "gap": 0,
+         "rest": "body",
+         "restColor": "mid",
+         "maxLines": 6
+        }
+       ],
+       "valign": "center"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "bullets",
+   "group": "content",
+   "name": "Bullets",
+   "source": "The about page's process rows (components/about-view.tsx)",
+   "description": "A title on the left, up to six points on the right on hairlines.",
+   "slots": {
+    "headline": "How we work.",
+    "items": "Weekly design sprints | Three to four day feature sprints | Live links, tested continuously | Decide what not to build",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline",
+    "items"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        200,
+        640,
+        784
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 4
+        }
+       ],
+       "prefer": 260
+      },
+      {
+       "type": "stack",
+       "box": [
+        880,
+        200,
+        944,
+        784
+       ],
+       "items": [
+        {
+         "type": "list",
+         "slot": "items",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "w": 944,
+         "itemGap": 40,
+         "maxLines": 3,
+         "min": 20,
+         "color": "white"
+        }
+       ],
+       "prefer": 268
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "stat",
+   "group": "content",
+   "name": "Stat",
+   "source": "The homepage's stat line (the YC share, rolled in)",
+   "description": "One figure at the display face and what it means in dim.",
+   "slots": {
+    "value": "6.06%",
+    "body": "of each YC batch is designed by Acme.",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "value"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        200,
+        1400,
+        784
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "value",
+         "face": "display",
+         "size": 200,
+         "leading": 228,
+         "gap": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "body",
+         "face": "body",
+         "size": 32,
+         "leading": 44,
+         "gap": 64,
+         "color": "dim",
+         "maxLines": 3
+        }
+       ],
+       "valign": "center"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "quote",
+   "group": "content",
+   "name": "Quote",
+   "source": "The testimonials (components/testimonials.tsx)",
+   "description": "A portrait (yours), the quote, the name in white and the role in capitals.",
+   "photos": 1,
+   "slots": {
+    "quote": "They shipped our brand, product and site in one partnership.",
+    "name": "Alex Rivera",
+    "role": "Founder, Acme",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "quote"
+   ],
+   "minPhotos": 0,
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "photo",
+       "index": 0,
+       "box": [
+        96,
+        220,
+        480,
+        640
+       ],
+       "id": "picture"
+      },
+      {
+       "type": "stack",
+       "box": [
+        672,
+        220,
+        1152,
+        764
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "quote",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 5
+        },
+        {
+         "type": "text",
+         "slot": "name",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 48,
+         "maxLines": 1,
+         "color": "white"
+        },
+        {
+         "type": "text",
+         "slot": "role",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 8,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 2
+        }
+       ],
+       "valign": "center"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "image",
+   "group": "content",
+   "name": "Image",
+   "source": "The case studies' full-bleed work frames",
+   "description": "A picture filling the right half, a title and a line on the left.",
+   "photos": 1,
+   "slots": {
+    "headline": "Brand, product and website, one partnership.",
+    "body": "One team covers product design, branding and identity, product strategy, and full-stack development."
+   },
+   "required": [
+    "headline"
+   ],
+   "minPhotos": 1,
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "photo",
+       "index": 0,
+       "box": [
+        960,
+        0,
+        960,
+        1080
+       ],
+       "id": "picture",
+       "bleeds": true
+      },
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        200,
+        760,
+        784
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 4
+        },
+        {
+         "type": "text",
+         "slot": "body",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 32,
+         "color": "dim",
+         "maxLines": 6
+        }
+       ],
+       "prefer": 300
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "bottom-left"
+   ]
+  },
+  {
+   "id": "closing",
+   "group": "content",
+   "name": "Closing",
+   "source": "The contact page (app/contact/page.tsx): the two-tone head, the plate button and the email",
+   "description": "The two-tone close, the plate button and the address.",
+   "slots": {
+    "headline": "Tell us what you're building.",
+    "body": "The quickest way to start is a call or an email.",
+    "cta": "Book a call",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "stack",
+       "box": [
+        260,
+        200,
+        1400,
+        700
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 64,
+         "leading": 72,
+         "gap": 0,
+         "rest": "body",
+         "restColor": "mid",
+         "align": "center",
+         "maxLines": 4
+        },
+        {
+         "type": "button",
+         "slot": "cta",
+         "w": 240,
+         "h": 64,
+         "size": 16,
+         "radius": 4,
+         "fill": "plate",
+         "color": "white",
+         "gap": 56
+        }
+       ],
+       "align": "center",
+       "valign": "center"
+      },
+      {
+       "type": "text",
+       "slot": "url",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 560,
+       "top": 980,
+       "w": 800,
+       "align": "center",
+       "maxLines": 1,
+       "min": 14,
+       "color": "dim",
+       "tracking": 0
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "agenda",
+   "group": "content",
+   "name": "Agenda",
+   "source": "The about page's numbered rows",
+   "description": "A title on the left, the items numbered on the right in Agencidev Sans.",
+   "slots": {
+    "headline": "Agenda",
+    "items": "1  Where the product is | 2  What we found | 3  What we build next",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline",
+    "items"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        200,
+        640,
+        784
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 72,
+         "leading": 84,
+         "gap": 0,
+         "maxLines": 3
+        }
+       ],
+       "prefer": 260
+      },
+      {
+       "type": "stack",
+       "box": [
+        880,
+        200,
+        944,
+        784
+       ],
+       "items": [
+        {
+         "type": "list",
+         "slot": "items",
+         "face": "display",
+         "size": 40,
+         "leading": 44,
+         "w": 944,
+         "itemGap": 48,
+         "maxLines": 2,
+         "min": 28
+        }
+       ],
+       "prefer": 268
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "timeline",
+   "group": "content",
+   "name": "Timeline",
+   "source": "The about page's process rows on hairlines",
+   "description": "A title, then up to four steps on a hairline, each a label (a date) and a line.",
+   "slots": {
+    "headline": "The first month.",
+    "when-1": "Week 1",
+    "step-1": "A strategy call and the brief.",
+    "when-2": "Week 2",
+    "step-2": "Design variants explored in code.",
+    "when-3": "Week 4",
+    "step-3": "The first release on a live link.",
+    "when-4": "",
+    "step-4": "",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline",
+    "step-1"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        190,
+        1500,
+        300
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 2
+        }
+       ],
+       "prefer": 230
+      },
+      {
+       "type": "rect",
+       "id": "rule",
+       "box": [
+        96,
+        560,
+        1728,
+        2
+       ],
+       "fill": "neutral-3"
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        600,
+        396,
+        280
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "when-1",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 0,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "step-1",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 20,
+         "color": "white",
+         "maxLines": 4
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        540,
+        600,
+        396,
+        280
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "when-2",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 0,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "step-2",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 20,
+         "color": "white",
+         "maxLines": 4
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        984,
+        600,
+        396,
+        280
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "when-3",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 0,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "step-3",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 20,
+         "color": "white",
+         "maxLines": 4
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        1428,
+        600,
+        396,
+        280
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "when-4",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 0,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "step-4",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 20,
+         "color": "white",
+         "maxLines": 4
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "team",
+   "group": "content",
+   "name": "Team",
+   "source": "The about page's team (names and portraits)",
+   "description": "A title and up to four people: a picture each (yours, never stock), the name and the role.",
+   "photos": 4,
+   "slots": {
+    "headline": "The team.",
+    "name-1": "Alex Rivera",
+    "role-1": "Design",
+    "name-2": "Sam Lee",
+    "role-2": "Engineering",
+    "name-3": "",
+    "role-3": "",
+    "name-4": "",
+    "role-4": "",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline",
+    "name-1"
+   ],
+   "minPhotos": 0,
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        190,
+        1500,
+        200
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 1
+        }
+       ],
+       "prefer": 230
+      },
+      {
+       "type": "photo",
+       "index": 0,
+       "box": [
+        96,
+        340,
+        376,
+        460
+       ],
+       "id": "picture-1"
+      },
+      {
+       "type": "photo",
+       "index": 1,
+       "box": [
+        508,
+        340,
+        376,
+        460
+       ],
+       "id": "picture-2"
+      },
+      {
+       "type": "photo",
+       "index": 2,
+       "box": [
+        920,
+        340,
+        376,
+        460
+       ],
+       "id": "picture-3"
+      },
+      {
+       "type": "photo",
+       "index": 3,
+       "box": [
+        1332,
+        340,
+        376,
+        460
+       ],
+       "id": "picture-4"
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        824,
+        376,
+        160
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "name-1",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 0,
+         "maxLines": 1,
+         "color": "white"
+        },
+        {
+         "type": "text",
+         "slot": "role-1",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 8,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 2
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        508,
+        824,
+        376,
+        160
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "name-2",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 0,
+         "maxLines": 1,
+         "color": "white"
+        },
+        {
+         "type": "text",
+         "slot": "role-2",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 8,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 2
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        920,
+        824,
+        376,
+        160
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "name-3",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 0,
+         "maxLines": 1,
+         "color": "white"
+        },
+        {
+         "type": "text",
+         "slot": "role-3",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 8,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 2
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        1332,
+        824,
+        376,
+        160
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "name-4",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 0,
+         "maxLines": 1,
+         "color": "white"
+        },
+        {
+         "type": "text",
+         "slot": "role-4",
+         "face": "label",
+         "size": 16,
+         "leading": 20,
+         "gap": 8,
+         "color": "dim",
+         "tracking": 0,
+         "maxLines": 2
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "comparison",
+   "group": "content",
+   "name": "Comparison",
+   "source": "The site's partnerships (PRODUCT.md): two tiles side by side",
+   "description": "A title and two square tiles side by side, each a heading and its points.",
+   "slots": {
+    "headline": "Two partnerships.",
+    "left-title": "Design",
+    "left-items": "Product design | Branding and identity | Product strategy",
+    "right-title": "Dev",
+    "right-items": "Full-stack development | Design systems for teams and agents | Cancel anytime",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        190,
+        1500,
+        200
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 2
+        }
+       ],
+       "prefer": 230
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        400,
+        848,
+        520
+       ],
+       "items": [
+        {
+         "type": "card",
+         "id": "left-card",
+         "w": 848,
+         "pad": 48,
+         "fill": "slat",
+         "radius": 0,
+         "items": [
+          {
+           "type": "text",
+           "slot": "left-title",
+           "face": "display",
+           "size": 32,
+           "leading": 36,
+           "gap": 0,
+           "maxLines": 1
+          },
+          {
+           "type": "list",
+           "slot": "left-items",
+           "face": "body",
+           "size": 24,
+           "leading": 36,
+           "itemGap": 12,
+           "gap": 32,
+           "maxLines": 2,
+           "min": 20,
+           "color": "dim"
+          }
+         ]
+        }
+       ]
+      },
+      {
+       "type": "stack",
+       "box": [
+        976,
+        400,
+        848,
+        520
+       ],
+       "items": [
+        {
+         "type": "card",
+         "id": "right-card",
+         "w": 848,
+         "pad": 48,
+         "fill": "slat",
+         "radius": 0,
+         "items": [
+          {
+           "type": "text",
+           "slot": "right-title",
+           "face": "display",
+           "size": 32,
+           "leading": 36,
+           "gap": 0,
+           "maxLines": 1
+          },
+          {
+           "type": "list",
+           "slot": "right-items",
+           "face": "body",
+           "size": 24,
+           "leading": 36,
+           "itemGap": 12,
+           "gap": 32,
+           "maxLines": 2,
+           "min": 20,
+           "color": "dim"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom",
+    "bottom-right"
+   ]
+  },
+  {
+   "id": "image-grid",
+   "group": "content",
+   "name": "Image grid",
+   "source": "The case wall (components/case-wall.tsx): work in a square-cornered grid",
+   "description": "A title and up to six pictures in a grid (yours).",
+   "photos": 6,
+   "slots": {
+    "headline": "Selected work.",
+    "label": "Pitch deck"
+   },
+   "required": [
+    "headline"
+   ],
+   "minPhotos": 1,
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "text",
+       "slot": "label",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 1224,
+       "top": 106,
+       "w": 600,
+       "align": "right",
+       "maxLines": 1,
+       "min": 14,
+       "corner": "top-right",
+       "color": "dim",
+       "tracking": 0
+      },
+      {
+       "type": "stack",
+       "box": [
+        96,
+        190,
+        1500,
+        160
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 48,
+         "leading": 56,
+         "gap": 0,
+         "maxLines": 1
+        }
+       ],
+       "prefer": 230
+      },
+      {
+       "type": "photo",
+       "index": 0,
+       "box": [
+        96,
+        380,
+        560,
+        290
+       ],
+       "id": "picture-1"
+      },
+      {
+       "type": "photo",
+       "index": 1,
+       "box": [
+        680,
+        380,
+        560,
+        290
+       ],
+       "id": "picture-2"
+      },
+      {
+       "type": "photo",
+       "index": 2,
+       "box": [
+        1264,
+        380,
+        560,
+        290
+       ],
+       "id": "picture-3"
+      },
+      {
+       "type": "photo",
+       "index": 3,
+       "box": [
+        96,
+        690,
+        560,
+        290
+       ],
+       "id": "picture-4"
+      },
+      {
+       "type": "photo",
+       "index": 4,
+       "box": [
+        680,
+        690,
+        560,
+        290
+       ],
+       "id": "picture-5"
+      },
+      {
+       "type": "photo",
+       "index": 5,
+       "box": [
+        1264,
+        690,
+        560,
+        290
+       ],
+       "id": "picture-6"
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right"
+   ]
+  },
+  {
+   "id": "qa",
+   "group": "content",
+   "name": "Questions",
+   "source": "The 404 page's static and centered head",
+   "description": "The questions slide: the no-signal static, a large title, a line and the address.",
+   "slots": {
+    "headline": "Questions?",
+    "body": "Write to us any time.",
+    "url": "{domain}"
+   },
+   "required": [
+    "headline"
+   ],
+   "sizes": {
+    "slide": {
+     "width": 1920,
+     "height": 1080,
+     "frame": [
+      96,
+      96,
+      1728,
+      888
+     ],
+     "unit": 1.333,
+     "layers": [
+      {
+       "type": "art",
+       "id": "signal",
+       "file": "signal",
+       "box": [
+        0,
+        0,
+        1920,
+        1080
+       ],
+       "fit": "cover"
+      },
+      {
+       "type": "logo",
+       "lockup": "horizontal",
+       "color": "white",
+       "box": [
+        96,
+        96,
+        206.18,
+        36
+       ],
+       "align": "left",
+       "corner": "top-left"
+      },
+      {
+       "type": "stack",
+       "box": [
+        410,
+        720,
+        1100,
+        220
+       ],
+       "items": [
+        {
+         "type": "text",
+         "slot": "headline",
+         "face": "display",
+         "size": 72,
+         "leading": 84,
+         "gap": 0,
+         "align": "center",
+         "maxLines": 1
+        },
+        {
+         "type": "text",
+         "slot": "body",
+         "face": "body",
+         "size": 24,
+         "leading": 36,
+         "gap": 24,
+         "color": "dim",
+         "align": "center",
+         "maxLines": 2
+        }
+       ],
+       "align": "center"
+      },
+      {
+       "type": "text",
+       "slot": "url",
+       "face": "label",
+       "size": 16,
+       "leading": 20,
+       "x": 560,
+       "top": 980,
+       "w": 800,
+       "align": "center",
+       "maxLines": 1,
+       "min": 14,
+       "color": "dim",
+       "tracking": 0
+      }
+     ]
+    }
+   },
+   "logoAnchors": [
+    "top-left",
+    "top",
+    "top-right",
+    "bottom-left",
+    "bottom-right"
+   ]
+  }
+ ]
+}

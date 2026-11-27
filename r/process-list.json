@@ -1,0 +1,148 @@
+{
+  "name": "process-list",
+  "title": "Process list",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The about page's process: numbered rows, each the number, a title, a white hairline at 10% and the body in mid; four columns from 1024, the body under the title below.",
+  "use_for": "How the work runs: principles, steps, phases.",
+  "never": [
+    "Icons or big numerals: the number is the same size as the title",
+    "Cards around the rows"
+  ],
+  "source": "components/about-view.tsx (the process ol: grid-cols-[48px_1fr] then [48px_1fr_1fr_1fr] at lg, py-8 lg:py-10, h-px bg-white/10, text-md leading-relaxed text-mid).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/ProcessList.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// The about page's process (components/about-view.tsx): numbered rows, each the number, a title, a hairline (white at\n// 10%) and the body in mid. From 1024 the four sit in one row (48px, then three equal columns); below, the body drops\n// under the title. 32px above and below each row (40 from 1024).\nexport interface ProcessStep {\n  title: string\n  body?: string\n}\n\nexport interface ProcessListProps {\n  steps: ProcessStep[]\n  className?: string\n}\n\nexport function ProcessList({ steps, className }: ProcessListProps) {\n  return (\n    <ol data-ds=\"process-list\" className={cn('w-full', className)}>\n      {steps.map((s, i) => (\n        <li key={`${i}-${s.title}`} className=\"grid grid-cols-[48px_minmax(0,1fr)] gap-y-3 py-8 lg:grid-cols-[48px_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:py-10\">\n          <span className=\"type-heading-4 text-fg\">{i + 1}</span>\n          <h3 className=\"type-heading-4 text-fg lg:pr-12\">{s.title}</h3>\n          <span aria-hidden=\"true\" className=\"hidden h-px bg-edge lg:mr-12 lg:block\" />\n          {s.body ? <p className=\"col-start-2 type-body text-fg-muted lg:col-start-auto\">{s.body}</p> : null}\n        </li>\n      ))}\n    </ol>\n  )\n}\n\nexport default ProcessList\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Process",
+      "label": "Three rows",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/process-list/Process.tsx",
+      "content": "import { ProcessList } from '@/react/components/site/ProcessList'\n// The about page's three principles.\n\nexport default function Process() {\n  return (\n    <div className=\"w-full px-6\"><ProcessList steps={[\n      { title: 'Exploration is fast. Judgement is not.', body: 'We explore design variants in code first, then refine and polish them in Figma, not the other way around.' },\n      { title: 'Speed requires agility.', body: 'A structured process that stays agile and autonomous, so moving faster never means moving rigidly.' },\n      { title: 'Strong ideas survive testing.', body: 'When many directions are explored, weak ideas show themselves quickly; the strongest hold up as they are tested.' },\n    ]} /></div>\n  )\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/ProcessList.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// The about page's process (components/about-view.tsx): numbered rows, each the number, a title, a hairline (white at\n// 10%) and the body in mid. From 1024 the four sit in one row (48px, then three equal columns); below, the body drops\n// under the title. 32px above and below each row (40 from 1024).\nexport interface ProcessStep {\n  title: string\n  body?: string\n}\n\nexport interface ProcessListProps {\n  steps: ProcessStep[]\n  className?: string\n}\n\nexport function ProcessList({ steps, className }: ProcessListProps) {\n  return (\n    <ol data-ds=\"process-list\" className={cn('w-full', className)}>\n      {steps.map((s, i) => (\n        <li key={`${i}-${s.title}`} className=\"grid grid-cols-[48px_minmax(0,1fr)] gap-y-3 py-8 lg:grid-cols-[48px_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:py-10\">\n          <span className=\"type-heading-4 text-fg\">{i + 1}</span>\n          <h3 className=\"type-heading-4 text-fg lg:pr-12\">{s.title}</h3>\n          <span aria-hidden=\"true\" className=\"hidden h-px bg-edge lg:mr-12 lg:block\" />\n          {s.body ? <p className=\"col-start-2 type-body text-fg-muted lg:col-start-auto\">{s.body}</p> : null}\n        </li>\n      ))}\n    </ol>\n  )\n}\n\nexport default ProcessList\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "ProcessList",
+            "file": "react/components/site/ProcessList.tsx",
+            "props": [
+              {
+                "name": "steps",
+                "type": "ProcessStep[]",
+                "required": true
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Process",
+          "label": "Three rows",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/process-list/Process.tsx",
+          "content": "import { ProcessList } from '@/react/components/site/ProcessList'\n// The about page's three principles.\n\nexport default function Process() {\n  return (\n    <div className=\"w-full px-6\"><ProcessList steps={[\n      { title: 'Exploration is fast. Judgement is not.', body: 'We explore design variants in code first, then refine and polish them in Figma, not the other way around.' },\n      { title: 'Speed requires agility.', body: 'A structured process that stays agile and autonomous, so moving faster never means moving rigidly.' },\n      { title: 'Strong ideas survive testing.', body: 'When many directions are explored, weak ideas show themselves quickly; the strongest hold up as they are tested.' },\n    ]} /></div>\n  )\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/process-list.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// ProcessList.tsx as <agd-process-list>: numbered rows, each the number, a title, a hairline and the body in mid.\nexport interface ProcessStep { title: string; body?: string }\n\n/**\n * @summary Numbered process rows: a number, a title, a hairline, the body.\n */\nexport class ProcessList extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"process-list\"]'))\n\tstatic properties = { steps: { type: Array } }\n\t/** The steps: [{ title, body }]. */\n\tsteps: ProcessStep[] = []\n\n\trender() {\n\t\treturn html`<ol data-ds=\"process-list\" class=\"w-full\">${(this.steps ?? []).map((s, i) => html`<li class=\"grid grid-cols-[48px_minmax(0,1fr)] gap-y-3 py-8 lg:grid-cols-[48px_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)] lg:items-center lg:py-10\"><span class=\"type-heading-4 text-fg\">${i + 1}</span><h3 class=\"type-heading-4 text-fg lg:pr-12\">${s.title}</h3><span aria-hidden=\"true\" class=\"hidden h-px bg-edge lg:mr-12 lg:block\"></span>${s.body ? html`<p class=\"col-start-2 type-body text-fg-muted lg:col-start-auto\">${s.body}</p>` : nothing}</li>`)}</ol>`\n\t}\n}\n\ndefine('process-list', ProcessList)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/process-list.js"
+      ],
+      "tag": "agd-process-list",
+      "tags": [
+        "agd-process-list"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-process-list",
+            "name": "ProcessList",
+            "module": "elements/process-list.js",
+            "description": "Numbered process rows: a number, a title, a hairline, the body.",
+            "attributes": [
+              {
+                "name": "steps",
+                "field": "steps",
+                "type": "ProcessStep[]",
+                "default": "[]",
+                "description": "The steps: [{ title, body }]."
+              }
+            ],
+            "properties": [
+              {
+                "name": "steps",
+                "type": "ProcessStep[]",
+                "default": "[]",
+                "description": "The steps: [{ title, body }].",
+                "attribute": "steps"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Process",
+          "label": "Three rows",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/process-list/Process.html",
+          "content": "<!-- The about page's three principles. -->\n<div class=\"w-full px-6\"><agd-process-list steps='[{\"title\":\"Exploration is fast. Judgement is not.\",\"body\":\"We explore design variants in code first, then refine and polish them in Figma, not the other way around.\"},{\"title\":\"Speed requires agility.\",\"body\":\"A structured process that stays agile and autonomous, so moving faster never means moving rigidly.\"},{\"title\":\"Strong ideas survive testing.\",\"body\":\"When many directions are explored, weak ideas show themselves quickly; the strongest hold up as they are tested.\"}]'></agd-process-list></div>\n"
+        }
+      ]
+    }
+  }
+}

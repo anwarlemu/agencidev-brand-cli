@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "article-card",
+  "type": "registry:ui",
+  "title": "Article card",
+  "description": "An article in the list: the cover at 16:10 on the plate fill, the date and reading time in 14px capitals in mid, the title in white and three lines of the excerpt in dim; the whole card is the link.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/ArticleCard.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/cn'\n\n// An article in the list (app/articles/page.tsx): the cover at 16:10 on the plate fill, then the date and reading\n// time in 14px capitals in mid (white under the pointer), the title in 16px white at leading 1.25, and three lines of\n// the excerpt in dim. The whole card is the link.\nexport interface ArticleCardProps {\n  title: string\n  href: string\n  date?: string\n  readingTime?: string\n  excerpt?: string\n  cover?: string\n  className?: string\n}\n\nexport function ArticleCard({ title, href, date, readingTime, excerpt, cover, className }: ArticleCardProps) {\n  const meta = [date, readingTime].filter(Boolean)\n  return (\n    <a data-ds=\"article-card\" href={href} className={cn('group flex flex-col', className)}>\n      <div data-ds-placeholder={cover ? undefined : ''} className=\"relative aspect-[16/10] w-full overflow-hidden bg-surface-inset\">\n        {cover ? <img src={cover} alt=\"\" loading=\"lazy\" className=\"absolute inset-0 size-full object-cover\" /> : null}\n      </div>\n      {meta.length ? (\n        <p className=\"mt-5 type-ui uppercase text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg group-active:text-action-press-ink group-active:transition-none\">\n          {meta.map((m, i) => <span key={m}>{i ? <span aria-hidden=\"true\" className=\"px-2\">·</span> : null}{m}</span>)}\n        </p>\n      ) : null}\n      <h2 className=\"mt-3 type-heading-4 text-fg\">{title}</h2>\n      {excerpt ? <p className=\"mt-3 line-clamp-3 type-body text-fg-soft\">{excerpt}</p> : null}\n    </a>\n  )\n}\n\nexport default ArticleCard\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

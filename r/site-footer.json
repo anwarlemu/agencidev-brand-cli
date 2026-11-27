@@ -1,0 +1,180 @@
+{
+  "name": "site-footer",
+  "title": "Site footer",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The site's footer: one quiet row, the lockup on the left and every link in a single run on the right in mid, white under the pointer.",
+  "use_for": "The foot of every marketing page.",
+  "never": [
+    "Columns of links or a big wordmark: it is a sign-off, not a section",
+    "Icons for the social links: their names are the links"
+  ],
+  "source": "components/footer.tsx (mx-6 mt-16 sm:mt-24, py-8 sm:py-10, text-sml text-mid, the 20px lockup, gap-x-8 gap-y-3).",
+  "body": "",
+  "requires": [
+    "logo"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/SiteFooter.tsx",
+      "content": "import { Logo } from '@/react/components/visuals/Logo'\nimport { cn } from '@/react/lib/cn'\n\n// The site's footer (components/footer.tsx): one quiet row, a sign-off rather than another section. The lockup on the\n// left in white (20px tall), then every link in a single run on the right in 14px mid that turns white, 32px apart.\n// Under 640 the links wrap under the lockup. 64px above it (96 from 640), 32px of padding (40 from 640).\nexport interface SiteFooterLink {\n  label: string\n  href: string\n}\n\nexport interface SiteFooterProps {\n  links?: SiteFooterLink[]\n  homeHref?: string\n  className?: string\n}\n\nexport function SiteFooter({ links = [], homeHref = '/', className }: SiteFooterProps) {\n  return (\n    <footer data-ds=\"site-footer\" className={cn('mx-6 mt-16 flex flex-col items-start gap-8 py-8 type-ui text-fg-muted sm:mt-24 sm:flex-row sm:items-center sm:justify-between sm:py-10', className)}>\n      <a href={homeHref} aria-label=\"Home\" className=\"shrink-0 text-fg active:text-action-press-ink\">\n        <Logo variant=\"horizontal\" height={20} />\n      </a>\n      {links.length ? (\n        <nav aria-label=\"Footer\" className=\"flex flex-wrap gap-x-8 gap-y-3\">\n          {links.map((l) => (\n            <a key={l.href + l.label} href={l.href} className=\"transition-colors duration-150 ease-standard hover:text-fg active:text-action-press-ink active:transition-none\">{l.label}</a>\n          ))}\n        </nav>\n      ) : null}\n    </footer>\n  )\n}\n\nexport default SiteFooter\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Footer",
+      "label": "The footer",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/site-footer/Footer.tsx",
+      "content": "import { SiteFooter } from '@/react/components/site/SiteFooter'\n// The sign-off row: the lockup, then the links in one quiet run.\n\nexport default function Footer() {\n  return <SiteFooter className=\"w-full\" links={[{ label: 'Privacy Policy', href: '#' }, { label: 'Accessibility', href: '#' }, { label: 'LinkedIn', href: '#' }, { label: 'X/Twitter', href: '#' }, { label: 'hello@acme.com', href: '#' }]} />\n}\n",
+      "requires": [
+        "logo"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/SiteFooter.tsx",
+          "content": "import { Logo } from '@/react/components/visuals/Logo'\nimport { cn } from '@/react/lib/cn'\n\n// The site's footer (components/footer.tsx): one quiet row, a sign-off rather than another section. The lockup on the\n// left in white (20px tall), then every link in a single run on the right in 14px mid that turns white, 32px apart.\n// Under 640 the links wrap under the lockup. 64px above it (96 from 640), 32px of padding (40 from 640).\nexport interface SiteFooterLink {\n  label: string\n  href: string\n}\n\nexport interface SiteFooterProps {\n  links?: SiteFooterLink[]\n  homeHref?: string\n  className?: string\n}\n\nexport function SiteFooter({ links = [], homeHref = '/', className }: SiteFooterProps) {\n  return (\n    <footer data-ds=\"site-footer\" className={cn('mx-6 mt-16 flex flex-col items-start gap-8 py-8 type-ui text-fg-muted sm:mt-24 sm:flex-row sm:items-center sm:justify-between sm:py-10', className)}>\n      <a href={homeHref} aria-label=\"Home\" className=\"shrink-0 text-fg active:text-action-press-ink\">\n        <Logo variant=\"horizontal\" height={20} />\n      </a>\n      {links.length ? (\n        <nav aria-label=\"Footer\" className=\"flex flex-wrap gap-x-8 gap-y-3\">\n          {links.map((l) => (\n            <a key={l.href + l.label} href={l.href} className=\"transition-colors duration-150 ease-standard hover:text-fg active:text-action-press-ink active:transition-none\">{l.label}</a>\n          ))}\n        </nav>\n      ) : null}\n    </footer>\n  )\n}\n\nexport default SiteFooter\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "logo"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "SiteFooter",
+            "file": "react/components/site/SiteFooter.tsx",
+            "props": [
+              {
+                "name": "links",
+                "type": "SiteFooterLink[]",
+                "required": false,
+                "default": "[]"
+              },
+              {
+                "name": "homeHref",
+                "type": "string",
+                "required": false,
+                "default": "'/'"
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Footer",
+          "label": "The footer",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/site-footer/Footer.tsx",
+          "content": "import { SiteFooter } from '@/react/components/site/SiteFooter'\n// The sign-off row: the lockup, then the links in one quiet run.\n\nexport default function Footer() {\n  return <SiteFooter className=\"w-full\" links={[{ label: 'Privacy Policy', href: '#' }, { label: 'Accessibility', href: '#' }, { label: 'LinkedIn', href: '#' }, { label: 'X/Twitter', href: '#' }, { label: 'hello@acme.com', href: '#' }]} />\n}\n",
+          "registryDependencies": [
+            "logo"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/site-footer.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport '@/elements/components/visuals/logo'\nimport styles from 'virtual:tw'\n\n// SiteFooter.tsx as <agd-site-footer>: the lockup on the left, every link in one quiet run on the right.\nexport interface SiteFooterLink { label: string; href: string }\n\n/**\n * @summary The site's footer: the lockup and one quiet row of links.\n */\nexport class SiteFooter extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"site-footer\"]'))\n\tstatic properties = { links: { type: Array }, homeHref: { attribute: 'home-href' } }\n\t/** The links: [{ label, href }]. */\n\tlinks: SiteFooterLink[] = []\n\t/** Where the lockup goes. */\n\thomeHref = '/'\n\n\trender() {\n\t\tconst links = this.links ?? []\n\t\treturn html`<footer data-ds=\"site-footer\" class=\"mx-6 mt-16 flex flex-col items-start gap-8 py-8 type-ui text-fg-muted sm:mt-24 sm:flex-row sm:items-center sm:justify-between sm:py-10\"><a href=${this.homeHref} aria-label=\"Home\" class=\"shrink-0 text-fg active:text-action-press-ink\"><agd-logo variant=\"horizontal\" height=\"20\"></agd-logo></a>${links.length ? html`<nav aria-label=\"Footer\" class=\"flex flex-wrap gap-x-8 gap-y-3\">${links.map((l) => html`<a href=${l.href} class=\"transition-colors duration-150 ease-standard hover:text-fg active:text-action-press-ink active:transition-none\">${l.label}</a>`)}</nav>` : nothing}</footer>`\n\t}\n}\n\ndefine('site-footer', SiteFooter)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/site-footer.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-site-footer",
+      "tags": [
+        "agd-site-footer"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "logo"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-site-footer",
+            "name": "SiteFooter",
+            "module": "elements/site-footer.js",
+            "description": "The site's footer: the lockup and one quiet row of links.",
+            "attributes": [
+              {
+                "name": "links",
+                "field": "links",
+                "type": "SiteFooterLink[]",
+                "default": "[]",
+                "description": "The links: [{ label, href }]."
+              },
+              {
+                "name": "home-href",
+                "field": "homeHref",
+                "type": "string",
+                "default": "'/'",
+                "description": "Where the lockup goes."
+              }
+            ],
+            "properties": [
+              {
+                "name": "links",
+                "type": "SiteFooterLink[]",
+                "default": "[]",
+                "description": "The links: [{ label, href }].",
+                "attribute": "links"
+              },
+              {
+                "name": "homeHref",
+                "type": "string",
+                "default": "'/'",
+                "description": "Where the lockup goes.",
+                "attribute": "home-href"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Footer",
+          "label": "The footer",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/site-footer/Footer.html",
+          "content": "<!-- The sign-off row: the lockup, then the links in one quiet run. -->\n<agd-site-footer class=\"w-full\" links='[{\"label\":\"Privacy Policy\",\"href\":\"#\"},{\"label\":\"Accessibility\",\"href\":\"#\"},{\"label\":\"LinkedIn\",\"href\":\"#\"},{\"label\":\"X/Twitter\",\"href\":\"#\"},{\"label\":\"hello@acme.com\",\"href\":\"#\"}]'></agd-site-footer>\n"
+        }
+      ]
+    }
+  }
+}

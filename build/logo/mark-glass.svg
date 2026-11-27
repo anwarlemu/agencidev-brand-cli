@@ -1,0 +1,80 @@
+<svg viewBox="-110 -110 820 820" width="820" height="820" role="img"
+  aria-label="Agencidev logo, liquid glass" xmlns="http://www.w3.org/2000/svg">
+  <title>Agencidev — liquid glass logo</title>
+  <desc>The Agencidev mark rendered as clear liquid glass over a soft refracted gradient, so it reads on any background.</desc>
+  <defs>
+    <!-- Glass body: reflection ramp (bright sky -> dark valley -> ground bounce) -->
+    <linearGradient id="agdGlassBody" x1="120" y1="10" x2="470" y2="600" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f4f8fb"/>
+      <stop offset="0.08" stop-color="#c2ccd3"/>
+      <stop offset="0.20" stop-color="#5e6870"/>
+      <stop offset="0.32" stop-color="#232b31"/>
+      <stop offset="0.44" stop-color="#0a0e12"/>
+      <stop offset="0.54" stop-color="#161c22"/>
+      <stop offset="0.66" stop-color="#333c44"/>
+      <stop offset="0.78" stop-color="#6f7982"/>
+      <stop offset="0.88" stop-color="#c8d1d8"/>
+      <stop offset="0.95" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#2a323a"/>
+    </linearGradient>
+
+    <!-- Refraction palette (spectral dispersion). Edit these stops to re-tint the aura. -->
+    <linearGradient id="agdRefract" x1="40" y1="40" x2="560" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff5ea8"/>
+      <stop offset="0.25" stop-color="#8b6cff"/>
+      <stop offset="0.5" stop-color="#39a0ff"/>
+      <stop offset="0.75" stop-color="#2fe6c4"/>
+      <stop offset="1" stop-color="#ffd36b"/>
+    </linearGradient>
+
+    <!-- Soft blur for the refracted underlay -->
+    <filter id="agdAura" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="34"/>
+    </filter>
+
+    <!-- Liquid-glass material: inflated bevel + dome shading + bright edge rim + specular ridges -->
+    <filter id="agdGlass" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="18" result="blur"/>
+      <feDiffuseLighting in="blur" surfaceScale="16" diffuseConstant="1.05"
+        lighting-color="#aeb9c3" result="diff">
+        <fePointLight x="120" y="-90" z="270"/>
+      </feDiffuseLighting>
+      <feComposite in="diff" in2="SourceAlpha" operator="in" result="diffClip"/>
+      <feBlend in="SourceGraphic" in2="diffClip" mode="multiply" result="shaded"/>
+      <feComposite in="shaded" in2="SourceAlpha" operator="in" result="shadedClip"/>
+      <feMorphology in="SourceAlpha" operator="erode" radius="7" result="eroded"/>
+      <feComposite in="SourceAlpha" in2="eroded" operator="out" result="rimBand"/>
+      <feFlood flood-color="#cfd9e2" result="rimFlood"/>
+      <feComposite in="rimFlood" in2="rimBand" operator="in" result="rimColor"/>
+      <feGaussianBlur in="rimColor" stdDeviation="2.2" result="rimGlow"/>
+      <feSpecularLighting in="blur" surfaceScale="16" specularConstant="1.7"
+        specularExponent="22" lighting-color="#ffffff" result="spec">
+        <fePointLight x="175" y="-55" z="240"/>
+      </feSpecularLighting>
+      <feComposite in="spec" in2="SourceAlpha" operator="in" result="specClip"/>
+      <feSpecularLighting in="blur" surfaceScale="16" specularConstant="1.6"
+        specularExponent="80" lighting-color="#ffffff" result="ridge">
+        <fePointLight x="160" y="-70" z="230"/>
+      </feSpecularLighting>
+      <feComposite in="ridge" in2="SourceAlpha" operator="in" result="ridgeClip"/>
+      <feComposite in="shadedClip" in2="rimGlow" operator="arithmetic"
+        k1="0" k2="1" k3="1" k4="0" result="bodyRim"/>
+      <feComposite in="bodyRim" in2="specClip" operator="arithmetic"
+        k1="0" k2="1" k3="1" k4="0" result="bodySpec"/>
+      <feComposite in="bodySpec" in2="ridgeClip" operator="arithmetic"
+        k1="0" k2="1" k3="1" k4="0"/>
+    </filter>
+  </defs>
+
+  <!-- Refracted gradient underlay: a soft iridescent aura hugging the mark so the
+       glass stays visible on any background. Transparent elsewhere. -->
+  <g filter="url(#agdAura)" opacity="0.85">
+    <path d="M581.25 0C591.607 0 600 8.395 600 18.75V581.25C600 591.607 591.607 600 581.25 600H18.75C8.395 600 0 591.607 0 581.25V18.75C0 8.395 8.395 0 18.75 0H581.25Z"
+      fill="url(#agdRefract)"
+      transform="translate(300 300) scale(1.16) translate(-300 -300)"/>
+  </g>
+
+  <!-- Liquid glass logo (Agencidev mark = the white filled form of logo.svg) -->
+  <path d="M581.25 0C591.607 0 600 8.395 600 18.75V581.25C600 591.607 591.607 600 581.25 600H18.75C8.395 600 0 591.607 0 581.25V18.75C0 8.395 8.395 0 18.75 0H581.25Z"
+    fill="url(#agdGlassBody)" filter="url(#agdGlass)"/>
+</svg>

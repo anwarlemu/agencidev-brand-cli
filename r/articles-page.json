@@ -1,0 +1,203 @@
+{
+  "name": "articles-page",
+  "title": "Articles page",
+  "type": "registry:block",
+  "group": "pages",
+  "description": "The articles page template from library items: a line in dim, then the articles in a grid of one, two or three columns.",
+  "use_for": "An articles or writing index. Edit lib/pages/articles.ts or pass `content`; `sections` reorders or leaves sections out.",
+  "never": [
+    "New colors, shadows, radii or type sizes added to a section: use the items' props",
+    "People, clients or quotes you have no right to show: the defaults are Acme",
+    "A second plate button in a view"
+  ],
+  "source": "Built from the library's site items, after the site's app/articles/page.tsx.",
+  "body": "",
+  "requires": [
+    "article-card",
+    "site-footer",
+    "site-header",
+    "skeleton"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/pages/ArticlesPage.tsx",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { ArticleCard } from '@/react/components/site/ArticleCard'\nimport { articlesContent, articlesSections, type ArticlesContent, type ArticlesSection } from '@/lib/pages/articles'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The articles page from library items (app/articles/page.tsx): a line in dim under the bar, then the articles in a\n// grid (one column, two from 640, three from 1024; 24px across and 56px down). `content` replaces the copy.\nexport interface ArticlesPageProps {\n  content?: ArticlesContent\n  sections?: readonly ArticlesSection[]\n  className?: string\n}\n\nexport function ArticlesPage({ content: c = articlesContent, sections, className }: ArticlesPageProps) {\n  const parts: Record<ArticlesSection, ReactNode> = {\n    intro: <p className=\"mb-14 type-body text-fg-soft\">{c.intro}</p>,\n    list: <div className=\"grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3\">{c.articles.map((a) => <ArticleCard key={a.title} {...a} />)}</div>,\n  }\n  return (\n    <div data-ds=\"articles-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/articles' }))} />\n      <main className=\"flex-1\">\n        <h1 className=\"sr-only\">Articles</h1>\n        <section aria-label=\"All articles\" className=\"mx-6 pt-32 sm:pt-44\">{pageSections(articlesSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</section>\n      </main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ArticlesPage\n"
+    },
+    {
+      "path": "lib/pages/articles.ts",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The articles page template's copy (app/articles/page.tsx): a line, then the articles in a grid.\nexport const articlesContent = {\n\theader,\n\tintro: 'Writing on design, engineering and the studio.',\n\tarticles: [\n\t\t{ title: 'How to create great interface design', href: '#', date: 'May 2026', readingTime: '6 min', excerpt: 'Build to the interface’s principal objective and the unnecessary noise sieves itself out.', cover: '' },\n\t\t{ title: 'How we hire', href: '#', date: 'April 2026', readingTime: '4 min', excerpt: 'What we look for in designers and engineers, and how a trial week runs.', cover: '' },\n\t\t{ title: 'Designing for agents', href: '#', date: 'March 2026', readingTime: '8 min', excerpt: 'Agents will become major users of websites and products. This needs to be factored into the design.', cover: '' },\n\t],\n\tfooter,\n}\nexport type ArticlesContent = typeof articlesContent\nexport const articlesSections = ['intro', 'list'] as const\nexport type ArticlesSection = (typeof articlesSections)[number]\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Page",
+      "label": "Articles page",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/articles-page/Page.tsx",
+      "content": "import { ArticlesPage } from '@/react/components/pages/ArticlesPage'\n// The articles page with its default copy.\n\nexport default function Page() {\n  return <ArticlesPage />\n}\n",
+      "requires": [
+        "article-card",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/pages/ArticlesPage.tsx",
+          "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { ArticleCard } from '@/react/components/site/ArticleCard'\nimport { articlesContent, articlesSections, type ArticlesContent, type ArticlesSection } from '@/lib/pages/articles'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The articles page from library items (app/articles/page.tsx): a line in dim under the bar, then the articles in a\n// grid (one column, two from 640, three from 1024; 24px across and 56px down). `content` replaces the copy.\nexport interface ArticlesPageProps {\n  content?: ArticlesContent\n  sections?: readonly ArticlesSection[]\n  className?: string\n}\n\nexport function ArticlesPage({ content: c = articlesContent, sections, className }: ArticlesPageProps) {\n  const parts: Record<ArticlesSection, ReactNode> = {\n    intro: <p className=\"mb-14 type-body text-fg-soft\">{c.intro}</p>,\n    list: <div className=\"grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3\">{c.articles.map((a) => <ArticleCard key={a.title} {...a} />)}</div>,\n  }\n  return (\n    <div data-ds=\"articles-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/articles' }))} />\n      <main className=\"flex-1\">\n        <h1 className=\"sr-only\">Articles</h1>\n        <section aria-label=\"All articles\" className=\"mx-6 pt-32 sm:pt-44\">{pageSections(articlesSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</section>\n      </main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ArticlesPage\n"
+        },
+        {
+          "path": "lib/pages/articles.ts",
+          "content": "import { footer, header } from '@/lib/pages/chrome'\n// The articles page template's copy (app/articles/page.tsx): a line, then the articles in a grid.\nexport const articlesContent = {\n\theader,\n\tintro: 'Writing on design, engineering and the studio.',\n\tarticles: [\n\t\t{ title: 'How to create great interface design', href: '#', date: 'May 2026', readingTime: '6 min', excerpt: 'Build to the interface’s principal objective and the unnecessary noise sieves itself out.', cover: '' },\n\t\t{ title: 'How we hire', href: '#', date: 'April 2026', readingTime: '4 min', excerpt: 'What we look for in designers and engineers, and how a trial week runs.', cover: '' },\n\t\t{ title: 'Designing for agents', href: '#', date: 'March 2026', readingTime: '8 min', excerpt: 'Agents will become major users of websites and products. This needs to be factored into the design.', cover: '' },\n\t],\n\tfooter,\n}\nexport type ArticlesContent = typeof articlesContent\nexport const articlesSections = ['intro', 'list'] as const\nexport type ArticlesSection = (typeof articlesSections)[number]\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "article-card",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "ArticlesPage",
+            "file": "react/components/pages/ArticlesPage.tsx",
+            "props": [
+              {
+                "name": "content",
+                "type": "ArticlesContent",
+                "required": false
+              },
+              {
+                "name": "sections",
+                "type": "readonly ArticlesSection[]",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Articles page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/articles-page/Page.tsx",
+          "content": "import { ArticlesPage } from '@/react/components/pages/ArticlesPage'\n// The articles page with its default copy.\n\nexport default function Page() {\n  return <ArticlesPage />\n}\n",
+          "registryDependencies": [
+            "article-card",
+            "site-footer",
+            "site-header",
+            "skeleton"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/pages/articles-page.ts",
+          "content": "import { html, nothing, type TemplateResult } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport { pageSections } from '@/lib/image'\nimport '@/elements/components/site/site-header'\nimport '@/elements/components/site/site-footer'\nimport '@/elements/components/site/article-card'\nimport styles from 'virtual:tw'\nimport { articlesContent, articlesSections, type ArticlesContent, type ArticlesSection } from '@/lib/pages/articles'\n\n// ArticlesPage.tsx as <agd-articles-page>: a line under the bar, then the articles in a grid.\n\n/**\n * @summary The articles page template.\n */\nexport class ArticlesPage extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"articles-page\"]'))\n\tstatic properties = { content: { type: Object }, sections: { type: Array } }\n\t/** The page's copy (lib/pages/articles.ts by default). */\n\tcontent: ArticlesContent = articlesContent\n\t/** The sections to show, in order. */\n\tsections?: ArticlesSection[]\n\n\trender() {\n\t\tconst c = this.content\n\t\tconst parts: Record<ArticlesSection, TemplateResult | typeof nothing> = {\n\t\t\tintro: html`<p class=\"mb-14 type-body text-fg-soft\">${c.intro}</p>`,\n\t\t\tlist: html`<div class=\"grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3\">${c.articles.map((a) => html`<agd-article-card href=${a.href} heading=${a.title} date=${a.date} reading-time=${a.readingTime} excerpt=${a.excerpt} cover=${a.cover || nothing}></agd-article-card>`)}</div>`,\n\t\t}\n\t\tconst order = pageSections(articlesSections, this.sections)\n\t\treturn html`<div data-ds=\"articles-page\" class=\"flex min-h-screen w-full flex-col bg-surface text-fg\"><agd-site-header .links=${c.header.links.map((l) => ({ ...l, current: l.href === '/articles' }))} .secondary=${c.header.secondary} .primary=${c.header.primary} email=${c.header.email}></agd-site-header><main class=\"flex-1\"><h1 class=\"sr-only\">Articles</h1><section aria-label=\"All articles\" class=\"mx-6 pt-32 sm:pt-44\">${order.map((k) => parts[k])}</section></main><agd-site-footer .links=${c.footer.links}></agd-site-footer></div>`\n\t}\n}\n\ndefine('articles-page', ArticlesPage)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/articles-page.js",
+        "elements/site-header.js",
+        "elements/site-footer.js",
+        "elements/article-card.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-articles-page",
+      "tags": [
+        "agd-articles-page"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "article-card",
+        "logo",
+        "site-footer",
+        "site-header"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-articles-page",
+            "name": "ArticlesPage",
+            "module": "elements/articles-page.js",
+            "description": "The articles page template.",
+            "attributes": [
+              {
+                "name": "content",
+                "field": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; intro: string; articles: { title: string; href: string; date: string; readingTime: string; excerpt: string; cover: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "articlesContent",
+                "description": "The page's copy (lib/pages/articles.ts by default)."
+              },
+              {
+                "name": "sections",
+                "field": "sections",
+                "type": "(\"intro\" | \"list\")[] | undefined",
+                "description": "The sections to show, in order."
+              }
+            ],
+            "properties": [
+              {
+                "name": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; intro: string; articles: { title: string; href: string; date: string; readingTime: string; excerpt: string; cover: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "articlesContent",
+                "description": "The page's copy (lib/pages/articles.ts by default).",
+                "attribute": "content"
+              },
+              {
+                "name": "sections",
+                "type": "(\"intro\" | \"list\")[] | undefined",
+                "description": "The sections to show, in order.",
+                "attribute": "sections"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Articles page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/articles-page/Page.html",
+          "content": "<!-- The articles page with its default copy. -->\n<agd-articles-page></agd-articles-page>\n"
+        }
+      ]
+    }
+  }
+}

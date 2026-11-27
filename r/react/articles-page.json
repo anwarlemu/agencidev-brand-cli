@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "articles-page",
+  "type": "registry:block",
+  "title": "Articles page",
+  "description": "The articles page template from library items: a line in dim, then the articles in a grid of one, two or three columns.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/article-card.json",
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/ArticlesPage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { ArticleCard } from '@/components/site/ArticleCard'\nimport { articlesContent, articlesSections, type ArticlesContent, type ArticlesSection } from '@/lib/pages/articles'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// The articles page from library items (app/articles/page.tsx): a line in dim under the bar, then the articles in a\n// grid (one column, two from 640, three from 1024; 24px across and 56px down). `content` replaces the copy.\nexport interface ArticlesPageProps {\n  content?: ArticlesContent\n  sections?: readonly ArticlesSection[]\n  className?: string\n}\n\nexport function ArticlesPage({ content: c = articlesContent, sections, className }: ArticlesPageProps) {\n  const parts: Record<ArticlesSection, ReactNode> = {\n    intro: <p className=\"mb-14 type-body text-fg-soft\">{c.intro}</p>,\n    list: <div className=\"grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3\">{c.articles.map((a) => <ArticleCard key={a.title} {...a} />)}</div>,\n  }\n  return (\n    <div data-ds=\"articles-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} links={c.header.links.map((l) => ({ ...l, current: l.href === '/articles' }))} />\n      <main className=\"flex-1\">\n        <h1 className=\"sr-only\">Articles</h1>\n        <section aria-label=\"All articles\" className=\"mx-6 pt-32 sm:pt-44\">{pageSections(articlesSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</section>\n      </main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ArticlesPage\n"
+    },
+    {
+      "path": "lib/pages/articles.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The articles page template's copy (app/articles/page.tsx): a line, then the articles in a grid.\nexport const articlesContent = {\n\theader,\n\tintro: 'Writing on design, engineering and the studio.',\n\tarticles: [\n\t\t{ title: 'How to create great interface design', href: '#', date: 'May 2026', readingTime: '6 min', excerpt: 'Build to the interface’s principal objective and the unnecessary noise sieves itself out.', cover: '' },\n\t\t{ title: 'How we hire', href: '#', date: 'April 2026', readingTime: '4 min', excerpt: 'What we look for in designers and engineers, and how a trial week runs.', cover: '' },\n\t\t{ title: 'Designing for agents', href: '#', date: 'March 2026', readingTime: '8 min', excerpt: 'Agents will become major users of websites and products. This needs to be factored into the design.', cover: '' },\n\t],\n\tfooter,\n}\nexport type ArticlesContent = typeof articlesContent\nexport const articlesSections = ['intro', 'list'] as const\nexport type ArticlesSection = (typeof articlesSections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

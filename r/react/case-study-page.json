@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "case-study-page",
+  "type": "registry:block",
+  "title": "Case study page",
+  "description": "A case study template from library items: the client's name with its live link, then the work in masonry columns.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/case-wall.json",
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/CaseStudyPage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { CaseWall } from '@/components/site/CaseWall'\nimport { caseStudyContent, caseStudySections, type CaseStudyContent, type CaseStudySection } from '@/lib/pages/case-study'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// A case study from library items (components/case-wall.tsx): the client's name with its live link, then the work in\n// masonry columns; the work carries the argument. `content` replaces the copy and the pictures (lib/pages/case-study.ts).\nexport interface CaseStudyPageProps {\n  content?: CaseStudyContent\n  sections?: readonly CaseStudySection[]\n  className?: string\n}\n\nexport function CaseStudyPage({ content: c = caseStudyContent, sections, className }: CaseStudyPageProps) {\n  const parts: Record<CaseStudySection, ReactNode> = {\n    wall: <CaseWall title={c.title} link={c.link} pieces={c.pieces} />,\n  }\n  return (\n    <div data-ds=\"case-study-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(caseStudySections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default CaseStudyPage\n"
+    },
+    {
+      "path": "lib/pages/case-study.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The case study page template's copy (components/case-wall.tsx): the client's name, its live link and the work.\nexport const caseStudyContent = {\n\theader,\n\ttitle: 'Acme',\n\tlink: { label: 'Visit Acme', href: '#' },\n\tpieces: [\n\t\t{ src: '', ratio: 4 / 3 },\n\t\t{ src: '', ratio: 3 / 4 },\n\t\t{ src: '', ratio: 1, caption: 'Onboarding flow, in progress' },\n\t\t{ src: '', ratio: 16 / 9 },\n\t\t{ src: '', ratio: 4 / 5 },\n\t\t{ src: '', ratio: 4 / 3 },\n\t],\n\tfooter,\n}\nexport type CaseStudyContent = typeof caseStudyContent\nexport const caseStudySections = ['wall'] as const\nexport type CaseStudySection = (typeof caseStudySections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

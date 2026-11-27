@@ -1,0 +1,196 @@
+{
+  "name": "openings",
+  "title": "Openings",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The careers page's open roles: the heading in capitals, department chips on the right, and each role a full-width row, the title in white and the department in mid, a quiet fill under the pointer.",
+  "use_for": "Open roles on a careers or about page.",
+  "never": [
+    "Cards per role, or icons for the department",
+    "An empty list: a department with no roles says so"
+  ],
+  "source": "components/careers-section.tsx (text-sml uppercase heading, rounded-[4px] px-3 py-1.5 text-xsml chips on white at 10%, mt-20 list, grid-cols-2 gap-8 px-6 py-4 rows with hover:bg-white/10).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/Openings.tsx",
+      "content": "'use client'\nimport { useState } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The careers page's openings (components/careers-section.tsx): \"Current openings\" in 14px white capitals, a filter of\n// departments as 12px capital chips on the right (the chosen one on the quiet fill), then the roles 80px below, each a\n// full-width row in two columns, the title in white and the department in mid, a quiet fill and white department under\n// the pointer. No roles in a department reads as a line, never an empty list.\nexport interface Opening {\n  title: string\n  department: string\n  href: string\n}\n\nexport interface OpeningsProps {\n  roles: Opening[]\n  /** The heading. */\n  title?: string\n  /** The line shown when a department has no roles. */\n  empty?: string\n  className?: string\n}\n\nconst CHIP = 'rounded-control px-3 py-1.5 type-label transition-colors duration-150 ease-standard active:bg-surface-subtle active:transition-none'\n\nexport function Openings({ roles, title = 'Current openings', empty = 'No open roles here right now.', className }: OpeningsProps) {\n  const departments = ['All', ...Array.from(new Set(roles.map((r) => r.department)))]\n  const [chosen, setChosen] = useState('All')\n  const shown = chosen === 'All' ? roles : roles.filter((r) => r.department === chosen)\n  return (\n    <section data-ds=\"openings\" aria-labelledby=\"openings-heading\" className={cn('flex flex-col px-6 py-10 sm:py-14', className)}>\n      <div className=\"flex flex-wrap items-center justify-between gap-6\">\n        <h2 id=\"openings-heading\" className=\"type-ui uppercase text-fg\">{title}</h2>\n        <div role=\"group\" aria-label=\"Department\" className=\"flex flex-wrap items-center gap-2\">\n          {departments.map((d) => (\n            <button key={d} type=\"button\" aria-pressed={chosen === d} onClick={() => setChosen(d)} className={cn(CHIP, chosen === d ? 'bg-surface-subtle text-fg' : 'text-fg-muted hover:text-fg')}>{d}</button>\n          ))}\n        </div>\n      </div>\n      <ul className=\"-mx-6 mt-20 flex flex-col\">\n        {shown.length ? shown.map((r) => (\n          <li key={r.href + r.title}>\n            <a href={r.href} className=\"group grid grid-cols-2 gap-8 px-6 py-4 transition-colors duration-150 ease-standard hover:bg-surface-subtle active:bg-surface-subtle active:transition-none\">\n              <span className=\"type-body text-fg\">{r.title}</span>\n              <span className=\"type-body text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg\">{r.department}</span>\n            </a>\n          </li>\n        )) : <li className=\"px-6 py-4 type-body text-fg-muted\">{empty}</li>}\n      </ul>\n    </section>\n  )\n}\n\nexport default Openings\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Roles",
+      "label": "Three roles",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/openings/Roles.tsx",
+      "content": "import { Openings } from '@/react/components/site/Openings'\n// Three roles in two departments.\n\nexport default function Roles() {\n  return <Openings className=\"w-full\" roles={[{ title: 'Product designer', department: 'Design', href: '#' }, { title: 'Design engineer', department: 'Engineering', href: '#' }, { title: 'Brand designer', department: 'Design', href: '#' }]} />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/Openings.tsx",
+          "content": "'use client'\nimport { useState } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The careers page's openings (components/careers-section.tsx): \"Current openings\" in 14px white capitals, a filter of\n// departments as 12px capital chips on the right (the chosen one on the quiet fill), then the roles 80px below, each a\n// full-width row in two columns, the title in white and the department in mid, a quiet fill and white department under\n// the pointer. No roles in a department reads as a line, never an empty list.\nexport interface Opening {\n  title: string\n  department: string\n  href: string\n}\n\nexport interface OpeningsProps {\n  roles: Opening[]\n  /** The heading. */\n  title?: string\n  /** The line shown when a department has no roles. */\n  empty?: string\n  className?: string\n}\n\nconst CHIP = 'rounded-control px-3 py-1.5 type-label transition-colors duration-150 ease-standard active:bg-surface-subtle active:transition-none'\n\nexport function Openings({ roles, title = 'Current openings', empty = 'No open roles here right now.', className }: OpeningsProps) {\n  const departments = ['All', ...Array.from(new Set(roles.map((r) => r.department)))]\n  const [chosen, setChosen] = useState('All')\n  const shown = chosen === 'All' ? roles : roles.filter((r) => r.department === chosen)\n  return (\n    <section data-ds=\"openings\" aria-labelledby=\"openings-heading\" className={cn('flex flex-col px-6 py-10 sm:py-14', className)}>\n      <div className=\"flex flex-wrap items-center justify-between gap-6\">\n        <h2 id=\"openings-heading\" className=\"type-ui uppercase text-fg\">{title}</h2>\n        <div role=\"group\" aria-label=\"Department\" className=\"flex flex-wrap items-center gap-2\">\n          {departments.map((d) => (\n            <button key={d} type=\"button\" aria-pressed={chosen === d} onClick={() => setChosen(d)} className={cn(CHIP, chosen === d ? 'bg-surface-subtle text-fg' : 'text-fg-muted hover:text-fg')}>{d}</button>\n          ))}\n        </div>\n      </div>\n      <ul className=\"-mx-6 mt-20 flex flex-col\">\n        {shown.length ? shown.map((r) => (\n          <li key={r.href + r.title}>\n            <a href={r.href} className=\"group grid grid-cols-2 gap-8 px-6 py-4 transition-colors duration-150 ease-standard hover:bg-surface-subtle active:bg-surface-subtle active:transition-none\">\n              <span className=\"type-body text-fg\">{r.title}</span>\n              <span className=\"type-body text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg\">{r.department}</span>\n            </a>\n          </li>\n        )) : <li className=\"px-6 py-4 type-body text-fg-muted\">{empty}</li>}\n      </ul>\n    </section>\n  )\n}\n\nexport default Openings\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "Openings",
+            "file": "react/components/site/Openings.tsx",
+            "props": [
+              {
+                "name": "roles",
+                "type": "Opening[]",
+                "required": true
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "required": false,
+                "default": "'Current openings'",
+                "description": "The heading."
+              },
+              {
+                "name": "empty",
+                "type": "string",
+                "required": false,
+                "default": "'No open roles here right now.'",
+                "description": "The line shown when a department has no roles."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Roles",
+          "label": "Three roles",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/openings/Roles.tsx",
+          "content": "import { Openings } from '@/react/components/site/Openings'\n// Three roles in two departments.\n\nexport default function Roles() {\n  return <Openings className=\"w-full\" roles={[{ title: 'Product designer', department: 'Design', href: '#' }, { title: 'Design engineer', department: 'Engineering', href: '#' }, { title: 'Brand designer', department: 'Design', href: '#' }]} />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/openings.ts",
+          "content": "import { html } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// Openings.tsx as <agd-openings>: the heading, the department chips, and the roles as two-column rows.\nexport interface Opening { title: string; department: string; href: string }\n\nconst CHIP = 'rounded-control px-3 py-1.5 type-label transition-colors duration-150 ease-standard active:bg-surface-subtle active:transition-none'\n\n/**\n * @summary Open roles with a department filter.\n */\nexport class Openings extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"openings\"]'))\n\tstatic properties = { roles: { type: Array }, heading: {}, empty: {}, chosen: { state: true } }\n\t/** The roles: [{ title, department, href }]. */\n\troles: Opening[] = []\n\t/** The heading (React's `title`). */\n\theading = 'Current openings'\n\t/** The line shown when a department has no roles. */\n\tempty = 'No open roles here right now.'\n\tprivate chosen = 'All'\n\n\trender() {\n\t\tconst roles = this.roles ?? []\n\t\tconst departments = ['All', ...Array.from(new Set(roles.map((r) => r.department)))]\n\t\tconst shown = this.chosen === 'All' ? roles : roles.filter((r) => r.department === this.chosen)\n\t\treturn html`<section data-ds=\"openings\" aria-labelledby=\"openings-heading\" class=\"flex flex-col px-6 py-10 sm:py-14\"><div class=\"flex flex-wrap items-center justify-between gap-6\"><h2 id=\"openings-heading\" class=\"type-ui uppercase text-fg\">${this.heading}</h2><div role=\"group\" aria-label=\"Department\" class=\"flex flex-wrap items-center gap-2\">${departments.map((d) => html`<button type=\"button\" aria-pressed=${String(this.chosen === d)} @click=${() => (this.chosen = d)} class=${`${CHIP} ${this.chosen === d ? 'bg-surface-subtle text-fg' : 'text-fg-muted hover:text-fg'}`}>${d}</button>`)}</div></div><ul class=\"-mx-6 mt-20 flex flex-col\">${shown.length ? shown.map((r) => html`<li><a href=${r.href} class=\"group grid grid-cols-2 gap-8 px-6 py-4 transition-colors duration-150 ease-standard hover:bg-surface-subtle active:bg-surface-subtle active:transition-none\"><span class=\"type-body text-fg\">${r.title}</span><span class=\"type-body text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg\">${r.department}</span></a></li>`) : html`<li class=\"px-6 py-4 type-body text-fg-muted\">${this.empty}</li>`}</ul></section>`\n\t}\n}\n\ndefine('openings', Openings)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/openings.js"
+      ],
+      "tag": "agd-openings",
+      "tags": [
+        "agd-openings"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-openings",
+            "name": "Openings",
+            "module": "elements/openings.js",
+            "description": "Open roles with a department filter.",
+            "attributes": [
+              {
+                "name": "roles",
+                "field": "roles",
+                "type": "Opening[]",
+                "default": "[]",
+                "description": "The roles: [{ title, department, href }]."
+              },
+              {
+                "name": "heading",
+                "field": "heading",
+                "type": "string",
+                "default": "'Current openings'",
+                "description": "The heading (React's `title`)."
+              },
+              {
+                "name": "empty",
+                "field": "empty",
+                "type": "string",
+                "default": "'No open roles here right now.'",
+                "description": "The line shown when a department has no roles."
+              },
+              {
+                "name": "chosen",
+                "field": "chosen",
+                "type": "string",
+                "default": "'All'"
+              }
+            ],
+            "properties": [
+              {
+                "name": "roles",
+                "type": "Opening[]",
+                "default": "[]",
+                "description": "The roles: [{ title, department, href }].",
+                "attribute": "roles"
+              },
+              {
+                "name": "heading",
+                "type": "string",
+                "default": "'Current openings'",
+                "description": "The heading (React's `title`).",
+                "attribute": "heading"
+              },
+              {
+                "name": "empty",
+                "type": "string",
+                "default": "'No open roles here right now.'",
+                "description": "The line shown when a department has no roles.",
+                "attribute": "empty"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Roles",
+          "label": "Three roles",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/openings/Roles.html",
+          "content": "<!-- Three roles in two departments. -->\n<agd-openings class=\"w-full\" roles='[{\"title\":\"Product designer\",\"department\":\"Design\",\"href\":\"#\"},{\"title\":\"Design engineer\",\"department\":\"Engineering\",\"href\":\"#\"},{\"title\":\"Brand designer\",\"department\":\"Design\",\"href\":\"#\"}]'></agd-openings>\n"
+        }
+      ]
+    }
+  }
+}

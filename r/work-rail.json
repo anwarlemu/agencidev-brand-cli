@@ -1,0 +1,191 @@
+{
+  "name": "work-rail",
+  "title": "Work rail",
+  "type": "registry:ui",
+  "group": "visuals",
+  "description": "The home rail: portrait strips of work in one row, 100 by 280 with 20px between, the first strip a little left of the middle and the row running off the right edge. Square corners; an empty strip is the slat fill.",
+  "use_for": "A home or case-study hero that shows the work before it describes it; a row of portraits or screens.",
+  "never": [
+    "Rounded strips or a shadow",
+    "Captions on the strips: the statement under the rail does the talking",
+    "Stock pictures: the rail is your work"
+  ],
+  "source": "components/home-gallery.tsx and globals.css .rail-ssr (--sw 100px, --sh 280px, --gap 20px, --ax 0.43; 72, 208 and 14 under 640; the #141414 unloaded slat). The site's WebGL drift is left to the page.",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/visuals/WorkRail.tsx",
+      "content": "import type { CSSProperties } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The home rail (components/home-gallery.tsx, globals.css .rail-ssr): portrait strips of work in one row, 100 by 280\n// with 20px between (72 by 208, 14 apart under 640), the first strip centered `start` percent across (43 on the site)\n// and the row running off the right edge. Square corners; a strip without its picture is the slat fill. The site draws\n// it in WebGL and drifts it; this is the row at rest, as the site's HTML paints it before the engine takes over.\nexport interface WorkRailItem {\n  /** The picture. */\n  src?: string\n  /** What it shows (empty for decoration). */\n  alt?: string\n}\n\nexport interface WorkRailProps {\n  items: WorkRailItem[]\n  /** Where the first strip's middle sits, in percent of the width. */\n  start?: number\n  /** The row's accessible name. */\n  label?: string\n  className?: string\n}\n\nexport function WorkRail({ items, start = 43, label = 'Selected work', className }: WorkRailProps) {\n  const style = { '--rail-start': `${start}%` } as CSSProperties\n  return (\n    <div data-ds=\"work-rail\" role=\"list\" aria-label={label} style={style} className={cn('relative w-full overflow-x-clip', className)}>\n      <div className=\"flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]\">\n        {items.map((item, i) => (\n          <div key={`${i}-${item.src ?? ''}`} role=\"listitem\" data-ds-placeholder={item.src ? undefined : ''} className=\"relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)\">\n            {item.src ? <img src={item.src} alt={item.alt ?? ''} loading=\"lazy\" className=\"absolute inset-0 size-full object-cover\" /> : null}\n          </div>\n        ))}\n      </div>\n    </div>\n  )\n}\n\nexport default WorkRail\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Rail",
+      "label": "Eight strips",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/work-rail/Rail.tsx",
+      "content": "import { WorkRail } from '@/react/components/visuals/WorkRail'\n// Eight strips of work at rest, the first a little left of the middle; pass your own pictures.\n\nexport default function Rail() {\n  return <WorkRail className=\"w-full\" items={Array.from({ length: 8 }, () => ({}))} />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/visuals/WorkRail.tsx",
+          "content": "import type { CSSProperties } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The home rail (components/home-gallery.tsx, globals.css .rail-ssr): portrait strips of work in one row, 100 by 280\n// with 20px between (72 by 208, 14 apart under 640), the first strip centered `start` percent across (43 on the site)\n// and the row running off the right edge. Square corners; a strip without its picture is the slat fill. The site draws\n// it in WebGL and drifts it; this is the row at rest, as the site's HTML paints it before the engine takes over.\nexport interface WorkRailItem {\n  /** The picture. */\n  src?: string\n  /** What it shows (empty for decoration). */\n  alt?: string\n}\n\nexport interface WorkRailProps {\n  items: WorkRailItem[]\n  /** Where the first strip's middle sits, in percent of the width. */\n  start?: number\n  /** The row's accessible name. */\n  label?: string\n  className?: string\n}\n\nexport function WorkRail({ items, start = 43, label = 'Selected work', className }: WorkRailProps) {\n  const style = { '--rail-start': `${start}%` } as CSSProperties\n  return (\n    <div data-ds=\"work-rail\" role=\"list\" aria-label={label} style={style} className={cn('relative w-full overflow-x-clip', className)}>\n      <div className=\"flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]\">\n        {items.map((item, i) => (\n          <div key={`${i}-${item.src ?? ''}`} role=\"listitem\" data-ds-placeholder={item.src ? undefined : ''} className=\"relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)\">\n            {item.src ? <img src={item.src} alt={item.alt ?? ''} loading=\"lazy\" className=\"absolute inset-0 size-full object-cover\" /> : null}\n          </div>\n        ))}\n      </div>\n    </div>\n  )\n}\n\nexport default WorkRail\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "WorkRail",
+            "file": "react/components/visuals/WorkRail.tsx",
+            "props": [
+              {
+                "name": "items",
+                "type": "WorkRailItem[]",
+                "required": true
+              },
+              {
+                "name": "start",
+                "type": "number",
+                "required": false,
+                "default": "43",
+                "description": "Where the first strip's middle sits, in percent of the width."
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "required": false,
+                "default": "'Selected work'",
+                "description": "The row's accessible name."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Rail",
+          "label": "Eight strips",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/work-rail/Rail.tsx",
+          "content": "import { WorkRail } from '@/react/components/visuals/WorkRail'\n// Eight strips of work at rest, the first a little left of the middle; pass your own pictures.\n\nexport default function Rail() {\n  return <WorkRail className=\"w-full\" items={Array.from({ length: 8 }, () => ({}))} />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/visuals/work-rail.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// WorkRail.tsx as <agd-work-rail>: the home rail of portrait strips, 100 by 280 with 20px between (72 by 208, 14 apart\n// under 640), the first strip centered `start` percent across and the row running off the right edge. `items` is a\n// list of { src, alt }; a strip without a picture is the slat fill.\nexport interface WorkRailItem { src?: string; alt?: string }\n\n/**\n * @summary The home rail: portrait strips of work in one row.\n */\nexport class WorkRail extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"work-rail\"]'))\n\tstatic properties = { items: { type: Array }, start: { type: Number }, label: {} }\n\t/** The strips: [{ src, alt }]. */\n\titems: WorkRailItem[] = []\n\t/** Where the first strip's middle sits, in percent of the width. */\n\tstart = 43\n\t/** The row's accessible name. */\n\tlabel = 'Selected work'\n\n\trender() {\n\t\treturn html`<div data-ds=\"work-rail\" role=\"list\" aria-label=${this.label} style=\"--rail-start: ${this.start}%\" class=\"relative w-full overflow-x-clip\"><div class=\"flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]\">${(this.items ?? []).map((item) => html`<div role=\"listitem\" data-ds-placeholder=${item.src ? nothing : ''} class=\"relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)\">${item.src ? html`<img src=${item.src} alt=${item.alt ?? ''} loading=\"lazy\" class=\"absolute inset-0 size-full object-cover\">` : nothing}</div>`)}</div></div>`\n\t}\n}\n\ndefine('work-rail', WorkRail)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/work-rail.js"
+      ],
+      "tag": "agd-work-rail",
+      "tags": [
+        "agd-work-rail"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-work-rail",
+            "name": "WorkRail",
+            "module": "elements/work-rail.js",
+            "description": "The home rail: portrait strips of work in one row.",
+            "attributes": [
+              {
+                "name": "items",
+                "field": "items",
+                "type": "WorkRailItem[]",
+                "default": "[]",
+                "description": "The strips: [{ src, alt }]."
+              },
+              {
+                "name": "start",
+                "field": "start",
+                "type": "number",
+                "default": "43",
+                "description": "Where the first strip's middle sits, in percent of the width."
+              },
+              {
+                "name": "label",
+                "field": "label",
+                "type": "string",
+                "default": "'Selected work'",
+                "description": "The row's accessible name."
+              }
+            ],
+            "properties": [
+              {
+                "name": "items",
+                "type": "WorkRailItem[]",
+                "default": "[]",
+                "description": "The strips: [{ src, alt }].",
+                "attribute": "items"
+              },
+              {
+                "name": "start",
+                "type": "number",
+                "default": "43",
+                "description": "Where the first strip's middle sits, in percent of the width.",
+                "attribute": "start"
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "default": "'Selected work'",
+                "description": "The row's accessible name.",
+                "attribute": "label"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Rail",
+          "label": "Eight strips",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/work-rail/Rail.html",
+          "content": "<!-- Eight strips of work at rest, the first a little left of the middle; pass your own pictures. -->\n<agd-work-rail class=\"w-full\" items='[{},{},{},{},{},{},{},{}]'></agd-work-rail>\n"
+        }
+      ]
+    }
+  }
+}

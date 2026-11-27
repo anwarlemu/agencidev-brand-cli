@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "testimonial",
+  "type": "registry:ui",
+  "title": "Testimonial",
+  "description": "The homepage's testimonial card: a white plate with the face at the top left, the quote in Agencidev Sans at 20 (16 on phones), and the name and role on one line, the role quieter.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/Testimonial.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/cn'\n\n// The homepage's testimonial card (components/testimonials.tsx): a white plate on the canvas, 24px in, the 4px corner;\n// the face at the top left (64px, the same corner), then the quote in Agencidev Sans at 20 (16 on phones), leading 1.3,\n// and the name and role on one line at 14px, the role at 40% black. At least 64px between the face and the words; a\n// long quote grows the plate rather than closing the gap. Over a picture or on the canvas, as the page sets it.\nexport interface TestimonialProps {\n  quote: string\n  name: string\n  role?: string\n  /** The person's face (64px square). */\n  avatar?: string\n  className?: string\n}\n\nexport function Testimonial({ quote, name, role, avatar, className }: TestimonialProps) {\n  return (\n    <figure data-ds=\"testimonial\" className={cn('flex w-full max-w-160 flex-col justify-between rounded-control bg-surface-inverse p-6 text-fg-inverse', className)}>\n      {avatar ? <img src={avatar} alt=\"\" width={64} height={64} className=\"size-16 rounded-control object-cover\" /> : <span aria-hidden=\"true\" data-ds-placeholder=\"\" className=\"size-16 rounded-control bg-fg-inverse/10\" />}\n      <div className=\"mt-16\">\n        <blockquote className=\"type-heading-3 max-sm:type-heading-4\">{quote}</blockquote>\n        <figcaption className=\"mt-2 flex flex-wrap items-baseline gap-2 type-ui\">\n          <span>{name}</span>\n          {role ? <span className=\"text-fg-inverse/40\">{role}</span> : null}\n        </figcaption>\n      </div>\n    </figure>\n  )\n}\n\nexport default Testimonial\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+ "$comment": "Loops and stings from the site: the 404 page's no-signal static (registry/lib/signal.ts, the page's shader on the CPU) and the page heads' entrance. Motion follows the site and the animation rules: the static's band rolls up the frame at a constant rate (one roll per loop, so the last frame meets the first), its flow swings and returns, its grain runs; nothing else moves. Stings are not loops: logo-reveal rolls half the band through on the ease-out curve while the lockup fades in; rise brings the tagline in line by line as .rise does (12px, 500ms, 50ms apart, ease-brand). --still writes the first frame alone for reduced motion.",
+ "fps": 30,
+ "seconds": 6,
+ "sizes": {
+  "square": [
+   1080,
+   1080
+  ],
+  "vertical": [
+   1080,
+   1920
+  ],
+  "landscape": [
+   1920,
+   1080
+  ]
+ },
+ "templates": [
+  {
+   "id": "signal-loop",
+   "name": "No signal",
+   "from": "The 404 page (components/no-signal-404.tsx, lib/no-signal-engine.ts)",
+   "description": "The static with its glitch band rolling up through the frame, the lockup and the address.",
+   "signal": "band",
+   "logo": true,
+   "url": true
+  },
+  {
+   "id": "field-loop",
+   "name": "Static",
+   "from": "The 404 page's field with the band off the frame",
+   "description": "The charcoal static alone, its grain running; a quiet loop behind the lockup.",
+   "signal": "field",
+   "logo": true,
+   "url": true
+  },
+  {
+   "id": "logo-reveal",
+   "name": "Lockup reveal",
+   "from": "The 404 page's band and the brand kit's lockup",
+   "description": "A sting: half a roll of the band passes on the ease-out curve while the lockup fades in at the middle.",
+   "signal": "band",
+   "logo": true,
+   "logoAt": "center",
+   "url": false,
+   "sting": "reveal"
+  },
+  {
+   "id": "rise",
+   "name": "Tagline rise",
+   "from": "The page heads' entrance (globals.css .rise, page-head.tsx)",
+   "description": "A sting: the tagline rises in line by line on black, as the site's page heads do, under the lockup.",
+   "signal": "none",
+   "logo": true,
+   "url": true,
+   "sting": "rise"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "not-found-page",
+  "type": "registry:block",
+  "title": "Not found page",
+  "description": "The not found page: the no-signal static filling the screen, the head centered under the band, a line in dim, and the way home with a white dot and an arrow in a ring.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/no-signal.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/NotFoundPage.tsx",
+      "type": "registry:ui",
+      "content": "import { NoSignal } from '@/components/visuals/NoSignal'\nimport { notFoundContent, type NotFoundContent } from '@/lib/pages/not-found'\nimport { cn } from '@/lib/cn'\n\n// The not found page (components/no-signal-404.tsx): the no-signal static filling the screen, the head centered under\n// the band, a line in dim, and the way home: a white dot, the words, and an arrow in a ring. `content` replaces the\n// copy; `still` holds the static.\nexport interface NotFoundPageProps {\n  content?: NotFoundContent\n  /** Holds the static still. */\n  still?: boolean\n  className?: string\n}\n\nexport function NotFoundPage({ content: c = notFoundContent, still = false, className }: NotFoundPageProps) {\n  return (\n    <NoSignal data-ds=\"not-found-page\" still={still} className={cn('flex min-h-screen w-full flex-col items-center justify-end px-6 pb-[18vh] text-center', className)}>\n      <h1 className=\"type-section text-fg\">{c.title}</h1>\n      <p className=\"mt-6 max-w-72 type-ui text-fg-soft\">{c.body}</p>\n      <a href={c.link.href} className=\"mt-8 inline-flex items-center gap-3 type-ui text-fg transition-colors duration-150 ease-standard hover:text-fg-soft active:text-action-press-ink active:transition-none\">\n        <span aria-hidden=\"true\" className=\"size-2 rounded-full bg-fg\" />\n        {c.link.label}\n        <span aria-hidden=\"true\" className=\"flex size-5 items-center justify-center rounded-full border border-current type-caption\">→</span>\n      </a>\n    </NoSignal>\n  )\n}\n\nexport default NotFoundPage\n"
+    },
+    {
+      "path": "lib/pages/not-found.ts",
+      "type": "registry:lib",
+      "content": "// The not found page template's copy (components/no-signal-404.tsx).\nexport const notFoundContent = {\n\ttitle: 'Page not found.',\n\tbody: \"The content you're looking for doesn't exist or has been moved.\",\n\tlink: { label: 'Back home', href: '/' },\n}\nexport type NotFoundContent = typeof notFoundContent\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

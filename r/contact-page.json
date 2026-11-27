@@ -1,0 +1,215 @@
+{
+  "name": "contact-page",
+  "title": "Contact page",
+  "type": "registry:block",
+  "group": "pages",
+  "description": "The contact page template from library items: the two-tone head with a plate button and the email as a quiet one, the ways to get in touch as rows, and notes in dim running copy.",
+  "use_for": "A contact page: a call or an email, never a form you cannot answer. Edit lib/pages/contact.ts or pass `content`; `sections` reorders or leaves sections out.",
+  "never": [
+    "New colors, shadows, radii or type sizes added to a section: use the items' props",
+    "People, clients or quotes you have no right to show: the defaults are Acme",
+    "A second plate button in a view"
+  ],
+  "source": "Built from the library's site items, after the site's app/contact/page.tsx.",
+  "body": "",
+  "requires": [
+    "button",
+    "detail-list",
+    "page-head",
+    "site-footer",
+    "site-header",
+    "skeleton"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/pages/ContactPage.tsx",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { PageHead } from '@/react/components/site/PageHead'\nimport { DetailList } from '@/react/components/site/DetailList'\nimport { Button } from '@/react/components/ui/Button'\nimport { contactContent, contactSections, type ContactContent, type ContactSection } from '@/lib/pages/contact'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The contact page from library items (app/contact/page.tsx): the two-tone head with the plate button and the email\n// as a quiet one, the ways to get in touch as label and description rows, and the notes in dim running copy, one per\n// row. `content` replaces the copy (lib/pages/contact.ts).\nexport interface ContactPageProps {\n  content?: ContactContent\n  sections?: readonly ContactSection[]\n  className?: string\n}\n\nexport function ContactPage({ content: c = contactContent, sections, className }: ContactPageProps) {\n  const parts: Record<ContactSection, ReactNode> = {\n    head: (\n      <PageHead id=\"contact\" lead={c.lead} rest={c.rest}>\n        <Button href={c.primary.href}>{c.primary.label}</Button>\n        <Button href={c.secondary.href} variant=\"secondary\">{c.secondary.label}</Button>\n      </PageHead>\n    ),\n    ways: <section aria-label=\"Ways to reach us\" className=\"px-6 py-16\"><DetailList items={c.ways} /></section>,\n    notes: <section aria-label=\"Notes\" className=\"flex flex-col gap-16 px-6 py-16\">{c.notes.map((n) => <p key={n} className=\"type-body text-fg-soft\">{n}</p>)}</section>,\n  }\n  return (\n    <div data-ds=\"contact-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(contactSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ContactPage\n"
+    },
+    {
+      "path": "lib/pages/contact.ts",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The contact page template's copy (app/contact/page.tsx): the two-tone head and its calls, the ways to get in touch,\n// and three notes. No address is stated: the studio keeps no public office.\nexport const contactContent = {\n\theader,\n\tlead: \"Tell us what you're building.\",\n\trest: 'Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.',\n\tprimary: { label: 'Book a free strategy call', href: '#' },\n\tsecondary: { label: 'hello@acme.com', href: 'mailto:hello@acme.com' },\n\tways: [\n\t\t{ label: 'Email', body: 'The fastest route for new project enquiries, press, and anything about work already in progress. We read every message and reply to genuine enquiries within two working days.' },\n\t\t{ label: 'Free strategy call', body: 'A 30-minute conversation about what you are building and whether a design or dev partnership is the right shape for it. No charge, no obligation.' },\n\t\t{ label: 'LinkedIn and X', body: 'Where we post new work and studio updates. Fine for a quick question, though anything involving scope or timelines is better over email.' },\n\t],\n\tnotes: [\n\t\t'If you are writing about a new engagement, it helps to know four things: what you are building, what stage you are at, roughly when you would want to start, and whether you need design, development, or both.',\n\t\t'We sell ongoing monthly partnerships rather than fixed-scope projects, and either tier can be cancelled at any time. If continuous capacity is not what your product needs right now, we will say so.',\n\t],\n\tfooter,\n}\nexport type ContactContent = typeof contactContent\nexport const contactSections = ['head', 'ways', 'notes'] as const\nexport type ContactSection = (typeof contactSections)[number]\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Page",
+      "label": "Contact page",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/contact-page/Page.tsx",
+      "content": "import { ContactPage } from '@/react/components/pages/ContactPage'\n// The contact page with its default copy.\n\nexport default function Page() {\n  return <ContactPage />\n}\n",
+      "requires": [
+        "button",
+        "detail-list",
+        "page-head",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/pages/ContactPage.tsx",
+          "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { PageHead } from '@/react/components/site/PageHead'\nimport { DetailList } from '@/react/components/site/DetailList'\nimport { Button } from '@/react/components/ui/Button'\nimport { contactContent, contactSections, type ContactContent, type ContactSection } from '@/lib/pages/contact'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// The contact page from library items (app/contact/page.tsx): the two-tone head with the plate button and the email\n// as a quiet one, the ways to get in touch as label and description rows, and the notes in dim running copy, one per\n// row. `content` replaces the copy (lib/pages/contact.ts).\nexport interface ContactPageProps {\n  content?: ContactContent\n  sections?: readonly ContactSection[]\n  className?: string\n}\n\nexport function ContactPage({ content: c = contactContent, sections, className }: ContactPageProps) {\n  const parts: Record<ContactSection, ReactNode> = {\n    head: (\n      <PageHead id=\"contact\" lead={c.lead} rest={c.rest}>\n        <Button href={c.primary.href}>{c.primary.label}</Button>\n        <Button href={c.secondary.href} variant=\"secondary\">{c.secondary.label}</Button>\n      </PageHead>\n    ),\n    ways: <section aria-label=\"Ways to reach us\" className=\"px-6 py-16\"><DetailList items={c.ways} /></section>,\n    notes: <section aria-label=\"Notes\" className=\"flex flex-col gap-16 px-6 py-16\">{c.notes.map((n) => <p key={n} className=\"type-body text-fg-soft\">{n}</p>)}</section>,\n  }\n  return (\n    <div data-ds=\"contact-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(contactSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default ContactPage\n"
+        },
+        {
+          "path": "lib/pages/contact.ts",
+          "content": "import { footer, header } from '@/lib/pages/chrome'\n// The contact page template's copy (app/contact/page.tsx): the two-tone head and its calls, the ways to get in touch,\n// and three notes. No address is stated: the studio keeps no public office.\nexport const contactContent = {\n\theader,\n\tlead: \"Tell us what you're building.\",\n\trest: 'Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.',\n\tprimary: { label: 'Book a free strategy call', href: '#' },\n\tsecondary: { label: 'hello@acme.com', href: 'mailto:hello@acme.com' },\n\tways: [\n\t\t{ label: 'Email', body: 'The fastest route for new project enquiries, press, and anything about work already in progress. We read every message and reply to genuine enquiries within two working days.' },\n\t\t{ label: 'Free strategy call', body: 'A 30-minute conversation about what you are building and whether a design or dev partnership is the right shape for it. No charge, no obligation.' },\n\t\t{ label: 'LinkedIn and X', body: 'Where we post new work and studio updates. Fine for a quick question, though anything involving scope or timelines is better over email.' },\n\t],\n\tnotes: [\n\t\t'If you are writing about a new engagement, it helps to know four things: what you are building, what stage you are at, roughly when you would want to start, and whether you need design, development, or both.',\n\t\t'We sell ongoing monthly partnerships rather than fixed-scope projects, and either tier can be cancelled at any time. If continuous capacity is not what your product needs right now, we will say so.',\n\t],\n\tfooter,\n}\nexport type ContactContent = typeof contactContent\nexport const contactSections = ['head', 'ways', 'notes'] as const\nexport type ContactSection = (typeof contactSections)[number]\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "button",
+        "detail-list",
+        "page-head",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "ContactPage",
+            "file": "react/components/pages/ContactPage.tsx",
+            "props": [
+              {
+                "name": "content",
+                "type": "ContactContent",
+                "required": false
+              },
+              {
+                "name": "sections",
+                "type": "readonly ContactSection[]",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Contact page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/contact-page/Page.tsx",
+          "content": "import { ContactPage } from '@/react/components/pages/ContactPage'\n// The contact page with its default copy.\n\nexport default function Page() {\n  return <ContactPage />\n}\n",
+          "registryDependencies": [
+            "button",
+            "detail-list",
+            "page-head",
+            "site-footer",
+            "site-header",
+            "skeleton"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/pages/contact-page.ts",
+          "content": "import { html, nothing, type TemplateResult } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport { pageSections } from '@/lib/image'\nimport '@/elements/components/site/site-header'\nimport '@/elements/components/site/site-footer'\nimport '@/elements/components/site/page-head'\nimport '@/elements/components/site/detail-list'\nimport '@/elements/components/ui/button'\nimport styles from 'virtual:tw'\nimport { contactContent, contactSections, type ContactContent, type ContactSection } from '@/lib/pages/contact'\n\n// ContactPage.tsx as <agd-contact-page>: the two-tone head and its calls, the ways to get in touch and the notes.\n\n/**\n * @summary The contact page template.\n */\nexport class ContactPage extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"contact-page\"]'))\n\tstatic properties = { content: { type: Object }, sections: { type: Array } }\n\t/** The page's copy (lib/pages/contact.ts by default). */\n\tcontent: ContactContent = contactContent\n\t/** The sections to show, in order. */\n\tsections?: ContactSection[]\n\n\trender() {\n\t\tconst c = this.content\n\t\tconst parts: Record<ContactSection, TemplateResult | typeof nothing> = {\n\t\t\thead: html`<agd-page-head head-id=\"contact\" lead=${c.lead} rest=${c.rest}><agd-button href=${c.primary.href}>${c.primary.label}</agd-button><agd-button href=${c.secondary.href} variant=\"secondary\">${c.secondary.label}</agd-button></agd-page-head>`,\n\t\t\tways: html`<section aria-label=\"Ways to reach us\" class=\"px-6 py-16\"><agd-detail-list .items=${c.ways}></agd-detail-list></section>`,\n\t\t\tnotes: html`<section aria-label=\"Notes\" class=\"flex flex-col gap-16 px-6 py-16\">${c.notes.map((n) => html`<p class=\"type-body text-fg-soft\">${n}</p>`)}</section>`,\n\t\t}\n\t\tconst order = pageSections(contactSections, this.sections)\n\t\treturn html`<div data-ds=\"contact-page\" class=\"flex min-h-screen w-full flex-col bg-surface text-fg\"><agd-site-header .links=${c.header.links} .secondary=${c.header.secondary} .primary=${c.header.primary} email=${c.header.email}></agd-site-header><main class=\"flex-1\">${order.map((k) => parts[k])}</main><agd-site-footer .links=${c.footer.links}></agd-site-footer></div>`\n\t}\n}\n\ndefine('contact-page', ContactPage)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/contact-page.js",
+        "elements/site-header.js",
+        "elements/site-footer.js",
+        "elements/page-head.js",
+        "elements/detail-list.js",
+        "elements/button.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-contact-page",
+      "tags": [
+        "agd-contact-page"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "button",
+        "detail-list",
+        "logo",
+        "page-head",
+        "site-footer",
+        "site-header"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-contact-page",
+            "name": "ContactPage",
+            "module": "elements/contact-page.js",
+            "description": "The contact page template.",
+            "attributes": [
+              {
+                "name": "content",
+                "field": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; lead: string; rest: string; primary: { label: string; href: string; }; secondary: { label: string; href: string; }; ways: { label: string; body: string; }[]; notes: string[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "contactContent",
+                "description": "The page's copy (lib/pages/contact.ts by default)."
+              },
+              {
+                "name": "sections",
+                "field": "sections",
+                "type": "(\"head\" | \"ways\" | \"notes\")[] | undefined",
+                "description": "The sections to show, in order."
+              }
+            ],
+            "properties": [
+              {
+                "name": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; lead: string; rest: string; primary: { label: string; href: string; }; secondary: { label: string; href: string; }; ways: { label: string; body: string; }[]; notes: string[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "contactContent",
+                "description": "The page's copy (lib/pages/contact.ts by default).",
+                "attribute": "content"
+              },
+              {
+                "name": "sections",
+                "type": "(\"head\" | \"ways\" | \"notes\")[] | undefined",
+                "description": "The sections to show, in order.",
+                "attribute": "sections"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Contact page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/contact-page/Page.html",
+          "content": "<!-- The contact page with its default copy. -->\n<agd-contact-page></agd-contact-page>\n"
+        }
+      ]
+    }
+  }
+}

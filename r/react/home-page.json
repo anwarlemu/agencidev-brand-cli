@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "home-page",
+  "type": "registry:block",
+  "title": "Home page",
+  "description": "The home page template from library items: the bar, the rail of work across the first screen, and the statement at its foot with the stat line over it.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json",
+    "https://agencidev-ds.vercel.app/r/react/statement.json",
+    "https://agencidev-ds.vercel.app/r/react/work-rail.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/HomePage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { Statement } from '@/components/site/Statement'\nimport { WorkRail } from '@/components/visuals/WorkRail'\nimport { homeContent, homeSections, type HomeContent, type HomeSection } from '@/lib/pages/home'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// The home page from library items (app/page.tsx): the bar, the rail of work across the upper middle of the first\n// screen, and the statement at its foot with the stat line over it; the work is the page's argument and the copy is\n// one sentence. `content` replaces the copy (lib/pages/home.ts); the rail's strips take your pictures.\nexport interface HomePageProps {\n  content?: HomeContent\n  /** The sections to show, in order. */\n  sections?: readonly HomeSection[]\n  className?: string\n}\n\nexport function HomePage({ content: c = homeContent, sections, className }: HomePageProps) {\n  const parts: Record<HomeSection, ReactNode> = {\n    rail: <div className=\"flex min-h-80 flex-1 items-center py-16\"><WorkRail items={c.rail} /></div>,\n    statement: <Statement stat={c.stat} figure={c.figure} lead={c.lead} rest={c.rest} />,\n  }\n  return (\n    <div data-ds=\"home-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex flex-1 flex-col\">{pageSections(homeSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default HomePage\n"
+    },
+    {
+      "path": "lib/pages/home.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The home page template's copy: the rail of work and the statement under it (app/page.tsx, lib/home-content.ts),\n// in the studio's words with Acme's name. The rail's strips are yours: pass `src` for each.\nexport const homeContent = {\n\theader,\n\trail: Array.from({ length: 8 }, () => ({ src: '', alt: '' })),\n\tstat: 'Startups each batch designed by Acme:',\n\tfigure: '6.06%',\n\tlead: 'Product design thinking and implementation.',\n\trest: 'We help startups design their brand, product, and websites then turn it into infrastructure your engineers and agents can use to ship on-brand interfaces.',\n\tfooter,\n}\nexport type HomeContent = typeof homeContent\n/** The home page's sections in order; pass `sections` to reorder them or leave some out. */\nexport const homeSections = ['rail', 'statement'] as const\nexport type HomeSection = (typeof homeSections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

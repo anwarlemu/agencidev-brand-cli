@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "detail-list",
+  "type": "registry:ui",
+  "title": "Detail list",
+  "description": "The contact page's rows: a label in white and its description in dim running copy beside it (a 248px label column from 640), 40px between rows.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/DetailList.tsx",
+      "type": "registry:ui",
+      "content": "import { cn } from '@/lib/cn'\n\n// The contact page's rows (app/contact/page.tsx): a label in 16px white and its description in dim running copy beside\n// it (a 248px label column from 640, stacked below), 40px between rows. For ways to get in touch, terms, facts.\nexport interface DetailItem {\n  label: string\n  body: string\n  /** Makes the label a link. */\n  href?: string\n}\n\nexport interface DetailListProps {\n  items: DetailItem[]\n  className?: string\n}\n\nexport function DetailList({ items, className }: DetailListProps) {\n  return (\n    <dl data-ds=\"detail-list\" className={cn('flex w-full flex-col gap-10', className)}>\n      {items.map((it) => (\n        <div key={it.label} className=\"grid gap-2 sm:grid-cols-[248px_minmax(0,1fr)] sm:gap-0\">\n          <dt className=\"type-body text-fg\">{it.href ? <a href={it.href} className=\"transition-colors duration-150 ease-standard hover:text-fg-soft active:text-action-press-ink active:transition-none\">{it.label}</a> : it.label}</dt>\n          <dd className=\"type-body text-fg-soft\">{it.body}</dd>\n        </div>\n      ))}\n    </dl>\n  )\n}\n\nexport default DetailList\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

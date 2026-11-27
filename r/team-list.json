@@ -1,0 +1,145 @@
+{
+  "name": "team-list",
+  "title": "Team list",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The about page's team: the names in one centered run of 14px white at line height 2 (role and place read beside each); under 640 a list with role and place in dim.",
+  "use_for": "The team on an about page, with portraits shown by the page if it has them.",
+  "never": [
+    "Stock portraits or invented people: names are yours",
+    "Cards or titles in capitals"
+  ],
+  "source": "components/about-view.tsx (the team list: text-sml leading-[2] centered in 72rem, px-1 per name; the phone list text-md white over text-sml dim).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/TeamList.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// The about page's team (components/about-view.tsx): the names in one centered run of 14px white with the role and\n// place read beside each, on a line height of 2; under 640 a list, each name in 16px white over its role and place in\n// dim. Portraits are the page's to show; the list never fakes one.\nexport interface TeamMember {\n  name: string\n  role?: string\n  location?: string\n}\n\nexport interface TeamListProps {\n  members: TeamMember[]\n  className?: string\n}\n\nexport function TeamList({ members, className }: TeamListProps) {\n  return (\n    <div data-ds=\"team-list\" className={cn('w-full px-6', className)}>\n      <p className=\"mx-auto hidden max-w-(--ds-layout-page) text-center type-ui leading-loose sm:block\">\n        {members.map((m) => (\n          <span key={m.name} className=\"inline-block px-1 whitespace-nowrap text-fg\">\n            {m.name}\n            {m.role || m.location ? <span className=\"sr-only\">, {[m.role, m.location].filter(Boolean).join(', ')}</span> : null}\n          </span>\n        ))}\n      </p>\n      <ul className=\"sm:hidden\">\n        {members.map((m) => (\n          <li key={m.name} className=\"py-3\">\n            <p className=\"type-body text-fg\">{m.name}</p>\n            {m.role || m.location ? <p className=\"mt-1 type-ui text-fg-soft\">{[m.role, m.location].filter(Boolean).join(', ')}</p> : null}\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}\n\nexport default TeamList\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Team",
+      "label": "Five names",
+      "center": true,
+      "half": false,
+      "path": "react/examples/team-list/Team.tsx",
+      "content": "import { TeamList } from '@/react/components/site/TeamList'\n// A distributed team's names.\n\nexport default function Team() {\n  return <TeamList members={[{ name: 'Alex Rivera', role: 'Founder', location: 'London' }, { name: 'Sam Lee', role: 'Design', location: 'Lagos' }, { name: 'Jordan Park', role: 'Engineering', location: 'Berlin' }, { name: 'Casey Morgan', role: 'Design', location: 'Manila' }, { name: 'Riley Chen', role: 'Engineering', location: 'Cairo' }]} />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/TeamList.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// The about page's team (components/about-view.tsx): the names in one centered run of 14px white with the role and\n// place read beside each, on a line height of 2; under 640 a list, each name in 16px white over its role and place in\n// dim. Portraits are the page's to show; the list never fakes one.\nexport interface TeamMember {\n  name: string\n  role?: string\n  location?: string\n}\n\nexport interface TeamListProps {\n  members: TeamMember[]\n  className?: string\n}\n\nexport function TeamList({ members, className }: TeamListProps) {\n  return (\n    <div data-ds=\"team-list\" className={cn('w-full px-6', className)}>\n      <p className=\"mx-auto hidden max-w-(--ds-layout-page) text-center type-ui leading-loose sm:block\">\n        {members.map((m) => (\n          <span key={m.name} className=\"inline-block px-1 whitespace-nowrap text-fg\">\n            {m.name}\n            {m.role || m.location ? <span className=\"sr-only\">, {[m.role, m.location].filter(Boolean).join(', ')}</span> : null}\n          </span>\n        ))}\n      </p>\n      <ul className=\"sm:hidden\">\n        {members.map((m) => (\n          <li key={m.name} className=\"py-3\">\n            <p className=\"type-body text-fg\">{m.name}</p>\n            {m.role || m.location ? <p className=\"mt-1 type-ui text-fg-soft\">{[m.role, m.location].filter(Boolean).join(', ')}</p> : null}\n          </li>\n        ))}\n      </ul>\n    </div>\n  )\n}\n\nexport default TeamList\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "TeamList",
+            "file": "react/components/site/TeamList.tsx",
+            "props": [
+              {
+                "name": "members",
+                "type": "TeamMember[]",
+                "required": true
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Team",
+          "label": "Five names",
+          "center": true,
+          "half": false,
+          "path": "react/examples/team-list/Team.tsx",
+          "content": "import { TeamList } from '@/react/components/site/TeamList'\n// A distributed team's names.\n\nexport default function Team() {\n  return <TeamList members={[{ name: 'Alex Rivera', role: 'Founder', location: 'London' }, { name: 'Sam Lee', role: 'Design', location: 'Lagos' }, { name: 'Jordan Park', role: 'Engineering', location: 'Berlin' }, { name: 'Casey Morgan', role: 'Design', location: 'Manila' }, { name: 'Riley Chen', role: 'Engineering', location: 'Cairo' }]} />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/team-list.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// TeamList.tsx as <agd-team-list>: the names in one centered run (a list under 640, with role and place).\nexport interface TeamMember { name: string; role?: string; location?: string }\n\n/**\n * @summary The team's names in one centered run.\n */\nexport class TeamList extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"team-list\"]'))\n\tstatic properties = { members: { type: Array } }\n\t/** The people: [{ name, role, location }]. */\n\tmembers: TeamMember[] = []\n\n\trender() {\n\t\tconst members = this.members ?? []\n\t\tconst of = (m: TeamMember) => [m.role, m.location].filter(Boolean).join(', ')\n\t\treturn html`<div data-ds=\"team-list\" class=\"w-full px-6\"><p class=\"mx-auto hidden max-w-(--ds-layout-page) text-center type-ui leading-loose sm:block\">${members.map((m) => html`<span class=\"inline-block px-1 whitespace-nowrap text-fg\">${m.name}${of(m) ? html`<span class=\"sr-only\">, ${of(m)}</span>` : nothing}</span>`)}</p><ul class=\"sm:hidden\">${members.map((m) => html`<li class=\"py-3\"><p class=\"type-body text-fg\">${m.name}</p>${of(m) ? html`<p class=\"mt-1 type-ui text-fg-soft\">${of(m)}</p>` : nothing}</li>`)}</ul></div>`\n\t}\n}\n\ndefine('team-list', TeamList)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/team-list.js"
+      ],
+      "tag": "agd-team-list",
+      "tags": [
+        "agd-team-list"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-team-list",
+            "name": "TeamList",
+            "module": "elements/team-list.js",
+            "description": "The team's names in one centered run.",
+            "attributes": [
+              {
+                "name": "members",
+                "field": "members",
+                "type": "TeamMember[]",
+                "default": "[]",
+                "description": "The people: [{ name, role, location }]."
+              }
+            ],
+            "properties": [
+              {
+                "name": "members",
+                "type": "TeamMember[]",
+                "default": "[]",
+                "description": "The people: [{ name, role, location }].",
+                "attribute": "members"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Team",
+          "label": "Five names",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/team-list/Team.html",
+          "content": "<!-- A distributed team's names. -->\n<agd-team-list members='[{\"name\":\"Alex Rivera\",\"role\":\"Founder\",\"location\":\"London\"},{\"name\":\"Sam Lee\",\"role\":\"Design\",\"location\":\"Lagos\"},{\"name\":\"Jordan Park\",\"role\":\"Engineering\",\"location\":\"Berlin\"},{\"name\":\"Casey Morgan\",\"role\":\"Design\",\"location\":\"Manila\"},{\"name\":\"Riley Chen\",\"role\":\"Engineering\",\"location\":\"Cairo\"}]'></agd-team-list>\n"
+        }
+      ]
+    }
+  }
+}

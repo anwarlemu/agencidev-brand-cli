@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "filter-list",
+  "type": "registry:ui",
+  "title": "Filter list",
+  "description": "A single-choice filter: the options as 14px capitals in mid, the chosen one white, in a row or a column; color changes only, on pointer down.",
+  "dependencies": [],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "components/site/FilterList.tsx",
+      "type": "registry:ui",
+      "content": "'use client'\nimport { useState } from 'react'\nimport { cn } from '@/lib/cn'\n\n// A single-choice filter (components/filter-list.tsx): the options as 14px capitals in mid, the chosen one white, in a\n// row 24px apart (or a column from 640). Press feedback on pointer down; color only. A fieldset with its legend read.\nexport interface FilterListProps {\n  options: string[]\n  /** The chosen option (controlled). */\n  value?: string\n  /** The chosen option at first. */\n  defaultValue?: string\n  onValueChange?: (value: string) => void\n  /** What the filter chooses, for screen readers. */\n  label: string\n  /** row, or a column from 640. */\n  layout?: 'row' | 'column'\n  className?: string\n}\n\nexport function FilterList({ options, value, defaultValue, onValueChange, label, layout = 'row', className }: FilterListProps) {\n  const [own, setOwn] = useState(defaultValue ?? options[0] ?? '')\n  const chosen = value ?? own\n  const pick = (o: string) => {\n    if (value === undefined) setOwn(o)\n    onValueChange?.(o)\n  }\n  return (\n    <fieldset data-ds=\"filter-list\" className={cn('flex min-w-0 flex-wrap', layout === 'row' ? 'gap-x-6 gap-y-1' : 'gap-x-5 gap-y-1 sm:flex-col sm:items-start', className)}>\n      <legend className=\"sr-only\">{label}</legend>\n      {options.map((o) => (\n        <button key={o} type=\"button\" aria-pressed={chosen === o} onClick={() => pick(o)} className={cn('py-1 text-left type-ui uppercase transition-colors duration-150 ease-standard active:text-action-press-ink active:transition-none', chosen === o ? 'text-fg' : 'text-fg-muted hover:text-fg')}>{o}</button>\n      ))}\n    </fieldset>\n  )\n}\n\nexport default FilterList\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

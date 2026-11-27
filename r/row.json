@@ -1,0 +1,204 @@
+{
+  "name": "row",
+  "title": "Row",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "One section of an inner page: 24px in, 40px above and below (56 from 640), a title read by screen readers and shown when asked, an aside under it and the body under that.",
+  "use_for": "Every section of an about, careers, contact or legal page.",
+  "never": [
+    "Borders or fills between rows: space separates them",
+    "A title in capitals or with a number before it"
+  ],
+  "source": "components/row.tsx (mx-6 py-10 sm:py-14, h2 text-md leading-tight text-white or sr-only, aside mt-6, body mt-10 or mt-4).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/Row.tsx",
+      "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// One section of an inner page (components/row.tsx): 24px in from the edges, 40px above and below (56 from 640). Its\n// title is read by screen readers and shown only when `titled` (16px white, leading tight); an `aside` (a filter, a\n// note) sits 24px under the title and the body 40px under that, or 16px under a lone title.\nexport interface RowProps {\n  /** The section's name. */\n  label: string\n  /** Shows the name as a title. */\n  titled?: boolean\n  /** A filter or a note between the title and the body. */\n  aside?: ReactNode\n  id?: string\n  children?: ReactNode\n  className?: string\n}\n\nexport function Row({ label, titled = false, aside, id, children, className }: RowProps) {\n  return (\n    <section data-ds=\"row\" id={id} className={cn('mx-6 py-10 sm:py-14', className)}>\n      <h2 className={titled ? 'type-heading-4 text-fg' : 'sr-only'}>{label}</h2>\n      {aside ? <div className={titled ? 'mt-6' : undefined}>{aside}</div> : null}\n      <div className={cn('min-w-0', aside ? 'mt-10' : titled ? 'mt-4' : undefined)}>{children}</div>\n    </section>\n  )\n}\n\nexport default Row\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Note",
+      "label": "A titled row",
+      "center": true,
+      "half": false,
+      "path": "react/examples/row/Note.tsx",
+      "content": "import { Row } from '@/react/components/site/Row'\n// A titled section with a line of running copy, as the contact page closes.\n\nexport default function Note() {\n  return (\n    <Row label=\"Starting\" titled className=\"max-w-200\">\n      <p className=\"type-body text-fg-soft\">If you are writing about a new engagement, it helps to know what you are building, what stage you are at, and whether you need design, development, or both.</p>\n    </Row>\n  )\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/Row.tsx",
+          "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// One section of an inner page (components/row.tsx): 24px in from the edges, 40px above and below (56 from 640). Its\n// title is read by screen readers and shown only when `titled` (16px white, leading tight); an `aside` (a filter, a\n// note) sits 24px under the title and the body 40px under that, or 16px under a lone title.\nexport interface RowProps {\n  /** The section's name. */\n  label: string\n  /** Shows the name as a title. */\n  titled?: boolean\n  /** A filter or a note between the title and the body. */\n  aside?: ReactNode\n  id?: string\n  children?: ReactNode\n  className?: string\n}\n\nexport function Row({ label, titled = false, aside, id, children, className }: RowProps) {\n  return (\n    <section data-ds=\"row\" id={id} className={cn('mx-6 py-10 sm:py-14', className)}>\n      <h2 className={titled ? 'type-heading-4 text-fg' : 'sr-only'}>{label}</h2>\n      {aside ? <div className={titled ? 'mt-6' : undefined}>{aside}</div> : null}\n      <div className={cn('min-w-0', aside ? 'mt-10' : titled ? 'mt-4' : undefined)}>{children}</div>\n    </section>\n  )\n}\n\nexport default Row\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "Row",
+            "file": "react/components/site/Row.tsx",
+            "props": [
+              {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "The section's name."
+              },
+              {
+                "name": "titled",
+                "type": "boolean",
+                "required": false,
+                "default": "false",
+                "description": "Shows the name as a title."
+              },
+              {
+                "name": "aside",
+                "type": "ReactNode",
+                "required": false,
+                "description": "A filter or a note between the title and the body."
+              },
+              {
+                "name": "id",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "children",
+                "type": "ReactNode",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Note",
+          "label": "A titled row",
+          "center": true,
+          "half": false,
+          "path": "react/examples/row/Note.tsx",
+          "content": "import { Row } from '@/react/components/site/Row'\n// A titled section with a line of running copy, as the contact page closes.\n\nexport default function Note() {\n  return (\n    <Row label=\"Starting\" titled className=\"max-w-200\">\n      <p className=\"type-body text-fg-soft\">If you are writing about a new engagement, it helps to know what you are building, what stage you are at, and whether you need design, development, or both.</p>\n    </Row>\n  )\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/row.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// Row.tsx as <agd-row>: one section of an inner page, its title read (and shown when `titled`), an `aside` slot under\n// the title and the body under that.\n\n/**\n * @summary One section of an inner page.\n * @slot - The body.\n * @slot aside - A filter or a note between the title and the body.\n */\nexport class Row extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"row\"]'))\n\tstatic properties = { label: {}, titled: { type: Boolean }, rowId: { attribute: 'row-id' } }\n\t/** The section's name. */\n\tlabel = ''\n\t/** Shows the name as a title. */\n\ttitled = false\n\t/** The section's id (React's `id`). */\n\trowId?: string\n\n\trender() {\n\t\tconst aside = this.hasSlot('aside')\n\t\treturn html`<section data-ds=\"row\" id=${this.rowId ?? nothing} class=\"mx-6 py-10 sm:py-14\"><h2 class=${this.titled ? 'type-heading-4 text-fg' : 'sr-only'}>${this.label}</h2>${aside ? html`<div class=${this.titled ? 'mt-6' : ''}><slot name=\"aside\"></slot></div>` : nothing}<div class=${`min-w-0 ${aside ? 'mt-10' : this.titled ? 'mt-4' : ''}`.trim()}><slot></slot></div></section>`\n\t}\n}\n\ndefine('row', Row)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/row.js"
+      ],
+      "tag": "agd-row",
+      "tags": [
+        "agd-row"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-row",
+            "name": "Row",
+            "module": "elements/row.js",
+            "description": "One section of an inner page.",
+            "attributes": [
+              {
+                "name": "label",
+                "field": "label",
+                "type": "string",
+                "default": "''",
+                "description": "The section's name."
+              },
+              {
+                "name": "titled",
+                "field": "titled",
+                "type": "boolean",
+                "default": "false",
+                "description": "Shows the name as a title."
+              },
+              {
+                "name": "row-id",
+                "field": "rowId",
+                "type": "string | undefined",
+                "description": "The section's id (React's `id`)."
+              }
+            ],
+            "properties": [
+              {
+                "name": "label",
+                "type": "string",
+                "default": "''",
+                "description": "The section's name.",
+                "attribute": "label"
+              },
+              {
+                "name": "titled",
+                "type": "boolean",
+                "default": "false",
+                "description": "Shows the name as a title.",
+                "attribute": "titled"
+              },
+              {
+                "name": "rowId",
+                "type": "string | undefined",
+                "description": "The section's id (React's `id`).",
+                "attribute": "row-id"
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "",
+                "description": "The body."
+              },
+              {
+                "name": "aside",
+                "description": "A filter or a note between the title and the body."
+              }
+            ],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Note",
+          "label": "A titled row",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/row/Note.html",
+          "content": "<!-- A titled section with a line of running copy, as the contact page closes. -->\n<agd-row label=\"Starting\" titled class=\"max-w-200\">\n  <p class=\"type-body text-fg-soft\">If you are writing about a new engagement, it helps to know what you are building, what stage you are at, and whether you need design, development, or both.</p>\n</agd-row>\n"
+        }
+      ]
+    }
+  }
+}

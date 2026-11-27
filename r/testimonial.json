@@ -1,0 +1,196 @@
+{
+  "name": "testimonial",
+  "title": "Testimonial",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The homepage's testimonial card: a white plate with the face at the top left, the quote in Agencidev Sans at 20 (16 on phones), and the name and role on one line, the role quieter.",
+  "use_for": "A client's words over a picture or on the canvas.",
+  "never": [
+    "A real person's words without their consent; examples use Acme",
+    "Quote marks or stars",
+    "A dark plate: the card is the white one"
+  ],
+  "source": "components/testimonials.tsx (the quote plate: rounded-[4px] bg-white p-6 text-black, size-16 face, mt-16, font-display text-md2 leading-[1.3], name and role text-sml with the role at black/40).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/Testimonial.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// The homepage's testimonial card (components/testimonials.tsx): a white plate on the canvas, 24px in, the 4px corner;\n// the face at the top left (64px, the same corner), then the quote in Agencidev Sans at 20 (16 on phones), leading 1.3,\n// and the name and role on one line at 14px, the role at 40% black. At least 64px between the face and the words; a\n// long quote grows the plate rather than closing the gap. Over a picture or on the canvas, as the page sets it.\nexport interface TestimonialProps {\n  quote: string\n  name: string\n  role?: string\n  /** The person's face (64px square). */\n  avatar?: string\n  className?: string\n}\n\nexport function Testimonial({ quote, name, role, avatar, className }: TestimonialProps) {\n  return (\n    <figure data-ds=\"testimonial\" className={cn('flex w-full max-w-160 flex-col justify-between rounded-control bg-surface-inverse p-6 text-fg-inverse', className)}>\n      {avatar ? <img src={avatar} alt=\"\" width={64} height={64} className=\"size-16 rounded-control object-cover\" /> : <span aria-hidden=\"true\" data-ds-placeholder=\"\" className=\"size-16 rounded-control bg-fg-inverse/10\" />}\n      <div className=\"mt-16\">\n        <blockquote className=\"type-heading-3 max-sm:type-heading-4\">{quote}</blockquote>\n        <figcaption className=\"mt-2 flex flex-wrap items-baseline gap-2 type-ui\">\n          <span>{name}</span>\n          {role ? <span className=\"text-fg-inverse/40\">{role}</span> : null}\n        </figcaption>\n      </div>\n    </figure>\n  )\n}\n\nexport default Testimonial\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Quote",
+      "label": "A quote",
+      "center": true,
+      "half": false,
+      "path": "react/examples/testimonial/Quote.tsx",
+      "content": "import { Testimonial } from '@/react/components/site/Testimonial'\n// A founder's words on the white plate.\n\nexport default function Quote() {\n  return <Testimonial quote=\"They shipped our brand, product and site in one partnership, and our engineers still build from the system.\" name=\"Alex Rivera\" role=\"Founder, Acme\" />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/Testimonial.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// The homepage's testimonial card (components/testimonials.tsx): a white plate on the canvas, 24px in, the 4px corner;\n// the face at the top left (64px, the same corner), then the quote in Agencidev Sans at 20 (16 on phones), leading 1.3,\n// and the name and role on one line at 14px, the role at 40% black. At least 64px between the face and the words; a\n// long quote grows the plate rather than closing the gap. Over a picture or on the canvas, as the page sets it.\nexport interface TestimonialProps {\n  quote: string\n  name: string\n  role?: string\n  /** The person's face (64px square). */\n  avatar?: string\n  className?: string\n}\n\nexport function Testimonial({ quote, name, role, avatar, className }: TestimonialProps) {\n  return (\n    <figure data-ds=\"testimonial\" className={cn('flex w-full max-w-160 flex-col justify-between rounded-control bg-surface-inverse p-6 text-fg-inverse', className)}>\n      {avatar ? <img src={avatar} alt=\"\" width={64} height={64} className=\"size-16 rounded-control object-cover\" /> : <span aria-hidden=\"true\" data-ds-placeholder=\"\" className=\"size-16 rounded-control bg-fg-inverse/10\" />}\n      <div className=\"mt-16\">\n        <blockquote className=\"type-heading-3 max-sm:type-heading-4\">{quote}</blockquote>\n        <figcaption className=\"mt-2 flex flex-wrap items-baseline gap-2 type-ui\">\n          <span>{name}</span>\n          {role ? <span className=\"text-fg-inverse/40\">{role}</span> : null}\n        </figcaption>\n      </div>\n    </figure>\n  )\n}\n\nexport default Testimonial\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "Testimonial",
+            "file": "react/components/site/Testimonial.tsx",
+            "props": [
+              {
+                "name": "quote",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "required": true
+              },
+              {
+                "name": "role",
+                "type": "string",
+                "required": false
+              },
+              {
+                "name": "avatar",
+                "type": "string",
+                "required": false,
+                "description": "The person's face (64px square)."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Quote",
+          "label": "A quote",
+          "center": true,
+          "half": false,
+          "path": "react/examples/testimonial/Quote.tsx",
+          "content": "import { Testimonial } from '@/react/components/site/Testimonial'\n// A founder's words on the white plate.\n\nexport default function Quote() {\n  return <Testimonial quote=\"They shipped our brand, product and site in one partnership, and our engineers still build from the system.\" name=\"Alex Rivera\" role=\"Founder, Acme\" />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/testimonial.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// Testimonial.tsx as <agd-testimonial>: a white plate, the face at the top left, the quote in Agencidev Sans, the name\n// and role on one line.\n\n/**\n * @summary A testimonial on a white plate: face, quote, name and role.\n */\nexport class Testimonial extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"testimonial\"]'))\n\tstatic properties = { quote: {}, name: {}, personRole: { attribute: 'person-role' }, avatar: {} }\n\tquote = ''\n\tname = ''\n\t/** Their role and company (React's `role`). */\n\tpersonRole?: string\n\t/** The person's face (64px square). */\n\tavatar?: string\n\n\trender() {\n\t\treturn html`<figure data-ds=\"testimonial\" class=\"flex w-full max-w-160 flex-col justify-between rounded-control bg-surface-inverse p-6 text-fg-inverse\">${this.avatar ? html`<img src=${this.avatar} alt=\"\" width=\"64\" height=\"64\" class=\"size-16 rounded-control object-cover\">` : html`<span aria-hidden=\"true\" data-ds-placeholder=\"\" class=\"size-16 rounded-control bg-fg-inverse/10\"></span>`}<div class=\"mt-16\"><blockquote class=\"type-heading-3 max-sm:type-heading-4\">${this.quote}</blockquote><figcaption class=\"mt-2 flex flex-wrap items-baseline gap-2 type-ui\"><span>${this.name}</span>${this.personRole ? html`<span class=\"text-fg-inverse/40\">${this.personRole}</span>` : nothing}</figcaption></div></figure>`\n\t}\n}\n\ndefine('testimonial', Testimonial)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/testimonial.js"
+      ],
+      "tag": "agd-testimonial",
+      "tags": [
+        "agd-testimonial"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-testimonial",
+            "name": "Testimonial",
+            "module": "elements/testimonial.js",
+            "description": "A testimonial on a white plate: face, quote, name and role.",
+            "attributes": [
+              {
+                "name": "quote",
+                "field": "quote",
+                "type": "string",
+                "default": "''"
+              },
+              {
+                "name": "name",
+                "field": "name",
+                "type": "string",
+                "default": "''"
+              },
+              {
+                "name": "person-role",
+                "field": "personRole",
+                "type": "string | undefined",
+                "description": "Their role and company (React's `role`)."
+              },
+              {
+                "name": "avatar",
+                "field": "avatar",
+                "type": "string | undefined",
+                "description": "The person's face (64px square)."
+              }
+            ],
+            "properties": [
+              {
+                "name": "quote",
+                "type": "string",
+                "default": "''",
+                "attribute": "quote"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "default": "''",
+                "attribute": "name"
+              },
+              {
+                "name": "personRole",
+                "type": "string | undefined",
+                "description": "Their role and company (React's `role`).",
+                "attribute": "person-role"
+              },
+              {
+                "name": "avatar",
+                "type": "string | undefined",
+                "description": "The person's face (64px square).",
+                "attribute": "avatar"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Quote",
+          "label": "A quote",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/testimonial/Quote.html",
+          "content": "<!-- A founder's words on the white plate. -->\n<agd-testimonial quote=\"They shipped our brand, product and site in one partnership, and our engineers still build from the system.\" name=\"Alex Rivera\" person-role=\"Founder, Acme\"></agd-testimonial>\n"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,203 @@
+{
+  "name": "case-study-page",
+  "title": "Case study page",
+  "type": "registry:block",
+  "group": "pages",
+  "description": "A case study template from library items: the client's name with its live link, then the work in masonry columns.",
+  "use_for": "A case study whose work carries the argument. Edit lib/pages/case-study.ts or pass `content`; `sections` reorders or leaves sections out.",
+  "never": [
+    "New colors, shadows, radii or type sizes added to a section: use the items' props",
+    "People, clients or quotes you have no right to show: the defaults are Acme",
+    "A second plate button in a view"
+  ],
+  "source": "Built from the library's site items, after the site's components/case-wall.tsx, app/work/[slug]/page.tsx.",
+  "body": "",
+  "requires": [
+    "case-wall",
+    "site-footer",
+    "site-header",
+    "skeleton"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/pages/CaseStudyPage.tsx",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { CaseWall } from '@/react/components/site/CaseWall'\nimport { caseStudyContent, caseStudySections, type CaseStudyContent, type CaseStudySection } from '@/lib/pages/case-study'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// A case study from library items (components/case-wall.tsx): the client's name with its live link, then the work in\n// masonry columns; the work carries the argument. `content` replaces the copy and the pictures (lib/pages/case-study.ts).\nexport interface CaseStudyPageProps {\n  content?: CaseStudyContent\n  sections?: readonly CaseStudySection[]\n  className?: string\n}\n\nexport function CaseStudyPage({ content: c = caseStudyContent, sections, className }: CaseStudyPageProps) {\n  const parts: Record<CaseStudySection, ReactNode> = {\n    wall: <CaseWall title={c.title} link={c.link} pieces={c.pieces} />,\n  }\n  return (\n    <div data-ds=\"case-study-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(caseStudySections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default CaseStudyPage\n"
+    },
+    {
+      "path": "lib/pages/case-study.ts",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The case study page template's copy (components/case-wall.tsx): the client's name, its live link and the work.\nexport const caseStudyContent = {\n\theader,\n\ttitle: 'Acme',\n\tlink: { label: 'Visit Acme', href: '#' },\n\tpieces: [\n\t\t{ src: '', ratio: 4 / 3 },\n\t\t{ src: '', ratio: 3 / 4 },\n\t\t{ src: '', ratio: 1, caption: 'Onboarding flow, in progress' },\n\t\t{ src: '', ratio: 16 / 9 },\n\t\t{ src: '', ratio: 4 / 5 },\n\t\t{ src: '', ratio: 4 / 3 },\n\t],\n\tfooter,\n}\nexport type CaseStudyContent = typeof caseStudyContent\nexport const caseStudySections = ['wall'] as const\nexport type CaseStudySection = (typeof caseStudySections)[number]\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Page",
+      "label": "Case study page",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/case-study-page/Page.tsx",
+      "content": "import { CaseStudyPage } from '@/react/components/pages/CaseStudyPage'\n// The case study page with its default copy.\n\nexport default function Page() {\n  return <CaseStudyPage />\n}\n",
+      "requires": [
+        "case-wall",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/pages/CaseStudyPage.tsx",
+          "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { CaseWall } from '@/react/components/site/CaseWall'\nimport { caseStudyContent, caseStudySections, type CaseStudyContent, type CaseStudySection } from '@/lib/pages/case-study'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// A case study from library items (components/case-wall.tsx): the client's name with its live link, then the work in\n// masonry columns; the work carries the argument. `content` replaces the copy and the pictures (lib/pages/case-study.ts).\nexport interface CaseStudyPageProps {\n  content?: CaseStudyContent\n  sections?: readonly CaseStudySection[]\n  className?: string\n}\n\nexport function CaseStudyPage({ content: c = caseStudyContent, sections, className }: CaseStudyPageProps) {\n  const parts: Record<CaseStudySection, ReactNode> = {\n    wall: <CaseWall title={c.title} link={c.link} pieces={c.pieces} />,\n  }\n  return (\n    <div data-ds=\"case-study-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(caseStudySections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default CaseStudyPage\n"
+        },
+        {
+          "path": "lib/pages/case-study.ts",
+          "content": "import { footer, header } from '@/lib/pages/chrome'\n// The case study page template's copy (components/case-wall.tsx): the client's name, its live link and the work.\nexport const caseStudyContent = {\n\theader,\n\ttitle: 'Acme',\n\tlink: { label: 'Visit Acme', href: '#' },\n\tpieces: [\n\t\t{ src: '', ratio: 4 / 3 },\n\t\t{ src: '', ratio: 3 / 4 },\n\t\t{ src: '', ratio: 1, caption: 'Onboarding flow, in progress' },\n\t\t{ src: '', ratio: 16 / 9 },\n\t\t{ src: '', ratio: 4 / 5 },\n\t\t{ src: '', ratio: 4 / 3 },\n\t],\n\tfooter,\n}\nexport type CaseStudyContent = typeof caseStudyContent\nexport const caseStudySections = ['wall'] as const\nexport type CaseStudySection = (typeof caseStudySections)[number]\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "case-wall",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "CaseStudyPage",
+            "file": "react/components/pages/CaseStudyPage.tsx",
+            "props": [
+              {
+                "name": "content",
+                "type": "CaseStudyContent",
+                "required": false
+              },
+              {
+                "name": "sections",
+                "type": "readonly CaseStudySection[]",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Case study page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/case-study-page/Page.tsx",
+          "content": "import { CaseStudyPage } from '@/react/components/pages/CaseStudyPage'\n// The case study page with its default copy.\n\nexport default function Page() {\n  return <CaseStudyPage />\n}\n",
+          "registryDependencies": [
+            "case-wall",
+            "site-footer",
+            "site-header",
+            "skeleton"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/pages/case-study-page.ts",
+          "content": "import { html, nothing, type TemplateResult } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport { pageSections } from '@/lib/image'\nimport '@/elements/components/site/site-header'\nimport '@/elements/components/site/site-footer'\nimport '@/elements/components/site/case-wall'\nimport styles from 'virtual:tw'\nimport { caseStudyContent, caseStudySections, type CaseStudyContent, type CaseStudySection } from '@/lib/pages/case-study'\n\n// CaseStudyPage.tsx as <agd-case-study-page>: the client's name and live link, then the work.\n\n/**\n * @summary The case study page template.\n */\nexport class CaseStudyPage extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"case-study-page\"]'))\n\tstatic properties = { content: { type: Object }, sections: { type: Array } }\n\t/** The page's copy (lib/pages/case-study.ts by default). */\n\tcontent: CaseStudyContent = caseStudyContent\n\t/** The sections to show, in order. */\n\tsections?: CaseStudySection[]\n\n\trender() {\n\t\tconst c = this.content\n\t\tconst parts: Record<CaseStudySection, TemplateResult | typeof nothing> = {\n\t\t\twall: html`<agd-case-wall heading=${c.title} .link=${c.link} .pieces=${c.pieces}></agd-case-wall>`,\n\t\t}\n\t\tconst order = pageSections(caseStudySections, this.sections)\n\t\treturn html`<div data-ds=\"case-study-page\" class=\"flex min-h-screen w-full flex-col bg-surface text-fg\"><agd-site-header .links=${c.header.links} .secondary=${c.header.secondary} .primary=${c.header.primary} email=${c.header.email}></agd-site-header><main class=\"flex-1\">${order.map((k) => parts[k])}</main><agd-site-footer .links=${c.footer.links}></agd-site-footer></div>`\n\t}\n}\n\ndefine('case-study-page', CaseStudyPage)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/case-study-page.js",
+        "elements/site-header.js",
+        "elements/site-footer.js",
+        "elements/case-wall.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-case-study-page",
+      "tags": [
+        "agd-case-study-page"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "case-wall",
+        "logo",
+        "site-footer",
+        "site-header"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-case-study-page",
+            "name": "CaseStudyPage",
+            "module": "elements/case-study-page.js",
+            "description": "The case study page template.",
+            "attributes": [
+              {
+                "name": "content",
+                "field": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; title: string; link: { label: string; href: string; }; pieces: ({ src: string; ratio: number; caption?: undefined; } | { src: string; ratio: number; caption: string; })[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "caseStudyContent",
+                "description": "The page's copy (lib/pages/case-study.ts by default)."
+              },
+              {
+                "name": "sections",
+                "field": "sections",
+                "type": "\"wall\"[] | undefined",
+                "description": "The sections to show, in order."
+              }
+            ],
+            "properties": [
+              {
+                "name": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; title: string; link: { label: string; href: string; }; pieces: ({ src: string; ratio: number; caption?: undefined; } | { src: string; ratio: number; caption: string; })[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "caseStudyContent",
+                "description": "The page's copy (lib/pages/case-study.ts by default).",
+                "attribute": "content"
+              },
+              {
+                "name": "sections",
+                "type": "\"wall\"[] | undefined",
+                "description": "The sections to show, in order.",
+                "attribute": "sections"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Case study page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/case-study-page/Page.html",
+          "content": "<!-- The case study page with its default copy. -->\n<agd-case-study-page></agd-case-study-page>\n"
+        }
+      ]
+    }
+  }
+}

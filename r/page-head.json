@@ -1,0 +1,236 @@
+{
+  "name": "page-head",
+  "title": "Page head",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The page's H1 set like the homepage statement: one size in two tones, the lead in white running on into the rest in mid, centered in a 64rem measure, with a plate and a quiet button under it.",
+  "use_for": "The top of an inner page: contact, careers, articles, a case study.",
+  "never": [
+    "A second size or a bold word for emphasis: color does the work",
+    "More than one plate button",
+    "An eyebrow or a label over it"
+  ],
+  "source": "components/page-head.tsx (pt-[128px] sm:pt-[176px], pb-16 sm:pb-24, max-w-[64rem], text-lg leading-[1.14], text-white then text-mid; actions mt-10 sm:mt-12 gap-2).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/PageHead.tsx",
+      "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The site's page head (components/page-head.tsx): the page's H1 set like the homepage statement, one size in two\n// tones (the lead in white running on into the rest in mid), Agencidev Sans at the display step (28, 36 from 640),\n// leading 1.14, centered in a 64rem measure; its actions 40px under it (48 from 640), 8px apart. 128px above (176\n// from 640) and 64px below (96 from 640), so it clears the bar.\nexport interface PageHeadProps {\n  /** Names the heading (`<id>-heading`). */\n  id?: string\n  /** The lead, in white. */\n  lead: string\n  /** The rest, in mid, on the same lines. */\n  rest?: string\n  /** Actions under it: a plate button and a quiet one. */\n  children?: ReactNode\n  className?: string\n}\n\nexport function PageHead({ id = 'page', lead, rest, children, className }: PageHeadProps) {\n  return (\n    <header data-ds=\"page-head\" aria-labelledby={`${id}-heading`} className={cn('px-6 pt-32 pb-16 text-center sm:pt-44 sm:pb-24', className)}>\n      <h1 id={`${id}-heading`} className=\"mx-auto max-w-(--ds-layout-page) type-section text-balance\">\n        <span className=\"text-fg\">{lead}</span>\n        {rest ? <> <span className=\"text-fg-muted\">{rest}</span></> : null}\n      </h1>\n      {children ? <div className=\"mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12\">{children}</div> : null}\n    </header>\n  )\n}\n\nexport default PageHead\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Contact",
+      "label": "Two tones and actions",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/page-head/Contact.tsx",
+      "content": "import { PageHead } from '@/react/components/site/PageHead'\nimport { Button } from '@/react/components/ui/Button'\n// The contact page's head: the lead in white, the rest in mid, a plate button and a quiet one.\n\nexport default function Contact() {\n  return (\n    <PageHead id=\"contact\" lead=\"Tell us what you're building.\" rest=\"Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.\">\n      <Button href=\"#\">Book a free strategy call</Button>\n      <Button href=\"#\" variant=\"secondary\">hello@acme.com</Button>\n    </PageHead>\n  )\n}\n",
+      "requires": [
+        "button"
+      ],
+      "packages": []
+    },
+    {
+      "name": "Plain",
+      "label": "One tone",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/page-head/Plain.tsx",
+      "content": "import { PageHead } from '@/react/components/site/PageHead'\n// A head in one tone, no actions.\n\nexport default function Plain() {\n  return <PageHead id=\"careers\" lead=\"Careers\" />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/PageHead.tsx",
+          "content": "import type { ReactNode } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// The site's page head (components/page-head.tsx): the page's H1 set like the homepage statement, one size in two\n// tones (the lead in white running on into the rest in mid), Agencidev Sans at the display step (28, 36 from 640),\n// leading 1.14, centered in a 64rem measure; its actions 40px under it (48 from 640), 8px apart. 128px above (176\n// from 640) and 64px below (96 from 640), so it clears the bar.\nexport interface PageHeadProps {\n  /** Names the heading (`<id>-heading`). */\n  id?: string\n  /** The lead, in white. */\n  lead: string\n  /** The rest, in mid, on the same lines. */\n  rest?: string\n  /** Actions under it: a plate button and a quiet one. */\n  children?: ReactNode\n  className?: string\n}\n\nexport function PageHead({ id = 'page', lead, rest, children, className }: PageHeadProps) {\n  return (\n    <header data-ds=\"page-head\" aria-labelledby={`${id}-heading`} className={cn('px-6 pt-32 pb-16 text-center sm:pt-44 sm:pb-24', className)}>\n      <h1 id={`${id}-heading`} className=\"mx-auto max-w-(--ds-layout-page) type-section text-balance\">\n        <span className=\"text-fg\">{lead}</span>\n        {rest ? <> <span className=\"text-fg-muted\">{rest}</span></> : null}\n      </h1>\n      {children ? <div className=\"mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12\">{children}</div> : null}\n    </header>\n  )\n}\n\nexport default PageHead\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "PageHead",
+            "file": "react/components/site/PageHead.tsx",
+            "props": [
+              {
+                "name": "id",
+                "type": "string",
+                "required": false,
+                "default": "'page'",
+                "description": "Names the heading (`<id>-heading`)."
+              },
+              {
+                "name": "lead",
+                "type": "string",
+                "required": true,
+                "description": "The lead, in white."
+              },
+              {
+                "name": "rest",
+                "type": "string",
+                "required": false,
+                "description": "The rest, in mid, on the same lines."
+              },
+              {
+                "name": "children",
+                "type": "ReactNode",
+                "required": false,
+                "description": "Actions under it: a plate button and a quiet one."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Contact",
+          "label": "Two tones and actions",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/page-head/Contact.tsx",
+          "content": "import { PageHead } from '@/react/components/site/PageHead'\nimport { Button } from '@/react/components/ui/Button'\n// The contact page's head: the lead in white, the rest in mid, a plate button and a quiet one.\n\nexport default function Contact() {\n  return (\n    <PageHead id=\"contact\" lead=\"Tell us what you're building.\" rest=\"Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.\">\n      <Button href=\"#\">Book a free strategy call</Button>\n      <Button href=\"#\" variant=\"secondary\">hello@acme.com</Button>\n    </PageHead>\n  )\n}\n",
+          "registryDependencies": [
+            "button"
+          ],
+          "dependencies": []
+        },
+        {
+          "name": "Plain",
+          "label": "One tone",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/page-head/Plain.tsx",
+          "content": "import { PageHead } from '@/react/components/site/PageHead'\n// A head in one tone, no actions.\n\nexport default function Plain() {\n  return <PageHead id=\"careers\" lead=\"Careers\" />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/page-head.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// PageHead.tsx as <agd-page-head>: the page's H1 in two tones (the lead in white, the rest in mid) at the display step,\n// centered in a 64rem measure, with what is slotted as its actions under it.\n\n/**\n * @summary The page head: one statement in two tones, actions under it.\n * @slot - The actions: a plate button and a quiet one.\n */\nexport class PageHead extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"page-head\"]'))\n\tstatic properties = { headId: { attribute: 'head-id' }, lead: {}, rest: {} }\n\t/** Names the heading (`<head-id>-heading`; React's `id`). */\n\theadId = 'page'\n\t/** The lead, in white. */\n\tlead = ''\n\t/** The rest, in mid, on the same lines. */\n\trest?: string\n\n\trender() {\n\t\treturn html`<header data-ds=\"page-head\" aria-labelledby=${`${this.headId}-heading`} class=\"px-6 pt-32 pb-16 text-center sm:pt-44 sm:pb-24\"><h1 id=${`${this.headId}-heading`} class=\"mx-auto max-w-(--ds-layout-page) type-section text-balance\"><span class=\"text-fg\">${this.lead}</span>${this.rest ? html` <span class=\"text-fg-muted\">${this.rest}</span>` : nothing}</h1>${this.hasSlot() ? html`<div class=\"mt-10 flex flex-wrap items-center justify-center gap-2 sm:mt-12\"><slot></slot></div>` : nothing}</header>`\n\t}\n}\n\ndefine('page-head', PageHead)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/page-head.js",
+        "elements/button.js"
+      ],
+      "tag": "agd-page-head",
+      "tags": [
+        "agd-page-head"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-page-head",
+            "name": "PageHead",
+            "module": "elements/page-head.js",
+            "description": "The page head: one statement in two tones, actions under it.",
+            "attributes": [
+              {
+                "name": "head-id",
+                "field": "headId",
+                "type": "string",
+                "default": "'page'",
+                "description": "Names the heading (`<head-id>-heading`; React's `id`)."
+              },
+              {
+                "name": "lead",
+                "field": "lead",
+                "type": "string",
+                "default": "''",
+                "description": "The lead, in white."
+              },
+              {
+                "name": "rest",
+                "field": "rest",
+                "type": "string | undefined",
+                "description": "The rest, in mid, on the same lines."
+              }
+            ],
+            "properties": [
+              {
+                "name": "headId",
+                "type": "string",
+                "default": "'page'",
+                "description": "Names the heading (`<head-id>-heading`; React's `id`).",
+                "attribute": "head-id"
+              },
+              {
+                "name": "lead",
+                "type": "string",
+                "default": "''",
+                "description": "The lead, in white.",
+                "attribute": "lead"
+              },
+              {
+                "name": "rest",
+                "type": "string | undefined",
+                "description": "The rest, in mid, on the same lines.",
+                "attribute": "rest"
+              }
+            ],
+            "events": [],
+            "slots": [
+              {
+                "name": "",
+                "description": "The actions: a plate button and a quiet one."
+              }
+            ],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Contact",
+          "label": "Two tones and actions",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/page-head/Contact.html",
+          "content": "<!-- The contact page's head: the lead in white, the rest in mid, a plate button and a quiet one. -->\n<agd-page-head head-id=\"contact\" lead=\"Tell us what you're building.\" rest=\"Acme partners with startups to design, build, and ship software. The quickest way to start is a call or an email.\">\n  <agd-button href=\"#\">Book a free strategy call</agd-button>\n  <agd-button href=\"#\" variant=\"secondary\">hello@acme.com</agd-button>\n</agd-page-head>\n"
+        },
+        {
+          "name": "Plain",
+          "label": "One tone",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/page-head/Plain.html",
+          "content": "<!-- A head in one tone, no actions. -->\n<agd-page-head head-id=\"careers\" lead=\"Careers\"></agd-page-head>\n"
+        }
+      ]
+    }
+  }
+}

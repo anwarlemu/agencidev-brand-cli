@@ -1,0 +1,187 @@
+{
+  "name": "case-wall",
+  "title": "Case wall",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "A case study's wall of work: the client's name at the display step with a plate link beside it, then the work in masonry columns 20px apart, square-cornered; a piece in the works is a hairline box with its caption in capitals.",
+  "use_for": "A case study page: the work carries the argument and the copy stays short.",
+  "never": [
+    "Rounded pieces, shadows or hover zooms",
+    "Captions on finished pieces: the work speaks",
+    "Client work you have no right to show"
+  ],
+  "source": "components/case-wall.tsx (pt-[128px] sm:pt-[176px], the text-lg title and PLATE_BUTTON, columns-2 lg:columns-4 gap-5 mb-5, bg-plate, the placeholder's border-subtle and text-xsml uppercase text-muted caption).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/CaseWall.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// A case study's wall of work (components/case-wall.tsx): the client's name at the display step on the left with a\n// plate link to the live product on the right, then the work in masonry columns 20px apart (two, four from 1024; one\n// and two for few pieces), each piece square-cornered on the plate fill. A piece still in the works is a hairline box\n// with its caption in 12px capitals in white at 60%, never an empty frame.\nexport interface CasePiece {\n  src?: string\n  alt?: string\n  /** Width over height, so the column keeps its shape before the picture lands. */\n  ratio?: number\n  /** Shown in place of a picture that is not ready. */\n  caption?: string\n}\n\nexport interface CaseWallProps {\n  /** The client's name. */\n  title: string\n  pieces: CasePiece[]\n  /** The plate link (the live product). */\n  link?: { label: string; href: string }\n  className?: string\n}\n\nexport function CaseWall({ title, pieces, link, className }: CaseWallProps) {\n  const columns = pieces.length <= 2 ? 'columns-1 sm:columns-2' : pieces.length <= 6 ? 'columns-2 lg:columns-3' : 'columns-2 lg:columns-4'\n  return (\n    <section data-ds=\"case-wall\" aria-labelledby=\"case-heading\" className={cn('w-full px-6 pt-32 sm:pt-44', className)}>\n      <header className=\"mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between\">\n        <h1 id=\"case-heading\" className=\"type-section text-fg\">{title}</h1>\n        {link ? <a href={link.href} className=\"inline-flex h-control-md w-fit items-center rounded-control bg-action-primary px-6 type-label text-action-primary-fg transition-colors duration-150 ease-standard hover:bg-action-primary-hover hover:text-action-primary-fg-hover active:bg-action-primary-press active:text-fg-inverse active:transition-none\">{link.label}</a> : null}\n      </header>\n      <div className={cn(columns, 'gap-5')}>\n        {pieces.map((p, i) => (\n          <div key={`${i}-${p.src ?? p.caption ?? ''}`} data-ds-placeholder={p.src ? undefined : ''} style={{ aspectRatio: String(p.ratio ?? 4 / 3) }} className=\"relative mb-5 break-inside-avoid overflow-hidden bg-surface-inset\">\n            {p.src ? <img src={p.src} alt={p.alt ?? ''} loading=\"lazy\" className=\"absolute inset-0 size-full object-cover\" /> : (\n              <div className=\"absolute inset-0 flex items-center justify-center border border-edge-strong px-4\">\n                <span className=\"max-w-[36ch] text-center type-label text-balance text-fg-faint\">{p.caption ?? 'In progress'}</span>\n              </div>\n            )}\n          </div>\n        ))}\n      </div>\n    </section>\n  )\n}\n\nexport default CaseWall\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Wall",
+      "label": "Six pieces",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/case-wall/Wall.tsx",
+      "content": "import { CaseWall } from '@/react/components/site/CaseWall'\n// A client's wall of six pieces, two still in the works.\n\nexport default function Wall() {\n  return (\n    <CaseWall title=\"Acme\" link={{ label: 'Visit Acme', href: '#' }} pieces={[\n      { ratio: 4 / 3 }, { ratio: 3 / 4 }, { ratio: 1, caption: 'Onboarding flow, in progress' },\n      { ratio: 16 / 9 }, { ratio: 4 / 5 }, { ratio: 4 / 3, caption: 'Brand film, in progress' },\n    ]} />\n  )\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/CaseWall.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// A case study's wall of work (components/case-wall.tsx): the client's name at the display step on the left with a\n// plate link to the live product on the right, then the work in masonry columns 20px apart (two, four from 1024; one\n// and two for few pieces), each piece square-cornered on the plate fill. A piece still in the works is a hairline box\n// with its caption in 12px capitals in white at 60%, never an empty frame.\nexport interface CasePiece {\n  src?: string\n  alt?: string\n  /** Width over height, so the column keeps its shape before the picture lands. */\n  ratio?: number\n  /** Shown in place of a picture that is not ready. */\n  caption?: string\n}\n\nexport interface CaseWallProps {\n  /** The client's name. */\n  title: string\n  pieces: CasePiece[]\n  /** The plate link (the live product). */\n  link?: { label: string; href: string }\n  className?: string\n}\n\nexport function CaseWall({ title, pieces, link, className }: CaseWallProps) {\n  const columns = pieces.length <= 2 ? 'columns-1 sm:columns-2' : pieces.length <= 6 ? 'columns-2 lg:columns-3' : 'columns-2 lg:columns-4'\n  return (\n    <section data-ds=\"case-wall\" aria-labelledby=\"case-heading\" className={cn('w-full px-6 pt-32 sm:pt-44', className)}>\n      <header className=\"mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between\">\n        <h1 id=\"case-heading\" className=\"type-section text-fg\">{title}</h1>\n        {link ? <a href={link.href} className=\"inline-flex h-control-md w-fit items-center rounded-control bg-action-primary px-6 type-label text-action-primary-fg transition-colors duration-150 ease-standard hover:bg-action-primary-hover hover:text-action-primary-fg-hover active:bg-action-primary-press active:text-fg-inverse active:transition-none\">{link.label}</a> : null}\n      </header>\n      <div className={cn(columns, 'gap-5')}>\n        {pieces.map((p, i) => (\n          <div key={`${i}-${p.src ?? p.caption ?? ''}`} data-ds-placeholder={p.src ? undefined : ''} style={{ aspectRatio: String(p.ratio ?? 4 / 3) }} className=\"relative mb-5 break-inside-avoid overflow-hidden bg-surface-inset\">\n            {p.src ? <img src={p.src} alt={p.alt ?? ''} loading=\"lazy\" className=\"absolute inset-0 size-full object-cover\" /> : (\n              <div className=\"absolute inset-0 flex items-center justify-center border border-edge-strong px-4\">\n                <span className=\"max-w-[36ch] text-center type-label text-balance text-fg-faint\">{p.caption ?? 'In progress'}</span>\n              </div>\n            )}\n          </div>\n        ))}\n      </div>\n    </section>\n  )\n}\n\nexport default CaseWall\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "CaseWall",
+            "file": "react/components/site/CaseWall.tsx",
+            "props": [
+              {
+                "name": "title",
+                "type": "string",
+                "required": true,
+                "description": "The client's name."
+              },
+              {
+                "name": "pieces",
+                "type": "CasePiece[]",
+                "required": true
+              },
+              {
+                "name": "link",
+                "type": "{ label: string; href: string }",
+                "required": false,
+                "description": "The plate link (the live product)."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Wall",
+          "label": "Six pieces",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/case-wall/Wall.tsx",
+          "content": "import { CaseWall } from '@/react/components/site/CaseWall'\n// A client's wall of six pieces, two still in the works.\n\nexport default function Wall() {\n  return (\n    <CaseWall title=\"Acme\" link={{ label: 'Visit Acme', href: '#' }} pieces={[\n      { ratio: 4 / 3 }, { ratio: 3 / 4 }, { ratio: 1, caption: 'Onboarding flow, in progress' },\n      { ratio: 16 / 9 }, { ratio: 4 / 5 }, { ratio: 4 / 3, caption: 'Brand film, in progress' },\n    ]} />\n  )\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/case-wall.ts",
+          "content": "import { html, nothing } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// CaseWall.tsx as <agd-case-wall>: the client's name and a plate link, then the work in masonry columns.\nexport interface CasePiece { src?: string; alt?: string; ratio?: number; caption?: string }\n\nconst PLATE = 'inline-flex h-control-md w-fit items-center rounded-control bg-action-primary px-6 type-label text-action-primary-fg transition-colors duration-150 ease-standard hover:bg-action-primary-hover hover:text-action-primary-fg-hover active:bg-action-primary-press active:text-fg-inverse active:transition-none'\n\n/**\n * @summary A case study's wall of work: the name, a plate link and masonry columns.\n */\nexport class CaseWall extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"case-wall\"]'))\n\tstatic properties = { heading: {}, pieces: { type: Array }, link: { type: Object } }\n\t/** The client's name (React's `title`). */\n\theading = ''\n\t/** The pieces: [{ src, alt, ratio, caption }]. */\n\tpieces: CasePiece[] = []\n\t/** The plate link ({ label, href }). */\n\tlink?: { label: string; href: string }\n\n\trender() {\n\t\tconst pieces = this.pieces ?? []\n\t\tconst columns = pieces.length <= 2 ? 'columns-1 sm:columns-2' : pieces.length <= 6 ? 'columns-2 lg:columns-3' : 'columns-2 lg:columns-4'\n\t\treturn html`<section data-ds=\"case-wall\" aria-labelledby=\"case-heading\" class=\"w-full px-6 pt-32 sm:pt-44\"><header class=\"mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between\"><h1 id=\"case-heading\" class=\"type-section text-fg\">${this.heading}</h1>${this.link ? html`<a href=${this.link.href} class=${PLATE}>${this.link.label}</a>` : nothing}</header><div class=${`${columns} gap-5`}>${pieces.map((p) => html`<div data-ds-placeholder=${p.src ? nothing : ''} style=\"aspect-ratio: ${p.ratio ?? 4 / 3}\" class=\"relative mb-5 break-inside-avoid overflow-hidden bg-surface-inset\">${p.src ? html`<img src=${p.src} alt=${p.alt ?? ''} loading=\"lazy\" class=\"absolute inset-0 size-full object-cover\">` : html`<div class=\"absolute inset-0 flex items-center justify-center border border-edge-strong px-4\"><span class=\"max-w-[36ch] text-center type-label text-balance text-fg-faint\">${p.caption ?? 'In progress'}</span></div>`}</div>`)}</div></section>`\n\t}\n}\n\ndefine('case-wall', CaseWall)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/case-wall.js"
+      ],
+      "tag": "agd-case-wall",
+      "tags": [
+        "agd-case-wall"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-case-wall",
+            "name": "CaseWall",
+            "module": "elements/case-wall.js",
+            "description": "A case study's wall of work: the name, a plate link and masonry columns.",
+            "attributes": [
+              {
+                "name": "heading",
+                "field": "heading",
+                "type": "string",
+                "default": "''",
+                "description": "The client's name (React's `title`)."
+              },
+              {
+                "name": "pieces",
+                "field": "pieces",
+                "type": "CasePiece[]",
+                "default": "[]",
+                "description": "The pieces: [{ src, alt, ratio, caption }]."
+              },
+              {
+                "name": "link",
+                "field": "link",
+                "type": "{ label: string; href: string; } | undefined",
+                "description": "The plate link ({ label, href })."
+              }
+            ],
+            "properties": [
+              {
+                "name": "heading",
+                "type": "string",
+                "default": "''",
+                "description": "The client's name (React's `title`).",
+                "attribute": "heading"
+              },
+              {
+                "name": "pieces",
+                "type": "CasePiece[]",
+                "default": "[]",
+                "description": "The pieces: [{ src, alt, ratio, caption }].",
+                "attribute": "pieces"
+              },
+              {
+                "name": "link",
+                "type": "{ label: string; href: string; } | undefined",
+                "description": "The plate link ({ label, href }).",
+                "attribute": "link"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Wall",
+          "label": "Six pieces",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/case-wall/Wall.html",
+          "content": "<!-- A client's wall of six pieces, two still in the works. -->\n<agd-case-wall heading=\"Acme\" link='{\"label\":\"Visit Acme\",\"href\":\"#\"}' pieces='[{\"ratio\":1.3333333333333333},{\"ratio\":0.75},{\"ratio\":1,\"caption\":\"Onboarding flow, in progress\"},{\"ratio\":1.7777777777777777},{\"ratio\":0.8},{\"ratio\":1.3333333333333333,\"caption\":\"Brand film, in progress\"}]'></agd-case-wall>\n"
+        }
+      ]
+    }
+  }
+}

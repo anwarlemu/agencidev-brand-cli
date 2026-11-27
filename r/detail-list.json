@@ -1,0 +1,148 @@
+{
+  "name": "detail-list",
+  "title": "Detail list",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "The contact page's rows: a label in white and its description in dim running copy beside it (a 248px label column from 640), 40px between rows.",
+  "use_for": "Ways to get in touch, terms, facts about an engagement.",
+  "never": [
+    "Icons before the labels",
+    "Rules between the rows: space separates them"
+  ],
+  "source": "app/contact/page.tsx (the Email, Free strategy call, LinkedIn and X rows: text-md white labels at x 24, dim copy from x 272).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/DetailList.tsx",
+      "content": "import { cn } from '@/react/lib/cn'\n\n// The contact page's rows (app/contact/page.tsx): a label in 16px white and its description in dim running copy beside\n// it (a 248px label column from 640, stacked below), 40px between rows. For ways to get in touch, terms, facts.\nexport interface DetailItem {\n  label: string\n  body: string\n  /** Makes the label a link. */\n  href?: string\n}\n\nexport interface DetailListProps {\n  items: DetailItem[]\n  className?: string\n}\n\nexport function DetailList({ items, className }: DetailListProps) {\n  return (\n    <dl data-ds=\"detail-list\" className={cn('flex w-full flex-col gap-10', className)}>\n      {items.map((it) => (\n        <div key={it.label} className=\"grid gap-2 sm:grid-cols-[248px_minmax(0,1fr)] sm:gap-0\">\n          <dt className=\"type-body text-fg\">{it.href ? <a href={it.href} className=\"transition-colors duration-150 ease-standard hover:text-fg-soft active:text-action-press-ink active:transition-none\">{it.label}</a> : it.label}</dt>\n          <dd className=\"type-body text-fg-soft\">{it.body}</dd>\n        </div>\n      ))}\n    </dl>\n  )\n}\n\nexport default DetailList\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Contact",
+      "label": "Three rows",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/detail-list/Contact.tsx",
+      "content": "import { DetailList } from '@/react/components/site/DetailList'\n// The ways to get in touch, as the contact page lists them.\n\nexport default function Contact() {\n  return (\n    <div className=\"w-full px-6\"><DetailList items={[\n      { label: 'Email', body: 'The fastest route for new project enquiries, press, and anything about work already in progress. We reply within two working days.' },\n      { label: 'Free strategy call', body: 'A 30-minute conversation about what you are building and whether a partnership is the right shape for it.' },\n      { label: 'LinkedIn and X', body: 'Where we post new work and studio updates. Anything about scope or timelines is better over email.' },\n    ]} /></div>\n  )\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/DetailList.tsx",
+          "content": "import { cn } from '@/react/lib/cn'\n\n// The contact page's rows (app/contact/page.tsx): a label in 16px white and its description in dim running copy beside\n// it (a 248px label column from 640, stacked below), 40px between rows. For ways to get in touch, terms, facts.\nexport interface DetailItem {\n  label: string\n  body: string\n  /** Makes the label a link. */\n  href?: string\n}\n\nexport interface DetailListProps {\n  items: DetailItem[]\n  className?: string\n}\n\nexport function DetailList({ items, className }: DetailListProps) {\n  return (\n    <dl data-ds=\"detail-list\" className={cn('flex w-full flex-col gap-10', className)}>\n      {items.map((it) => (\n        <div key={it.label} className=\"grid gap-2 sm:grid-cols-[248px_minmax(0,1fr)] sm:gap-0\">\n          <dt className=\"type-body text-fg\">{it.href ? <a href={it.href} className=\"transition-colors duration-150 ease-standard hover:text-fg-soft active:text-action-press-ink active:transition-none\">{it.label}</a> : it.label}</dt>\n          <dd className=\"type-body text-fg-soft\">{it.body}</dd>\n        </div>\n      ))}\n    </dl>\n  )\n}\n\nexport default DetailList\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "DetailList",
+            "file": "react/components/site/DetailList.tsx",
+            "props": [
+              {
+                "name": "items",
+                "type": "DetailItem[]",
+                "required": true
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Contact",
+          "label": "Three rows",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/detail-list/Contact.tsx",
+          "content": "import { DetailList } from '@/react/components/site/DetailList'\n// The ways to get in touch, as the contact page lists them.\n\nexport default function Contact() {\n  return (\n    <div className=\"w-full px-6\"><DetailList items={[\n      { label: 'Email', body: 'The fastest route for new project enquiries, press, and anything about work already in progress. We reply within two working days.' },\n      { label: 'Free strategy call', body: 'A 30-minute conversation about what you are building and whether a partnership is the right shape for it.' },\n      { label: 'LinkedIn and X', body: 'Where we post new work and studio updates. Anything about scope or timelines is better over email.' },\n    ]} /></div>\n  )\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/detail-list.ts",
+          "content": "import { html } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// DetailList.tsx as <agd-detail-list>: rows of a label in white and its description in dim beside it.\nexport interface DetailItem { label: string; body: string; href?: string }\n\n/**\n * @summary Rows of a label and its description.\n */\nexport class DetailList extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"detail-list\"]'))\n\tstatic properties = { items: { type: Array } }\n\t/** The rows: [{ label, body, href }]. */\n\titems: DetailItem[] = []\n\n\trender() {\n\t\treturn html`<dl data-ds=\"detail-list\" class=\"flex w-full flex-col gap-10\">${(this.items ?? []).map((it) => html`<div class=\"grid gap-2 sm:grid-cols-[248px_minmax(0,1fr)] sm:gap-0\"><dt class=\"type-body text-fg\">${it.href ? html`<a href=${it.href} class=\"transition-colors duration-150 ease-standard hover:text-fg-soft active:text-action-press-ink active:transition-none\">${it.label}</a>` : it.label}</dt><dd class=\"type-body text-fg-soft\">${it.body}</dd></div>`)}</dl>`\n\t}\n}\n\ndefine('detail-list', DetailList)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/detail-list.js"
+      ],
+      "tag": "agd-detail-list",
+      "tags": [
+        "agd-detail-list"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-detail-list",
+            "name": "DetailList",
+            "module": "elements/detail-list.js",
+            "description": "Rows of a label and its description.",
+            "attributes": [
+              {
+                "name": "items",
+                "field": "items",
+                "type": "DetailItem[]",
+                "default": "[]",
+                "description": "The rows: [{ label, body, href }]."
+              }
+            ],
+            "properties": [
+              {
+                "name": "items",
+                "type": "DetailItem[]",
+                "default": "[]",
+                "description": "The rows: [{ label, body, href }].",
+                "attribute": "items"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Contact",
+          "label": "Three rows",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/detail-list/Contact.html",
+          "content": "<!-- The ways to get in touch, as the contact page lists them. -->\n<div class=\"w-full px-6\"><agd-detail-list items='[{\"label\":\"Email\",\"body\":\"The fastest route for new project enquiries, press, and anything about work already in progress. We reply within two working days.\"},{\"label\":\"Free strategy call\",\"body\":\"A 30-minute conversation about what you are building and whether a partnership is the right shape for it.\"},{\"label\":\"LinkedIn and X\",\"body\":\"Where we post new work and studio updates. Anything about scope or timelines is better over email.\"}]'></agd-detail-list></div>\n"
+        }
+      ]
+    }
+  }
+}

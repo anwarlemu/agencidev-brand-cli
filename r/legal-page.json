@@ -1,0 +1,209 @@
+{
+  "name": "legal-page",
+  "title": "Legal page",
+  "type": "registry:block",
+  "group": "pages",
+  "description": "A legal page template from library items: the title in white and when it changed in mid, then titled rows of dim running copy.",
+  "use_for": "Privacy, terms and accessibility statements. Edit lib/pages/legal.ts or pass `content`; `sections` reorders or leaves sections out.",
+  "never": [
+    "New colors, shadows, radii or type sizes added to a section: use the items' props",
+    "People, clients or quotes you have no right to show: the defaults are Acme",
+    "A second plate button in a view"
+  ],
+  "source": "Built from the library's site items, after the site's app/privacy/page.tsx, app/accessibility/page.tsx.",
+  "body": "",
+  "requires": [
+    "page-head",
+    "row",
+    "site-footer",
+    "site-header",
+    "skeleton"
+  ],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/pages/LegalPage.tsx",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { PageHead } from '@/react/components/site/PageHead'\nimport { Row } from '@/react/components/site/Row'\nimport { legalContent, legalSections, type LegalContent, type LegalSection } from '@/lib/pages/legal'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// A legal page from library items (app/privacy, app/accessibility): the head (the title in white, when it changed in\n// mid), then titled rows of dim running copy in a 36rem reading measure. `content` replaces the copy (lib/pages/legal.ts).\nexport interface LegalPageProps {\n  content?: LegalContent\n  sections?: readonly LegalSection[]\n  className?: string\n}\n\nexport function LegalPage({ content: c = legalContent, sections, className }: LegalPageProps) {\n  const parts: Record<LegalSection, ReactNode> = {\n    head: <PageHead id=\"legal\" lead={c.lead} rest={c.rest} />,\n    body: <div className=\"mx-auto max-w-(--ds-layout-page)\">{c.sections.map((s) => <Row key={s.title} label={s.title} titled><p className=\"max-w-(--ds-layout-measure) type-body text-fg-soft\">{s.body}</p></Row>)}</div>,\n  }\n  return (\n    <div data-ds=\"legal-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(legalSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default LegalPage\n"
+    },
+    {
+      "path": "lib/pages/legal.ts",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The legal page template's copy (app/privacy, app/accessibility): the title and when it changed, then titled rows.\n// Placeholder text: write your own terms.\nexport const legalContent = {\n\theader,\n\tlead: 'Privacy Policy.',\n\trest: 'Updated May 2026.',\n\tsections: [\n\t\t{ title: 'What we collect', body: 'Acme collects the details you send us when you write or book a call, and nothing else.' },\n\t\t{ title: 'How we use it', body: 'To reply to you and to run the partnership you ask about. We never sell it.' },\n\t\t{ title: 'Your choices', body: 'Write to hello@acme.com to see, correct or delete what we hold about you.' },\n\t],\n\tfooter,\n}\nexport type LegalContent = typeof legalContent\nexport const legalSections = ['head', 'body'] as const\nexport type LegalSection = (typeof legalSections)[number]\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Page",
+      "label": "Legal page",
+      "center": false,
+      "half": false,
+      "bleed": true,
+      "path": "react/examples/legal-page/Page.tsx",
+      "content": "import { LegalPage } from '@/react/components/pages/LegalPage'\n// The legal page with its default copy.\n\nexport default function Page() {\n  return <LegalPage />\n}\n",
+      "requires": [
+        "page-head",
+        "row",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/pages/LegalPage.tsx",
+          "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/react/components/site/SiteHeader'\nimport { SiteFooter } from '@/react/components/site/SiteFooter'\nimport { PageHead } from '@/react/components/site/PageHead'\nimport { Row } from '@/react/components/site/Row'\nimport { legalContent, legalSections, type LegalContent, type LegalSection } from '@/lib/pages/legal'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/react/lib/cn'\n\n// A legal page from library items (app/privacy, app/accessibility): the head (the title in white, when it changed in\n// mid), then titled rows of dim running copy in a 36rem reading measure. `content` replaces the copy (lib/pages/legal.ts).\nexport interface LegalPageProps {\n  content?: LegalContent\n  sections?: readonly LegalSection[]\n  className?: string\n}\n\nexport function LegalPage({ content: c = legalContent, sections, className }: LegalPageProps) {\n  const parts: Record<LegalSection, ReactNode> = {\n    head: <PageHead id=\"legal\" lead={c.lead} rest={c.rest} />,\n    body: <div className=\"mx-auto max-w-(--ds-layout-page)\">{c.sections.map((s) => <Row key={s.title} label={s.title} titled><p className=\"max-w-(--ds-layout-measure) type-body text-fg-soft\">{s.body}</p></Row>)}</div>,\n  }\n  return (\n    <div data-ds=\"legal-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(legalSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default LegalPage\n"
+        },
+        {
+          "path": "lib/pages/legal.ts",
+          "content": "import { footer, header } from '@/lib/pages/chrome'\n// The legal page template's copy (app/privacy, app/accessibility): the title and when it changed, then titled rows.\n// Placeholder text: write your own terms.\nexport const legalContent = {\n\theader,\n\tlead: 'Privacy Policy.',\n\trest: 'Updated May 2026.',\n\tsections: [\n\t\t{ title: 'What we collect', body: 'Acme collects the details you send us when you write or book a call, and nothing else.' },\n\t\t{ title: 'How we use it', body: 'To reply to you and to run the partnership you ask about. We never sell it.' },\n\t\t{ title: 'Your choices', body: 'Write to hello@acme.com to see, correct or delete what we hold about you.' },\n\t],\n\tfooter,\n}\nexport type LegalContent = typeof legalContent\nexport const legalSections = ['head', 'body'] as const\nexport type LegalSection = (typeof legalSections)[number]\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "page-head",
+        "row",
+        "site-footer",
+        "site-header",
+        "skeleton"
+      ],
+      "api": {
+        "components": [
+          {
+            "name": "LegalPage",
+            "file": "react/components/pages/LegalPage.tsx",
+            "props": [
+              {
+                "name": "content",
+                "type": "LegalContent",
+                "required": false
+              },
+              {
+                "name": "sections",
+                "type": "readonly LegalSection[]",
+                "required": false
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Legal page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "react/examples/legal-page/Page.tsx",
+          "content": "import { LegalPage } from '@/react/components/pages/LegalPage'\n// The legal page with its default copy.\n\nexport default function Page() {\n  return <LegalPage />\n}\n",
+          "registryDependencies": [
+            "page-head",
+            "row",
+            "site-footer",
+            "site-header",
+            "skeleton"
+          ],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/pages/legal-page.ts",
+          "content": "import { html, nothing, type TemplateResult } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport { pageSections } from '@/lib/image'\nimport '@/elements/components/site/site-header'\nimport '@/elements/components/site/site-footer'\nimport '@/elements/components/site/page-head'\nimport '@/elements/components/site/row'\nimport styles from 'virtual:tw'\nimport { legalContent, legalSections, type LegalContent, type LegalSection } from '@/lib/pages/legal'\n\n// LegalPage.tsx as <agd-legal-page>: the head, then titled rows of running copy.\n\n/**\n * @summary The legal page template.\n */\nexport class LegalPage extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"legal-page\"]'))\n\tstatic properties = { content: { type: Object }, sections: { type: Array } }\n\t/** The page's copy (lib/pages/legal.ts by default). */\n\tcontent: LegalContent = legalContent\n\t/** The sections to show, in order. */\n\tsections?: LegalSection[]\n\n\trender() {\n\t\tconst c = this.content\n\t\tconst parts: Record<LegalSection, TemplateResult | typeof nothing> = {\n\t\t\thead: html`<agd-page-head head-id=\"legal\" lead=${c.lead} rest=${c.rest}></agd-page-head>`,\n\t\t\tbody: html`<div class=\"mx-auto max-w-(--ds-layout-page)\">${c.sections.map((s) => html`<agd-row label=${s.title} titled><p class=\"max-w-(--ds-layout-measure) type-body text-fg-soft\">${s.body}</p></agd-row>`)}</div>`,\n\t\t}\n\t\tconst order = pageSections(legalSections, this.sections)\n\t\treturn html`<div data-ds=\"legal-page\" class=\"flex min-h-screen w-full flex-col bg-surface text-fg\"><agd-site-header .links=${c.header.links} .secondary=${c.header.secondary} .primary=${c.header.primary} email=${c.header.email}></agd-site-header><main class=\"flex-1\">${order.map((k) => parts[k])}</main><agd-site-footer .links=${c.footer.links}></agd-site-footer></div>`\n\t}\n}\n\ndefine('legal-page', LegalPage)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/legal-page.js",
+        "elements/site-header.js",
+        "elements/site-footer.js",
+        "elements/page-head.js",
+        "elements/row.js",
+        "elements/logo.js"
+      ],
+      "tag": "agd-legal-page",
+      "tags": [
+        "agd-legal-page"
+      ],
+      "dependencies": [],
+      "registryDependencies": [
+        "logo",
+        "page-head",
+        "row",
+        "site-footer",
+        "site-header"
+      ],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-legal-page",
+            "name": "LegalPage",
+            "module": "elements/legal-page.js",
+            "description": "The legal page template.",
+            "attributes": [
+              {
+                "name": "content",
+                "field": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; lead: string; rest: string; sections: { title: string; body: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "legalContent",
+                "description": "The page's copy (lib/pages/legal.ts by default)."
+              },
+              {
+                "name": "sections",
+                "field": "sections",
+                "type": "(\"head\" | \"body\")[] | undefined",
+                "description": "The sections to show, in order."
+              }
+            ],
+            "properties": [
+              {
+                "name": "content",
+                "type": "{ header: { links: { label: string; href: string; }[]; secondary: { label: string; href: string; }; primary: { label: string; href: string; }; email: string; }; lead: string; rest: string; sections: { title: string; body: string; }[]; footer: { links: { label: string; href: string; }[]; }; }",
+                "default": "legalContent",
+                "description": "The page's copy (lib/pages/legal.ts by default).",
+                "attribute": "content"
+              },
+              {
+                "name": "sections",
+                "type": "(\"head\" | \"body\")[] | undefined",
+                "description": "The sections to show, in order.",
+                "attribute": "sections"
+              }
+            ],
+            "events": [],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Page",
+          "label": "Legal page",
+          "center": false,
+          "half": false,
+          "bleed": true,
+          "path": "elements/examples/legal-page/Page.html",
+          "content": "<!-- The legal page with its default copy. -->\n<agd-legal-page></agd-legal-page>\n"
+        }
+      ]
+    }
+  }
+}

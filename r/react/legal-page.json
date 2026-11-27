@@ -1,0 +1,32 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "legal-page",
+  "type": "registry:block",
+  "title": "Legal page",
+  "description": "A legal page template from library items: the title in white and when it changed in mid, then titled rows of dim running copy.",
+  "dependencies": [],
+  "registryDependencies": [
+    "https://agencidev-ds.vercel.app/r/react/page-head.json",
+    "https://agencidev-ds.vercel.app/r/react/row.json",
+    "https://agencidev-ds.vercel.app/r/react/site-footer.json",
+    "https://agencidev-ds.vercel.app/r/react/site-header.json",
+    "https://agencidev-ds.vercel.app/r/react/skeleton.json"
+  ],
+  "files": [
+    {
+      "path": "components/pages/LegalPage.tsx",
+      "type": "registry:ui",
+      "content": "import { Fragment, type ReactNode } from 'react'\nimport { SiteHeader } from '@/components/site/SiteHeader'\nimport { SiteFooter } from '@/components/site/SiteFooter'\nimport { PageHead } from '@/components/site/PageHead'\nimport { Row } from '@/components/site/Row'\nimport { legalContent, legalSections, type LegalContent, type LegalSection } from '@/lib/pages/legal'\nimport { pageSections } from '@/lib/image'\nimport { cn } from '@/lib/cn'\n\n// A legal page from library items (app/privacy, app/accessibility): the head (the title in white, when it changed in\n// mid), then titled rows of dim running copy in a 36rem reading measure. `content` replaces the copy (lib/pages/legal.ts).\nexport interface LegalPageProps {\n  content?: LegalContent\n  sections?: readonly LegalSection[]\n  className?: string\n}\n\nexport function LegalPage({ content: c = legalContent, sections, className }: LegalPageProps) {\n  const parts: Record<LegalSection, ReactNode> = {\n    head: <PageHead id=\"legal\" lead={c.lead} rest={c.rest} />,\n    body: <div className=\"mx-auto max-w-(--ds-layout-page)\">{c.sections.map((s) => <Row key={s.title} label={s.title} titled><p className=\"max-w-(--ds-layout-measure) type-body text-fg-soft\">{s.body}</p></Row>)}</div>,\n  }\n  return (\n    <div data-ds=\"legal-page\" className={cn('flex min-h-screen w-full flex-col bg-surface text-fg', className)}>\n      <SiteHeader {...c.header} />\n      <main className=\"flex-1\">{pageSections(legalSections, sections).map((k) => <Fragment key={k}>{parts[k]}</Fragment>)}</main>\n      <SiteFooter links={c.footer.links} />\n    </div>\n  )\n}\n\nexport default LegalPage\n"
+    },
+    {
+      "path": "lib/pages/legal.ts",
+      "type": "registry:lib",
+      "content": "import { footer, header } from '@/lib/pages/chrome'\n// The legal page template's copy (app/privacy, app/accessibility): the title and when it changed, then titled rows.\n// Placeholder text: write your own terms.\nexport const legalContent = {\n\theader,\n\tlead: 'Privacy Policy.',\n\trest: 'Updated May 2026.',\n\tsections: [\n\t\t{ title: 'What we collect', body: 'Acme collects the details you send us when you write or book a call, and nothing else.' },\n\t\t{ title: 'How we use it', body: 'To reply to you and to run the partnership you ask about. We never sell it.' },\n\t\t{ title: 'Your choices', body: 'Write to hello@acme.com to see, correct or delete what we hold about you.' },\n\t],\n\tfooter,\n}\nexport type LegalContent = typeof legalContent\nexport const legalSections = ['head', 'body'] as const\nexport type LegalSection = (typeof legalSections)[number]\n"
+    },
+    {
+      "path": "lib/cn.ts",
+      "type": "registry:lib",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ]
+}

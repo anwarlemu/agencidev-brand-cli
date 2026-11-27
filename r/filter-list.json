@@ -1,0 +1,220 @@
+{
+  "name": "filter-list",
+  "title": "Filter list",
+  "type": "registry:ui",
+  "group": "site",
+  "description": "A single-choice filter: the options as 14px capitals in mid, the chosen one white, in a row or a column; color changes only, on pointer down.",
+  "use_for": "Choosing a department, a year or a kind of work above a list.",
+  "never": [
+    "Underlines, pills or fills for the chosen option: white is the mark",
+    "Several choices at once: it is a single choice"
+  ],
+  "source": "components/filter-list.tsx (gap-x-6 gap-y-1, text-sml uppercase, text-mid or text-white, PRESS_INK, aria-pressed in a fieldset).",
+  "body": "",
+  "requires": [],
+  "dependencies": [],
+  "files": [
+    {
+      "path": "react/components/site/FilterList.tsx",
+      "content": "'use client'\nimport { useState } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// A single-choice filter (components/filter-list.tsx): the options as 14px capitals in mid, the chosen one white, in a\n// row 24px apart (or a column from 640). Press feedback on pointer down; color only. A fieldset with its legend read.\nexport interface FilterListProps {\n  options: string[]\n  /** The chosen option (controlled). */\n  value?: string\n  /** The chosen option at first. */\n  defaultValue?: string\n  onValueChange?: (value: string) => void\n  /** What the filter chooses, for screen readers. */\n  label: string\n  /** row, or a column from 640. */\n  layout?: 'row' | 'column'\n  className?: string\n}\n\nexport function FilterList({ options, value, defaultValue, onValueChange, label, layout = 'row', className }: FilterListProps) {\n  const [own, setOwn] = useState(defaultValue ?? options[0] ?? '')\n  const chosen = value ?? own\n  const pick = (o: string) => {\n    if (value === undefined) setOwn(o)\n    onValueChange?.(o)\n  }\n  return (\n    <fieldset data-ds=\"filter-list\" className={cn('flex min-w-0 flex-wrap', layout === 'row' ? 'gap-x-6 gap-y-1' : 'gap-x-5 gap-y-1 sm:flex-col sm:items-start', className)}>\n      <legend className=\"sr-only\">{label}</legend>\n      {options.map((o) => (\n        <button key={o} type=\"button\" aria-pressed={chosen === o} onClick={() => pick(o)} className={cn('py-1 text-left type-ui uppercase transition-colors duration-150 ease-standard active:text-action-press-ink active:transition-none', chosen === o ? 'text-fg' : 'text-fg-muted hover:text-fg')}>{o}</button>\n      ))}\n    </fieldset>\n  )\n}\n\nexport default FilterList\n"
+    },
+    {
+      "path": "react/lib/cn.ts",
+      "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+    }
+  ],
+  "examples": [
+    {
+      "name": "Departments",
+      "label": "A row",
+      "center": true,
+      "half": false,
+      "path": "react/examples/filter-list/Departments.tsx",
+      "content": "import { FilterList } from '@/react/components/site/FilterList'\n// The departments as a row of capitals, All chosen.\n\nexport default function Departments() {\n  return <FilterList label=\"Department\" options={['All', 'Design', 'Engineering', 'Strategy']} />\n}\n",
+      "requires": [],
+      "packages": []
+    }
+  ],
+  "flavors": {
+    "react": {
+      "files": [
+        {
+          "path": "react/components/site/FilterList.tsx",
+          "content": "'use client'\nimport { useState } from 'react'\nimport { cn } from '@/react/lib/cn'\n\n// A single-choice filter (components/filter-list.tsx): the options as 14px capitals in mid, the chosen one white, in a\n// row 24px apart (or a column from 640). Press feedback on pointer down; color only. A fieldset with its legend read.\nexport interface FilterListProps {\n  options: string[]\n  /** The chosen option (controlled). */\n  value?: string\n  /** The chosen option at first. */\n  defaultValue?: string\n  onValueChange?: (value: string) => void\n  /** What the filter chooses, for screen readers. */\n  label: string\n  /** row, or a column from 640. */\n  layout?: 'row' | 'column'\n  className?: string\n}\n\nexport function FilterList({ options, value, defaultValue, onValueChange, label, layout = 'row', className }: FilterListProps) {\n  const [own, setOwn] = useState(defaultValue ?? options[0] ?? '')\n  const chosen = value ?? own\n  const pick = (o: string) => {\n    if (value === undefined) setOwn(o)\n    onValueChange?.(o)\n  }\n  return (\n    <fieldset data-ds=\"filter-list\" className={cn('flex min-w-0 flex-wrap', layout === 'row' ? 'gap-x-6 gap-y-1' : 'gap-x-5 gap-y-1 sm:flex-col sm:items-start', className)}>\n      <legend className=\"sr-only\">{label}</legend>\n      {options.map((o) => (\n        <button key={o} type=\"button\" aria-pressed={chosen === o} onClick={() => pick(o)} className={cn('py-1 text-left type-ui uppercase transition-colors duration-150 ease-standard active:text-action-press-ink active:transition-none', chosen === o ? 'text-fg' : 'text-fg-muted hover:text-fg')}>{o}</button>\n      ))}\n    </fieldset>\n  )\n}\n\nexport default FilterList\n"
+        },
+        {
+          "path": "react/lib/cn.ts",
+          "content": "// Joins class names, skipping falsy ones: cn('a', on && 'b', ['c', undefined]). It does not merge conflicting\n// utilities (no tailwind-merge), as Vue's class binding does not: the library's classes are written not to compete,\n// and a className from the caller is appended after them, as Vue appends a fallthrough class.\nexport type ClassValue = string | false | null | undefined | 0 | ClassValue[]\n\nexport function cn(...values: ClassValue[]): string {\n\tconst out: string[] = []\n\tfor (const v of values) {\n\t\tif (!v) continue\n\t\tif (Array.isArray(v)) {\n\t\t\tconst s = cn(...v)\n\t\t\tif (s) out.push(s)\n\t\t}\n\t\telse out.push(v)\n\t}\n\treturn out.join(' ')\n}\n"
+        }
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "components": [
+          {
+            "name": "FilterList",
+            "file": "react/components/site/FilterList.tsx",
+            "props": [
+              {
+                "name": "options",
+                "type": "string[]",
+                "required": true
+              },
+              {
+                "name": "value",
+                "type": "string",
+                "required": false,
+                "description": "The chosen option (controlled)."
+              },
+              {
+                "name": "defaultValue",
+                "type": "string",
+                "required": false,
+                "description": "The chosen option at first."
+              },
+              {
+                "name": "onValueChange",
+                "type": "(value: string) => void",
+                "required": false
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "required": true,
+                "description": "What the filter chooses, for screen readers."
+              },
+              {
+                "name": "layout",
+                "type": "'row' | 'column'",
+                "required": false,
+                "default": "'row'",
+                "description": "row, or a column from 640."
+              },
+              {
+                "name": "className",
+                "type": "string",
+                "required": false
+              }
+            ]
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Departments",
+          "label": "A row",
+          "center": true,
+          "half": false,
+          "path": "react/examples/filter-list/Departments.tsx",
+          "content": "import { FilterList } from '@/react/components/site/FilterList'\n// The departments as a row of capitals, All chosen.\n\nexport default function Departments() {\n  return <FilterList label=\"Department\" options={['All', 'Design', 'Engineering', 'Strategy']} />\n}\n",
+          "registryDependencies": [],
+          "dependencies": []
+        }
+      ]
+    },
+    "elements": {
+      "files": [
+        {
+          "path": "elements/components/site/filter-list.ts",
+          "content": "import { html } from 'lit'\nimport { DsElement, define, HostLayoutController } from '@/elements/lib/element'\nimport styles from 'virtual:tw'\n\n// FilterList.tsx as <agd-filter-list>: a single-choice filter, the options as 14px capitals in mid and the chosen one\n// white. `value` is the chosen option; picking one sets it and fires input and change.\n\n/**\n * @summary A single-choice filter in capitals.\n * @fires change - When an option is picked (value is the option).\n */\nexport class FilterList extends DsElement {\n\tstatic styles = [DsElement.styles, styles]\n\tprotected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds=\"filter-list\"]'))\n\tstatic properties = { options: { type: Array }, value: { reflect: true }, label: {}, arrange: {} }\n\t/** The options. */\n\toptions: string[] = []\n\t/** The chosen option (the first by default). */\n\tvalue?: string\n\t/** What the filter chooses, for screen readers. */\n\tlabel = ''\n\t/** row, or column from 640 (React's `layout`). */\n\tarrange: 'row' | 'column' = 'row'\n\n\trender() {\n\t\tconst options = this.options ?? []\n\t\tconst chosen = this.value ?? options[0] ?? ''\n\t\treturn html`<fieldset data-ds=\"filter-list\" class=${`flex min-w-0 flex-wrap ${this.arrange === 'column' ? 'gap-x-5 gap-y-1 sm:flex-col sm:items-start' : 'gap-x-6 gap-y-1'}`}><legend class=\"sr-only\">${this.label}</legend>${options.map((o) => html`<button type=\"button\" aria-pressed=${String(chosen === o)} @click=${() => this.commit(o)} class=${`py-1 text-left type-ui uppercase transition-colors duration-150 ease-standard active:text-action-press-ink active:transition-none ${chosen === o ? 'text-fg' : 'text-fg-muted hover:text-fg'}`}>${o}</button>`)}</fieldset>`\n\t}\n}\n\ndefine('filter-list', FilterList)\n"
+        }
+      ],
+      "modules": [
+        "elements/shared.js",
+        "elements/filter-list.js"
+      ],
+      "tag": "agd-filter-list",
+      "tags": [
+        "agd-filter-list"
+      ],
+      "dependencies": [],
+      "registryDependencies": [],
+      "api": {
+        "elements": [
+          {
+            "tag": "agd-filter-list",
+            "name": "FilterList",
+            "module": "elements/filter-list.js",
+            "description": "A single-choice filter in capitals.",
+            "attributes": [
+              {
+                "name": "options",
+                "field": "options",
+                "type": "string[]",
+                "default": "[]",
+                "description": "The options."
+              },
+              {
+                "name": "value",
+                "field": "value",
+                "type": "string | undefined",
+                "description": "The chosen option (the first by default)."
+              },
+              {
+                "name": "label",
+                "field": "label",
+                "type": "string",
+                "default": "''",
+                "description": "What the filter chooses, for screen readers."
+              },
+              {
+                "name": "arrange",
+                "field": "arrange",
+                "type": "\"row\" | \"column\"",
+                "default": "'row'",
+                "description": "row, or column from 640 (React's `layout`)."
+              }
+            ],
+            "properties": [
+              {
+                "name": "options",
+                "type": "string[]",
+                "default": "[]",
+                "description": "The options.",
+                "attribute": "options"
+              },
+              {
+                "name": "value",
+                "type": "string | undefined",
+                "description": "The chosen option (the first by default).",
+                "attribute": "value"
+              },
+              {
+                "name": "label",
+                "type": "string",
+                "default": "''",
+                "description": "What the filter chooses, for screen readers.",
+                "attribute": "label"
+              },
+              {
+                "name": "arrange",
+                "type": "\"row\" | \"column\"",
+                "default": "'row'",
+                "description": "row, or column from 640 (React's `layout`).",
+                "attribute": "arrange"
+              }
+            ],
+            "events": [
+              {
+                "name": "change",
+                "description": "When an option is picked (value is the option)."
+              }
+            ],
+            "slots": [],
+            "methods": []
+          }
+        ]
+      },
+      "examples": [
+        {
+          "name": "Departments",
+          "label": "A row",
+          "center": true,
+          "half": false,
+          "path": "elements/examples/filter-list/Departments.html",
+          "content": "<!-- The departments as a row of capitals, All chosen. -->\n<agd-filter-list label=\"Department\" options='[\"All\",\"Design\",\"Engineering\",\"Strategy\"]'></agd-filter-list>\n"
+        }
+      ]
+    }
+  }
+}
