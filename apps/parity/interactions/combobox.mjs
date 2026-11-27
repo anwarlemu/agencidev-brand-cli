@@ -10,7 +10,7 @@ export default [
 	{ example: 'Category', key: 'ArrowDown', wait: 400, label: 'ArrowDown on the trigger opens it on the pick' },
 	{ example: 'Category', key: 'Escape', wait: 300, label: 'Escape closes it, focus on the trigger' },
 	{ example: 'Format', click: 'role=button[name="Format"]', wait: 400, shot: true, label: 'a click opens the listbox' },
-	{ example: 'Format', key: 'c', wait: 200, label: 'c jumps to Carousel' },
-	{ example: 'Format', hover: 'role=option[name=/Image/]', wait: 300, shot: true, label: 'the pointer moves the highlight' },
+	{ example: 'Format', key: 'b', wait: 200, label: 'b jumps to Build' },
+	{ example: 'Format', hover: 'role=option[name=/Design/]', wait: 300, shot: true, label: 'the pointer moves the highlight' },
 	{ example: 'Format', key: 'Enter', wait: 400, shot: true, label: 'Enter picks and closes' },
 ]

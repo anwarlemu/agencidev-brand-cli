@@ -14,7 +14,7 @@ export default [
 	{ key: 'Enter', wait: 400, shot: true, label: 'Enter copies (the line says so) and closes, focus back on the row' },
 	{ key: 'Shift+F10', wait: 300, label: 'open again' },
 	{ key: 'Tab', wait: 300, label: 'Tab closes it' },
-	{ click: 'text=Acme summer UGC, before and after', button: 'right', wait: 500, label: 'open with a right-click' },
+	{ click: 'text=Signup, second step', button: 'right', wait: 500, label: 'open with a right-click' },
 	{ hover: 'role=menuitem[name=/Remove/]', wait: 300, shot: true, label: 'the row under the pointer takes the danger fill' },
 	{ clickAt: [1300, 600], wait: 300, label: 'a press outside closes it' },
 ]

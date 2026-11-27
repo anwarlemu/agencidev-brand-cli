@@ -12,7 +12,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'form'
 
 const VARIANTS: Record<ButtonVariant, string> = {
-	primary: 'bg-action-primary text-action-primary-fg hover:not-disabled:bg-action-primary-hover hover:not-disabled:text-action-primary-fg-hover active:not-disabled:bg-action-primary-press active:not-disabled:text-fg-inverse active:transition-none',
+	primary: 'bg-action-primary text-action-primary-fg disabled:bg-action-disabled hover:not-disabled:bg-action-primary-hover hover:not-disabled:text-action-primary-fg-hover active:not-disabled:bg-action-primary-press active:not-disabled:text-fg-inverse active:transition-none',
 	secondary: 'bg-action-secondary text-action-secondary-fg hover:not-disabled:text-action-secondary-fg-hover active:not-disabled:text-action-press-ink active:transition-none',
 	ghost: 'bg-transparent text-fg hover:not-disabled:bg-action-ghost-hover active:not-disabled:bg-action-ghost-hover active:transition-none',
 }
@@ -41,7 +41,7 @@ export interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement
 }
 
 export function buttonClasses({ variant = 'primary', size = 'md', icon }: Pick<ButtonProps, 'variant' | 'size' | 'icon'> = {}) {
-  return cn('inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg', SIZES[size], icon ? SQUARE[size] : PADDING[size], VARIANTS[variant])
+  return cn('inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:text-action-disabled-fg', SIZES[size], icon ? SQUARE[size] : PADDING[size], VARIANTS[variant])
 }
 
 export function Button({ variant = 'primary', size = 'md', icon, href, type = 'button', disabled, className, children, ref, ...rest }: ButtonProps) {

@@ -13,5 +13,5 @@ source: "shadcn's toggle group, drawn in the Agencidev tokens (brand/tokens.css,
 files:
   - react/components/ui/ToggleGroup.tsx
 examples:
-  - "Formats | Several or one | center"
+  - "Disciplines | Several or one | center"
 ---

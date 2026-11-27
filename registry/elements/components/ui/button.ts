@@ -16,7 +16,7 @@ const MOVED = ['aria-expanded', 'aria-haspopup', 'aria-controls']
 const FIELD: Record<string, 'expanded' | 'haspopup' | 'controls'> = { 'aria-expanded': 'expanded', 'aria-haspopup': 'haspopup', 'aria-controls': 'controls' }
 
 const VARIANTS: Record<ButtonVariant, string> = {
-	primary: 'bg-action-primary text-action-primary-fg hover:not-disabled:bg-action-primary-hover hover:not-disabled:text-action-primary-fg-hover active:not-disabled:bg-action-primary-press active:not-disabled:text-fg-inverse active:transition-none',
+	primary: 'bg-action-primary text-action-primary-fg disabled:bg-action-disabled hover:not-disabled:bg-action-primary-hover hover:not-disabled:text-action-primary-fg-hover active:not-disabled:bg-action-primary-press active:not-disabled:text-fg-inverse active:transition-none',
 	secondary: 'bg-action-secondary text-action-secondary-fg hover:not-disabled:text-action-secondary-fg-hover active:not-disabled:text-action-press-ink active:transition-none',
 	ghost: 'bg-transparent text-fg hover:not-disabled:bg-action-ghost-hover active:not-disabled:bg-action-ghost-hover active:transition-none',
 }
@@ -107,7 +107,7 @@ export class Button extends DsFormElement {
 	render() {
 		const size = SIZES[this.size] ? this.size : 'md'
 		const classes = [
-			'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg',
+			'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:text-action-disabled-fg',
 			SIZES[size],
 			this.icon ? SQUARE[size] : PADDING[size],
 			VARIANTS[this.variant] ?? VARIANTS.primary,

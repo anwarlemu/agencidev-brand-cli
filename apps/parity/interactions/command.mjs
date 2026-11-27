@@ -15,8 +15,8 @@ export default [
 	{ example: 'Palette', key: 'ArrowDown', wait: 100, label: 'ArrowDown moves the highlight' },
 	{ example: 'Palette', key: 'Escape', wait: 300, label: 'Escape closes it, focus back on the button' },
 	{ example: 'Palette', key: 'Control+k', wait: 300, label: 'Ctrl+K opens it, the field empty' },
-	{ example: 'Palette', type: 'brand', wait: 200, shot: true, label: 'typing filters' },
-	{ example: 'Palette', key: 'Enter', wait: 300, shot: true, label: 'Enter runs Track a brand and closes' },
+	{ example: 'Palette', type: 'enquiry', wait: 200, shot: true, label: 'typing filters' },
+	{ example: 'Palette', key: 'Enter', wait: 300, shot: true, label: 'Enter runs New enquiry and closes' },
 	{ example: 'Palette', click: 'role=button[name=/Search Agencidev/]', wait: 300, label: 'open it again' },
 	{ example: 'Palette', clickAt: [8, 8], wait: 300, label: 'a press on the scrim closes it' },
 ]

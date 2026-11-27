@@ -15,5 +15,5 @@ export default [
 	{ example: 'Actions', hover: 'role=menuitem[name=/Download/]', wait: 300, shot: true, label: 'the row under the pointer takes the #262626 fill' },
 	{ example: 'Actions', clickAt: [1300, 600], wait: 300, label: 'a click outside closes it' },
 	{ example: 'Sort', click: 'role=button[name=/Sort/]', wait: 400, shot: true, label: 'a click opens the sort menu' },
-	{ example: 'Sort', click: 'role=menuitemradio[name=/Most engagement/]', wait: 300, shot: true, label: 'picking a row checks it and the trigger says so' },
+	{ example: 'Sort', click: 'role=menuitemradio[name=/Most screens/]', wait: 300, shot: true, label: 'picking a row checks it and the trigger says so' },
 ]
