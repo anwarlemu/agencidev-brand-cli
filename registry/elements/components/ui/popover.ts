@@ -1,5 +1,4 @@
 import { html, nothing, type PropertyValues } from 'lit'
-import { followGlow } from '@/lib/glow'
 import { DsElement, define, uid } from '@/elements/lib/element'
 import { firstFocusable, PopoverController, popoverStyles, type Align, type Side } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
@@ -12,7 +11,7 @@ import styles from 'virtual:tw'
 // viewport, in the top layer. `open` (reflected) with `open-change`; close() closes it.
 
 // Button.tsx's classes for a small secondary button, in its order.
-const TRIGGER = 'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-out relative isolate overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:bg-[radial-gradient(circle_var(--ds-glow-radius)_at_var(--glow-x,50%)_var(--glow-y,50%),var(--ds-color-action-glow),transparent)] before:opacity-0 before:transition-opacity before:duration-250 before:ease-out hover:not-disabled:before:opacity-100 disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg h-control-sm gap-1.5 type-ui-strong px-3 bg-action-secondary text-action-secondary-fg shadow-[inset_0_0_0_var(--ds-border-hairline)_var(--ds-color-action-secondary-edge)] hover:not-disabled:bg-action-secondary-hover'
+const TRIGGER = 'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg h-control-sm gap-1.5 type-ui px-4 bg-action-secondary text-action-secondary-fg hover:not-disabled:text-action-secondary-fg-hover active:not-disabled:text-action-press-ink active:transition-none'
 
 /**
  * @summary A panel for any content, opened from a button.
@@ -98,7 +97,7 @@ export class Popover extends DsElement {
 		const own = !!this.querySelector(':scope > button[slot="trigger"]')
 		const trigger = own
 			? html`<slot name="trigger"></slot>`
-			: html`<button data-ds="popover" data-trigger type="button" class=${TRIGGER} aria-haspopup="dialog" aria-expanded=${String(this.pop.open)} aria-controls=${this.pop.open ? this.panelId : nothing} aria-label=${this.triggerLabel ?? nothing} @click=${this.onClick} @pointermove=${(event: PointerEvent) => followGlow(event.currentTarget as HTMLElement, event)}><slot name="trigger"></slot></button>`
+			: html`<button data-ds="popover" data-trigger type="button" class=${TRIGGER} aria-haspopup="dialog" aria-expanded=${String(this.pop.open)} aria-controls=${this.pop.open ? this.panelId : nothing} aria-label=${this.triggerLabel ?? nothing} @click=${this.onClick}><slot name="trigger"></slot></button>`
 		const panel = this.pop.rendered
 			? html`<div data-ds="popover" id=${this.panelId} popover="manual" class="ds-pop p-4 fade-y" role="dialog" aria-label=${this.label} tabindex="-1" data-side=${this.pop.pos.side} ?data-instant=${this.pop.instant} ?data-placed=${this.pop.pos.placed} style=${this.pop.style(`width: ${this.width}`)} @focusout=${this.pop.onFocusOut}><slot></slot></div>`
 			: nothing

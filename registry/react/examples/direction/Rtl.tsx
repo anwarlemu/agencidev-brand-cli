@@ -9,7 +9,7 @@ function Sample() {
     <div className="flex flex-col gap-3 rounded-container bg-surface-raised p-6">
       <Breadcrumb items={[{ label: 'Boards', href: '#boards' }, { label: 'Acme skincare' }]} />
       <div className="flex items-center gap-2">
-        <Badge variant="outline" dot="green">Running</Badge>
+        <Badge variant="outline" dot="on">Running</Badge>
         <span className="type-ui text-fg-muted">since March</span>
       </div>
       <code className="self-start rounded-ds-sm bg-surface px-2 py-1 type-code text-fg-muted">board_8f2k1</code>

@@ -2,13 +2,12 @@ import { html } from 'lit'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { DsFormElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
-import { followGlow } from '@/lib/glow'
 
-// Button.tsx as a web component, <agd-button>: a White fill with a Black DM Sans Medium label for the one main
-// action, secondary (the site's quiet button: #1A1A1A in a #363636 ring) for the rest, ghost for tools in rows. Sizes
-// sm (32px), md (40px) and lg (56px); `icon` makes it square. Under a mouse a White glow follows the pointer and the
-// fill changes; it does not scale on press (the site's buttons do not). `href` renders a link. It is form-associated: type="submit" submits its form, type="reset" resets it. aria-label,
-// aria-description, aria-expanded, aria-haspopup and aria-controls on it pass to the inner button.
+// Button.tsx as a web component, <agd-button>: the plate (#252525, white 12px capitals, the 4px corner) for the main
+// action, secondary (the quiet button: bare dim ink that turns white) for the rest, ghost for tools in rows. Press
+// feedback lands on pointer down; hover and press change color only. `href` renders a link. It is form-associated:
+// type="submit" submits its form, type="reset" resets it. aria-label, aria-description, aria-expanded, aria-haspopup
+// and aria-controls on it pass to the inner button.
 export type ButtonVariant = 'primary' | 'secondary' | 'ghost'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'form'
 
@@ -17,26 +16,23 @@ const MOVED = ['aria-expanded', 'aria-haspopup', 'aria-controls']
 const FIELD: Record<string, 'expanded' | 'haspopup' | 'controls'> = { 'aria-expanded': 'expanded', 'aria-haspopup': 'haspopup', 'aria-controls': 'controls' }
 
 const VARIANTS: Record<ButtonVariant, string> = {
-	primary: 'bg-action-primary text-action-primary-fg hover:not-disabled:bg-action-primary-hover',
-	secondary: 'bg-action-secondary text-action-secondary-fg shadow-[inset_0_0_0_var(--ds-border-hairline)_var(--ds-color-action-secondary-edge)] hover:not-disabled:bg-action-secondary-hover',
-	ghost: 'bg-transparent text-fg hover:not-disabled:bg-action-ghost-hover',
+	primary: 'bg-action-primary text-action-primary-fg hover:not-disabled:bg-action-primary-hover hover:not-disabled:text-action-primary-fg-hover active:not-disabled:bg-action-primary-press active:not-disabled:text-fg-inverse active:transition-none',
+	secondary: 'bg-action-secondary text-action-secondary-fg hover:not-disabled:text-action-secondary-fg-hover active:not-disabled:text-action-press-ink active:transition-none',
+	ghost: 'bg-transparent text-fg hover:not-disabled:bg-action-ghost-hover active:not-disabled:bg-action-ghost-hover active:transition-none',
 }
 const SIZES: Record<ButtonSize, string> = {
-	xs: 'h-control-xs gap-1.5 type-ui-strong',
-	sm: 'h-control-sm gap-1.5 type-ui-strong',
-	md: 'h-control-md gap-2 type-ui-strong',
-	lg: 'h-control-lg gap-2 type-body-lg font-medium',
-	form: 'h-control-form gap-3 type-body font-medium',
+	xs: 'h-control-xs gap-1.5 type-label',
+	sm: 'h-control-sm gap-1.5 type-ui',
+	md: 'h-control-md gap-2 type-label',
+	lg: 'h-control-lg gap-2 type-label',
+	form: 'h-control-form gap-3 type-label',
 }
-// The site's glow (globals.css .btn::before): a gradient layer under the label at the pointer, shown on hover only.
-const GLOW =
-  'relative isolate overflow-hidden before:pointer-events-none before:absolute before:inset-0 before:-z-1 before:bg-[radial-gradient(circle_var(--ds-glow-radius)_at_var(--glow-x,50%)_var(--glow-y,50%),var(--ds-color-action-glow),transparent)] before:opacity-0 before:transition-opacity before:duration-250 before:ease-out hover:not-disabled:before:opacity-100'
 // One padding class per button, so a square button's 0 never competes with a label's padding in the stylesheet.
-const PADDING: Record<ButtonSize, string> = { xs: 'px-4', sm: 'px-3', md: 'px-4', lg: 'px-8', form: 'px-4' }
+const PADDING: Record<ButtonSize, string> = { xs: 'px-3', sm: 'px-4', md: 'px-6', lg: 'px-10', form: 'px-6' }
 const SQUARE: Record<ButtonSize, string> = { xs: 'w-control-xs px-0', sm: 'w-control-sm px-0', md: 'w-control-md px-0', lg: 'w-control-lg px-0', form: 'w-control-form px-0' }
 
 /**
- * @summary An action: primary (White) by default, secondary or ghost; three sizes; `icon` for a square icon button.
+ * @summary An action: primary (the plate) by default, secondary (quiet) or ghost; `icon` for a square icon button.
  * @slot - The label, with a Lucide icon beside it if any.
  * @fires click - When pressed (the native click, from the inner button).
  * @csspart control - The inner button or link.
@@ -63,9 +59,9 @@ export class Button extends DsFormElement {
 		return [...super.observedAttributes, ...MOVED]
 	}
 
-	/** primary (White), secondary or ghost. */
+	/** primary (the plate), secondary (quiet) or ghost. */
 	variant: ButtonVariant = 'primary'
-	/** xs (36px, the site header's), sm (32px), md (40px), lg (56px) or form (48px, a short form's buttons, full width). */
+	/** xs (28px), sm (36px), md (48px, the site's), lg (48px, wider) or form (48px, full width). */
 	size: ButtonSize = 'md'
 	/** A square icon button (put the name in aria-label). */
 	icon = false
@@ -102,10 +98,6 @@ export class Button extends DsFormElement {
 		}
 	}
 
-	private onMove(event: PointerEvent) {
-		followGlow(event.currentTarget as HTMLElement, event)
-	}
-
 	private onClick() {
 		if (this.inactive || this.href) return
 		if (this.type === 'submit') this.form?.requestSubmit()
@@ -115,17 +107,14 @@ export class Button extends DsFormElement {
 	render() {
 		const size = SIZES[this.size] ? this.size : 'md'
 		const classes = [
-			'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none',
-			'transition-[background-color,color] duration-150 ease-out',
-			GLOW,
-			'disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg',
+			'inline-flex shrink-0 cursor-pointer items-center justify-center rounded-control whitespace-nowrap select-none transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:bg-action-disabled disabled:text-action-disabled-fg',
 			SIZES[size],
 			this.icon ? SQUARE[size] : PADDING[size],
 			VARIANTS[this.variant] ?? VARIANTS.primary,
 		].join(' ')
 		return this.href
-			? html`<a data-ds="${this.rootName}" part="control" href=${this.href} class=${classes} aria-label=${ifDefined(this.label)} aria-description=${ifDefined(this.description)} aria-expanded=${ifDefined(this.expanded)} aria-haspopup=${ifDefined(this.haspopup as never)} @pointermove=${this.onMove}><slot></slot></a>`
-			: html`<button data-ds="${this.rootName}" part="control" type="button" ?disabled=${this.inactive} class=${classes} aria-label=${ifDefined(this.label)} aria-description=${ifDefined(this.description)} aria-expanded=${ifDefined(this.expanded)} aria-haspopup=${ifDefined(this.haspopup as never)} @click=${this.onClick} @pointermove=${this.onMove}><slot></slot></button>`
+			? html`<a data-ds="${this.rootName}" part="control" href=${this.href} class=${classes} aria-label=${ifDefined(this.label)} aria-description=${ifDefined(this.description)} aria-expanded=${ifDefined(this.expanded)} aria-haspopup=${ifDefined(this.haspopup as never)}><slot></slot></a>`
+			: html`<button data-ds="${this.rootName}" part="control" type="button" ?disabled=${this.inactive} class=${classes} aria-label=${ifDefined(this.label)} aria-description=${ifDefined(this.description)} aria-expanded=${ifDefined(this.expanded)} aria-haspopup=${ifDefined(this.haspopup as never)} @click=${this.onClick}><slot></slot></button>`
 	}
 }
 

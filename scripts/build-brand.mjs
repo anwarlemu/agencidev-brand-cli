@@ -165,7 +165,7 @@ const type = {
 	ui: ['text', 'ui', 'regular'],
 	'ui-strong': ['text', 'ui', 'medium'],
 	caption: ['text', 'caption', 'regular'],
-	label: ['text', 'label', 'medium', 'label'],
+	label: ['text', 'label', 'regular', 'label'],
 	code: ['code', 'ui', 'regular'],
 };
 const utilities = Object.entries(type).map(([name, [font, size, weight, tracking]]) => {

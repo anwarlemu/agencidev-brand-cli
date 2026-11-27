@@ -3,14 +3,13 @@ name: badge
 title: Badge
 type: registry:ui
 group: ui
-description: "A short label for a state or a kind, in DM Sans Medium capitals with 6% tracking: White, #262626, a hairline, or a red wash. A small spectrum dot can lead it."
-use_for: "A creative's format or status, a plan's \"New\", a count beside a tab."
+description: "A short label for a state or a kind in 12px capitals, square: the quiet fill (the site's chosen filter chip), the plate, a hairline, or a red wash. A small white or mid dot can lead it."
+use_for: "A filter's chosen option, a role's department, a state beside a title."
 never:
-  - "A spectrum color as the badge's fill: a dot is as far as color goes"
+  - "A color as the badge's fill or dot: the brand is monochrome"
   - "Color alone for the meaning: the word says it"
-  - "More than one White badge in a group"
   - "Sentences in a badge"
-source: "Derived from the guidelines: labels in DM Sans Medium capitals at 6%, Black and White first, spectrum colors as small accents only. shadcn's badge for variants."
+source: "The site's filter chips (components/careers-section.tsx, about-view.tsx: 12px capitals on white at 10%) and the 404 page's dot before its link. shadcn's badge for variants."
 files:
   - react/components/ui/Badge.tsx
 examples:

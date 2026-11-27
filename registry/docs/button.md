@@ -14,7 +14,6 @@ never:
 source: "Site globals.css .btn and controls.css (40px, 8px corner, quiet ring, glow); brand assets (Figma page 8): Button, Get 50% off (258x56, radius 10, White fill, Black DM Sans Medium 20px label); Button, Search (136x56); Button, Start Creator for 50% off (504x56)"
 files:
   - react/components/ui/Button.tsx
-  - lib/glow.ts
 examples:
   - "Variants | Variants | center"
   - "Sizes | Sizes | center"

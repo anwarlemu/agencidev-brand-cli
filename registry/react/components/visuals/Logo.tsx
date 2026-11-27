@@ -2,25 +2,28 @@ import type { CSSProperties } from 'react'
 import { LOGOS, type LogoVariant } from '@/lib/logos'
 import { cn } from '@/react/lib/cn'
 
-// The logo, from the brand's own files (lib/logos.ts, split from the Figma export, never redrawn): the logomark, the
-// 3D logomark, the wordmark and the horizontal, vertical and 3D combination marks. Black or White only: `tone` auto
-// takes the text color (White on Black, Black on White), or force white or black. Size it by `height` (px); its width
-// follows. Never stretch, recolor, outline, rotate or add effects to it.
+// The logo, from the site's own files (lib/logos.ts, split from public/agd-lockup.svg, never redrawn): the square
+// (the mark), the wordmark and the lockup (the square and the wordmark, as the bar and the footer set it). Black or
+// white only: `tone` auto takes the text color (white on the canvas, black on white), or force white or black. Size it
+// by `height` (px; the bar's lockup is 18, the footer's 20); its width follows. Keep clear space around it and never
+// recolor or distort it (the brand kit).
 export type LogoTone = 'auto' | 'white' | 'black'
 
 export interface LogoProps {
+  /** mark (the square), wordmark or horizontal (the lockup). */
   variant?: LogoVariant
+  /** auto (the text color), white or black. */
   tone?: LogoTone
-  /** Height in px (28 is the lockup on posts and ads at 183 by 28). */
+  /** Height in px (18 is the bar's lockup, 20 the footer's). */
   height?: number
   /** The accessible name. */
   label?: string
   className?: string
 }
 
-const TONES: Record<LogoTone, string> = { auto: 'text-fg', white: 'text-(--ds-color-white)', black: 'text-(--ds-color-black)' }
+const TONES: Record<LogoTone, string> = { auto: 'text-fg', white: 'text-(--ds-color-white)', black: 'text-(--ds-color-pure-black)' }
 
-export function Logo({ variant = 'horizontal', tone = 'auto', height = 28, label = 'Agencidev', className }: LogoProps) {
+export function Logo({ variant = 'horizontal', tone = 'auto', height = 18, label = 'Agencidev', className }: LogoProps) {
   const l = LOGOS[variant]
   const style: CSSProperties = { height: `${height}px`, width: `${Math.round(((height * l.width) / l.height) * 100) / 100}px` }
   return (

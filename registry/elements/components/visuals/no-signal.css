@@ -1,0 +1,2 @@
+/* The host is the box (NoSignal.tsx's root div), so a class on <agd-no-signal> lands on it as on <NoSignal>. */
+:host { @apply relative isolate block overflow-hidden bg-surface-sunken; }

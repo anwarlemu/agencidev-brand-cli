@@ -4,10 +4,10 @@ import { DsElement, define } from '@/elements/lib/element'
 import { LOGOS, type LogoVariant } from '@/lib/logos'
 import styles from 'virtual:tw'
 
-// Logo.tsx as <agd-logo>: every lockup from the brand's own files (lib/logos.ts), Black or White only. `tone`
-// auto takes the text color; `height` sizes it (px) and its width follows. Never stretched, recolored or outlined.
+// Logo.tsx as <agd-logo>: the square, the wordmark or the lockup from the site's own files (lib/logos.ts), black or
+// white only. `tone` auto takes the text color; `height` sizes it (px) and its width follows. Never recolored or distorted.
 export type LogoTone = 'auto' | 'white' | 'black'
-const TONES: Record<LogoTone, string> = { auto: 'text-fg', white: 'text-(--ds-color-white)', black: 'text-(--ds-color-black)' }
+const TONES: Record<LogoTone, string> = { auto: 'text-fg', white: 'text-(--ds-color-white)', black: 'text-(--ds-color-pure-black)' }
 
 /**
  * @summary The logo: a lockup from the brand's files.
@@ -15,12 +15,12 @@ const TONES: Record<LogoTone, string> = { auto: 'text-fg', white: 'text-(--ds-co
 export class Logo extends DsElement {
 	static styles = [DsElement.styles, styles]
 	static properties = { variant: {}, tone: {}, height: { type: Number }, label: { attribute: 'aria-label' } }
-	/** mark, wordmark, horizontal, vertical, mark-3d, horizontal-3d or vertical-3d. */
+	/** mark (the square), wordmark or horizontal (the lockup). */
 	variant: LogoVariant = 'horizontal'
 	/** auto (the text color), white or black. */
 	tone: LogoTone = 'auto'
 	/** Height in px. */
-	height = 28
+	height = 18
 	/** The accessible name (aria-label on the element). */
 	label = 'Agencidev'
 

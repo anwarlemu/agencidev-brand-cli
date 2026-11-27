@@ -2,24 +2,19 @@
 // about four steps, and the days under the bars. Framework-free.
 
 /**
- * The series colors in order: the neutrals first (White, #A3A3A3, #4D4D4D), then the spectrum in the order the brand
- * always shows it (Magenta, Red, Orange, Yellow, Green, Cyan, Blue). Ten series at most; the third is dashed, so a
- * dim gray line still reads, and every series is named in the legend.
+ * The series colors in order, monochrome as the brand is: white, mid (#909090), the subtle grey (#373737), dim
+ * (#B6B6B6), then the plate (#252525). Five series at most, told apart by dash too (every other one is dashed), and
+ * every series is named in the legend: color is never the only cue.
  */
 export const CHART_COLORS = [
 	'var(--ds-color-data-1)',
 	'var(--ds-color-data-2)',
 	'var(--ds-color-data-3)',
-	'var(--ds-color-magenta)',
-	'var(--ds-color-red)',
-	'var(--ds-color-orange)',
-	'var(--ds-color-yellow)',
-	'var(--ds-color-green)',
-	'var(--ds-color-cyan)',
-	'var(--ds-color-blue)',
+	'var(--ds-color-dim)',
+	'var(--ds-color-plate)',
 ] as const
 /** Each series' dash pattern (SVG stroke-dasharray), by the same index. */
-export const CHART_DASH = ['', '', '5 4', '', '', '', '', '', '', '']
+export const CHART_DASH = ['', '5 4', '', '2 3', '5 4']
 
 export type DayPoint = { day: string, value: number }
 export type LineSeries = { label: string, points: Array<{ t: number, v: number }> }
