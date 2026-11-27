@@ -1,0 +1,13 @@
+import { SiteHeader } from '@/react/components/site/SiteHeader'
+// The bar as the site sets it: the lockup and three sections, a quiet link and the plate button.
+
+export default function Bar() {
+  return (
+    <SiteHeader
+      links={[{ label: 'About', href: '#', current: true }, { label: 'Careers', href: '#' }, { label: 'Articles', href: '#' }]}
+      secondary={{ label: 'Send a message', href: '#' }}
+      primary={{ label: 'Book a call', href: '#' }}
+      email="hello@acme.com"
+    />
+  )
+}
