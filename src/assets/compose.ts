@@ -9,7 +9,7 @@ import { blockHeight, wrap } from '../image/text.js';
 
 // Open composition: the brand's blocks on a grid of the canvas, drawn by the same scene engine as the templates (the
 // same faces, static, buttons and checks). Every block is built from what the templates already draw, at the 1080
-// canvas's sizes times the canvas unit, which are the site's at 1.5 (brand/assets/layouts.mjs): heads in Agencidev Sans
+// canvas's sizes times the canvas unit, which are the site's at 1.5 (brand/assets/layouts.mjs): heads in the heading face
 // at leading 1.14 with an optional rest in mid (the two-tone statement), copy in dim, 12px capitals, square corners,
 // the plate button with its 4px corner, the 404 page's no-signal static; nothing here is a new value. A static or a
 // picture may carry the exact window a template gives it (`geometry`), which is how every template is recreated as
@@ -31,7 +31,7 @@ const ALIGN = ['left', 'center', 'right'];
 const VALIGN = ['top', 'center', 'bottom'];
 
 export const BLOCKS: BlockInfo[] = [
-	{ type: 'headline', names: ['title', 'heading', 'head', 'statement'], kind: 'text', description: 'Agencidev Sans at the display step, leading 1.14; `rest` runs on after it in mid on the same lines (the site\'s two-tone statement).', copy: [{ id: 'text', required: true }, { id: 'rest' }], options: [{ id: 'size', range: [16, 400] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 10, rows: 3 }, place: 'left', sample: { text: 'Product design thinking and implementation.', rest: 'We help YC startups design their brand, product, and websites.' } },
+	{ type: 'headline', names: ['title', 'heading', 'head', 'statement'], kind: 'text', description: 'The heading face at the display step, leading 1.14; `rest` runs on after it in mid on the same lines (the site\'s two-tone statement).', copy: [{ id: 'text', required: true }, { id: 'rest' }], options: [{ id: 'size', range: [16, 400] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 10, rows: 3 }, place: 'left', sample: { text: 'Product design thinking and implementation.', rest: 'We help YC startups design their brand, product, and websites.' } },
 	{ type: 'body', names: ['text', 'paragraph', 'copy', 'line'], kind: 'text', description: 'ABC Diatype running copy in dim.', copy: [{ id: 'text', required: true }], options: [{ id: 'size', range: [10, 120] }, { id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 8, rows: 2 }, place: 'left', sample: { text: 'Design partnerships for AI-first startups, cancellable anytime.' } },
 	{ type: 'eyebrow', names: ['label', 'kicker', 'overline'], kind: 'text', description: 'A label in 12px capitals, untracked, in dim (the bar\'s links).', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 1 }, place: 'top-left', sample: { text: 'Current openings' } },
 	{ type: 'badge', names: ['tag', 'chip', 'pill', 'filter'], kind: 'text', description: 'A short word in white capitals on the quiet fill, square (the site\'s chosen filter chip).', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 1 }, place: 'top-left', sample: { text: 'All' } },
@@ -39,11 +39,11 @@ export const BLOCKS: BlockInfo[] = [
 	{ type: 'picture', names: ['image', 'photo', 'creative', 'screenshot', 'strip'], kind: 'picture', description: 'A picture, square-cornered as the site sets its work. Without one it is the slat fill (to look at a layout). Tall narrow pictures in a row are the home rail.', copy: [], image: {}, options: [{ id: 'treatment', values: ['plain', 'frame'] }, { id: 'geometry' }], span: { cols: 6, rows: 6 }, place: 'right', under: true },
 	{ type: 'signal', names: ['static', 'noise', 'glitch', 'band', 'texture'], kind: 'art', description: 'The 404 page\'s no-signal static over its cells: `band` with the glitch band across the middle, `field` the static alone. Keep words off the band.', copy: [], options: [{ id: 'variant', values: SIGNAL_VARIANTS }, { id: 'seed', range: [0, 9999] }, { id: 'geometry' }], span: { cols: 12, rows: 12 }, place: 'center', under: true },
 	{ type: 'card', names: ['panel', 'plan', 'box', 'tile'], kind: 'panel', description: 'A square tile on the ground: a title, a line, a list and a button, each optional.', copy: [{ id: 'title' }, { id: 'text' }, { id: 'items' }, { id: 'cta' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 6 }, place: 'center', sample: { title: 'Design partnership', text: 'Product design, branding and strategy.', items: 'Weekly design sprints|Cancel anytime', cta: 'Book a call' } },
-	{ type: 'stat', names: ['number', 'figure', 'metric'], kind: 'text', description: 'A figure in Agencidev Sans over a line of Diatype in dim.', copy: [{ id: 'value', required: true }, { id: 'label' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 3 }, place: 'center', sample: { value: '6.06%', label: 'of each YC batch designed by Acme' } },
-	{ type: 'quote', names: ['testimonial', 'review'], kind: 'text', description: 'A quote in Agencidev Sans, the name in white and the role in capitals under it (Acme, never a real person).', copy: [{ id: 'text', required: true }, { id: 'name' }, { id: 'role' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 10, rows: 5 }, place: 'center', sample: { text: 'They shipped our brand, product and site in one partnership.', name: 'Alex Rivera', role: 'Founder, Acme' } },
+	{ type: 'stat', names: ['number', 'figure', 'metric'], kind: 'text', description: 'A figure in the heading face over a line of the text face in dim.', copy: [{ id: 'value', required: true }, { id: 'label' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 4, rows: 3 }, place: 'center', sample: { value: '6.06%', label: 'of each YC batch designed by Acme' } },
+	{ type: 'quote', names: ['testimonial', 'review'], kind: 'text', description: 'A quote in the heading face, the name in white and the role in capitals under it (Acme, never a real person).', copy: [{ id: 'text', required: true }, { id: 'name' }, { id: 'role' }], options: [{ id: 'align', values: ALIGN }], span: { cols: 10, rows: 5 }, place: 'center', sample: { text: 'They shipped our brand, product and site in one partnership.', name: 'Alex Rivera', role: 'Founder, Acme' } },
 	{ type: 'list', names: ['bullets', 'points', 'features', 'steps'], kind: 'text', description: 'Lines of Diatype, one per item (separate them with |).', copy: [{ id: 'items', required: true }], options: [{ id: 'align', values: ALIGN }], span: { cols: 6, rows: 4 }, place: 'left', sample: { items: 'Exploration is fast. Judgement is not.|Speed requires agility.|Strong ideas survive testing.' } },
 	{ type: 'button', names: ['cta', 'action'], kind: 'key', description: 'The plate button: #252525, white capitals, the 4px corner.', copy: [{ id: 'text', required: true }], options: [{ id: 'align', values: ALIGN }, { id: 'valign', values: VALIGN }], span: { cols: 4, rows: 1 }, place: 'bottom-left', sample: { text: 'Book a call' } },
-	{ type: 'code', names: ['snippet', 'terminal'], kind: 'panel', description: 'Code on the slat fill, square.', copy: [{ id: 'text', required: true }], span: { cols: 8, rows: 3 }, place: 'center', sample: { text: 'npx agencidev-ds init' } },
+	{ type: 'code', names: ['snippet', 'terminal'], kind: 'panel', description: 'Code on the slat fill, square.', copy: [{ id: 'text', required: true }], span: { cols: 8, rows: 3 }, place: 'center', sample: { text: 'npx acme init' } },
 	{ type: 'chart', names: ['graph', 'bars', 'donut'], kind: 'art', description: 'Bars, a line or a donut from your numbers ("Mon 12, Tue 18"), in white and the greys.', copy: [{ id: 'data', required: true }], options: [{ id: 'type', values: ['bar', 'line', 'donut'] }], span: { cols: 6, rows: 4 }, place: 'right', sample: { data: 'Mon 12, Tue 18, Wed 30, Thu 26' } },
 	{ type: 'table', names: ['grid-table', 'comparison'], kind: 'text', description: 'Rows of cells (cells split by |, rows by a new line), the first row as the head, hairlines between.', copy: [{ id: 'rows', required: true }], span: { cols: 10, rows: 4 }, place: 'center', sample: { rows: 'Partnership|Per month\nDesign|$5,417\nDev|$7,000 to $20,000' } },
 	{ type: 'divider', names: ['rule', 'hairline', 'line-break'], kind: 'art', description: 'A hairline across its cells (white at 10%).', copy: [], span: { cols: 12, rows: 1 }, place: 'center' },
@@ -249,6 +249,7 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 			case 'signal': {
 				const g = geometryOf(doc, id);
 				if (g?.art && g.box) layers.push({ type: 'art', id, file: g.art, box: g.box, fit: g.fit, at: g.at, ...(g.edge === 'hard' ? { edge: 'hard' as const } : {}) });
+				else if (g?.box) layers.push({ type: 'signal', id, box: g.box, band: str(opt(doc, id, 'variant'), 'band') === 'band', seed: num(opt(doc, id, 'seed'), 0) });
 				else {
 					// The static is never boxed in: a side whose cells reach the grid's edge runs on to the canvas edge.
 					const grid = doc.grid ?? { cols: 12, rows: 12 };
@@ -494,6 +495,7 @@ export function recipeFor(template: string, size: string, copy: Record<string, s
 			const id = idFor(l.id ?? 'signal');
 			blocks.push({ id, type: 'signal', at: full });
 			options[`${id}.variant`] = l.band === false ? 'field' : 'band';
+			if (l.box) options[`${id}.geometry`] = JSON.stringify({ W0: width, H0: height, box: l.box });
 		} else if (l.type === 'art' && l.id !== 'pictures') {
 			const id = idFor(l.id ?? 'signal');
 			blocks.push({ id, type: 'signal', at: full });

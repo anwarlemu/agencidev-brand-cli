@@ -62,11 +62,12 @@ export function renderEmail(kind: string, copy: Record<string, string>, logoSrc 
 	if (missing.length) throw new Error(`${kind} needs ${missing.map((m) => `--set ${m}=...`).join(' and ')} (--sample fills sample copy).`);
 	const extra = Object.keys(copy).filter((c) => !k.slots.some((s) => s.id === c));
 	if (extra.length) throw new Error(`${kind} does not take ${extra.join(', ')}. It takes ${k.slots.map((s) => s.id).join(', ')}.`);
-	const c = { ground: hex('--ds-color-black'), card: hex('--ds-color-neutral-4'), fg: hex('--ds-color-white'), soft: hex('--ds-color-neutral-11'), muted: hex('--ds-color-neutral-9'), rule: hex('--ds-color-neutral-5'), button: hex('--ds-color-white'), buttonFg: hex('--ds-color-black') };
-	const head = `'Agencidev Sans', Arial, sans-serif`;
-	const text = `'ABC Diatype', Arial, sans-serif`;
+	const c = { ground: hex('--ds-color-surface'), card: hex('--ds-color-surface-raised'), fg: hex('--ds-color-fg'), soft: hex('--ds-color-fg-soft'), muted: hex('--ds-color-fg-muted'), rule: hex('--ds-color-surface-subtle'), button: hex('--ds-color-action-primary'), buttonFg: hex('--ds-color-action-primary-fg') };
+	const fam = (role: string) => brand().fonts.files.find((f) => f.role === role)?.family ?? 'Arial';
+	const head = `'${fam('heading')}', Arial, sans-serif`;
+	const text = `'${fam('text')}', Arial, sans-serif`;
 	const row = (inner: string, pad = '0 40px') => `<tr><td style="padding:${pad};">${inner}</td></tr>`;
-	const h1 = (t: string) => row(`<h1 style="margin:0;font-family:${head};font-weight:450;font-size:32px;line-height:36px;color:${c.fg};">${esc(t)}</h1>`, '32px 40px 0');
+	const h1 = (t: string) => row(`<h1 style="margin:0;font-family:${head};font-weight:400;font-size:32px;line-height:36px;color:${c.fg};">${esc(t)}</h1>`, '32px 40px 0');
 	const p = (t: string, color = c.soft, pad = '16px 40px 0') => row(`<p style="margin:0;font-family:${text};font-size:16px;line-height:24px;color:${color};">${esc(t)}</p>`, pad);
 	const button = (label: string, href?: string) => row(`<table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td style="border-radius:8px;background:${c.button};"><a href="${esc(href || '#')}" style="display:inline-block;padding:10px 16px;font-family:${text};font-weight:500;font-size:14px;line-height:20px;color:${c.buttonFg};text-decoration:none;border-radius:8px;">${esc(label)}</a></td></tr></table>`, '32px 40px 0');
 	const rule = row(`<div style="height:1px;line-height:1px;font-size:1px;background:${c.rule};">&nbsp;</div>`, '32px 40px 0');
