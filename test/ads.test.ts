@@ -35,7 +35,7 @@ describe('brief parsing', () => {
 			- Every network
 			- Daily updates
 			## Look
-			dark, bold, type-led, brand light, ASCII
+			dark, bold, type-led, no-signal static, work rail
 			## Images
 			- shot.png: the Acme dashboard
 			- creative=ad1.jpg: an Acme ad
@@ -48,7 +48,7 @@ describe('brief parsing', () => {
 		expect(b.goal).toBe('Launch Boards.');
 		expect(b.platforms).toEqual(['LinkedIn', 'Instagram story']);
 		expect(b.copy).toMatchObject({ headline: 'Boards are here.', supporting: 'Save the ads your market runs, and share them.', cta: 'Try Boards', features: 'Every network | Daily updates' });
-		expect(b.look).toEqual({ tone: 'dark', style: 'bold', lead: 'type', elements: ['light', 'ascii'] });
+		expect(b.look).toEqual({ tone: 'dark', style: 'bold', lead: 'type', elements: ['signal', 'rail'] });
 		expect(b.images).toEqual([{ name: 'shot', file: 'shot.png', shows: 'the Acme dashboard', kind: 'screenshot' }, { name: 'creative', file: 'ad1.jpg', shows: 'an Acme ad', kind: 'creative' }]);
 		expect(b.must).toEqual(['the price']);
 		expect(b.donts).toEqual(['no texture']);
@@ -66,7 +66,7 @@ describe('brief parsing', () => {
 		expect(() => parseBrief('## Headline\nHi\n## Title\nAgain')).toThrow(/second Headline section/);
 		expect(() => parseBrief('Some words\n## Headline\nHi')).toThrow(/line 1: "Some words" is outside a section/);
 		expect(() => parseLook('dark, sparkly')).toThrow(/"sparkly" is not a look/);
-		expect(() => parseLook('light')).toThrow(/could mean the light theme or the brand light/);
+		expect(() => parseLook('light')).toThrow(/write "light theme"/);
 		expect(() => parseBrief('{"headline": 3}')).toThrow(/"headline" takes text/);
 		expect(() => parseBrief('## Images\n- a photo of us')).toThrow(/names no PNG, JPEG or WebP/);
 	});

@@ -274,7 +274,7 @@ function composeScene(doc: DesignDoc, photosIn: Photo[], floor: number, fitted: 
 				break;
 			}
 			case 'stat':
-				layers.push(stackAt(r, [text(id, `${id}.value`, 'display', Math.min(84 * u, r.h * 0.6), Math.min(84 * u, r.h * 0.6) * 1.14, { maxLines: 1, min: 24 * u }), text(`${id}-label`, `${id}.label`, 'body', fl(24 * u), fl(24 * u) * 1.5, { gap: 16 * u, maxLines: 2, color: th.soft })], align, valign));
+				layers.push(stackAt(r, [text(id, `${id}.value`, 'display', Math.min(84 * u, r.h * 0.6), Math.min(84 * u, r.h * 0.6) * 1.14, { maxLines: 1, min: 24 * u }), text(`${id}-label`, `${id}.label`, 'body', fl(24 * u), fl(24 * u) * 1.5, { gap: 28 * u, maxLines: 2, color: th.soft })], align, valign));
 				break;
 			case 'quote':
 				// Without a name, the role takes the name's place under the quote (and its gap).

@@ -32,7 +32,7 @@ export function CaseWall({ title, pieces, link, className }: CaseWallProps) {
       </header>
       <div className={cn(columns, 'gap-5')}>
         {pieces.map((p, i) => (
-          <div key={`${i}-${p.src ?? p.caption ?? ''}`} style={{ aspectRatio: String(p.ratio ?? 4 / 3) }} className="relative mb-5 break-inside-avoid overflow-hidden bg-surface-inset">
+          <div key={`${i}-${p.src ?? p.caption ?? ''}`} data-ds-placeholder={p.src ? undefined : ''} style={{ aspectRatio: String(p.ratio ?? 4 / 3) }} className="relative mb-5 break-inside-avoid overflow-hidden bg-surface-inset">
             {p.src ? <img src={p.src} alt={p.alt ?? ''} loading="lazy" className="absolute inset-0 size-full object-cover" /> : (
               <div className="absolute inset-0 flex items-center justify-center border border-edge-strong px-4">
                 <span className="max-w-[36ch] text-center type-label text-balance text-fg-faint">{p.caption ?? 'In progress'}</span>

@@ -70,7 +70,7 @@
   --ds-color-surface-hover: var(--ds-color-neutral-3);
   --ds-color-surface-inverse: var(--ds-color-white);
   --ds-color-surface-accent: var(--ds-color-white);
-  --ds-color-surface-danger: color-mix(in srgb, var(--ds-color-red) 12%, var(--ds-color-black));
+  --ds-color-surface-danger: #200D0E; /* the red at 12% over the canvas */
   --ds-color-fg: var(--ds-color-white);
   --ds-color-fg-soft: var(--ds-color-dim);
   --ds-color-fg-muted: var(--ds-color-mid);
@@ -101,7 +101,7 @@
   --ds-color-action-press-ink: rgba(255, 255, 255, 0.7); /* PRESS_INK, active:text-white/70 */
   --ds-color-action-ghost-hover: var(--ds-color-neutral-3);
   --ds-color-action-danger: var(--ds-color-red);
-  --ds-color-action-danger-hover: color-mix(in srgb, var(--ds-color-red) 85%, var(--ds-color-black));
+  --ds-color-action-danger-hover: #C33E42; /* the red at 85% over the canvas */
   --ds-color-action-disabled: var(--ds-color-neutral-3);
   --ds-color-action-disabled-fg: var(--ds-color-neutral-6);
   --ds-color-status-working: var(--ds-color-white);

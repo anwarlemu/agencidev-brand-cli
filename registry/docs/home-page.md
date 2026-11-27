@@ -13,7 +13,6 @@ source: "Built from the library's site items, after the site's app/page.tsx, com
 files:
   - react/components/pages/HomePage.tsx
   - lib/pages/home.ts
-  - lib/pages/chrome.ts
 examples:
   - "Page | Home page | bleed"
 ---

@@ -994,7 +994,7 @@ export async function drawScene(scene: Scene, opts: { embedFonts?: boolean } = {
 				const pw = Math.max(1, Math.round(w * k));
 				const ph = Math.max(1, Math.round(h * k));
 				const time = l.time ?? (l.band === false ? gen.SIGNAL_FIELD_TIME : gen.SIGNAL_BAND_TIME);
-				const px = gen.signalFrame(pw, ph, { time, warp: l.warp, frame: l.frame, seed: seed + (l.seed ?? 0), grain: l.grain, density: 1.5 * (pw / Math.max(1, W * k)) * (W / 1080) });
+				const px = gen.signalFrame(pw, ph, { time, warp: l.warp, frame: l.frame, band: l.band, seed: seed + (l.seed ?? 0), grain: l.grain, density: 1.5 * (pw / Math.max(1, W * k)) * (W / 1080) });
 				const data = `data:image/png;base64,${encodePng(Buffer.from(px.buffer, px.byteOffset, px.byteLength), pw, ph).toString('base64')}`;
 				parts.push({ svg: `<image href="${data}" x="${f(x)}" y="${f(y)}" width="${f(w)}" height="${f(h)}" preserveAspectRatio="none"${l.opacity !== undefined ? ` opacity="${l.opacity}"` : ''}/>` });
 				const ink = gen.signalInk(px, pw, ph).map(([ix, iy, iw, ih]) => rect([x + ix / k, y + iy / k, iw / k, ih / k]));

@@ -12,6 +12,7 @@ never:
 source: "components/nav-bar.tsx (p-6 around an h-12 row, the 18px lockup, gap-6 links, QUIET_SKIN and PLATE_SKIN, px-10 on the plate), globals.css .nav-surface (12px blur, the fade 32px past the bar, 260ms) and .menu-panel (250ms fade, links rising 24px over 350ms, 40ms apart)."
 files:
   - react/components/site/SiteHeader.tsx
+  - lib/pages/chrome.ts
 examples:
   - "Bar | The bar | bleed"
 ---

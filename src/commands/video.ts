@@ -72,7 +72,7 @@ export function videoFrame(t: VideoTemplate, size: [number, number], phase: numb
 		const roll = 1 / 0.12;
 		const base = (0.4 - 0.09) / 0.12;
 		const time = t.signal === 'band' ? (t.sting ? base - roll * 0.5 + roll * 0.5 * (1 - (1 - phase) ** 3) : base + roll * phase) : base + 4.2;
-		layers.push({ type: 'signal', box: [0, 0, W, H], time, warp: base + 0.8 * Math.sin(a), frame: Math.floor(phase * 60) % 60 });
+		layers.push({ type: 'signal', box: [0, 0, W, H], time, warp: base + 0.8 * Math.sin(a), frame: Math.floor(phase * 60) % 60, band: t.signal === 'band' });
 	}
 	const m = 36 * k * 1.5;
 	// A vertical loop is a story: its bars cover 250px at the top and 340px at the foot.

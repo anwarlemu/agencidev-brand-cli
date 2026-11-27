@@ -23,19 +23,20 @@ describe('build', () => {
 	});
 	it('serves every font file it declares', () => {
 		const fonts = read('build/fonts.css');
-		expect(fonts.match(/url\("\/agencidev-ds\/fonts\//g)?.length).toBe(3); // variable Funnel Display and DM Sans, Geist Mono
+		expect(fonts.match(/url\("\/agencidev-ds\/fonts\//g)?.length).toBe(2); // Agencidev Sans and the variable ABC Diatype
 		for (const m of fonts.matchAll(/url\("\/agencidev-ds\/fonts\/([^"]+)"\)/g)) expect(existsSync(join(root, 'build', 'fonts', m[1])), m[1]).toBe(true);
 	});
-	it('resolves the default theme to Black and White', () => {
+	it('resolves the default theme to the near-black canvas and white ink', () => {
 		const t = JSON.parse(read('build/tokens.json')).tokens;
-		expect(t['--ds-color-surface'].light).toBe('#000000');
-		expect(t['--ds-color-surface'].dark).toBe('#000000');
+		expect(t['--ds-color-surface'].light).toBe('#050505'); // the site's --black
+		expect(t['--ds-color-surface'].dark).toBe('#050505');
 		expect(t['--ds-color-fg'].light).toBe('#FFFFFF');
-		expect(t['--ds-color-surface-raised'].light).toBe('#262626'); // the site's --surface
-		expect(t['--ds-color-red'].light).toBe('#DF0000');
+		expect(t['--ds-color-action-primary'].light).toBe('#252525'); // the plate
+		expect(t['--ds-color-fg-soft'].light).toBe('#B6B6B6'); // dim
+		expect(t['--ds-color-fg-muted'].light).toBe('#909090'); // mid
 	});
 	it('ships the generators, icons and logos', () => {
-		for (const f of ['build/generators/light.mjs', 'build/generators/ascii.mjs', 'build/icons/favicon-32.png', 'build/logo/horizontal-white.svg', 'build/logo/mark-black.svg']) expect(existsSync(join(root, f)), f).toBe(true);
+		for (const f of ['build/generators/signal.mjs', 'build/icons/favicon-32.png', 'build/logo/horizontal-white.svg', 'build/logo/mark-black.svg']) expect(existsSync(join(root, f)), f).toBe(true);
 	});
 	it('keeps its own element styles on the tokens', () => {
 		expect(checkText('build/base.css', read('build/base.css')).findings).toEqual([]);
@@ -58,14 +59,14 @@ describe('registry', () => {
 			for (const r of i.requires) expect(names.has(r), `${i.name} requires ${r}`).toBe(true);
 			for (const d of i.dependencies) expect(d).not.toBe('vue');
 		}
-		expect(index.items.find((i: { name: string }) => i.name === 'search-bar').requires).toContain('button');
-		expect(index.items.find((i: { name: string }) => i.name === 'ascii-texture').requires).toContain('brand-light');
+		expect(index.items.find((i: { name: string }) => i.name === 'site-header').requires).toContain('logo');
+		expect(index.items.find((i: { name: string }) => i.name === 'contact-page').requires).toEqual(expect.arrayContaining(['page-head', 'detail-list', 'button', 'site-header', 'site-footer']));
 	});
 	it('ships component content in each item file', () => {
 		const button = JSON.parse(read('apps/www/public/r/button.json'));
 		expect(button.files.find((f: { path: string }) => f.path === 'react/components/ui/Button.tsx').content).toContain('export function Button');
 		expect(button.files.map((f: { path: string }) => f.path)).toContain('react/lib/cn.ts');
-		const light = JSON.parse(read('apps/www/public/r/brand-light.json'));
-		expect(light.files.map((f: { path: string }) => f.path)).toEqual(expect.arrayContaining(['lib/light.ts', 'lib/light-master.ts']));
+		const signal = JSON.parse(read('apps/www/public/r/no-signal.json'));
+		expect(signal.files.map((f: { path: string }) => f.path)).toEqual(expect.arrayContaining(['lib/signal.ts', 'lib/no-signal.ts']));
 	});
 });

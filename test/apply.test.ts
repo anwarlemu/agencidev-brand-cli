@@ -107,7 +107,7 @@ describe('apply', () => {
 		expect(menu).toContain('px-0');
 		expect(menu).not.toContain('px-4');
 		const start = page.match(/className="([^"]*)">Start/)![1].split(' ');
-		expect(start).toContain('px-4');
+		expect(start).toContain('px-6');
 	});
 	it('applies to a page and only the components it alone uses; shared files are listed, not touched', () => {
 		const dir = nuxtApp();
@@ -184,8 +184,8 @@ describe('apply', () => {
 			'app/page.tsx': "import { AppButton } from '@/components/AppButton'\nexport default function Page() { return <main className=\"p-8\"><AppButton>Start</AppButton></main> }\n",
 			'components/AppButton.tsx': 'export function AppButton({ children }: { children: React.ReactNode }) { return <button className="rounded-md bg-violet-600 px-3 py-2 text-white">{children}</button> }\n',
 		});
-		cli(dir, 'add', 'card', 'search-bar', '--no-install');
-		const library = ['components/ui/Card.tsx', 'components/ui/Button.tsx', 'components/product/SearchBar.tsx', 'lib/cn.ts'].map((f) => [f, readFileSync(join(dir, f), 'utf8')] as const);
+		cli(dir, 'add', 'card', 'site-header', '--no-install');
+		const library = ['components/ui/Card.tsx', 'components/site/SiteHeader.tsx', 'components/visuals/Logo.tsx', 'lib/cn.ts'].map((f) => [f, readFileSync(join(dir, f), 'utf8')] as const);
 		cli(dir, 'apply');
 		expect(readFileSync(join(dir, 'components/AppButton.tsx'), 'utf8')).toContain('bg-action-primary');
 		for (const [f, text] of library) expect(readFileSync(join(dir, f), 'utf8'), f).toBe(text);
@@ -235,35 +235,35 @@ function nextApp() {
 }
 
 describe('library by name', () => {
-	it('adds items however they are typed: Button, SearchBar, search_bar, lockup', () => {
+	it('adds items however they are typed: Button, PageHead, page_head, lockup', () => {
 		const dir = nextApp();
-		const r = json(dir, 'add', 'Button', 'SearchBar', 'search_bar', 'lockup', '--no-install');
-		expect(r.items).toEqual(expect.arrayContaining(['button', 'search-bar', 'logo']));
+		const r = json(dir, 'add', 'Button', 'PageHead', 'page_head', 'lockup', '--no-install');
+		expect(r.items).toEqual(expect.arrayContaining(['button', 'page-head', 'logo']));
 		expect(r.notes.join(' ')).toContain('lockup is logo');
-		expect(existsSync(join(dir, 'components/product/SearchBar.tsx'))).toBe(true);
+		expect(existsSync(join(dir, 'components/site/PageHead.tsx'))).toBe(true);
 		expect(existsSync(join(dir, 'components/visuals/Logo.tsx'))).toBe(true);
 		expect(existsSync(join(dir, 'lib/logos.ts'))).toBe(true);
 		expect(fails(dir, 'add', 'buton', '--no-install')).toContain('`button`');
 	});
 	it('shows how to use an item: props, callbacks, children, examples, in either flavor', () => {
-		const v = json(dir0(), 'view', 'search-bar').items[0];
+		const v = json(dir0(), 'view', 'filter-list').items[0];
 		expect(v.flavor).toBe('react');
-		const api = v.api.find((a: { component: string }) => a.component === 'SearchBar');
-		expect(api.props.map((p: { name: string }) => p.name)).toEqual(expect.arrayContaining(['value', 'defaultValue', 'placeholder', 'buttonLabel']));
-		expect(api.emits.join(' ')).toContain('onSearch');
+		const api = v.api.find((a: { component: string }) => a.component === 'FilterList');
+		expect(api.props.map((p: { name: string }) => p.name)).toEqual(expect.arrayContaining(['value', 'defaultValue', 'options', 'label']));
+		expect(api.emits.join(' ')).toContain('onValueChange');
 		expect(v.examples.length).toBeGreaterThan(0);
-		expect(v.files.some((f: { content: string }) => f.content.includes('export function SearchBar'))).toBe(true);
+		expect(v.files.some((f: { content: string }) => f.content.includes('export function FilterList'))).toBe(true);
 		const button = json(dir0(), 'view', 'button').items[0].api[0];
 		expect(button.slots).toContain('children');
 		expect(button.props.map((p: { name: string }) => p.name)).toEqual(expect.arrayContaining(['variant', 'size', 'icon', 'href']));
-		const el = json(dir0(), 'view', 'search-bar', '--framework', 'elements').items[0];
+		const el = json(dir0(), 'view', 'filter-list', '--framework', 'elements').items[0];
 		expect(el.flavor).toBe('elements');
-		expect(el.tag).toBe('agd-search-bar');
-		expect(el.api[0].emits).toContain('search');
+		expect(el.tag).toBe('agd-filter-list');
+		expect(el.api[0].emits).toContain('change');
 	});
 	it('searches, describes the app and diffs a local copy', () => {
-		expect(json(dir0(), 'search', 'pattern').results[0].name).toBe('brand-light');
-		expect(json(dir0(), 'search', 'search').results[0].name).toBe('search-bar');
+		expect(json(dir0(), 'search', 'static').results[0].name).toBe('no-signal');
+		expect(json(dir0(), 'search', 'openings').results[0].name).toBe('openings');
 		const dir = nextApp();
 		cli(dir, 'add', 'card', '--no-install');
 		const info = json(dir, 'info');

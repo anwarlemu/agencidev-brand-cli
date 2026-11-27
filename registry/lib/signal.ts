@@ -16,7 +16,7 @@ const mix = (a: number, b: number, t: number) => a + (b - a) * t
 
 /** The time the band's middle crosses the frame's middle (bandPos 0.09 at uv.y 0.5). */
 export const SIGNAL_BAND_TIME = (0.4 - 0.09) / 0.12
-/** Half a roll on: the band is off the frame and only the static shows. */
+/** Half a roll on, where the band is at its farthest from the middle (`band: false` takes it out altogether). */
 export const SIGNAL_FIELD_TIME = SIGNAL_BAND_TIME + 4.2
 /** One full roll of the band (bandPos runs 0 to 1 as time runs 1 / 0.12 seconds). */
 export const SIGNAL_ROLL = 1 / 0.12
@@ -33,6 +33,8 @@ export interface SignalOptions {
 	seed?: number
 	/** The grain overlay (default true). */
 	grain?: boolean
+	/** The glitch band (default true); false leaves only the static, its tone roll and grain. */
+	band?: boolean
 	/** How many frame pixels one screen pixel is: the grain cell is three screen pixels (default 1.5, a 1440 page on a
 	 * 2160 frame). */
 	density?: number
@@ -47,6 +49,7 @@ export function signalFrame(width: number, height: number, o: SignalOptions = {}
 	const seed = o.seed ?? 0
 	const cell = 3 * (o.density ?? 1.5)
 	const grainOn = o.grain !== false
+	const bandOn = o.band !== false
 	const out = new Uint8ClampedArray(W * H * 4)
 	const t = o.frame ?? Math.floor(time * 10)
 	for (let py = 0; py < H; py++) {
@@ -60,7 +63,7 @@ export function signalFrame(width: number, height: number, o: SignalOptions = {}
 			const line = Math.floor((uy * H) / 3)
 			const jitter = (rand(line, t) - 0.5) * 0.015
 			const bandPos = fract(uy * 0.8 - time * 0.12)
-			const band = smooth(0, 0.06, bandPos) * smooth(0.34, 0.12, bandPos)
+			const band = bandOn ? smooth(0, 0.06, bandPos) * smooth(0.34, 0.12, bandPos) : 0
 			const wave = Math.sin(uy * 7 - warp * 3) * 0.16 + Math.sin(uy * 23 - warp * 6) * 0.05
 			const chaos = (rand(line * 0.37, t) - 0.5) * 0.22
 			const x = ux + jitter + (wave + chaos) * band

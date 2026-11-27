@@ -208,14 +208,14 @@ describe('SvelteKit (Tailwind 4) and Vite + Svelte (plain CSS)', () => {
 		expect(page).toMatch(/<button class="[^"]*bg-action-primary[^"]*"/);
 		expect(read(dir, 'src/routes/+page.svelte')).toBe(before['src/routes/+page.svelte']);
 		expect(read(dir, 'src/routes/+layout.svelte')).toBe(before['src/routes/+layout.svelte']);
-		expect(existsSync(join(dir, 'static/agencidev-ds/fonts/DMSans-400.woff2'))).toBe(true);
+		expect(existsSync(join(dir, 'static/agencidev-ds/fonts/ABCDiatype-400.woff2'))).toBe(true);
 	});
 	it('a Svelte component restyled as its kind gives the look to its element root, never to its top-level script or style', () => {
 		const card = '<script lang="ts">\n\tlet { title, children } = $props();\n</script>\n\n<div class="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">\n\t<h2>{title}</h2>\n\t{@render children()}\n</div>\n\n<style>\n\th2 { color: #111827; }\n</style>\n';
 		const out = convertFile('src/lib/Card.svelte', card, { general: true, kinds: 'all', componentKind: 'card' }).text;
 		expect(out).toContain('<script lang="ts">');
 		expect(out).toContain('<style>');
-		expect(out).toMatch(/<div class="[^"]*bg-surface-raised[^"]*">/);
+		expect(out).toMatch(/<div class="[^"]*border-edge[^"]*">/);
 	});
 	it('Vite + Svelte without Tailwind: semantic classes, kinds.css imported by app.css', () => {
 		const dir = app({
@@ -300,8 +300,8 @@ describe('A plain HTML site (no package.json)', () => {
 		expect([info.framework, info.flavor, info.stylesheet, info.publicDir, info.packageManager]).toEqual(['html', 'elements', 'css/site.css', '.', null]);
 		json(dir, 'init');
 		for (const page of ['index.html', 'about.html']) expect(read(dir, page)).toContain('    <link rel="stylesheet" href="/agencidev-ds/brand.css">\n    <link rel="stylesheet" href="/agencidev-ds/kinds.css">\n    <link rel="stylesheet" href="/css/site.css" />');
-		expect(read(dir, 'agencidev-ds/brand.css')).toContain('url("./fonts/DMSans.woff2")');
-		expect(existsSync(join(dir, 'agencidev-ds/fonts/DMSans-400.woff2'))).toBe(true);
+		expect(read(dir, 'agencidev-ds/brand.css')).toContain('url("./fonts/ABCDiatype.woff2")');
+		expect(existsSync(join(dir, 'agencidev-ds/fonts/ABCDiatype-400.woff2'))).toBe(true);
 	});
 	it('a page selection links and restyles that page only: the other pages stay byte for byte', () => {
 		const dir = make();
@@ -492,17 +492,17 @@ describe('library flavors', () => {
 	it('view and diff take --framework, and read the API the registry build writes for each flavor', () => {
 		(globalThis as any).dsEnv = { DS_REGISTRY_DIR: join(__dirname, '..', 'apps', 'www', 'public', 'r') };
 		const dir = app({ 'index.html': htmlPage('Home', '<main></main>') });
-		const wc = json(dir, 'view', 'search-bar').items[0];
+		const wc = json(dir, 'view', 'filter-list').items[0];
 		expect(wc.flavor).toBe('elements');
 		expect(wc.api[0].component).toBe(`${wc.tag}`);
-		expect(wc.api[0].props.map((p: { name: string }) => p.name)).toContain('placeholder');
-		expect(wc.api[0].emits).toContain('search');
+		expect(wc.api[0].props.map((p: { name: string }) => p.name)).toContain('options');
+		expect(wc.api[0].emits).toContain('change');
 		const card = json(dir, 'view', 'card').items[0];
 		expect(card.api[0].slots).toContain('actions');
-		const react = json(dir, 'view', 'search-bar', '--framework', 'react').items[0];
+		const react = json(dir, 'view', 'filter-list', '--framework', 'react').items[0];
 		expect(react.flavor).toBe('react');
 		expect(react.api[0].emits.join(' ')).toContain('onValueChange');
-		expect(json(dir, 'diff', 'search-bar', '--framework', 'react').items[0].files[0].status).toBe('missing');
+		expect(json(dir, 'diff', 'filter-list', '--framework', 'react').items[0].files[0].status).toBe('missing');
 	});
 	it('a site with no build gets the prebuilt web component and its shared chunk in the static folder, with the script line', () => {
 		fixture();

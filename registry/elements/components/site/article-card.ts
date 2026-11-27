@@ -22,7 +22,7 @@ export class ArticleCard extends DsElement {
 
 	render() {
 		const meta = [this.date, this.readingTime].filter(Boolean) as string[]
-		return html`<a data-ds="article-card" href=${this.href} class="group flex flex-col"><div class="relative aspect-[16/10] w-full overflow-hidden bg-surface-inset">${this.cover ? html`<img src=${this.cover} alt="" loading="lazy" class="absolute inset-0 size-full object-cover">` : nothing}</div>${meta.length ? html`<p class="mt-5 type-ui uppercase text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg group-active:text-action-press-ink group-active:transition-none">${meta.map((m, i) => html`<span>${i ? html`<span aria-hidden="true" class="px-2">·</span>` : nothing}${m}</span>`)}</p>` : nothing}<h2 class="mt-3 type-heading-4 text-fg">${this.heading}</h2>${this.excerpt ? html`<p class="mt-3 line-clamp-3 type-body text-fg-soft">${this.excerpt}</p>` : nothing}</a>`
+		return html`<a data-ds="article-card" href=${this.href} class="group flex flex-col"><div data-ds-placeholder=${this.cover ? nothing : ''} class="relative aspect-[16/10] w-full overflow-hidden bg-surface-inset">${this.cover ? html`<img src=${this.cover} alt="" loading="lazy" class="absolute inset-0 size-full object-cover">` : nothing}</div>${meta.length ? html`<p class="mt-5 type-ui uppercase text-fg-muted transition-colors duration-150 ease-standard group-hover:text-fg group-active:text-action-press-ink group-active:transition-none">${meta.map((m, i) => html`<span>${i ? html`<span aria-hidden="true" class="px-2">·</span>` : nothing}${m}</span>`)}</p>` : nothing}<h2 class="mt-3 type-heading-4 text-fg">${this.heading}</h2>${this.excerpt ? html`<p class="mt-3 line-clamp-3 type-body text-fg-soft">${this.excerpt}</p>` : nothing}</a>`
 	}
 }
 

@@ -16,8 +16,8 @@ const prefix = brand.elementPrefix as string;
 describe('registry flavors: files', () => {
 	it('maps each React component to its element file by name; hooks and lib files have none', () => {
 		expect(elementPath('react/components/ui/Button.tsx')).toBe('elements/components/ui/button.ts');
-		expect(elementPath('react/components/product/SearchBar.tsx')).toBe('elements/components/product/search-bar.ts');
-		expect(elementPath('react/components/visuals/AsciiTexture.tsx')).toBe('elements/components/visuals/ascii-texture.ts');
+		expect(elementPath('react/components/site/SiteHeader.tsx')).toBe('elements/components/site/site-header.ts');
+		expect(elementPath('react/components/visuals/NoSignal.tsx')).toBe('elements/components/visuals/no-signal.ts');
 		expect(elementPath('react/hooks/useControllable.ts')).toBeUndefined();
 		expect(elementPath('lib/light.ts')).toBeUndefined();
 	});
@@ -65,7 +65,7 @@ describe('registry flavors: a failed element build', () => {
 
 describe('registry flavors: output', () => {
 	const index = json('apps/www/public/r/index.json');
-	const ALL = ['ascii-texture', 'brand-light', 'button', 'card', 'input', 'logo', 'search-bar'];
+	const ALL = ['button', 'card', 'input', 'logo', 'no-signal', 'work-rail', 'site-header', 'filter-list'];
 	it('lists each item with its flavors (React, the source, and web components) and reports the coverage', () => {
 		expect(index.elementPrefix).toBe(prefix);
 		expect(index.coverage.total).toBe(index.items.length);
@@ -108,27 +108,26 @@ describe('registry flavors: output', () => {
 		expect(out).not.toContain('data-lucide');
 	});
 	it('records what an item requires in each flavor, and the modules its examples load', () => {
-		const bar = json('apps/www/public/r/search-bar.json');
-		expect(bar.requires).toEqual(['button']);
-		expect(bar.flavors.elements.registryDependencies).toEqual(['button']);
-		expect(bar.flavors.elements.modules).toEqual(expect.arrayContaining(['elements/shared.js', 'elements/search-bar.js', 'elements/button.js', 'elements/brand-light.js']));
-		expect(bar.flavors.react.examples.find((e: { name: string }) => e.name === 'OnLight').registryDependencies).toEqual(expect.arrayContaining(['brand-light', 'button']));
-		// The texture's generator imports the light's seeded random: the texture requires the light.
-		expect(json('apps/www/public/r/ascii-texture.json').requires).toEqual(['brand-light']);
+		const bar = json('apps/www/public/r/site-header.json');
+		expect(bar.requires).toEqual(['logo']);
+		expect(bar.flavors.elements.registryDependencies).toEqual(['logo']);
+		expect(bar.flavors.elements.modules).toEqual(expect.arrayContaining(['elements/shared.js', 'elements/site-header.js', 'elements/logo.js']));
+		const contact = json('apps/www/public/r/contact-page.json');
+		expect(contact.flavors.react.examples.find((e: { name: string }) => e.name === 'Page').registryDependencies).toEqual(expect.arrayContaining(['page-head', 'detail-list', 'site-header']));
+		expect(contact.requires).not.toContain('home-page');
+		// The static's canvas loop imports its generator: both lib files travel with the item, nothing else is required.
+		expect(json('apps/www/public/r/no-signal.json').requires).toEqual([]);
 	});
 	it('writes shadcn-style registries for React (imports rewritten to the app) and for elements (modules as files)', () => {
-		const react = json('apps/www/public/r/react/search-bar.json');
+		const react = json('apps/www/public/r/react/site-header.json');
 		expect(react.$schema).toContain('registry-item.json');
-		const file = react.files.find((f: { path: string }) => f.path === 'components/product/SearchBar.tsx');
-		expect(file.type).toBe('registry:ui');
-		expect(file.content).toContain("from '@/components/ui/Button'");
-		expect(file.content).toContain("from '@/hooks/useControllable'");
+		const file = react.files.find((f: { path: string }) => f.path === 'components/site/SiteHeader.tsx');
+		expect(file.content).toContain("from '@/components/visuals/Logo'");
 		expect(file.content).not.toContain('@/react/');
-		expect(react.files.find((f: { path: string }) => f.path === 'hooks/useControllable.ts').type).toBe('registry:hook');
-		expect(react.registryDependencies).toEqual([`${brand.registryHost ?? brand.registryUrl}/r/react/button.json`]);
-		const light = json('apps/www/public/r/react/brand-light.json');
-		expect(light.files.find((f: { path: string }) => f.path === 'lib/light.ts').type).toBe('registry:lib');
-		expect(light.files.find((f: { path: string }) => f.path === 'lib/light.ts').content).toContain("from '@/lib/light-master'");
+		expect(react.registryDependencies).toEqual([`${brand.registryHost ?? brand.registryUrl}/r/react/logo.json`]);
+		const signal = json('apps/www/public/r/react/no-signal.json');
+		expect(signal.files.find((f: { path: string }) => f.path === 'lib/signal.ts').type).toBe('registry:lib');
+		expect(signal.files.find((f: { path: string }) => f.path === 'lib/no-signal.ts').content).toContain("from '@/lib/signal'");
 		const elements = json('apps/www/public/r/elements/button.json');
 		const shared = elements.files.find((f: { path: string }) => f.path === 'elements/shared.js');
 		expect(shared.target).toBe(`public${brand.assetBase}/elements/shared.js`);
@@ -148,13 +147,13 @@ describe('registry flavors: output', () => {
 		// A type built from a value resolves to its literals (InputSize is keyof typeof SIZES in the source).
 		expect(read('apps/www/public/elements/input.d.ts')).toContain('export type InputSize = "sm" | "md" | "lg"');
 		// A type from the shared lib comes with the element.
-		expect(read('apps/www/public/elements/brand-light.d.ts')).toMatch(/export type LightVariant = 'band' \| 'field'/);
+		expect(read('apps/www/public/elements/logo.d.ts')).toMatch(/export type LogoVariant = 'mark' \| 'wordmark' \| 'horizontal'/);
 	});
 	it("keeps the host's inherited type: preflight's :host font reset is gone, and Tailwind's @property rules are registered from script", () => {
 		const shared = read('apps/www/public/elements/shared.js');
 		expect(shared).not.toMatch(/html,\s*:host\s*\{/);
 		expect(shared).toContain(':host{display:contents}');
-		for (const m of ['button', 'search-bar', 'brand-light']) expect(read(`apps/www/public/elements/${m}.js`), m).not.toContain('@property');
+		for (const m of ['button', 'site-header', 'no-signal']) expect(read(`apps/www/public/elements/${m}.js`), m).not.toContain('@property');
 		expect(shared).toContain('--tw-border-style');
 	});
 });
@@ -191,7 +190,7 @@ describe('registry flavors: element types', () => {
 		const errors = ts.getPreEmitDiagnostics(program).map((d) => `${d.file ? d.file.fileName.replace(out, '') : ''}: ${ts.flattenDiagnosticMessageText(d.messageText, ' ')}`);
 		expect(errors).toEqual([]);
 		// Form fields carry the field API; checkValidity answers a boolean.
-		for (const field of ['input', 'search-bar']) {
+		for (const field of ['input']) {
 			const text = readFileSync(join(dir, `${field}.d.ts`), 'utf8');
 			expect(text, field).toContain('checkValidity(): boolean;');
 			expect(text, field).toContain('readonly validity: ValidityState;');
@@ -212,15 +211,15 @@ describe.skipIf(!existsSync(CHROME))('registry flavors: elements in a browser', 
   <${prefix}-input name="org" value="Acme" aria-label="org"></${prefix}-input>
   <${prefix}-button type="submit" id="go">Save</${prefix}-button>
 </form>
-<form id="sf"><${prefix}-search-bar id="bar" name="q" value="Acme ads" aria-label="Search creatives"></${prefix}-search-bar></form>
+<${prefix}-filter-list id="bar" label="Department" options='["All","Design","Engineering"]'></${prefix}-filter-list>
 <fieldset id="fs"><${prefix}-input id="own" name="own" disabled aria-label="own"></${prefix}-input><${prefix}-input id="free" name="free" aria-label="free"></${prefix}-input></fieldset>
 <div data-theme="light" id="light"><${prefix}-button id="day">Day</${prefix}-button></div>
-<${prefix}-ascii-texture id="bad-json" clear='[not json' width="160" height="80"></${prefix}-ascii-texture>
-<${prefix}-ascii-texture id="as-text" width="160" height="80"></${prefix}-ascii-texture>
-<${prefix}-brand-light id="light-el" variant="tile" seed="2"></${prefix}-brand-light>
+<${prefix}-work-rail id="bad-json" items='[not json'></${prefix}-work-rail>
+<${prefix}-work-rail id="as-text"></${prefix}-work-rail>
+<${prefix}-no-signal id="light-el" still seed="2" style="width:160px;height:90px"></${prefix}-no-signal>
 <form id="v"><${prefix}-input id="v-input" name="name" required aria-label="name"></${prefix}-input><${prefix}-button type="submit">Send</${prefix}-button></form>
 <script type="module">
-  ${['shared', 'input', 'button', 'search-bar', 'ascii-texture', 'brand-light'].map((m) => `import '/elements/${m}.js'`).join('\n  ')}
+  ${['shared', 'input', 'button', 'filter-list', 'work-rail', 'no-signal'].map((m) => `import '/elements/${m}.js'`).join('\n  ')}
   window.ready = true
 </script></body></html>`;
 	beforeAll(async () => {
@@ -259,7 +258,6 @@ describe.skipIf(!existsSync(CHROME))('registry flavors: elements in a browser', 
 		try {
 			// Form association: each field's name and value go with its form, and type="submit" submits it.
 			expect(await p.evaluate(() => Object.fromEntries(new FormData(document.getElementById('f') as HTMLFormElement)))).toEqual({ org: 'Acme' });
-			expect(await p.evaluate(() => Object.fromEntries(new FormData(document.getElementById('sf') as HTMLFormElement)))).toEqual({ q: 'Acme ads' });
 			await p.evaluate(() => {
 				const f = document.getElementById('f') as HTMLFormElement;
 				(window as unknown as { submitted: number }).submitted = 0;
@@ -295,7 +293,7 @@ describe.skipIf(!existsSync(CHROME))('registry flavors: elements in a browser', 
 			await p.mouse.move(2, 2);
 			await p.waitForTimeout(400);
 			const [dark, light] = await p.evaluate(() => ['go', 'day'].map((id) => getComputedStyle(document.getElementById(id)!.shadowRoot!.querySelector('button')!).backgroundColor));
-			expect(dark).toBe('rgb(255, 255, 255)');
+			expect(dark).toBe('rgb(37, 37, 37)'); // the plate
 			expect(light).toBe('rgb(0, 0, 0)');
 			expect(errors).toEqual([]);
 		} finally {
@@ -303,19 +301,20 @@ describe.skipIf(!existsSync(CHROME))('registry flavors: elements in a browser', 
 		}
 	});
 
-	it('searches once per Enter or button press, with the query', async () => {
+	it('picks one option per press and fires change with it', async () => {
 		const { browser, p } = await open();
 		try {
 			await p.evaluate(() => {
-				const w = window as unknown as { queries: string[] };
-				w.queries = [];
-				document.getElementById('bar')!.addEventListener('search', (e) => w.queries.push((e as CustomEvent<{ query: string }>).detail.query));
-				document.getElementById('sf')!.addEventListener('submit', (e) => e.preventDefault());
+				const w = window as unknown as { picked: string[] };
+				w.picked = [];
+				const bar = document.getElementById('bar') as HTMLElement & { value?: string };
+				bar.addEventListener('change', () => w.picked.push(bar.value ?? ''));
 			});
-			await p.locator('role=searchbox[name="Search creatives"]').press('Enter');
-			await p.locator('role=button[name="Search"]').click();
+			await p.locator('role=button[name="Design"]').click();
+			await p.locator('role=button[name="Engineering"]').click();
 			await p.waitForTimeout(50);
-			expect(await p.evaluate(() => (window as unknown as { queries: string[] }).queries)).toEqual(['Acme ads', 'Acme ads']);
+			expect(await p.evaluate(() => (window as unknown as { picked: string[] }).picked)).toEqual(['Design', 'Engineering']);
+			expect(await p.locator('role=button[name="Engineering"]').getAttribute('aria-pressed')).toBe('true');
 		} finally {
 			await browser.close();
 		}
@@ -345,29 +344,31 @@ describe.skipIf(!existsSync(CHROME))('registry flavors: elements in a browser', 
 		}
 	});
 
-	it('reads lists set as text and keeps its own when a list does not parse; the generators draw in the element', async () => {
+	it('reads lists set as text and keeps its own when a list does not parse; the generator draws in the element', async () => {
 		const { browser, p, errors } = await open();
 		try {
 			const out = await p.evaluate(async () => {
-				type Tex = HTMLElement & { clear: unknown, updateComplete: Promise<unknown> };
-				const text = document.getElementById('as-text') as Tex;
-				text.clear = '[{"x": 0, "y": 0, "w": 160, "h": 80}]';
+				type Rail = HTMLElement & { items: unknown, updateComplete: Promise<unknown> };
+				const text = document.getElementById('as-text') as Rail;
+				text.items = '[{"src": ""}, {"src": ""}]';
 				await text.updateComplete;
-				const bad = document.getElementById('bad-json') as Tex;
+				const bad = document.getElementById('bad-json') as Rail;
 				await bad.updateComplete;
-				const light = document.getElementById('light-el') as HTMLElement & { updateComplete: Promise<unknown> };
-				await light.updateComplete;
+				const signal = document.getElementById('light-el') as HTMLElement & { updateComplete: Promise<unknown> };
+				await signal.updateComplete;
+				await new Promise((r) => setTimeout(r, 50));
+				const canvas = signal.shadowRoot!.querySelector('canvas')!;
+				const px = canvas.getContext('2d')!.getImageData(0, 0, canvas.width, canvas.height).data;
+				let lit = 0;
+				for (let i = 0; i < px.length; i += 4) if (px[i + 3]! > 0) lit++;
 				return {
-					parsed: Array.isArray(text.clear),
-					// All cleared: no characters left.
-					cleared: text.shadowRoot!.querySelectorAll('text').length,
-					badValue: bad.clear,
-					badDrawn: bad.shadowRoot!.querySelectorAll('svg').length,
-					uses: light.shadowRoot!.querySelectorAll('use').length,
-					blend: getComputedStyle(light.shadowRoot!.querySelector('use')!).mixBlendMode,
+					parsed: Array.isArray(text.items),
+					strips: text.shadowRoot!.querySelectorAll('[role="listitem"]').length,
+					badValue: bad.items,
+					drawn: lit > 0,
 				};
 			});
-			expect(out).toEqual({ parsed: true, cleared: 0, badValue: [], badDrawn: 1, uses: 3, blend: 'plus-lighter' });
+			expect(out).toEqual({ parsed: true, strips: 2, badValue: [], drawn: true });
 			expect(errors).toEqual([]);
 		} finally {
 			await browser.close();

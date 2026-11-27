@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { brand, tokens } from '../src/lib/brand.js';
-import { illustrate, illustrateData, LIGHT_FRAMES, STYLES } from '../src/illustrate/build.js';
+import { illustrate, illustrateData, STYLES } from '../src/illustrate/build.js';
 import { runIllustrate } from '../src/commands/illustrate.js';
 import { runFigma } from '../src/commands/figma.js';
 import { figmaTokens, figmaTokenScripts } from '../src/figma/tokens.js';
@@ -30,42 +30,38 @@ async function picture(): Promise<Buffer> {
 describe('illustrate', () => {
 	it('has every style with a source, and no shader', () => {
 		const d = illustrateData() as unknown as Record<string, unknown> & { styles: Record<string, { from: string }> };
-		expect(STYLES()).toEqual(['pattern', 'light', 'texture', 'split']);
+		expect(STYLES()).toEqual(['signal', 'field', 'rail']);
 		for (const s of Object.values(d.styles)) expect(s.from).toMatch(/\S/);
 		expect(d.shader).toBeUndefined();
-		expect(d.subjects).toBeUndefined();
 	});
 
 	it('draws every style at its size, deterministic per seed (output hashes)', async () => {
 		const photo = { mime: 'image/png', data: await picture() };
-		const jobs = [
-			{ style: 'pattern' as const }, { style: 'texture' as const }, { style: 'split' as const, photo },
-			...Object.keys(LIGHT_FRAMES).map((variant) => ({ style: 'light' as const, variant })),
-		];
+		const jobs = [{ style: 'signal' as const }, { style: 'field' as const }, { style: 'rail' as const, photos: [photo, photo] }];
 		for (const job of jobs) {
-			const a = await illustrate({ ...job, seed: 3 });
-			const b = await illustrate({ ...job, seed: 3 });
+			const a = await illustrate({ ...job, seed: 3, width: 480, height: 270 });
+			const b = await illustrate({ ...job, seed: 3, width: 480, height: 270 });
 			expect(sha(a.png), JSON.stringify(job.style)).toBe(sha(b.png));
 			expect(sha(a.svg)).toBe(sha(b.svg));
 			expect(pngSize(a.png)).toEqual({ width: a.width, height: a.height });
 			expect(a.svg).toMatch(/^<\?xml[\s\S]*<svg[^>]*width="\d+"/);
 		}
-		expect((await illustrate({ style: 'light', variant: 'band' })).width).toBe(1080);
-		expect((await illustrate({ style: 'split', photo })).width).toBe(1080);
-		// Seeds move a generated light and the grain.
-		const g1 = await illustrate({ style: 'pattern', source: 'generated', seed: 1 });
-		const g2 = await illustrate({ style: 'pattern', source: 'generated', seed: 2 });
+		expect((await illustrate({ style: 'field', width: 320, height: 180 })).width).toBe(320);
+		// Seeds move the grain; the time moves the band.
+		const g1 = await illustrate({ style: 'signal', seed: 1, width: 320, height: 180 });
+		const g2 = await illustrate({ style: 'signal', seed: 2, width: 320, height: 180 });
+		const t2 = await illustrate({ style: 'signal', seed: 1, time: 1, width: 320, height: 180 });
 		expect(sha(g1.png)).not.toBe(sha(g2.png));
+		expect(sha(g1.png)).not.toBe(sha(t2.png));
 	});
 
 	it('refuses what a style does not take, and unknown names exit 1 with suggestions', async () => {
-		await expect(illustrate({ style: 'texture', photo: { mime: 'image/png', data: await picture() } })).rejects.toThrow(/takes no --image/);
-		await expect(illustrate({ style: 'split' })).rejects.toThrow(/needs a picture/);
+		await expect(illustrate({ style: 'field', photos: [{ mime: 'image/png', data: await picture() }] })).rejects.toThrow(/takes no --image/);
+		await expect(illustrate({ style: 'rail' })).rejects.toThrow(/needs pictures/);
 		await expect(illustrate({ style: 'shader' as never })).rejects.toThrow(/Unknown style/);
 		for (const [args, re] of [
-			[['illustrate', 'patern'], /Did you mean `pattern`/],
+			[['illustrate', 'signl'], /Did you mean `signal`/],
 			[['illustrate', 'shader'], /Unknown style/],
-			[['illustrate', 'light', '--variant', 'strip'], /strip-left/],
 			[['illustrat'], /Did you mean `illustrate`/],
 		] as const) {
 			const r = fails([...args]);
@@ -76,14 +72,14 @@ describe('illustrate', () => {
 
 	it('writes files from the command, one named file or a directory', async () => {
 		const dir = tmp();
-		const one = await runIllustrate(dir, ['light'], { variant: 'tile', out: 'tile.png' });
+		const one = await runIllustrate(dir, ['field'], { width: '200', height: '200', out: 'tile.png' });
 		expect((one.json as { files: unknown[] }).files).toHaveLength(1);
 		expect(pngSize(readFileSync(join(dir, 'tile.png')))).toEqual({ width: 200, height: 200 });
-		await runIllustrate(dir, ['pattern'], { variant: 'corner', width: '400', height: '400' });
-		expect(existsSync(join(dir, 'illustrations', 'pattern-corner-0.png'))).toBe(true);
-		expect(existsSync(join(dir, 'illustrations', 'pattern-corner-0.svg'))).toBe(true);
+		await runIllustrate(dir, ['signal'], { width: '400', height: '400' });
+		expect(existsSync(join(dir, 'illustrations', 'signal-0.png'))).toBe(true);
+		expect(existsSync(join(dir, 'illustrations', 'signal-0.svg'))).toBe(true);
 		const list = await runIllustrate(dir, [], { list: true });
-		expect((list.json as { styles: { id: string }[] }).styles.map((p) => p.id)).toEqual(['pattern', 'light', 'texture', 'split']);
+		expect((list.json as { styles: { id: string }[] }).styles.map((p) => p.id)).toEqual(['signal', 'field', 'rail']);
 	});
 });
 
@@ -92,40 +88,40 @@ describe('figma', () => {
 		const doc = figmaTokens();
 		expect(doc.modes).toEqual(['Dark', 'Light']);
 		const surface = doc.variables.find((v) => v.css === '--ds-color-surface')!;
-		expect(surface.values).toEqual([[0, 0, 0, 1], [1, 1, 1, 1]]);
-		expect(doc.variables.find((v) => v.css === '--ds-font-heading')!.values[0]).toBe('Funnel Display');
-		expect(doc.variables.find((v) => v.css === '--ds-color-scrim')!.values[0]).toEqual([0, 0, 0, 0.72]);
+		expect(surface.values).toEqual([[0.0196, 0.0196, 0.0196, 1], [1, 1, 1, 1]]);
+		expect(doc.variables.find((v) => v.css === '--ds-font-heading')!.values[0]).toBe('Agencidev Sans');
+		expect(doc.variables.find((v) => v.css === '--ds-color-scrim')!.values[0]).toEqual([0, 0, 0, 0.8]);
 		const scripts = figmaTokenScripts(doc);
 		for (const s of scripts) expect(s.length).toBeLessThanOrEqual(45000);
 		expect(scripts.join('')).toContain('"Agencidev tokens"'.replace('Agencidev', brand().name));
 	});
 
 	it('checks Figma values against the tokens, naming the nearest one', () => {
-		const found = checkFigmaValues('<div className="bg-[#1B1DFF] text-[#ff7ad9] rounded-[8px] font-[Inter] text-[24px]"/>');
-		expect(found.find((f) => f.value === '#1B1DFF')).toMatchObject({ ok: true, token: '--ds-color-blue' });
-		expect(found.find((f) => f.value === '#ff7ad9')).toMatchObject({ ok: false, nearest: '--ds-color-magenta-10' });
+		const found = checkFigmaValues('<div className="bg-[#252525] text-[#ff7ad9] rounded-[4px] font-[Inter] text-[24px]"/>');
+		expect(found.find((f) => f.value === '#252525')).toMatchObject({ ok: true });
+		expect(found.find((f) => f.value === '#ff7ad9')).toMatchObject({ ok: false });
 		expect(found.find((f) => f.kind === 'font')).toMatchObject({ ok: false });
 		expect(found.find((f) => f.kind === 'radius')).toMatchObject({ ok: true });
-		const vars = checkFigmaValues(JSON.stringify({ Ground: '#000000', Card: '#262626' }));
+		const vars = checkFigmaValues(JSON.stringify({ Ground: '#050505', Plate: '#252525' }));
 		expect(vars.every((f) => f.ok)).toBe(true);
 	});
 
 	it('pushes an image as an import script with its fonts, and exits 1 on off-brand values', async () => {
 		const dir = tmp();
-		const svg = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><defs><style type="text/css"><![CDATA[@font-face{font-family:"DM Sans";src:url(data:x)}]]></style></defs><text font-family="\'DM Sans\'" font-weight="500">A</text><text font-family="\'Funnel Display\'" font-weight="400">B</text></svg>';
+		const svg = '<?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"><defs><style type="text/css"><![CDATA[@font-face{font-family:"ABC Diatype";src:url(data:x)}]]></style></defs><text font-family="\'ABC Diatype\'" font-weight="500">A</text><text font-family="\'Agencidev Sans\'" font-weight="400">B</text></svg>';
 		writeFileSync(join(dir, 'a.svg'), svg);
-		expect(fontsOf(svg)).toEqual([['DM Sans', 'Medium'], ['Funnel Display', 'Regular']]);
+		expect(fontsOf(svg)).toEqual([['ABC Diatype', 'Medium'], ['Agencidev Sans', 'Regular']]);
 		expect(figmaSvg(svg)).not.toMatch(/@font-face|<\?xml/);
 		const r = await runFigma(dir, ['push', 'asset', 'a.svg'], { file: 'KEY' });
 		const doc = r.json as { files: string[]; steps: { tool: string }[] };
 		expect(doc.steps.map((s) => s.tool)).toEqual(['create_session', 'use_figma', 'upload_assets', 'get_screenshot']);
 		expect(readFileSync(join(dir, 'figma', 'push-a.js'), 'utf8')).toContain('loadFontAsync');
-		const ill = await runFigma(dir, ['push', 'illustration', 'pattern'], { variant: 'corner', file: 'KEY' });
+		const ill = await runFigma(dir, ['push', 'illustration', 'field'], { file: 'KEY' });
 		expect((ill.json as { files: string[] }).files.some((f) => f.endsWith('.png'))).toBe(true);
 		expect(parseFigmaUrl('https://www.figma.com/design/Qx2i6GhXZD1V4O7RE7hYQi/x?node-id=966-4421')).toEqual({ fileKey: 'Qx2i6GhXZD1V4O7RE7hYQi', nodeId: '966:4421', kind: 'design' });
 		writeFileSync(join(dir, 'd.txt'), 'text-[#ff7ad9]');
 		expect(fails(['figma', 'check', join(dir, 'd.txt')]).status).toBe(1);
-		writeFileSync(join(dir, 'ok.txt'), 'bg-[#000000]');
+		writeFileSync(join(dir, 'ok.txt'), 'bg-[#050505]');
 		expect(spawnSync('node', [bin, 'figma', 'check', join(dir, 'ok.txt')]).status).toBe(0);
 		const bad = fails(['figma', 'pusj']);
 		expect(bad.status).toBe(1);

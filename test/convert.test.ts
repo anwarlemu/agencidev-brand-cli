@@ -37,8 +37,8 @@ describe('classes', () => {
 		expect(convertClassList('text-sm text-gray-500', { merge: true })).toBe('text-[length:var(--ds-text-ui)] text-fg-muted');
 	});
 	it('names the transition properties and snaps durations to the steps', () => {
-		expect(convertClassList('transition-all duration-300 ease-in', {})).toBe('transition-colors duration-320 ease-out');
-		expect(convertClassList('transition hover:scale-105 duration-[250ms]', {})).toBe('transition-[color,background-color,border-color,transform,translate,scale,rotate] hover:scale-105 duration-240');
+		expect(convertClassList('transition-all duration-300 ease-in', {})).toBe('transition-colors duration-250 ease-out');
+		expect(convertClassList('transition hover:scale-105 duration-[250ms]', {})).toBe('transition-[color,background-color,border-color,transform,translate,scale,rotate] hover:scale-105 duration-250');
 	});
 });
 
@@ -47,7 +47,7 @@ describe('kinds', () => {
 		const out = twice(vue('  <button>Save</button>'), all);
 		// One primary per view: a button the app gave no look takes the secondary.
 		expect(out).toContain('bg-action-secondary text-action-secondary-fg');
-		expect(out).toContain('h-control-md px-4 type-ui-strong rounded-control');
+		expect(out).toContain('h-control-md px-6 type-label rounded-control');
 	});
 	it('keeps a tab state string the app toggles (and is idempotent)', () => {
 		const out = twice(vue(`  <div role="tablist" class="flex rounded-lg bg-gray-100 p-1">\n    <button role="tab" class="rounded-md px-4 py-1.5 text-sm" :class="on ? 'bg-white text-gray-900 shadow' : 'text-gray-500'">A</button>\n  </div>`, 'const on = true'), all);
@@ -63,7 +63,7 @@ describe('kinds', () => {
 		expect(out).toContain("danger: 'bg-action-secondary text-action-secondary-fg");
 		expect(out).toContain("ghost: 'bg-transparent text-fg");
 		// A size string takes only the size part of the look.
-		expect(out).toMatch(/sm: 'h-control-md px-4 type-ui-strong'/);
+		expect(out).toMatch(/sm: 'h-control-md px-6 type-label'/);
 		expect(out).not.toMatch(/sm: '[^']*transition/);
 	});
 	it("takes a cva's variants by their keys (shadcn's ghost has no color at rest)", () => {
@@ -120,14 +120,14 @@ describe('css', () => {
 		expect(out).toContain('--font-heading: var(--ds-font-heading);');
 		expect(out).toContain('--primary: var(--ds-color-action-primary);');
 		expect(out).toContain('--radius: var(--ds-radius-control);');
-		expect(out).toMatch(/\.dark \{\n {2}--primary: var\(--ds-color-white\);/);
+		expect(out).toMatch(/\.dark \{\n {2}--primary: var\(--ds-color-plate\);/);
 	});
 	it('converts a rule by role and adds a hairline where a shadow was', () => {
 		const out = convertCss('.card { box-shadow: 0 1px 3px rgba(0,0,0,.1); border-radius: 12px; color: #374151; transition: all .2s ease-in; font-weight: 700; padding: 13px; }');
 		expect(out).toContain('box-shadow: none');
 		expect(out).toContain('border-radius: var(--ds-radius-container)');
 		expect(out).toContain('color: var(--ds-color-fg-soft)');
-		expect(out).toContain('opacity var(--ds-duration-micro) var(--ds-easing-out)');
+		expect(out).toContain('opacity var(--ds-duration-exit) var(--ds-easing-out)');
 		expect(out).toContain('padding: 14px');
 		expect(out).toContain('border: var(--ds-border-hairline) solid var(--ds-color-edge);');
 		expect(convertCss(out)).toBe(out);

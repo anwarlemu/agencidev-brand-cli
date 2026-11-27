@@ -19,6 +19,8 @@ const P = (index, box, o = {}) => ({ type: 'photo', index, box, ...o });
 const text = (slot, face, size, leading, o = {}) => ({ type: 'text', slot, face, size, leading, ...o });
 const stack = (box, items, o = {}) => ({ type: 'stack', box, items, ...o });
 const art = (file, box, o = {}) => ({ type: 'art', id: 'signal', file, box, fit: 'cover', ...o });
+/** The 404 page's no-signal static over the box, drawn at its size (registry/lib/signal.ts): the seed picks the grain. */
+const signal = (box, o = {}) => ({ type: 'signal', id: 'signal', box, ...o });
 const list = (n) => Array.from({ length: n }, (_, i) => i);
 /** The site's greys: running copy and nav links in dim, the statement's rest in mid. */
 const DIM = 'dim';
@@ -198,7 +200,7 @@ function signalPost(c) {
 		const s = stripHead(v);
 		const split = v.x + v.w * 0.55;
 		return done(v, [
-			art('signal', [split, 0, v.W - split, v.H]),
+			signal([split, 0, v.W - split, v.H]),
 			logo(v, 'top-left'),
 			stack([v.x, v.y, split - v.x - 32, v.h], [head({ ...v, u: 1 }, s, { maxLines: 2 }), copy({ ...v, u: Math.max(0.62, v.u) }, 12, { maxLines: 2 })], { valign: 'center' }),
 		]);
@@ -210,7 +212,7 @@ function signalPost(c) {
 	const box = wide ? [0, 0, v.W, v.H] : [0, v.y + 80 * u, v.W, v.h * 0.72];
 	const top = box[1] + box[3] * (wide ? 0.64 : 0.66);
 	return done(v, [
-		art('signal', box),
+		signal(box),
 		logo(v, 'top-left'), address(v, 'top-right'),
 		stack([v.cx - w / 2, top, w, v.b - top], [head(v, s, { align: 'center', maxLines: 2 }), copy(v, 24, { align: 'center', maxLines: 3 }), key(v, 36)], { align: 'center', valign: 'top', grow: v.w, over: ['signal'] }),
 	]);

@@ -27,7 +27,7 @@ export function WorkRail({ items, start = 43, label = 'Selected work', className
     <div data-ds="work-rail" role="list" aria-label={label} style={style} className={cn('relative w-full overflow-x-clip', className)}>
       <div className="flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]">
         {items.map((item, i) => (
-          <div key={`${i}-${item.src ?? ''}`} role="listitem" className="relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)">
+          <div key={`${i}-${item.src ?? ''}`} role="listitem" data-ds-placeholder={item.src ? undefined : ''} className="relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)">
             {item.src ? <img src={item.src} alt={item.alt ?? ''} loading="lazy" className="absolute inset-0 size-full object-cover" /> : null}
           </div>
         ))}

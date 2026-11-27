@@ -44,8 +44,8 @@ describe('the base layer reaches only what was named', () => {
 		// The type on a scoped root outranks Tailwind's preflight (button { font: inherit }) in the base layer.
 		expect(scoped).toContain(':is([data-ds], .ds-scope):not(:is([data-ds], .ds-scope) *) {');
 		// The brand's faces under their own names, so an app that names Inter or Geist keeps its own rendering.
-		expect(scoped).toMatch(/font-family: "DM Sans \(Agencidev\)";/);
-		expect(scoped).toMatch(/font-family: "Funnel Display \(Agencidev\)";/);
+		expect(scoped).toMatch(/font-family: "ABC Diatype \(Agencidev\)";/);
+		expect(scoped).toMatch(/font-family: "Agencidev Sans \(Agencidev\)";/);
 		expect(scoped).not.toMatch(/font-family: "Inter";/);
 	});
 	it('marks every library component root with data-ds', () => {

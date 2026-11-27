@@ -17,7 +17,7 @@ export function ArticleCard({ title, href, date, readingTime, excerpt, cover, cl
   const meta = [date, readingTime].filter(Boolean)
   return (
     <a data-ds="article-card" href={href} className={cn('group flex flex-col', className)}>
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-inset">
+      <div data-ds-placeholder={cover ? undefined : ''} className="relative aspect-[16/10] w-full overflow-hidden bg-surface-inset">
         {cover ? <img src={cover} alt="" loading="lazy" className="absolute inset-0 size-full object-cover" /> : null}
       </div>
       {meta.length ? (

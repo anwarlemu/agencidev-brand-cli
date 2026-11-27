@@ -24,7 +24,7 @@ export function ArticlePage({ content: c = articleContent, sections, className }
         {meta.length ? <p className="type-ui uppercase text-fg-muted">{meta.join(' · ')}</p> : null}
       </header>
     ),
-    cover: <div className="relative mt-10 aspect-[16/10] w-full overflow-hidden bg-surface-inset">{c.cover ? <img src={c.cover} alt="" className="absolute inset-0 size-full object-cover" /> : null}</div>,
+    cover: <div data-ds-placeholder={c.cover ? undefined : ''} className="relative mt-10 aspect-[16/10] w-full overflow-hidden bg-surface-inset">{c.cover ? <img src={c.cover} alt="" className="absolute inset-0 size-full object-cover" /> : null}</div>,
     body: <div className="mt-10 flex max-w-(--ds-layout-measure) flex-col gap-6">{c.body.map((p) => <p key={p} className="type-body text-fg-soft">{p}</p>)}</div>,
   }
   return (

@@ -22,7 +22,7 @@ export class WorkRail extends DsElement {
 	label = 'Selected work'
 
 	render() {
-		return html`<div data-ds="work-rail" role="list" aria-label=${this.label} style="--rail-start: ${this.start}%" class="relative w-full overflow-x-clip"><div class="flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]">${(this.items ?? []).map((item) => html`<div role="listitem" class="relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)">${item.src ? html`<img src=${item.src} alt=${item.alt ?? ''} loading="lazy" class="absolute inset-0 size-full object-cover">` : nothing}</div>`)}</div></div>`
+		return html`<div data-ds="work-rail" role="list" aria-label=${this.label} style="--rail-start: ${this.start}%" class="relative w-full overflow-x-clip"><div class="flex gap-(--ds-rail-gap-phone) pl-[calc(var(--rail-start)-var(--ds-rail-strip-w-phone)/2)] sm:gap-(--ds-rail-gap) sm:pl-[calc(var(--rail-start)-var(--ds-rail-strip-w)/2)]">${(this.items ?? []).map((item) => html`<div role="listitem" data-ds-placeholder=${item.src ? nothing : ''} class="relative h-(--ds-rail-strip-h-phone) w-(--ds-rail-strip-w-phone) shrink-0 overflow-hidden bg-surface-raised sm:h-(--ds-rail-strip-h) sm:w-(--ds-rail-strip-w)">${item.src ? html`<img src=${item.src} alt=${item.alt ?? ''} loading="lazy" class="absolute inset-0 size-full object-cover">` : nothing}</div>`)}</div></div>`
 	}
 }
 

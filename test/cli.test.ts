@@ -48,7 +48,7 @@ describe('cli', () => {
 		expect(css.indexOf('@import "tailwindcss"')).toBeLessThan(css.indexOf('./agencidev-ds/brand.css'));
 		expect(css).toContain('@import "./agencidev-ds/theme.css";');
 		expect(existsSync(join(dir, 'app/assets/css/agencidev-ds/theme.css'))).toBe(true);
-		for (const f of ['FunnelDisplay-400.woff2', 'DMSans-400.woff2', 'DMSans-500.woff2', 'GeistMono-400.woff2', 'licenses/DMSans-OFL.txt']) expect(existsSync(join(dir, 'public/agencidev-ds/fonts', f)), f).toBe(true);
+		for (const f of ['AgencidevSans-400.woff2', 'ABCDiatype-400.woff2', 'ABCDiatype.woff2', 'licenses/README.md']) expect(existsSync(join(dir, 'public/agencidev-ds/fonts', f)), f).toBe(true);
 		expect(existsSync(join(dir, 'public/agencidev-ds/logo/horizontal-white.svg'))).toBe(true);
 		expect(readFileSync(join(dir, 'AGENTS.md'), 'utf8')).toContain('ds:contract:start');
 		// Running it again changes nothing.
@@ -57,21 +57,21 @@ describe('cli', () => {
 	});
 	it('add copies a React item with what it requires, imports through the app alias', () => {
 		const dir = reactApp();
-		const out = JSON.parse(run(dir, 'add', 'search-bar', '--no-install'));
+		const out = JSON.parse(run(dir, 'add', 'site-header', '--no-install'));
 		expect(out.flavor).toBe('react');
-		expect(out.items).toEqual(['button', 'search-bar']);
-		for (const f of ['components/product/SearchBar.tsx', 'components/ui/Button.tsx', 'hooks/useControllable.ts', 'lib/cn.ts']) expect(existsSync(join(dir, f)), f).toBe(true);
-		const bar = readFileSync(join(dir, 'components/product/SearchBar.tsx'), 'utf8');
-		expect(bar).toContain("from '@/components/ui/Button'");
+		expect(out.items).toEqual(['logo', 'site-header']);
+		for (const f of ['components/site/SiteHeader.tsx', 'components/visuals/Logo.tsx', 'lib/logos.ts', 'lib/cn.ts']) expect(existsSync(join(dir, f)), f).toBe(true);
+		const bar = readFileSync(join(dir, 'components/site/SiteHeader.tsx'), 'utf8');
+		expect(bar).toContain("from '@/components/visuals/Logo'");
 		expect(bar).not.toContain('@/react/');
 		expect(existsSync(join(dir, 'app/agencidev-ds/brand.css'))).toBe(true);
 	});
 	it('add brings the framework-free generator a visual imports, and rewrites @/ imports when the app has no alias', () => {
 		const dir = reactApp(false);
-		run(dir, 'add', 'ascii-texture', '--no-install');
-		for (const f of ['src/components/visuals/AsciiTexture.tsx', 'src/components/visuals/BrandLight.tsx', 'src/lib/ascii.ts', 'src/lib/light.ts', 'src/lib/light-master.ts']) expect(existsSync(join(dir, f)), f).toBe(true);
-		expect(readFileSync(join(dir, 'src/components/visuals/AsciiTexture.tsx'), 'utf8')).toContain("from '../../lib/ascii'");
-		expect(readFileSync(join(dir, 'src/lib/ascii.ts'), 'utf8')).toContain("from './light'");
+		run(dir, 'add', 'no-signal', '--no-install');
+		for (const f of ['src/components/visuals/NoSignal.tsx', 'src/lib/no-signal.ts', 'src/lib/signal.ts']) expect(existsSync(join(dir, f)), f).toBe(true);
+		expect(readFileSync(join(dir, 'src/components/visuals/NoSignal.tsx'), 'utf8')).toContain("from '../../lib/no-signal'");
+		expect(readFileSync(join(dir, 'src/lib/no-signal.ts'), 'utf8')).toContain("from './signal'");
 	});
 	it('add gives a Vue app the web components, with Vue told the tags are custom elements', () => {
 		const dir = nuxtApp();
@@ -85,23 +85,23 @@ describe('cli', () => {
 		const dir = reactApp();
 		const out = JSON.parse(run(dir, 'add', 'home-page', '--no-install'));
 		expect(out.flavor).toBe('react');
-		for (const item of ['home-page', 'playground-hero', 'features-block', 'why-block', 'how-it-works-block', 'case-stories-block', 'pricing-panels-block', 'close-block', 'faq-block', 'site-header', 'site-footer', 'proof-block', 'ascii-trail', 'mcp-session', 'creative-card']) expect(out.items, item).toContain(item);
-		for (const f of ['components/pages/HomePage.tsx', 'lib/pages/home.ts', 'components/blocks/PlaygroundHero.tsx', 'components/site/McpSession.tsx', 'lib/home/session.ts']) expect(existsSync(join(dir, f)), f).toBe(true);
+		for (const item of ['home-page', 'site-header', 'site-footer', 'statement', 'work-rail', 'logo']) expect(out.items, item).toContain(item);
+		for (const f of ['components/pages/HomePage.tsx', 'lib/pages/home.ts', 'lib/pages/chrome.ts', 'components/site/Statement.tsx', 'components/visuals/WorkRail.tsx']) expect(existsSync(join(dir, f)), f).toBe(true);
 		const page = readFileSync(join(dir, 'components/pages/HomePage.tsx'), 'utf8');
 		expect(page).toContain("from '@/lib/pages/home'");
 		expect(page).not.toContain('@/react/');
 	});
-	it('add copies the contact page with its form controls, and the new blocks with what they wrap', () => {
+	it('add copies the contact page with the parts it is built from', () => {
 		const dir = reactApp();
-		const out = JSON.parse(run(dir, 'add', 'contact-page', 'pricing-table-block', 'testimonial-block', 'footer-block', '--no-install'));
-		for (const item of ['contact-page', 'field', 'input', 'textarea', 'button', 'site-header', 'footer-row', 'plan-card', 'testimonial']) expect(out.items, item).toContain(item);
-		for (const f of ['components/pages/ContactPage.tsx', 'lib/pages/contact.ts', 'components/blocks/PricingTableBlock.tsx', 'components/blocks/FooterBlock.tsx']) expect(existsSync(join(dir, f)), f).toBe(true);
+		const out = JSON.parse(run(dir, 'add', 'contact-page', 'testimonial', '--no-install'));
+		for (const item of ['contact-page', 'page-head', 'detail-list', 'button', 'site-header', 'site-footer', 'testimonial']) expect(out.items, item).toContain(item);
+		for (const f of ['components/pages/ContactPage.tsx', 'lib/pages/contact.ts', 'components/site/DetailList.tsx', 'components/site/Testimonial.tsx']) expect(existsSync(join(dir, f)), f).toBe(true);
 	});
 	it('add gives a Vue app a page template as one web component and the elements it renders', () => {
 		const dir = nuxtApp();
-		const out = JSON.parse(run(dir, 'add', 'pricing-page', '--no-install'));
+		const out = JSON.parse(run(dir, 'add', 'careers-page', '--no-install'));
 		expect(out.flavor).toBe('elements');
-		for (const f of ['pricing-page', 'pricing-table', 'compare-table', 'page-head', 'site-header', 'site-footer']) expect(existsSync(join(dir, `public/agencidev-ds/elements/${f}.js`)), f).toBe(true);
+		for (const f of ['careers-page', 'openings', 'page-head', 'site-header', 'site-footer']) expect(existsSync(join(dir, `public/agencidev-ds/elements/${f}.js`)), f).toBe(true);
 	});
 	it('manifest lists the page templates and blocks with the command that adds each', () => {
 		const doc = JSON.parse(run(mkdtempSync(join(tmpdir(), 'agencidev-ds-')), 'manifest'));
@@ -111,7 +111,7 @@ describe('cli', () => {
 		expect(doc.pages.map((p: { name: string }) => p.name).sort()).toEqual(inGroup('pages'));
 		expect(doc.blocks.map((b: { name: string }) => b.name).sort()).toEqual(inGroup('blocks'));
 		expect(doc.pages.find((p: { name: string }) => p.name === 'home-page').add).toBe('agencidev-ds add home-page');
-		expect(doc.groups.map((g: { id: string }) => g.id)).toEqual(expect.arrayContaining(['pages', 'blocks']));
+		expect(doc.groups.map((g: { id: string }) => g.id)).toEqual(expect.arrayContaining(['pages', 'site', 'visuals']));
 	});
 	it('check exits 1 on findings and 0 when clean', () => {
 		const dir = nuxtApp();

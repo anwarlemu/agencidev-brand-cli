@@ -21,7 +21,7 @@ export function runNoSignal(canvas: HTMLCanvasElement, o: NoSignalOptions): () =
 		if (!image) return
 		// The band rolls on real time; the static's flow and grain run on it too.
 		const time = o.band ? base + s : base
-		image.data.set(signalFrame(w, h, { time, warp: base + s, frame: Math.floor(s * 10), seed: o.seed, density: 1 / 3 }))
+		image.data.set(signalFrame(w, h, { time, warp: base + s, frame: Math.floor(s * 10), seed: o.seed, density: 1 / 3, band: o.band }))
 		ctx.putImageData(image, 0, 0)
 	}
 	const size = () => {

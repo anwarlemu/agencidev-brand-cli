@@ -23,17 +23,17 @@ function app(files: Record<string, string>) {
 }
 const read = (dir: string, rel: string) => readFileSync(join(dir, rel), 'utf8');
 const pkg = (deps: Record<string, string>, dev: Record<string, string> = {}) => JSON.stringify({ name: 'acme', private: true, dependencies: deps, devDependencies: dev });
-const has = existsSync(join(registry, 'search-bar.json')) && JSON.parse(readFileSync(join(registry, 'search-bar.json'), 'utf8')).flavors?.elements;
+const has = existsSync(join(registry, 'site-header.json')) && JSON.parse(readFileSync(join(registry, 'site-header.json'), 'utf8')).flavors?.elements;
 
 describe.skipIf(!has)('web components in apps', () => {
-	it('loads every element an item needs (a search bar renders a button), once each', () => {
+	it('loads every element an item needs (the site header renders the logo), once each', () => {
 		const dir = app({ 'index.html': '<!doctype html><html><head><title>Acme</title></head><body></body></html>\n' });
-		const r = json(dir, 'add', 'search-bar', 'card', 'button');
+		const r = json(dir, 'add', 'site-header', 'card', 'button');
 		const srcs = r.scripts.map((l: string) => l.match(/src="([^"]+)"/)![1]);
-		expect(srcs).toEqual(expect.arrayContaining(['/agencidev-ds/elements/search-bar.js', '/agencidev-ds/elements/button.js', '/agencidev-ds/elements/card.js']));
+		expect(srcs).toEqual(expect.arrayContaining(['/agencidev-ds/elements/site-header.js', '/agencidev-ds/elements/logo.js', '/agencidev-ds/elements/button.js', '/agencidev-ds/elements/card.js']));
 		expect(new Set(srcs).size).toBe(srcs.length);
 		expect(existsSync(join(dir, 'agencidev-ds/elements/shared.js'))).toBe(true);
-		expect(json(dir, 'view', 'search-bar').items[0].imports.join('\n')).toContain('search-bar.js');
+		expect(json(dir, 'view', 'site-header').items[0].imports.join('\n')).toContain('site-header.js');
 	});
 
 	it('writes types for the tags (React JSX, Svelte, the tag map) and the manifest, and rewrites them on the next add', () => {
@@ -133,7 +133,7 @@ describe('element types from the registry\'s declaration files', () => {
 		const modules = readdirSync(dir).filter((f) => f.endsWith('.d.ts')).map((f) => ({ name: f.replace(/\.d\.ts$/, ''), dts: readFileSync(join(dir, f), 'utf8') }));
 		const out = mkdtempSync(join(tmpdir(), 'agd-types-'));
 		writeFileSync(join(out, 'elements.d.ts'), elementTypes({ pkg: { dependencies: { react: '19.2.0' } }, framework: 'vite-react' }, modules));
-		writeFileSync(join(out, 'use.tsx'), "export const a = <agd-button variant=\"secondary\" size=\"lg\" icon>Go</agd-button>\nexport const b = <agd-brand-light variant=\"corner\" seed={3} cover />\nexport const c: string | undefined = document.querySelector('agd-search-bar')?.value\nexport const d: boolean | undefined = document.querySelector('agd-input')?.checkValidity()\n// @ts-expect-error a variant the button does not have\nexport const e = <agd-button variant=\"nope\">Go</agd-button>\n// @ts-expect-error a light variant that does not exist\nexport const f = <agd-brand-light variant=\"spiral\" />\n");
+		writeFileSync(join(out, 'use.tsx'), "export const a = <agd-button variant=\"secondary\" size=\"lg\" icon>Go</agd-button>\nexport const b = <agd-no-signal seed={3} still />\nexport const c: string | undefined = document.querySelector('agd-filter-list')?.value\nexport const d: boolean | undefined = document.querySelector('agd-input')?.checkValidity()\n// @ts-expect-error a variant the button does not have\nexport const e = <agd-button variant=\"nope\">Go</agd-button>\n// @ts-expect-error an arrangement the filter does not have\nexport const f = <agd-filter-list arrange=\"diagonal\" />\n");
 		const program = ts.createProgram([join(out, 'elements.d.ts'), join(out, 'use.tsx')], { strict: true, noEmit: true, jsx: ts.JsxEmit.ReactJSX, target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ESNext, moduleResolution: ts.ModuleResolutionKind.Bundler, lib: ['lib.es2022.d.ts', 'lib.dom.d.ts'], typeRoots: [join(__dirname, '..', 'node_modules', '@types')], types: ['react'] });
 		expect(ts.getPreEmitDiagnostics(program).map((d) => ts.flattenDiagnosticMessageText(d.messageText, ' '))).toEqual([]);
 	});
