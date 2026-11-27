@@ -8,7 +8,7 @@ export default function Sizes() {
       <InputGroup size="sm" aria-label="Search, small" placeholder="Search" start={<Search size={16} strokeWidth={1.5} aria-hidden="true" />} />
       <InputGroup size="md" aria-label="Search, medium" placeholder="Search" start={<Search size={16} strokeWidth={1.5} aria-hidden="true" />} />
       <InputGroup size="lg" aria-label="Search, large" placeholder="Search" start={<Search size={16} strokeWidth={1.5} aria-hidden="true" />} />
-      <InputGroup aria-label="Board link, taken" defaultValue="acme" start="agencidev.com/b/" invalid />
+      <InputGroup aria-label="Project link, taken" defaultValue="acme" start="acme.com/p/" invalid />
     </div>
   )
 }

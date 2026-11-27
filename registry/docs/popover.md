@@ -4,7 +4,7 @@ title: Popover
 type: registry:ui
 group: ui
 description: "A panel for any content, opened from a button: the card's #141414 fill on black, a hairline and square corners. It grows from its trigger and flips to the side with room."
-use_for: "A short form or a few settings beside the button that opens them: save to a board, a filter with two fields. Focus moves into it; Escape closes it and returns focus."
+use_for: "A short form or a few settings beside the button that opens them: share a project, a filter with two fields. Focus moves into it; Escape closes it and returns focus."
 never:
   - "A list of actions: use Dropdown Menu"
   - "Content someone must read to go on: put it on the page"
@@ -15,5 +15,5 @@ files:
   - react/components/ui/PopoverPanel.tsx
   - react/hooks/usePopover.ts
 examples:
-  - "Board | Save to a board | center"
+  - "Project | Share a project | center"
 ---

@@ -4,7 +4,7 @@ title: Select
 type: registry:ui
 group: ui
 description: "One choice from a short list, drawn as the field is: a black field, a hairline that turns white while open, a chevron. The list opens in the card's #141414 panel, the chosen row checked. A long list scrolls with fading edges."
-use_for: "Picking one of a few known values in a form or a filter: a platform, an order, a plan. Label it as any field."
+use_for: "Picking one of a few known values in a form or a filter: a discipline, an order, a stage. Label it as any field."
 never:
   - "A list that needs a filter: use Combobox"
   - "Options that do something at once: use Dropdown Menu"

@@ -4,7 +4,7 @@ title: Button group
 type: registry:ui
 group: ui
 description: "Buttons that belong together, joined into one block: square corners on the outer corners only and a 1px black seam between them. A field with its button, a button with its menu arrow, or a vertical stack."
-use_for: "Paging, a pair of views, save with a choice of board, an email field with its Invite button."
+use_for: "Paging, a pair of views, share with its options, an email field with its Invite button."
 never:
   - "Unrelated actions in one group"
   - "Two primary buttons in one group"

@@ -5,8 +5,8 @@ import { Toast } from '@/react/components/ui/Toast'
 export default function Notes() {
   return (
     <div className="flex w-90 max-w-full flex-col gap-3">
-      <Toast title="Saved to board" description="Acme hooks now has 24 creatives." action={{ label: 'Undo' }} onDismiss={() => {}} />
-      <Toast title="Brand added" description="New ads from Acme Studio show up here every day." onDismiss={() => {}} />
+      <Toast title="Shared" description="Acme onboarding is open to 24 people." action={{ label: 'Undo' }} onDismiss={() => {}} />
+      <Toast title="Enquiry sent" description="We reply within a day." onDismiss={() => {}} />
     </div>
   )
 }

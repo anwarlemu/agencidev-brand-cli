@@ -4,9 +4,9 @@ import { Input } from '@/react/components/ui/Input'
 export default function Field() {
   return (
     <div className="flex w-80 max-w-full flex-col gap-2">
-      <label htmlFor="track-brand" className="type-label text-fg-soft">Brand or creator</label>
-      <Input id="track-brand" name="brand" placeholder="Acme" />
-      <p className="type-caption text-fg-muted">Add any brand or creator in under a minute.</p>
+      <label htmlFor="company" className="type-label text-fg-soft">Company</label>
+      <Input id="company" name="company" placeholder="Acme" />
+      <p className="type-caption text-fg-muted">The company the project is for.</p>
     </div>
   )
 }

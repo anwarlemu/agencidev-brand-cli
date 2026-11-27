@@ -1,20 +1,20 @@
-<!-- Two filters over a search: where the ads ran and how long ago. -->
+<!-- Two filters over a search: what the work is and how long it ran. -->
 <div class="grid w-full max-w-120 gap-4 sm:grid-cols-2">
   <div class="flex flex-col gap-2">
-    <label for="native-select-platform" class="type-label text-fg-soft">Platform</label>
-    <agd-native-select id="native-select-platform" name="platform" value="meta" aria-label="Platform">
-      <option value="all">All platforms</option>
-      <option value="meta">Meta</option>
-      <option value="tiktok">TikTok</option>
-      <option value="youtube">YouTube</option>
+    <label for="native-select-discipline" class="type-label text-fg-soft">Discipline</label>
+    <agd-native-select id="native-select-discipline" name="discipline" value="product" aria-label="Platform">
+      <option value="all">All disciplines</option>
+      <option value="product">Product design</option>
+      <option value="brand">Branding</option>
+      <option value="build">Development</option>
     </agd-native-select>
   </div>
   <div class="flex flex-col gap-2">
-    <label for="native-select-range" class="type-label text-fg-soft">Running for</label>
-    <agd-native-select id="native-select-range" name="range" value="30" aria-label="Running for">
-      <option value="7">Over 7 days</option>
-      <option value="30">Over 30 days</option>
-      <option value="90">Over 90 days</option>
+    <label for="native-select-range" class="type-label text-fg-soft">Longer than</label>
+    <agd-native-select id="native-select-range" name="range" value="30" aria-label="Longer than">
+      <option value="7">Two weeks</option>
+      <option value="30">A month</option>
+      <option value="90">A quarter</option>
     </agd-native-select>
   </div>
 </div>

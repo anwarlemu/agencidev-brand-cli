@@ -1,0 +1,15 @@
+<!-- A month of site visits on the slat tile: the total in Agencidev Sans, the bars per day under it. Point at a bar to
+     read it. Sample data. -->
+<div class="flex w-full max-w-150 flex-col gap-6 rounded-container bg-surface-raised p-6 max-sm:p-4">
+  <div class="flex flex-col gap-2">
+    <p class="type-label text-fg-muted">Visits, October</p>
+    <p id="visits-total" class="type-heading-1 tabular-nums"></p>
+  </div>
+  <agd-bar-chart id="visits-chart" label="Visits per day" height="140"></agd-bar-chart>
+</div>
+<script type="module">
+  const days = Array.from({ length: 30 }, (_, i) => `2026-10-${String(i + 2).padStart(2, '0')}`)
+  const points = days.map((day, i) => ({ day, value: Math.round(1800 * (0.2 + (((i * 7) % 23) / 23) ** 2 * 0.8)) }))
+  document.getElementById('visits-total').textContent = new Intl.NumberFormat('en-US').format(points.reduce((a, p) => a + p.value, 0))
+  document.getElementById('visits-chart').points = points
+</script>

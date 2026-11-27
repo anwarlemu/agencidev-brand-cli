@@ -35,7 +35,7 @@ export function Section({ id, title, description, children }: { id?: string; tit
   );
 }
 
-/** A shell command to copy, in Geist Mono on the card fill. */
+/** A shell command to copy, in the system mono on the card fill. */
 export function Command({ command }: { command: string }) {
   return (
     <div className="flex h-12 min-w-0 items-center gap-3 rounded-control bg-surface-raised pr-2 pl-4">

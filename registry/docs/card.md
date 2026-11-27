@@ -4,7 +4,7 @@ title: Card
 type: registry:ui
 group: ui
 description: "The brand's card: a #141414 fill on black with square corners, an Agencidev Sans title, a line of ABC Diatype and the body, with actions at the foot. No border, no shadow."
-use_for: "A plan, an offer, a stat or a group of settings set apart from the black ground. The plan card in the ads is the model."
+use_for: "A partnership, a stat or a group of settings set apart from the black ground."
 never:
   - "A shadow or a glow around it"
   - "A border instead of the fill"
@@ -13,6 +13,6 @@ source: "shadcn's card, drawn in the Agencidev tokens (brand/tokens.css, from th
 files:
   - react/components/ui/Card.tsx
 examples:
-  - "Plan | Plan | center"
+  - "Partnership | Plan | center"
   - "Stats | Stats"
 ---

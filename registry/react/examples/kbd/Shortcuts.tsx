@@ -3,10 +3,10 @@ import { KbdGroup } from '@/react/components/ui/KbdGroup'
 // The shortcuts beside what they do, and a key inside a sentence.
 
 const ROWS = [
-  { label: 'Search creatives', keys: ['⌘', 'K'] },
-  { label: 'Save to a board', keys: ['⌘', 'S'] },
-  { label: 'Next result', keys: ['J'] },
-  { label: 'Previous result', keys: ['K'] },
+  { label: 'Search projects', keys: ['⌘', 'K'] },
+  { label: 'Share', keys: ['⌘', 'S'] },
+  { label: 'Next screen', keys: ['J'] },
+  { label: 'Previous screen', keys: ['K'] },
 ]
 
 export default function Shortcuts() {

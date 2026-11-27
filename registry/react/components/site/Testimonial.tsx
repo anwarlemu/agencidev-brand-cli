@@ -15,13 +15,13 @@ export interface TestimonialProps {
 
 export function Testimonial({ quote, name, role, avatar, className }: TestimonialProps) {
   return (
-    <figure data-ds="testimonial" data-theme="light" className={cn('flex w-full max-w-160 flex-col justify-between rounded-control bg-surface p-6 text-fg', className)}>
-      {avatar ? <img src={avatar} alt="" width={64} height={64} className="size-16 rounded-control object-cover" /> : <span aria-hidden="true" data-ds-placeholder="" className="size-16 rounded-control bg-surface-inset" />}
+    <figure data-ds="testimonial" className={cn('flex w-full max-w-160 flex-col justify-between rounded-control bg-surface-inverse p-6 text-fg-inverse', className)}>
+      {avatar ? <img src={avatar} alt="" width={64} height={64} className="size-16 rounded-control object-cover" /> : <span aria-hidden="true" data-ds-placeholder="" className="size-16 rounded-control bg-fg-inverse/10" />}
       <div className="mt-16">
         <blockquote className="type-heading-3 max-sm:type-heading-4">{quote}</blockquote>
         <figcaption className="mt-2 flex flex-wrap items-baseline gap-2 type-ui">
           <span>{name}</span>
-          {role ? <span className="text-fg-faint">{role}</span> : null}
+          {role ? <span className="text-fg-inverse/40">{role}</span> : null}
         </figcaption>
       </div>
     </figure>

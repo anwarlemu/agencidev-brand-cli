@@ -5,8 +5,8 @@ import { CopyButton } from '@/react/components/site/CopyButton'
 import { codeTabsExample, type CodeTab } from '@/lib/code'
 import { cn } from '@/react/lib/cn'
 
-// The site's tabs of code (sections/Connect CodeTabs, Code, CopyButton): a #262626 panel with an 8px corner; a 56px
-// head with the tabs (14/20 Medium in the muted gray, White when chosen, the soft gray under the pointer; a 2px White
+// Tabs of code, for docs and install steps (the site has none of its own): a #141414 panel with the 4px corner; a 56px
+// head with the tabs (14/20 Medium in the muted gray, white when chosen, the soft gray under the pointer; a 2px white
 // line under the chosen one that slides to the next) and the copy button for the shown tab, over a hairline; under it
 // the code, 16px in (24 from 768), scrolling across and fading at its edges. Arrows, Home and End move between tabs.
 export interface CodeBlockProps {

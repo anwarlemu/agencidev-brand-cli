@@ -4,7 +4,7 @@ title: Carousel
 type: registry:ui
 group: ui
 description: "Slides in a row on the black ground, 16px apart, one to three in view, with ghost arrow buttons and the place in tabular figures. Native scroll snap: a swipe, a trackpad, the arrows and the arrow keys all move it. It never plays on its own. The track's edges fade while there are slides past them."
-use_for: "A row of saved work, quotes or offers that would crowd the page side by side. One slide in view on phones."
+use_for: "A row of recent work or quotes that would crowd the page side by side. One slide in view on phones."
 never:
   - "Autoplay"
   - "Icons that move when the arrows are hovered"
@@ -14,6 +14,6 @@ source: "shadcn's carousel, drawn in the Agencidev tokens (brand/tokens.css, fro
 files:
   - react/components/ui/Carousel.tsx
 examples:
-  - "Creatives | Saved work, three in view"
+  - "Work | Saved work, three in view"
   - "Quotes | One at a time | center"
 ---

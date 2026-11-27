@@ -67,12 +67,12 @@ const css = `
 .ds-checkbox { position: relative; display: inline-grid; width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
 .ds-checkbox > * { grid-area: 1 / 1; }
 .ds-checkbox > input { width: 16px; height: 16px; margin: 0; border: var(--ds-border-hairline) solid var(--ds-color-edge-strong); border-radius: var(--ds-radius-sm); background: var(--ds-color-surface); appearance: none; cursor: inherit; transition: border-color var(--ds-duration-micro) var(--ds-easing-standard), background-color var(--ds-duration-micro) var(--ds-easing-standard); }
-.ds-checkbox > input:is(:checked, :indeterminate) { border-color: var(--ds-color-action-primary); background: var(--ds-color-action-primary); }
+.ds-checkbox > input:is(:checked, :indeterminate) { border-color: var(--ds-color-fg); background: var(--ds-color-fg); }
 .ds-checkbox > input:focus-visible { outline: var(--ds-border-focus) solid var(--ds-color-edge-focus); outline-offset: var(--ds-border-focus); }
 .ds-checkbox > input[aria-invalid="true"]:not(:checked) { border-color: var(--ds-color-action-danger); }
 .ds-checkbox > input:disabled { border-color: var(--ds-color-edge); background: var(--ds-color-action-disabled); }
 .ds-checkbox > input:disabled:is(:checked, :indeterminate) { border-color: var(--ds-color-edge-strong); background: var(--ds-color-edge-strong); }
-.ds-checkbox > svg { width: 16px; height: 16px; fill: none; stroke: var(--ds-color-action-primary-fg); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
+.ds-checkbox > svg { width: 16px; height: 16px; fill: none; stroke: var(--ds-color-fg-inverse); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; pointer-events: none; }
 .ds-checkbox > svg path[pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset var(--ds-duration-micro) var(--ds-easing-standard); }
 .ds-checkbox > input:checked + svg path[pathLength] { stroke-dashoffset: 0; transition: stroke-dashoffset var(--ds-duration-glide) var(--ds-easing-out); }
 .ds-checkbox > input:not(:indeterminate) + svg path:not([pathLength]) { opacity: 0; }

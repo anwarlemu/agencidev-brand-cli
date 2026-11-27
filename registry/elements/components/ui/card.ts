@@ -3,7 +3,7 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // Card.tsx as <agd-card>: a #141414 fill on black with square corners, no border, no shadow, 24px in. `heading` is the
-// Agencidev Sanscard title (React's `title`; `title` is HTML's tooltip), `description` a line under it, the default
+// Agencidev Sans card title (React's `title`; `title` is HTML's tooltip), `description` a line under it, the default
 // slot the body and the `actions` slot a row at the foot.
 
 /**

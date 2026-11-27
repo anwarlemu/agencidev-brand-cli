@@ -4,7 +4,7 @@ title: Field
 type: registry:ui
 group: ui
 description: "A label over one control, with a description or an error under it. The label speaks in capitals; the help is muted; an error takes the help's place in red."
-use_for: "Every labeled control in a form: an email, a board name, a note, a pick from a list. One Field per control."
+use_for: "Every labeled control in a form: an email, a project name, a note, a pick from a list. One Field per control."
 never:
   - "A placeholder in place of the label"
   - "A red hairline before anything is wrong: errors show once a field is left or the form is sent"

@@ -3,8 +3,8 @@ name: accordion
 title: Accordion
 type: registry:ui
 group: ui
-description: "A stack of disclosures on black: neutral hairlines between the rows, a ABC Diatype question, a muted answer that opens in place and a chevron that turns. One open at a time, or several."
-use_for: "Questions on a pricing or help page, filters a person opens one by one, settings that would crowd a view."
+description: "A stack of disclosures on black: neutral hairlines between the rows, an ABC Diatype question, a muted answer that opens in place and a chevron that turns. One open at a time, or several."
+use_for: "Questions on a contact or help page, filters a person opens one by one, settings that would crowd a view."
 never:
   - "Hiding the one thing a person came for: put it on the page"
   - "A #141414 card per row: rows are hairlines on black"

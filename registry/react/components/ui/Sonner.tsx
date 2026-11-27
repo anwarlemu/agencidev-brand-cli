@@ -10,7 +10,7 @@ export { toast } from '@/lib/sonner'
 // spreads it out and stops every note's time, as does a hidden tab, so none leaves unread. A note rises in from below
 // over 360ms on the strong ease-out and leaves faster, 160ms, fading as it drops; the others move to their new places
 // as one goes. Each has a close button; an action closes it after it runs. Reduced motion keeps only the fades. Mount
-// one per app, then call toast('Saved to board', { description, action }) from anywhere.
+// one per app, then call toast('Shared', { description, action }) from anywhere.
 export interface ToasterProps {
   /** The region's name for assistive tech. */
   label?: string

@@ -4,7 +4,7 @@ import { SlidersHorizontal } from 'lucide-react'
 import { Button } from '@/react/components/ui/Button'
 import { Input } from '@/react/components/ui/Input'
 import { Sheet } from '@/react/components/ui/Sheet'
-// A search's filters in a sheet at the right edge: two fields and the buttons at the foot. Escape, Close or the dimmed
+// A project list's filters in a sheet at the right edge: two fields and the buttons at the foot. Escape, Close or the dimmed
 // page closes it.
 
 export default function Filters() {
@@ -15,8 +15,8 @@ export default function Filters() {
       <Sheet
         open={open}
         onOpenChange={setOpen}
-        title="Filter creatives"
-        description="Narrow this search to the brands and dates you care about."
+        title="Filter projects"
+        description="Narrow the list to one client and how long the work ran."
         foot={(
           <>
             <Button variant="ghost" onClick={() => setOpen(false)}>Reset</Button>
@@ -26,13 +26,13 @@ export default function Filters() {
       >
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            <label htmlFor="sheet-brand" className="type-label text-fg-soft">Brand</label>
-            <Input id="sheet-brand" name="brand" defaultValue="Acme Studio" />
+            <label htmlFor="sheet-client" className="type-label text-fg-soft">Client</label>
+            <Input id="sheet-client" name="client" defaultValue="Acme" />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="sheet-days" className="type-label text-fg-soft">Running for at least</label>
-            <Input id="sheet-days" name="days" defaultValue="30 days" />
-            <p className="type-caption text-fg-muted">Ads that run longer are the ones that work.</p>
+            <label htmlFor="sheet-days" className="type-label text-fg-soft">Longer than</label>
+            <Input id="sheet-days" name="days" defaultValue="4 weeks" />
+            <p className="type-caption text-fg-muted">Counts from the kickoff call.</p>
           </div>
         </div>
       </Sheet>

@@ -4,11 +4,11 @@ title: Combobox
 type: registry:ui
 group: ui
 description: "A field-like trigger that opens a list to pick one option from, with a filter over it, on the #141414 overlay panel: the menus' rows, a #141414 fill on the row the arrows or the pointer are on, the pick checked at the end. The list scrolls with fading edges, so no row is cut off."
-use_for: "One choice from a list long enough to filter: a category, a brand, a board. With the filter off it is a plain listbox for a handful of options."
+use_for: "One choice from a list long enough to filter: a discipline, a client, a project. With the filter off it is a plain listbox for a handful of options."
 never:
   - "Many picks at once: it holds one value"
   - "Writing your own arrow, Escape or outside-press handling"
-  - "A shadow under the panel, or a colors on the highlighted row"
+  - "A shadow under the panel, or a color on the highlighted row"
 source: "shadcn's combobox, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Combobox.tsx

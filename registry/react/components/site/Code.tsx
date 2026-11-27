@@ -1,7 +1,7 @@
 import { codeRuns } from '@/lib/code'
 import { cn } from '@/react/lib/cn'
 
-// The site's code (sections/Connect Code): mono 14/20 in White, as wide as its longest line, with comments,
+// Code as the docs set it: mono 14/20 in white, as wide as its longest line, with comments,
 // punctuation and string quotes in the muted gray. Put it in something that scrolls across.
 export interface CodeProps {
   source: string

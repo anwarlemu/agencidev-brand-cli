@@ -4,10 +4,9 @@ import { DsElement, define } from '@/elements/lib/element'
 import { type LineSeries, PLOT, compactNumber, lineLayout } from '@/lib/chart'
 import styles from 'virtual:tw'
 
-// LineChart.tsx as <agd-line-chart>: lines over time: one axis from 0 on hairline (white at 20%)s, 2px lines in the
-// brand's series order (white, mid (#909090), white at 20% dashed, then color: Magenta, Red, Orange, Yellow, Green, Cyan,
-// Blue), the first series shading the area under it, a legend when there is more than one, and a crosshair with the
-// values under the pointer on the #141414 overlay panel. Ten series at most. On a #141414 card by default; `bare`
+// LineChart.tsx as <agd-line-chart>: lines over time: one axis from 0 on hairlines (white at 10%), 2px lines in
+// the brand's series order (white, mid (#909090), the subtle grey, dim, then the plate; every other one dashed), the first series shading the area under it, a legend when there is more than one, and a crosshair with the
+// values under the pointer on the #141414 overlay panel. Five series at most. On a #141414 card by default; `bare`
 // drops the card. React's `title` is `heading`; `series`, `format`, `formatAxis` and `formatTime` are properties.
 export type { LineSeries }
 
@@ -20,7 +19,7 @@ export class LineChart extends DsElement {
 
 	/** The caption (React's `title`; `title` is HTML's tooltip attribute). */
 	heading = ''
-	/** [{ label, points: [{ t (ms), v }] }], ten at most. */
+	/** [{ label, points: [{ t (ms), v }] }], five at most. */
 	series: LineSeries[] = []
 	/** A value as written in the crosshair (a property: a function). */
 	format: (value: number) => string = String

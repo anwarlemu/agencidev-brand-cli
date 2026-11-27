@@ -1,5 +1,5 @@
 // The site's code display (sections/Connect Code, CopyButton): source split into runs, with comments, punctuation and
-// string quotes in the muted gray and everything else White; and a copy that falls back to a hidden textarea. Both
+// string quotes in the muted gray and everything else white; and a copy that falls back to a hidden textarea. Both
 // flavors read it.
 export interface CodeRun { text: string; dim?: boolean }
 
@@ -49,7 +49,7 @@ export async function copyText(text: string): Promise<boolean> {
 export interface CodeTab { id: string; label: string; code: string; language?: string }
 
 export const codeTabsExample: CodeTab[] = [
-	{ id: 'curl', label: 'cURL', language: 'shell', code: '# Search the ads of a brand\ncurl "https://api.acme.com/v1/search" \\\n  -H "Authorization: Bearer $ACME_KEY" \\\n  -d \'{"query": "skincare launches", "limit": 20}\'' },
-	{ id: 'ts', label: 'TypeScript', language: 'ts', code: 'const res = await fetch("https://api.acme.com/v1/search", {\n  method: "POST",\n  headers: { Authorization: `Bearer ${key}` },\n  body: JSON.stringify({ query: "skincare launches", limit: 20 }),\n})' },
-	{ id: 'py', label: 'Python', language: 'python', code: 'import requests\n\nres = requests.post(\n  "https://api.acme.com/v1/search",\n  headers={"Authorization": f"Bearer {key}"},\n  json={"query": "skincare launches", "limit": 20},\n)' },
+	{ id: 'curl', label: 'cURL', language: 'shell', code: '# Create a project\ncurl "https://api.acme.com/v1/projects" \\\n  -H "Authorization: Bearer $ACME_KEY" \\\n  -d \'{"name": "Acme onboarding", "client": "acme"}\'' },
+	{ id: 'ts', label: 'TypeScript', language: 'ts', code: 'const res = await fetch("https://api.acme.com/v1/projects", {\n  method: "POST",\n  headers: { Authorization: `Bearer ${key}` },\n  body: JSON.stringify({ name: "Acme onboarding", client: "acme" }),\n})' },
+	{ id: 'py', label: 'Python', language: 'python', code: 'import requests\n\nres = requests.post(\n  "https://api.acme.com/v1/projects",\n  headers={"Authorization": f"Bearer {key}"},\n  json={"name": "Acme onboarding", "client": "acme"},\n)' },
 ]

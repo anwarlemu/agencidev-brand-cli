@@ -1,0 +1,95 @@
+<!-- A new enquiry: the company, its site and what it needs. Send it empty to see the errors; a name of "Acme"
+     shows the server's answer. -->
+<div id="enquiry-form" class="w-100 max-w-full">
+  <agd-form label="Start a project">
+    <agd-field label="Company" description="The name as it shows on the site.">
+      <agd-input data-key="company" autocomplete="off" placeholder="Acme"></agd-input>
+    </agd-field>
+    <agd-field label="Site">
+      <agd-input data-key="site" autocomplete="off" placeholder="acme.com"></agd-input>
+    </agd-field>
+    <agd-field label="Needs">
+      <agd-native-select data-key="needs" value="product"><option value="product">Product design</option><option value="brand">Branding</option><option value="all">Both, and the build</option></agd-native-select>
+    </agd-field>
+    <agd-button slot="actions" variant="ghost" data-clear>Clear</agd-button>
+    <agd-button slot="actions" type="submit">Send enquiry</agd-button>
+  </agd-form>
+  <template>
+    <div class="flex flex-col items-start gap-4 rounded-container bg-surface-raised p-6" role="status">
+      <p class="type-ui text-fg"></p>
+      <agd-button variant="secondary">Send another</agd-button>
+    </div>
+  </template>
+</div>
+<script type="module">
+  // useForm: an error shows once its field is left or the form sent, then follows the value.
+  await customElements.whenDefined('agd-form')
+  const root = document.getElementById('enquiry-form')
+  const form = root.querySelector('agd-form')
+  const template = root.querySelector('template')
+  const submitButton = form.querySelector('[type="submit"]')
+  const fields = Object.fromEntries([...form.querySelectorAll('[data-key]')].map((el) => [el.dataset.key, el]))
+  const initial = { company: '', site: '', needs: 'product' }
+  const rules = {
+    company: (v) => (!String(v).trim() ? 'Name the company.' : undefined),
+    site: (v) => (!String(v).trim() ? "Add the company's site." : !/^[\w-]+(\.[\w-]+)+$/.test(String(v).trim()) ? 'Use a domain, such as acme.com.' : undefined),
+  }
+  let values = { ...initial }
+  let touched = {}
+  let tried = false
+  let sending = false
+  const all = () => Object.fromEntries(Object.entries(rules).map(([k, rule]) => [k, rule(values[k], values)]).filter(([, m]) => m))
+  const paint = () => {
+    const errors = all()
+    for (const key of Object.keys(rules)) {
+      const message = tried || touched[key] ? errors[key] : undefined
+      fields[key].closest('agd-field').error = message
+      fields[key].invalid = !!message
+    }
+    submitButton.disabled = sending
+    // Only a changed label is written: replacing the text under a press would swallow its click.
+    const label = sending ? 'Sending' : 'Send enquiry'
+    if (submitButton.textContent !== label) submitButton.textContent = label
+  }
+  for (const [key, el] of Object.entries(fields)) {
+    el.addEventListener('input', () => { values = { ...values, [key]: el.value }; paint() })
+    el.addEventListener('change', () => { values = { ...values, [key]: el.value }; paint() })
+    el.addEventListener('focusout', () => { touched[key] = true; paint() })
+  }
+  const reset = () => {
+    values = { ...initial }
+    touched = {}
+    tried = false
+    form.failure = undefined
+    fields.company.value = ''
+    fields.site.value = ''
+    fields.needs.value = 'product'
+    paint()
+  }
+  form.querySelector('[data-clear]').addEventListener('click', reset)
+  form.addEventListener('submit', async () => {
+    tried = true
+    form.failure = undefined
+    paint()
+    if (Object.keys(all()).length || sending) return
+    sending = true
+    paint()
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 600))
+      if (values.company.trim().toLowerCase() === 'acme') throw new Error('Acme already has an enquiry open.')
+      const done = template.content.firstElementChild.cloneNode(true)
+      done.querySelector('p').textContent = `Thanks, ${values.company.trim()}. We reply within a day.`
+      done.querySelector('agd-button').addEventListener('click', () => {
+        done.replaceWith(form)
+        reset()
+      })
+      form.replaceWith(done)
+    } catch (error) {
+      form.failure = error.message
+    } finally {
+      sending = false
+      paint()
+    }
+  })
+  paint()
+</script>

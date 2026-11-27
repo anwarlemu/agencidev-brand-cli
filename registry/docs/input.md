@@ -4,7 +4,7 @@ title: Input
 type: registry:ui
 group: ui
 description: "A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype, a mid (#909090) placeholder and square corners. Sizes match the button's."
-use_for: "Free text in forms and filters: an email, a brand or creator to track, a board name. Label every field (a visible label, or aria-label)."
+use_for: "Free text in forms and filters: an email, a company, a project name. Label every field (a visible label, or aria-label)."
 never:
   - "A placeholder as the only label"
   - "A colored or glowing focus ring: the hairline turns white"

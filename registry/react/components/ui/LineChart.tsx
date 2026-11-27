@@ -3,17 +3,17 @@ import { useState, type PointerEvent } from 'react'
 import { type LineSeries, PLOT, compactNumber, lineLayout } from '@/lib/chart'
 import { cn } from '@/react/lib/cn'
 
-// Lines over time: one axis from 0 on hairline (white at 20%)s, 2px lines in the brand's series order (white, mid (#909090),
-// white at 20% dashed, then color: Magenta, Red, Orange, Yellow, Green, Cyan, Blue), the first series shading the
-// area under it, a legend when there is more than one, and a crosshair with the values under the pointer on the
-// #141414 overlay panel. Ten series at most. On a #141414 card by default; `bare` drops the card, for a chart already
-// inside one. `format` writes a value (axis figures use the compact form unless `formatAxis` is given).
+// Lines over time: one axis from 0 on hairlines (white at 10%), 2px lines in the brand's series order (white, mid
+// (#909090), the subtle grey, dim (#B6B6B6), then the plate; every other one dashed), the first series shading the area
+// under it, a legend when there is more than one, and a crosshair with the values under the pointer on the #141414
+// overlay panel. Five series at most. On a #141414 card by default; `bare` drops the card, for a chart already inside
+// one. `format` writes a value (axis figures use the compact form unless `formatAxis` is given).
 export type { LineSeries }
 
 export interface LineChartProps {
   /** The caption: what the lines count. */
   title: string
-  /** [{ label, points: [{ t (ms), v }] }], ten at most. */
+  /** [{ label, points: [{ t (ms), v }] }], five at most. */
   series: LineSeries[]
   /** A value as written in the crosshair. */
   format?: (value: number) => string

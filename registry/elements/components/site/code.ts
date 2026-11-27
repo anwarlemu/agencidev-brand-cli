@@ -3,7 +3,7 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import { codeRuns } from '@/lib/code'
 import styles from 'virtual:tw'
 
-// Code.tsx as <agd-code>: mono 14/20 in White, as wide as its longest line, comments, punctuation and string
+// Code.tsx as <agd-code>: mono 14/20 in white, as wide as its longest line, comments, punctuation and string
 // quotes in the muted gray. `source` and `language` (shell, ts, python or json).
 
 /** @summary Source code with the site's muted punctuation. */

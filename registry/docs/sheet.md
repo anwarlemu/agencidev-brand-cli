@@ -4,7 +4,7 @@ title: Sheet
 type: registry:ui
 group: ui
 description: "A modal panel at an edge of the screen: the card's #141414 fill with a hairline on its inner edge, an Agencidev Sans title, the body scrolling on its own and buttons at the foot. It slides in on the drawer curve; Escape closes it at once. The body's edges fade while there is more to scroll."
-use_for: "Details, filters or settings beside what someone is doing: a search's filters, a brand's details. Right is the default; left, top and bottom when the layout asks for it."
+use_for: "Details, filters or settings beside what someone is doing: a list's filters, a client's details. Right is the default; left, top and bottom when the layout asks for it."
 never:
   - "A short question or a confirmation: use Dialog or Alert Dialog"
   - "A shadow or a glow: the fill, the hairline and the scrim set it apart"

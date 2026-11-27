@@ -4,9 +4,9 @@ title: Alert
 type: registry:ui
 group: ui
 description: "A note or a problem in a #141414 box on black: a Lucide icon, the subject in ABC Diatype, a muted line under it and the button that goes with it. Red for what broke."
-use_for: "A plan note, a failed payment, a search that needs a change: one box per message, with the action that settles it."
+use_for: "A review reminder, a failed payment, a build that needs a change: one box per message, with the action that settles it."
 never:
-  - "A colors fill or a glow"
+  - "A color fill or a glow"
   - "A border or a shadow around the box"
   - "Red for anything that did not break"
   - "Several messages in one box"

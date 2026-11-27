@@ -6,9 +6,9 @@ import { InputGroup } from '@/react/components/ui/InputGroup'
 export default function Addons() {
   return (
     <div className="flex w-96 max-w-full flex-col gap-4">
-      <InputGroup aria-label="Search boards" placeholder="Search boards" start={<Search size={16} strokeWidth={1.5} aria-hidden="true" />} />
-      <InputGroup aria-label="Board link" defaultValue="acme-hooks" start="agencidev.com/b/" />
-      <InputGroup aria-label="Monthly budget" type="number" defaultValue="20" start="$" end="per month" />
+      <InputGroup aria-label="Search projects" placeholder="Search projects" start={<Search size={16} strokeWidth={1.5} aria-hidden="true" />} />
+      <InputGroup aria-label="Project link" defaultValue="acme-onboarding" start="acme.com/p/" />
+      <InputGroup aria-label="Hours per week" type="number" defaultValue="20" end="hours" />
       <InputGroup aria-label="Invite by email" type="email" placeholder="name@acme.com" end={<Button variant="secondary" size="sm">Invite</Button>} />
     </div>
   )

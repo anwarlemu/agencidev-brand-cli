@@ -6,7 +6,7 @@ import '@/elements/components/site/code'
 import '@/elements/components/site/copy-button'
 import styles from 'virtual:tw'
 
-// CodeBlock.tsx as <agd-code-block>: tabs of code on a #262626 panel, the White line sliding under the chosen tab,
+// CodeBlock.tsx as <agd-code-block>: tabs of code on a #141414 panel, the white line sliding under the chosen tab,
 // the copy button for the shown tab, the code scrolling across and fading at its edges. Arrows, Home and End move
 // between tabs. `tabs` (JSON: { id, label, code, language }), `label`, `copy` (JSON: { label, copiedLabel, name });
 // the copy button's `copy` event bubbles out.

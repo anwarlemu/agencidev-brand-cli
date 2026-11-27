@@ -8,7 +8,7 @@ import styles from 'virtual:tw'
 const DANGER_BUTTON = 'inline-flex h-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-control px-4 whitespace-nowrap select-none type-ui-strong bg-action-danger text-ds-neutral-15 transition-[background-color] duration-150 ease-out hover:bg-action-danger-hover'
 
 // AlertDialog.tsx as <agd-alert-dialog>: a question that needs an answer before anything else, on the #141414
-// overlay surface in a neutral hairline with square corners, over a black scrim. A Agencidev Sansheading, one line
+// overlay surface in a neutral hairline with square corners, over a black scrim. An Agencidev Sans heading, one line
 // saying what happens, then Cancel (secondary) and the action: the red fill for what removes something (`danger`, the
 // default), the white primary with danger="false". Focus starts on Cancel; the scrim does nothing, so only a choice
 // closes it; Escape cancels and focus returns to what opened it. It comes in over 360ms (a fade and a scale from 0.96)

@@ -4,7 +4,7 @@ title: Context menu
 type: registry:ui
 group: ui
 description: "The dropdown menu's rows on the #141414 overlay panel, opened where the pointer right-clicks, or under the focused row with Shift+F10 or the menu key. Arrows, Home, End and Escape are handled; focus returns to what was clicked."
-use_for: "Shortcuts for a row in a dense list (open, copy a link, save, remove), alongside a visible way to do the same."
+use_for: "Shortcuts for a row in a dense list (open, copy a link, move, remove), alongside a visible way to do the same."
 never:
   - "The only way to an action: right-clicks are hidden; keep a dropdown menu or a button in the row"
   - "Destructive actions that don't confirm: confirm with an alert dialog"
@@ -13,7 +13,7 @@ source: "shadcn's context menu, drawn in the Agencidev tokens (brand/tokens.css,
 files:
   - react/components/ui/ContextMenu.tsx
 examples:
-  - "Board | A board's saved work"
+  - "Project | A project's screens"
 ---
 
 Put `data-context="<id>"` on each row; `onOpen` (React) or the `open` event (web component) gets the id of the row

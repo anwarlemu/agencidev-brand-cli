@@ -1,10 +1,10 @@
 import { AspectRatio } from '@/react/components/ui/AspectRatio'
 import { NoSignal } from '@/react/components/visuals/NoSignal'
-// The brand's three canvases holding their shape at any width: a 1:1 post, a 4:5 ad and a 16:9 slide, each on the
+// The brand's three canvases holding their shape at any width: a 1:1 post, a 4:5 story and a 16:9 slide, each on the
 // no-signal static.
 const formats = [
   { label: 'Post 1:1', ratio: 1 },
-  { label: 'Ad 4:5', ratio: 4 / 5 },
+  { label: 'Story 4:5', ratio: 4 / 5 },
   { label: 'Slide 16:9', ratio: 16 / 9 },
 ]
 

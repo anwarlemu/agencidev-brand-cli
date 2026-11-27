@@ -4,7 +4,7 @@ title: Item
 type: registry:ui
 group: ui
 description: "A row: media, a title in ABC Diatype with a muted line under it, and actions at the end. No fill, a hairline box or the card's #141414 fill. ItemGroup puts a hairline between rows."
-use_for: "A board, a tracked brand, a setting or a notification as one row; a list of them in a card. With href the whole row is a link."
+use_for: "A project, a client, a setting or a notification as one row; a list of them in a card. With href the whole row is a link."
 never:
   - "Buttons inside a row that is a link"
   - "A chevron or arrow that moves on hover"
@@ -16,5 +16,5 @@ files:
   - react/components/ui/ItemGroup.tsx
 examples:
   - "Variants | Variants | center"
-  - "Boards | Rows in a card | center"
+  - "Projects | Rows in a card | center"
 ---

@@ -24,9 +24,9 @@ export class Progress extends DsElement {
 	render() {
 		const known = typeof this.value === 'number' && !Number.isNaN(this.value)
 		const share = known ? Math.max(0, Math.min(1, (this.value as number) / (this.max || 1))) : 0
-		return html`<div data-ds="progress" role="progressbar" aria-label=${ifDefined(this.label)} aria-valuemin="0" aria-valuemax=${this.max} aria-valuenow=${ifDefined(known ? String(this.value) : undefined)} class="relative h-1.5 w-full overflow-hidden rounded-full bg-action-secondary">${known
-			? html`<div class="h-full w-full rounded-full bg-action-primary transition-transform duration-350 ease-out motion-reduce:transition-none" style=${styleMap({ transform: `translateX(-${(1 - share) * 100}%)` })}></div>`
-			: html`<div class="ds-progress-sweep h-full w-2/5 rounded-full bg-action-primary"></div>`}</div>`
+		return html`<div data-ds="progress" role="progressbar" aria-label=${ifDefined(this.label)} aria-valuemin="0" aria-valuemax=${this.max} aria-valuenow=${ifDefined(known ? String(this.value) : undefined)} class="relative h-1.5 w-full overflow-hidden rounded-full bg-edge-strong">${known
+			? html`<div class="h-full w-full rounded-full bg-fg transition-transform duration-350 ease-out motion-reduce:transition-none" style=${styleMap({ transform: `translateX(-${(1 - share) * 100}%)` })}></div>`
+			: html`<div class="ds-progress-sweep h-full w-2/5 rounded-full bg-fg"></div>`}</div>`
 	}
 }
 

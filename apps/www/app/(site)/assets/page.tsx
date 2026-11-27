@@ -124,7 +124,7 @@ export default function AssetsPage() {
           <div className="grid gap-2">
             <Command command={`${CLI} ad brief.md`} />
             <Command command={`${CLI} ad brief.md --image screenshot=shot.png --variants 4 --format png,jpg,webp`} />
-            <Command command={`${CLI} design revise ads/brief/square-1-ad-creator-plan.design.json "bigger headline"`} />
+            <Command command={`${CLI} design revise ads/offer/square-1-composed-stacked.design.json "bigger headline"`} />
           </div>
           <Code code={BRIEF} title="brand/briefs/offer.md" tall />
           <div className="overflow-hidden rounded-control border border-edge">

@@ -5,11 +5,11 @@ import { Logo } from '@/react/components/visuals/Logo'
 import { Sidebar } from '@/react/components/ui/Sidebar'
 import { SidebarLabel } from '@/react/components/ui/SidebarLabel'
 import { SidebarLink } from '@/react/components/ui/SidebarLink'
-// The app's rail: the logo and the fold button at the top, a label over each group, the page you are on in White, and
+// The app's rail: the logo and the fold button at the top, a label over each group, the page you are on in white, and
 // the account at the foot. Fold it to icons with the button.
 const groups = [
-  { label: 'Discover', links: [{ label: 'Search', icon: Search }, { label: 'Explore', icon: Compass }, { label: 'Brands', icon: Store, status: '12' }, { label: 'Creators', icon: Users, status: '8' }] },
-  { label: 'Boards', links: [{ label: 'Acme hooks', icon: Folder, status: '24' }, { label: 'UGC ideas', icon: Folder, status: '9' }, { label: 'Saved', icon: Bookmark }] },
+  { label: 'Studio', links: [{ label: 'Search', icon: Search }, { label: 'Work', icon: Compass }, { label: 'Clients', icon: Store, status: '12' }, { label: 'Team', icon: Users, status: '8' }] },
+  { label: 'Projects', links: [{ label: 'Acme onboarding', icon: Folder, status: '24' }, { label: 'Acme dashboard', icon: Folder, status: '9' }, { label: 'Saved', icon: Bookmark }] },
 ]
 
 export default function App() {
@@ -24,8 +24,8 @@ export default function App() {
           <div className="flex flex-col gap-0.5">
             <SidebarLink href="#" icon={Settings} onClick={(e) => e.preventDefault()}>Settings</SidebarLink>
             <div className="flex flex-col px-3 pt-2">
-              <span className="type-ui-strong text-fg">Acme Studio</span>
-              <span className="type-caption text-fg-muted">Creator plan</span>
+              <span className="type-ui-strong text-fg">Acme</span>
+              <span className="type-caption text-fg-muted">Monthly partnership</span>
             </div>
           </div>
         )}

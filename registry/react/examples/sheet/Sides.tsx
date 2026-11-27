@@ -11,8 +11,8 @@ export default function Sides() {
     <div className="flex min-h-40 flex-wrap items-center justify-center gap-2">
       {sides.map((s) => <Button key={s} variant="secondary" onClick={() => setSide(s)}>{s[0].toUpperCase() + s.slice(1)}</Button>)}
       {sides.map((s) => (
-        <Sheet key={s} side={s} open={side === s} onOpenChange={(o) => { if (!o) setSide(null) }} title="Acme Studio" description="128 active ads on Meta and TikTok, 14 new this week.">
-          <p className="type-ui text-fg-soft">Save the brand to a board to follow every new ad it launches.</p>
+        <Sheet key={s} side={s} open={side === s} onOpenChange={(o) => { if (!o) setSide(null) }} title="Acme" description="A partner since January: 3 projects, 1 in review.">
+          <p className="type-ui text-fg-soft">Open the client to see every project and who works on it.</p>
         </Sheet>
       ))}
     </div>

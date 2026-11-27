@@ -1,0 +1,18 @@
+<!-- An offer with its buttons in the foot: the plate for the one action, secondary for the way out. -->
+<div class="flex min-h-96 items-center justify-center">
+  <agd-button id="plan-open" variant="secondary">How a partnership works</agd-button>
+  <agd-dialog id="plan-dialog" heading="Monthly partnership" description="Ongoing, cancellable at any time.">
+    <ul class="flex list-disc flex-col gap-2 pl-5 type-ui text-fg-soft">
+      <li>Product design, branding and strategy.</li>
+      <li>Full-stack development.</li>
+      <li>One team from first sketch to shipped.</li>
+    </ul>
+    <agd-button slot="foot" variant="secondary" data-close>Not now</agd-button>
+    <agd-button slot="foot" data-close>Book a call</agd-button>
+  </agd-dialog>
+</div>
+<script type="module">
+  const dialog = document.getElementById('plan-dialog')
+  document.getElementById('plan-open').addEventListener('click', () => { dialog.open = true })
+  for (const b of dialog.querySelectorAll('[data-close]')) b.addEventListener('click', () => { dialog.open = false })
+</script>

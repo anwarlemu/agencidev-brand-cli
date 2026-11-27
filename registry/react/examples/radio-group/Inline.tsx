@@ -1,14 +1,14 @@
 import { RadioGroup } from '@/react/components/ui/RadioGroup'
-// A sort order in a row, over a grid of creatives.
+// A sort order in a row, over a grid of projects.
 
 export default function Inline() {
   return (
     <RadioGroup
-      label="Sort creatives"
+      label="Sort projects"
       inline
-      defaultValue="spend"
+      defaultValue="updated"
       options={[
-        { value: 'spend', label: 'Spend' },
+        { value: 'updated', label: 'Updated' },
         { value: 'new', label: 'Newest' },
         { value: 'running', label: 'Longest running' },
       ]}

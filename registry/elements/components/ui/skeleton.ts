@@ -4,7 +4,7 @@ import { imageFit, type ImageFit } from '@/lib/image'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Skeleton.tsx as <agd-skeleton>: a placeholder in the shape of what is loading, a the quiet fill block with the brand
+// Skeleton.tsx as <agd-skeleton>: a placeholder in the shape of what is loading, a block in the quiet fill with the brand
 // corner (or a circle) that breathes between full and half opacity, never a shimmer; still with reduced motion. The
 // host is the block, so size classes on the element (h-4 w-48) land on it. Hidden from assistive tech. With `src` (and
 // `alt`, `fit`, `position`) it shows the picture that arrived, still, in the same shape; without, the host carries

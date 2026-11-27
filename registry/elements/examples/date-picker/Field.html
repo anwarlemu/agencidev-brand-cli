@@ -1,12 +1,12 @@
-<!-- A report's start date in a form: a label over the field, a hint under it. -->
+<!-- A project's start date in a form: a label over the field, a hint under it. -->
 <div class="flex h-110 w-full max-w-80 flex-col gap-2">
-  <label for="report-start" class="type-label text-fg-muted">Report starts</label>
-  <agd-date-picker id="report-start" aria-label="Report starts" aria-description="Creatives running since this day."></agd-date-picker>
-  <p id="report-start-hint" class="type-caption text-fg-muted">Creatives running since this day.</p>
+  <label for="project-start" class="type-label text-fg-muted">Project starts</label>
+  <agd-date-picker id="project-start" aria-label="Project starts" aria-description="The day of the kickoff call."></agd-date-picker>
+  <p id="project-start-hint" class="type-caption text-fg-muted">The day of the kickoff call.</p>
 </div>
 <script type="module">
-  const picker = document.getElementById('report-start')
+  const picker = document.getElementById('project-start')
   picker.addEventListener('change', () => {
-    document.getElementById('report-start-hint').textContent = picker.value ? `Creatives running since ${picker.value.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}.` : 'Creatives running since this day.'
+    document.getElementById('project-start-hint').textContent = picker.value ? `Kickoff on ${picker.value.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })}.` : 'The day of the kickoff call.'
   })
 </script>

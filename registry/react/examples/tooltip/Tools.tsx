@@ -1,10 +1,10 @@
 import { Bookmark, Download, Link, EyeOff } from 'lucide-react'
 import { Button } from '@/react/components/ui/Button'
 import { Tooltip } from '@/react/components/ui/Tooltip'
-// A creative's tools as icon buttons, each named by its tooltip. Point at one and wait, then move along: the next shows
+// A screen's tools as icon buttons, each named by its tooltip. Point at one and wait, then move along: the next shows
 // at once. Tab to one and its name shows without a wait.
 const tools = [
-  { label: 'Save to board', icon: Bookmark },
+  { label: 'Share', icon: Bookmark },
   { label: 'Copy link', icon: Link },
   { label: 'Download', icon: Download },
   { label: 'Hide', icon: EyeOff },

@@ -1,0 +1,23 @@
+<!-- Share a project: a short form in a panel, opened from a button. -->
+<agd-popover id="share-popover" label="Share the project">
+  <span slot="trigger">Share</span>
+  <form id="share-form" class="flex flex-col gap-4">
+    <div class="flex flex-col gap-1">
+      <p class="type-ui-strong text-fg">Share the project</p>
+      <p class="type-caption text-fg-muted">Send a view-only link to someone outside the team.</p>
+    </div>
+    <div class="flex flex-col gap-2">
+      <label for="popover-email" class="type-label text-fg-soft">Email</label>
+      <agd-input id="popover-email" name="email" size="sm" type="email" value="hello@acme.com" aria-label="Email"></agd-input>
+    </div>
+    <div class="flex justify-end gap-2">
+      <agd-button id="share-cancel" variant="ghost" size="sm">Cancel</agd-button>
+      <agd-button type="submit" size="sm">Send</agd-button>
+    </div>
+  </form>
+</agd-popover>
+<script type="module">
+  const pop = document.getElementById('share-popover')
+  document.getElementById('share-form').addEventListener('submit', (event) => { event.preventDefault(); pop.close() })
+  document.getElementById('share-cancel').addEventListener('click', () => pop.close())
+</script>

@@ -4,7 +4,7 @@ title: Date picker
 type: registry:ui
 group: ui
 description: "A date in a field: a button drawn as the text field that opens the calendar on the #141414 overlay panel under it. Opening puts focus on the picked day, picking closes it and returns focus, Escape closes it unchanged."
-use_for: "A single date in a form: when a report starts, when a campaign ends. The field reads the day in words."
+use_for: "A single date in a form: when a project starts, when a review is due. The field reads the day in words."
 never:
   - "A shadow under the panel: the hairline and the #141414 fill set it apart"
   - "Typing a date into the button: it is picked from the calendar"

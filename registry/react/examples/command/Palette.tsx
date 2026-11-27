@@ -7,9 +7,9 @@ import type { CommandGroup } from '@/react/components/ui/Command'
 // The command menu in a window: the button or Cmd+K opens it at once, Escape closes it, a row runs and closes it.
 const groups: CommandGroup[] = [
   { heading: 'Go to', items: [
-    { id: 'search', label: 'Search creatives', icon: <Search size={16} strokeWidth={1.5} />, shortcut: '/' },
-    { id: 'brands', label: 'Track a brand', keywords: ['creator', 'follow'], icon: <Building2 size={16} strokeWidth={1.5} /> },
-    { id: 'boards', label: 'Boards', icon: <Bookmark size={16} strokeWidth={1.5} /> },
+    { id: 'search', label: 'Search projects', icon: <Search size={16} strokeWidth={1.5} />, shortcut: '/' },
+    { id: 'enquiry', label: 'New enquiry', keywords: ['client', 'lead'], icon: <Building2 size={16} strokeWidth={1.5} /> },
+    { id: 'projects', label: 'Projects', icon: <Bookmark size={16} strokeWidth={1.5} /> },
   ] },
   { heading: 'Settings', items: [
     { id: 'billing', label: 'Billing', keywords: ['plan', 'invoice'], icon: <CreditCard size={16} strokeWidth={1.5} />, shortcut: '⌘B' },

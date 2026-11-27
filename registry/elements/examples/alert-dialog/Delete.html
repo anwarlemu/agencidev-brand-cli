@@ -1,13 +1,13 @@
-<!-- Deleting a board asks first: focus starts on Cancel, and only a choice closes it. The line under says what happened. -->
+<!-- Archiving a project asks first: focus starts on Cancel, and only a choice closes it. The line under says what happened. -->
 <div class="flex min-h-72 flex-col items-center justify-center gap-3">
-  <agd-button id="delete-board" variant="secondary">Delete board</agd-button>
-  <p id="delete-board-note" class="type-caption text-fg-muted" aria-live="polite">Acme summer ads: 48 saved creatives.</p>
-  <agd-alert-dialog id="delete-board-dialog" heading="Delete this board?" description="Acme summer ads and its 48 saved creatives go away for everyone on the team. This can't be undone." action="Delete board"></agd-alert-dialog>
+  <agd-button id="archive-project" variant="secondary">Archive project</agd-button>
+  <p id="archive-project-note" class="type-caption text-fg-muted" aria-live="polite">Acme onboarding: 48 screens.</p>
+  <agd-alert-dialog id="archive-project-dialog" heading="Archive this project?" description="Acme onboarding and its 48 screens leave everyone's list. This can't be undone." action="Archive project"></agd-alert-dialog>
 </div>
 <script type="module">
-  const dialog = document.getElementById('delete-board-dialog')
-  const note = document.getElementById('delete-board-note')
-  document.getElementById('delete-board').addEventListener('click', () => { dialog.open = true })
-  dialog.addEventListener('confirm', () => { note.textContent = 'Board deleted.' })
-  dialog.addEventListener('cancel', () => { note.textContent = 'Kept the board.' })
+  const dialog = document.getElementById('archive-project-dialog')
+  const note = document.getElementById('archive-project-note')
+  document.getElementById('archive-project').addEventListener('click', () => { dialog.open = true })
+  dialog.addEventListener('confirm', () => { note.textContent = 'Project archived.' })
+  dialog.addEventListener('cancel', () => { note.textContent = 'Kept the project.' })
 </script>

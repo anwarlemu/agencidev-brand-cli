@@ -27,11 +27,11 @@ export function Progress({ value, max = 100, label, className }: ProgressProps) 
         aria-valuemin={0}
         aria-valuemax={max}
         aria-valuenow={known ? value : undefined}
-        className={cn('relative h-1.5 w-full overflow-hidden rounded-full bg-action-secondary', className)}
+        className={cn('relative h-1.5 w-full overflow-hidden rounded-full bg-edge-strong', className)}
       >
         {known
-          ? <div className="h-full w-full rounded-full bg-action-primary transition-transform duration-350 ease-out motion-reduce:transition-none" style={{ transform: `translateX(-${(1 - share) * 100}%)` }} />
-          : <div className="ds-progress-sweep h-full w-2/5 rounded-full bg-action-primary" />}
+          ? <div className="h-full w-full rounded-full bg-fg transition-transform duration-350 ease-out motion-reduce:transition-none" style={{ transform: `translateX(-${(1 - share) * 100}%)` }} />
+          : <div className="ds-progress-sweep h-full w-2/5 rounded-full bg-fg" />}
       </div>
     </>
   )

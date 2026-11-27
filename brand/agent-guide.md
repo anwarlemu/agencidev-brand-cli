@@ -158,7 +158,7 @@ Never edit the PNG or SVG by hand: change the design file through the CLI, so th
 
 ## Ads from a brief
 
-When a person asks for ads ("ads for the Boards launch on LinkedIn and Instagram"), turn the request into a brief, run
+When a person asks for ads ("ads for the Acme launch on LinkedIn and Instagram"), turn the request into a brief, run
 it, look at the sheet, and revise the ads they pick.
 
 1. Write the brief as a Markdown file (or JSON, or pipe it on stdin with `{{cli}} ad -`). Sections are headings

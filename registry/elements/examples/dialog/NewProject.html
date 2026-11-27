@@ -1,0 +1,28 @@
+<!-- A new project in a short form: the button opens it on the Name field, Enter creates it, Escape or the scrim closes it. -->
+<div class="flex min-h-96 flex-col items-center justify-center gap-3">
+  <agd-button id="new-project">New project</agd-button>
+  <p id="new-project-note" class="type-caption text-fg-muted" aria-live="polite">Projects hold the work for one client.</p>
+  <agd-dialog id="new-project-dialog" heading="New project" description="Name it after the client and the work.">
+    <form class="flex flex-col gap-6">
+      <div class="flex flex-col gap-2">
+        <label for="new-project-name" class="type-label text-fg-soft">Name</label>
+        <agd-input id="new-project-name" name="name" placeholder="Acme onboarding" aria-label="Name"></agd-input>
+      </div>
+      <div class="flex flex-wrap justify-end gap-2">
+        <agd-button variant="secondary" data-close>Cancel</agd-button>
+        <agd-button type="submit">Create project</agd-button>
+      </div>
+    </form>
+  </agd-dialog>
+</div>
+<script type="module">
+  const dialog = document.getElementById('new-project-dialog')
+  document.getElementById('new-project').addEventListener('click', () => { dialog.open = true })
+  dialog.querySelector('[data-close]').addEventListener('click', () => { dialog.open = false })
+  dialog.querySelector('form').addEventListener('submit', (event) => {
+    event.preventDefault()
+    const name = new FormData(event.currentTarget).get('name') || 'Untitled project'
+    document.getElementById('new-project-note').textContent = `Created ${name}.`
+    dialog.open = false
+  })
+</script>

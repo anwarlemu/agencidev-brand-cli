@@ -8,7 +8,7 @@ use_for: "A search, a save or a load that takes more than a moment, beside the w
 never:
   - "A spinner where the shape of the content is known: use Skeleton"
   - "Progress that can be counted: use Progress"
-  - "A colored, glowing or spectrum spinner"
+  - "A colored or glowing spinner"
   - "A blank screen with only a spinner"
 source: "shadcn's spinner, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:

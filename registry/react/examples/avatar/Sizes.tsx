@@ -1,6 +1,6 @@
 import { Avatar } from '@/react/components/ui/Avatar'
-// Initials in three sizes, and a board's members stacked with a Black ring between them.
-const members = ['Acme Studio', 'Acme Growth', 'Acme Brand', 'Acme Social']
+// Initials in three sizes, and a project's team stacked with a Black ring between them.
+const members = ['Acme Studio', 'Acme Product', 'Acme Design', 'Acme Engineering']
 
 export default function Sizes() {
   return (

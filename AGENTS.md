@@ -19,7 +19,7 @@ document, the command exits 1 and names what is allowed. Do not substitute a nea
 ## Designs you revise
 
 ```sh
-agencidev-ds design new banner-tagline --headline "Search every ad your competitors run." --size x-banner -o banner.design.json
+agencidev-ds design new banner-statement --headline "Product design thinking and implementation." --size x-banner -o banner.design.json
 agencidev-ds design revise banner.design.json "bigger headline"
 agencidev-ds design edit banner.design.json --layer headline.anchor=bottom-right --size linkedin-banner
 agencidev-ds design undo banner.design.json

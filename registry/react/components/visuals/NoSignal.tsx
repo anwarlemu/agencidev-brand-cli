@@ -21,7 +21,7 @@ export function NoSignal({ band = true, still = false, seed = 0, className, chil
   const canvas = useRef<HTMLCanvasElement>(null)
   useEffect(() => (canvas.current ? runNoSignal(canvas.current, { band, animate: !still, seed }) : undefined), [band, still, seed])
   return (
-    <div data-ds="no-signal" className={cn('relative isolate block overflow-hidden bg-surface-sunken', className)} {...rest}>
+    <div data-ds="no-signal" className={cn('isolate block overflow-hidden bg-surface-sunken', !/\b(absolute|fixed|sticky)\b/.test(className ?? '') && 'relative', className)} {...rest}>
       <canvas ref={canvas} aria-hidden="true" className="absolute inset-0 -z-1 size-full" />
       {children}
     </div>

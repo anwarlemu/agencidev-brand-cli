@@ -8,7 +8,7 @@ use_for: "Requests and setup steps on product, docs and resource pages (`tabs` o
 never:
   - "Colored syntax highlighting: only the muted gray and White"
   - "Code that wraps: it scrolls across and fades at its edges"
-  - "A White copy button: it is quiet"
+  - "A filled copy button: it is quiet"
 source: "The site sets no code blocks of its own; drawn in the Agencidev tokens (the slat, square corners, the system mono) for docs and articles."
 files:
   - react/components/site/CodeBlock.tsx

@@ -3,7 +3,7 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // ToggleGroup.tsx as <agd-toggle-group>: buttons that stay pressed, side by side on one track: the site's
-// segmented control, a the quiet fill tray in a #141414 ring, each pressed one a white at 20% segment with white text, the rest soft
+// segmented control, a tray in the quiet fill with a hairline, each pressed one on the inset fill with white text, the rest soft
 // gray. sm (32px) or md
 // (40px) tall in all. `multiple` lets several stay on (the value is an array); otherwise one at most, and pressing it
 // again lets it go. `options` is a JSON attribute or a property; the value is `value` (a string, a JSON array with

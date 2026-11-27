@@ -20,7 +20,7 @@ export const EMAILS: Record<string, Kind> = {
 	newsletter: {
 		description: 'A headline, a lead, up to three stories (title, line, link) and a button.',
 		slots: [{ id: 'preheader', note: 'the line inboxes show after the subject' }, { id: 'headline', required: true, note: '' }, { id: 'lead', note: '' }, { id: 'stories', note: 'Title | line | https://link, one story per line' }, { id: 'cta', note: 'the button' }, { id: 'cta-href', note: '' }, { id: 'footer', note: 'the address and unsubscribe line' }],
-		sample: { preheader: 'What changed this week.', headline: 'What changed this week.', lead: 'Three launches worth a look.', stories: 'Acme ships alerts | Know the day a brand launches. | https://acme.com/alerts\nBoards for teams | Share a board with one link. | https://acme.com/boards', cta: 'Read more', 'cta-href': 'https://acme.com', footer: 'Acme Inc., 1 Market St. Unsubscribe at acme.com/unsubscribe' },
+		sample: { preheader: 'What changed this week.', headline: 'What changed this week.', lead: 'Two releases worth a look.', stories: 'Acme onboarding shipped | Signup now shows the product first. | https://acme.com/onboarding\nA new design system | Every screen builds from one set of parts. | https://acme.com/system', cta: 'Read more', 'cta-href': 'https://acme.com', footer: 'Acme Inc., 1 Market St. Unsubscribe at acme.com/unsubscribe' },
 	},
 	announcement: {
 		description: 'One piece of news: a label, the headline, a paragraph and a button.',

@@ -4,7 +4,7 @@ import { useControllable } from '@/react/hooks/useControllable'
 
 // One of a few, all in view: 16px circles in the hairline (white at 20%) (round, as the lens in the logomark; every other
 // control keeps square corners), the picked one edged in white with a white 8px dot that settles in from 0.6 over
-// 160ms on the strong ease-out (reduced motion fades it). Rows 32px (44px on phones) with a ABC Diatype label and an
+// 160ms on the strong ease-out (reduced motion fades it). Rows 32px (44px on phones) with an ABC Diatype label and an
 // optional muted hint. Arrows move the pick, as native radios do; focus is the white ring. More than five options is a
 // Native Select or a Select; views of one thing are Tabs. `value` with `onValueChange` controls it (or `defaultValue`).
 export interface RadioOption<T extends string> { value: T, label: string, hint?: string, disabled?: boolean }
@@ -56,10 +56,10 @@ const css = `
 .ds-radio { display: inline-grid; width: var(--ds-size-icon-sm); height: var(--ds-size-icon-sm); flex-shrink: 0; margin-top: var(--ds-space-2xs); place-items: center; }
 .ds-radio > * { grid-area: 1 / 1; }
 .ds-radio > input { width: var(--ds-size-icon-sm); height: var(--ds-size-icon-sm); margin: 0; border: var(--ds-border-hairline) solid var(--ds-color-edge-strong); border-radius: var(--ds-radius-full); background: var(--ds-color-surface); appearance: none; cursor: inherit; transition: border-color var(--ds-duration-micro) var(--ds-easing-standard); }
-.ds-radio > input:checked { border-color: var(--ds-color-action-primary); }
+.ds-radio > input:checked { border-color: var(--ds-color-fg); }
 .ds-radio > input:focus-visible { outline: var(--ds-border-focus) solid var(--ds-color-edge-focus); outline-offset: var(--ds-border-focus); }
 .ds-radio > input:disabled { border-color: var(--ds-color-edge); background: var(--ds-color-surface-sunken); }
-.ds-radio > i { width: var(--ds-space-sm); height: var(--ds-space-sm); border-radius: var(--ds-radius-full); background: var(--ds-color-action-primary); opacity: 0; pointer-events: none; transform: scale(0.6); transition: opacity var(--ds-duration-micro) var(--ds-easing-out), transform var(--ds-duration-micro) var(--ds-easing-out); }
+.ds-radio > i { width: var(--ds-space-sm); height: var(--ds-space-sm); border-radius: var(--ds-radius-full); background: var(--ds-color-fg); opacity: 0; pointer-events: none; transform: scale(0.6); transition: opacity var(--ds-duration-micro) var(--ds-easing-out), transform var(--ds-duration-micro) var(--ds-easing-out); }
 .ds-radio > input:checked + i { opacity: 1; transform: none; }
 .ds-radio > input:disabled + i { background: var(--ds-color-fg-faint); }
 @media (hover: hover) and (pointer: fine) { .ds-radiorow:hover > .ds-radio > input:not(:disabled, :checked) { border-color: var(--ds-color-action-secondary-edge-hover); } }

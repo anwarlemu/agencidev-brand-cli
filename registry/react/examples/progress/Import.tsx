@@ -10,15 +10,15 @@ export default function Import() {
     <div className="flex w-80 max-w-full flex-col gap-8">
       <div className="flex flex-col gap-3">
         <div className="flex items-baseline justify-between gap-4">
-          <p className="type-ui text-fg">Importing Acme ads</p>
+          <p className="type-ui text-fg">Importing Acme screens</p>
           <p className="type-caption text-fg-muted tabular-nums">{value}%</p>
         </div>
-        <Progress value={value} label="Importing Acme ads" />
+        <Progress value={value} label="Importing Acme screens" />
         <Button variant="secondary" size="sm" className="self-start" onClick={() => setValue((v) => Math.min(100, v + 20))}>Import more</Button>
       </div>
       <div className="flex flex-col gap-3">
-        <p className="type-ui text-fg">Finding new creatives</p>
-        <Progress label="Finding new creatives" />
+        <p className="type-ui text-fg">Building the preview</p>
+        <Progress label="Building the preview" />
       </div>
     </div>
   )

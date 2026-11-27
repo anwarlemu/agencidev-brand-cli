@@ -4,7 +4,7 @@ title: Slider
 type: registry:ui
 group: ui
 description: "A value on a range: a 4px white at 20% track, white up to the value, and a white thumb with the small corner. It follows the hand without easing."
-use_for: "A rough value where the range matters more than the digit: how long an ad has run, a share, a budget. Show the value beside it."
+use_for: "A rough value where the range matters more than the digit: how long a project ran, a share, hours per week. Show the value beside it."
 never:
   - "Exact values a person would rather type: use Input"
   - "A round, glowing or growing thumb"

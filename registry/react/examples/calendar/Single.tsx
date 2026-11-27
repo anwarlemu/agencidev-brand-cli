@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Calendar } from '@/react/components/ui/Calendar'
-// The day a campaign goes live; the picked day reads under the month.
+// The day a release goes live; the picked day reads under the month.
 
 export default function Single() {
   const [day, setDay] = useState<Date | null>(new Date(2026, 10, 20))

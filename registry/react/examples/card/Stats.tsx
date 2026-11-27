@@ -4,9 +4,9 @@ import { Card } from '@/react/components/ui/Card'
 export default function Stats() {
   return (
     <div className="grid gap-4 sm:grid-cols-3">
-      <Card title="1,240" description="New Acme creatives this week" />
-      <Card title="38" description="Brands tracked by the Acme team" />
-      <Card title="6" description="Boards shared with the agency" />
+      <Card title="48" description="Screens shipped for Acme this month" />
+      <Card title="112" description="Components in the Acme design system" />
+      <Card title="6" description="Flows in review this week" />
     </div>
   )
 }

@@ -5,13 +5,13 @@ import { Command, type CommandGroup } from '@/react/components/ui/Command'
 // The command menu on the page: type to filter, arrows to move, Enter to run. The line under says what ran.
 const groups: CommandGroup[] = [
   { heading: 'Go to', items: [
-    { id: 'search', label: 'Search creatives', icon: <Search size={16} strokeWidth={1.5} />, shortcut: '/' },
-    { id: 'brands', label: 'Track a brand', keywords: ['creator', 'follow'], icon: <Building2 size={16} strokeWidth={1.5} /> },
-    { id: 'boards', label: 'Boards', icon: <Bookmark size={16} strokeWidth={1.5} /> },
+    { id: 'search', label: 'Search projects', icon: <Search size={16} strokeWidth={1.5} />, shortcut: '/' },
+    { id: 'enquiry', label: 'New enquiry', keywords: ['client', 'lead'], icon: <Building2 size={16} strokeWidth={1.5} /> },
+    { id: 'projects', label: 'Projects', icon: <Bookmark size={16} strokeWidth={1.5} /> },
   ] },
-  { heading: 'Boards', items: [
-    { id: 'summer', label: 'Acme summer ads' },
-    { id: 'serum', label: 'Acme serum launch' },
+  { heading: 'Projects', items: [
+    { id: 'onboarding', label: 'Acme onboarding' },
+    { id: 'dashboard', label: 'Acme dashboard' },
   ] },
   { heading: 'Settings', items: [
     { id: 'billing', label: 'Billing', keywords: ['plan', 'invoice'], icon: <CreditCard size={16} strokeWidth={1.5} />, shortcut: '⌘B' },

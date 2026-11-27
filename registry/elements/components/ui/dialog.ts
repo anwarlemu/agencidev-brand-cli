@@ -6,7 +6,7 @@ import '@/elements/components/ui/button'
 import styles from 'virtual:tw'
 
 // Dialog.tsx as <agd-dialog>: a native modal window on the overlay surface (#141414) in a neutral hairline with the
-// square corner, over a black scrim. A Agencidev Sansheading, an optional line under it, a ghost close button, the body
+// square corner, over a black scrim. An Agencidev Sans heading, an optional line under it, a ghost close button, the body
 // (a short form) and the `foot` slot for buttons. Focus stays inside; Escape, the close button and the scrim close it
 // (`locked`: the scrim does nothing). It starts in the first field; with none, focus rests on the window. It comes in
 // over 360ms (a fade and a scale from 0.96) and leaves at once. React's `open` with `onOpenChange` is the `open`

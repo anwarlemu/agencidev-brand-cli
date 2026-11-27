@@ -37,7 +37,7 @@ const TAB: Record<TabsVariant, string> = {
   default: 'inline-flex h-full flex-1 cursor-pointer items-center justify-center rounded-ds-sm px-3 type-ui-strong whitespace-nowrap transition-[background-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:text-fg-faint',
   line: '-mb-px inline-flex h-control-md cursor-pointer items-center border-b-2 type-ui-strong whitespace-nowrap transition-[border-color,color] duration-150 ease-standard disabled:cursor-not-allowed disabled:text-fg-faint',
 }
-const ON: Record<TabsVariant, string> = { default: 'bg-action-primary text-action-primary-fg', line: 'border-action-primary text-fg' }
+const ON: Record<TabsVariant, string> = { default: 'bg-action-primary text-action-primary-fg', line: 'border-fg text-fg' }
 const OFF: Record<TabsVariant, string> = { default: 'text-fg-muted hover:not-disabled:text-fg', line: 'border-transparent text-fg-muted hover:not-disabled:text-fg' }
 
 /** The id-safe form of a value. */

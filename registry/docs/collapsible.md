@@ -14,5 +14,5 @@ files:
   - react/components/ui/Collapsible.tsx
 examples:
   - "Filters | More filters | center"
-  - "Boards | The rest of a list | center"
+  - "Projects | The rest of a list | center"
 ---

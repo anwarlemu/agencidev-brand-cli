@@ -2,7 +2,7 @@ import type { HTMLAttributes } from 'react'
 import { cn } from '@/react/lib/cn'
 import { imageFit, type ImageSlot } from '@/lib/image'
 
-// A placeholder in the shape of what is loading: a the quiet fill block with square corners (or a circle) that breathes
+// A placeholder in the shape of what is loading: a block in the quiet fill with square corners (or a circle) that breathes
 // between full and half opacity every 2 seconds, never a shimmer. Size it with classes (h-4 w-48) to the part it holds
 // the place of, so nothing moves when the content lands. Still with reduced motion. Hidden from assistive tech: say
 // "Loading" once on the region (aria-busy) instead. When the picture it holds the place of arrives, pass it (`src`,

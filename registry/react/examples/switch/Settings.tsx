@@ -1,10 +1,10 @@
 import { Switch } from '@/react/components/ui/Switch'
-// Notification settings: each row says what the switch does, one on, one off, and one the plan locks.
+// Notification settings: each row says what the switch does, one on, one off, and one the workspace locks.
 
 const rows = [
-  { title: 'Weekly digest', text: 'New ads from the brands you track, every Monday.', on: true },
-  { title: 'New creative alerts', text: 'An email the day a tracked brand launches an ad.', on: false },
-  { title: 'Share outside Acme', text: 'Available on the Team plan.', on: false, locked: true },
+  { title: 'Weekly digest', text: "What shipped and what's next, every Monday.", on: true },
+  { title: 'Preview alerts', text: 'An email when a new preview is ready.', on: false },
+  { title: 'Share outside Acme', text: 'Turned off by the workspace owner.', on: false, locked: true },
 ]
 
 export default function Settings() {

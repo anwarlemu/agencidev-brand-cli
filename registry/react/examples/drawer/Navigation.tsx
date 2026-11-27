@@ -5,15 +5,15 @@ import { Button } from '@/react/components/ui/Button'
 import { Drawer } from '@/react/components/ui/Drawer'
 // Navigation on a phone: the menu button slides the pages in from the left. Pick one, press the scrim or Escape to close.
 const pages = [
-  { label: 'Search', icon: Search },
-  { label: 'Boards', icon: Bookmark },
-  { label: 'Brands', icon: Building2 },
+  { label: 'Work', icon: Search },
+  { label: 'Projects', icon: Bookmark },
+  { label: 'Clients', icon: Building2 },
   { label: 'Settings', icon: Settings },
 ]
 
 export default function Navigation() {
   const [open, setOpen] = useState(false)
-  const [page, setPage] = useState('Search')
+  const [page, setPage] = useState('Work')
   return (
     <div className="flex min-h-72 flex-col items-center justify-center gap-3">
       <Button variant="secondary" icon aria-label="Open menu" onClick={() => setOpen(true)}><Menu size={16} strokeWidth={1.5} aria-hidden="true" /></Button>

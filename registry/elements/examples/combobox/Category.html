@@ -1,23 +1,23 @@
-<!-- Pick a category to search in: type to narrow the list, arrows to move, Enter to pick. Counts are creatives tracked. -->
+<!-- Pick a discipline to filter by: type to narrow the list, arrows to move, Enter to pick. Counts are open projects. -->
 <div class="flex h-96 w-72 max-w-full flex-col gap-2">
-  <label for="combobox-category" class="type-label text-fg-soft">Category</label>
-  <agd-combobox id="combobox-category" value="" label="Category" placeholder="Choose a category" filter-label="Filter categories" match-width></agd-combobox>
-  <p id="combobox-category-note" class="type-caption text-fg-muted" aria-live="polite">Search one category at a time.</p>
+  <label for="combobox-discipline" class="type-label text-fg-soft">Discipline</label>
+  <agd-combobox id="combobox-discipline" value="" label="Discipline" placeholder="Choose a discipline" filter-label="Filter disciplines" match-width></agd-combobox>
+  <p id="combobox-discipline-note" class="type-caption text-fg-muted" aria-live="polite">Filter by one discipline at a time.</p>
 </div>
 <script type="module">
   await customElements.whenDefined('agd-combobox')
   const categories = [
-    { value: 'skincare', label: 'Skincare', hint: '12.4k' },
-    { value: 'supplements', label: 'Supplements', hint: '8.1k' },
-    { value: 'apparel', label: 'Apparel', hint: '6.9k' },
-    { value: 'beverages', label: 'Beverages', hint: '5.2k' },
-    { value: 'fitness', label: 'Fitness', hint: '4.7k' },
-    { value: 'home', label: 'Home', hint: '3.3k' },
-    { value: 'pets', label: 'Pets', hint: '2.8k' },
+    { value: 'product', label: 'Product design', hint: '12' },
+    { value: 'brand', label: 'Branding', hint: '8' },
+    { value: 'strategy', label: 'Strategy', hint: '6' },
+    { value: 'web', label: 'Web development', hint: '5' },
+    { value: 'mobile', label: 'Mobile development', hint: '4' },
+    { value: 'systems', label: 'Design systems', hint: '3' },
+    { value: 'research', label: 'Research', hint: '2' },
   ]
-  const box = document.getElementById('combobox-category')
+  const box = document.getElementById('combobox-discipline')
   box.options = categories
   box.addEventListener('change', () => {
-    document.getElementById('combobox-category-note').textContent = `Searching ${categories.find((c) => c.value === box.value)?.label} creatives.`
+    document.getElementById('combobox-discipline-note').textContent = `Showing ${categories.find((c) => c.value === box.value)?.label} projects.`
   })
 </script>

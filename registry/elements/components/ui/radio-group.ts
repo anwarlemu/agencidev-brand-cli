@@ -6,7 +6,7 @@ import styles from 'virtual:tw'
 
 // RadioGroup.tsx as <agd-radio-group>: one of a few, all in view: 16px circles in the hairline (white at 20%), the picked
 // one edged in white with a white 8px dot that settles in from 0.6 over 160ms (reduced motion fades it), rows 32px (44px
-// on phones) with a ABC Diatype label and an optional muted hint. Arrows move the pick, as native radios do. `options` is a
+// on phones) with an ABC Diatype label and an optional muted hint. Arrows move the pick, as native radios do. `options` is a
 // JSON attribute or a property; the value is `value` with the native `input` and `change` events. Form-associated: its
 // `name` goes with the form as the picked value.
 

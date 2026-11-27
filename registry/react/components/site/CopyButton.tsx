@@ -4,7 +4,7 @@ import { copyText } from '@/lib/code'
 import { cn } from '@/react/lib/cn'
 
 // The site's copy button (sections/Connect CopyButton): a quiet 40px button with a 4px corner, its label in the soft
-// gray (White under the pointer); a press puts `text` on the clipboard and the label crosses over to "Copied" (up and
+// gray (white under the pointer); a press puts `text` on the clipboard and the label crosses over to "Copied" (up and
 // out, up and in, 160ms) for 2s. If the clipboard is refused, the text in `selectId` is selected instead.
 export interface CopyButtonProps {
   text: string
