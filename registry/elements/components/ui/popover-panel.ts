@@ -4,10 +4,10 @@ import { PopoverController, popoverStyles, type Align, type Side } from '@/eleme
 import styles from 'virtual:tw'
 
 // PopoverPanel.tsx as <agd-popover-panel>: the floating panel every overlay draws, on its own, for overlays of
-// your own: the card's #262626 fill with a hairline and the brand corner, no shadow, beside the element named by
+// your own: the card's #141414 fill with a hairline and square corners, no shadow, beside the element named by
 // `anchor` (an id), flipped to the side with room and kept 8px inside the viewport, in the top layer. It grows from its
 // anchor over 240ms and leaves in 160ms; opened or closed from the keyboard it does neither. `tip` is the tooltip's
-// White fill. Set `open` (or call show() and hide()); a press outside, Escape and focus leaving close it. The library's
+// white fill. Set `open` (or call show() and hide()); a press outside, Escape and focus leaving close it. The library's
 // own overlays draw the same panel inside their shadow roots (lib/popover.ts).
 
 /**
@@ -23,7 +23,7 @@ export class PopoverPanel extends DsElement {
 	anchor = ''
 	side: Side = 'bottom'
 	align: Align = 'start'
-	/** The tooltip's White fill, 2px over 160ms. */
+	/** The tooltip's white fill, 2px over 160ms. */
 	tip = false
 	open = false
 	/** A press outside or focus leaving keeps it open. */

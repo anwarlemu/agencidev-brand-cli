@@ -3,8 +3,8 @@ import { ifDefined } from 'lit/directives/if-defined.js'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// ButtonGroup.tsx as <agd-button-group>: buttons that belong together, joined into one block with the brand corner
-// on its outer corners only and a 1px Black seam between them. `vertical` stacks them. Give it a label for the group.
+// ButtonGroup.tsx as <agd-button-group>: buttons that belong together, joined into one block with square corners
+// on its outer corners only and a 1px black seam between them. `vertical` stacks them. Give it a label for the group.
 //
 // React's rules reach each child's root (`.ds-btngroup > *`). A library element such as <agd-button> draws its
 // root in its own shadow root, so the group marks each child with its place (data-group="first middle last") and gives

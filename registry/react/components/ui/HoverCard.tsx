@@ -3,8 +3,8 @@ import { useEffect, useId, useRef, type FocusEvent, type PointerEvent, type Reac
 import { PopoverPanel } from '@/react/components/ui/PopoverPanel'
 import { usePopover, type Align, type Side } from '@/react/hooks/usePopover'
 
-// More about a link, shown while the pointer rests on it: the card's #262626 fill on Black with a hairline and the
-// brand corner, 16px in, opened after the tooltip's 300ms wait and, on keyboard focus, at once. The pointer can cross
+// More about a link, shown while the pointer rests on it: the card's #141414 fill on black with a hairline and the
+// square corner, 16px in, opened after the tooltip's 300ms wait and, on keyboard focus, at once. The pointer can cross
 // into the card to select or follow what is in it; leaving both closes it after a short grace. It is a preview, never
 // the only way to the content: on touch the link just works. Wrap one link; the card is the `card` prop.
 export interface HoverCardProps {

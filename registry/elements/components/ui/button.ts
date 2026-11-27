@@ -3,7 +3,7 @@ import { ifDefined } from 'lit/directives/if-defined.js'
 import { DsFormElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Button.tsx as a web component, <agd-button>: the plate (#252525, white 12px capitals, the 4px corner) for the main
+// Button.tsx as a web component, <agd-button>: the plate (#252525, white 12px capitals, square corners) for the main
 // action, secondary (the quiet button: bare dim ink that turns white) for the rest, ghost for tools in rows. Press
 // feedback lands on pointer down; hover and press change color only. `href` renders a link. It is form-associated:
 // type="submit" submits its form, type="reset" resets it. aria-label, aria-description, aria-expanded, aria-haspopup

@@ -1,11 +1,11 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// shadcn's empty in the brand: what shows where a list has nothing in it yet. A dashed #666666 hairline with the brand
-// corner on Black, a 20px Lucide icon in a #262626 tile, a Funnel Display title, one muted line on what is missing and
+// shadcn's empty in the brand: what shows where a list has nothing in it yet. A dashed hairline (white at 20%) with the brand
+// corner on black, a 20px Lucide icon in a #141414 tile, an Agencidev Sans title, one muted line on what is missing and
 // the actions that fill it. No illustrations, and never without a way forward.
 export interface EmptyProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
-  /** What is missing, in Funnel Display. */
+  /** What is missing, in Agencidev Sans. */
   title: string
   /** One muted line on how to fill it. */
   description?: string

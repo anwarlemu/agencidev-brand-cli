@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { DsElement, define, tagName } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// SidebarLabel.tsx as <agd-sidebar-label>: a group's name in the sidebar, DM Sans Medium in capitals at 6%,
+// SidebarLabel.tsx as <agd-sidebar-label>: a group's name in the sidebar, ABC Diatype in capitals at 6%,
 // muted, 16px over it. Folded to icons, a hairline takes its place and the name stays for assistive tech.
 
 /**

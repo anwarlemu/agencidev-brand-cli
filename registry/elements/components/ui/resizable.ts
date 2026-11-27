@@ -5,7 +5,7 @@ import { DsElement, define, uid } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // Resizable.tsx as <agd-resizable>: two panes and the hairline between them. The hairline is the handle (a 12px
-// reach either side), White under the pointer, while dragged and when focused; `with-handle` adds a small grip.
+// reach either side), white under the pointer, while dragged and when focused; `with-handle` adds a small grip.
 // Drag it, or use the arrow keys (Shift for bigger steps, Home and End). The host is the split, so a class on the
 // element lands on it. `value` (the first pane's share in percent) with the native `input` and `change` events.
 

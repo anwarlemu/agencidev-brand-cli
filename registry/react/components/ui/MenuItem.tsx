@@ -2,8 +2,8 @@
 import { useContext, type ReactNode } from 'react'
 import { MenuClose } from '@/react/components/ui/DropdownMenu'
 
-// One row of a dropdown or context menu: 32px (44px on phones), DM Sans 14px, a 4px corner inside the panel's 8px. The
-// row under the pointer or focus takes a #262626 fill (160ms, hover only where a pointer hovers). `current` sets it in
+// One row of a dropdown or context menu: 32px (44px on phones), ABC Diatype 14px, a square corner inside the panel's 8px. The
+// row under the pointer or focus takes a #141414 fill (160ms, hover only where a pointer hovers). `current` sets it in
 // Medium; `danger` is the red for leaving or deleting. Put a 16px Lucide icon first (muted), a shortcut or a check
 // last. Choosing it calls `onSelect` and closes the menu, unless `keepOpen`. `role` and `aria-checked` make it a radio
 // or checkbox row (role="menuitemradio" aria-checked={picked}).

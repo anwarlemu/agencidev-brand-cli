@@ -116,7 +116,7 @@ const add = (l: Look, e: Element) => {
 	if (!l.elements.includes(e)) l.elements.push(e);
 };
 
-/** The look from its words: "dark, bold, type-led; the brand light, ASCII". */
+/** The look from its words: "dark, minimal, type-led; the no-signal static, the work rail". */
 export function parseLook(text: string | string[] | Record<string, unknown> | undefined): Look {
 	const look: Look = { elements: [] };
 	if (text === undefined) return look;

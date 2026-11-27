@@ -3,13 +3,13 @@ name: toggle-group
 title: Toggle Group
 type: registry:ui
 group: ui
-description: "Buttons that stay pressed, side by side on one track with the brand corner. Each pressed one is a White block with Black text. On a narrow screen the track scrolls with fading edges."
+description: "Buttons that stay pressed, side by side on one track with square corners. Each pressed one is a white block with black text. On a narrow screen the track scrolls with fading edges."
 use_for: "Options that are on or off together in a filter row: which formats to show, a grid size. `multiple` for several at once."
 never:
   - "Views of one thing: use Tabs"
   - "Actions: use Button"
-  - "A spectrum color or a glow on the pressed block"
-source: "Derived from the brand guidelines (no segmented control in the brand assets): the input's hairline and corner, White as the one pressed state"
+  - "A colors or a glow on the pressed block"
+source: "shadcn's toggle group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/ToggleGroup.tsx
 examples:

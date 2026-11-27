@@ -1,5 +1,5 @@
-/* Base layer: what every Agencidev page sets once (the site's globals.css). Black ground, White DM Sans type at optical
-   size 14, Funnel Display heads at 450, a White focus ring, a #4D4D4D selection. */
+/* Base layer: what every Agencidev page sets once (the site's globals.css). The near-black canvas, white ABC Diatype
+   type, Agencidev Sans heads at 400, a white focus ring, a white selection with black type. */
 @layer base {
   html {
     background-color: var(--ds-color-surface);
@@ -32,7 +32,7 @@
   }
   ::selection {
     background: var(--ds-color-selection);
-    color: var(--ds-color-fg);
+    color: var(--ds-color-selection-fg);
   }
   a,
   button,

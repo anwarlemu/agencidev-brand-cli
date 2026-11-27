@@ -2,7 +2,7 @@ import { html, type PropertyValues } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// ScrollArea.tsx as <agd-scroll-area>: a region that scrolls on its own with thin scrollbars (a #363636 thumb on a
+// ScrollArea.tsx as <agd-scroll-area>: a region that scrolls on its own with thin scrollbars (a white at 20% thumb on a
 // clear track), native scrolling, overscroll kept inside. The host is the scrolling box, so size classes on the
 // element land on it. With a `label` it is a named region a keyboard can reach.
 

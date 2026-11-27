@@ -3,8 +3,8 @@ import { Fragment, type ElementType, type MouseEvent } from 'react'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '@/react/lib/cn'
 
-// shadcn's breadcrumb in the brand: where you are, in DM Sans 14px. Each step back is a muted link that turns White
-// under the pointer (160ms), a small chevron between them, and the page itself in White, the only step that truncates.
+// shadcn's breadcrumb in the brand: where you are, in ABC Diatype 14px. Each step back is a muted link that turns white
+// under the pointer (160ms), a small chevron between them, and the page itself in white, the only step that truncates.
 // `as` renders a router link component for the steps back (it gets `href` and `to`); `onNavigate` hears a click.
 export interface Crumb {
   label: string

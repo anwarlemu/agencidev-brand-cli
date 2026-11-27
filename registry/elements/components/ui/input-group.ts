@@ -6,7 +6,7 @@ import styles from 'virtual:tw'
 
 // InputGroup.tsx as <agd-input-group>: a field with something at its start or end inside the same hairline: an
 // icon, a unit or a prefix in the muted gray (slot="start", slot="end"), or a small button. Drawn and sized as the
-// input is (sm 32px, md 40px, lg 48px); the hairline turns White while the field has focus and red when `invalid`.
+// input is (sm 32px, md 40px, lg 48px); the hairline turns white while the field has focus and red when `invalid`.
 // Form-associated (its `name` and `value` go with its form); the value is `value` with the native `input` and `change`
 // events, and Enter submits its form. aria-label and aria-description pass to the inner input.
 

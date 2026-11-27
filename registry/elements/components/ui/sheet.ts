@@ -6,7 +6,7 @@ import { icon } from '@/elements/lib/icon'
 import { firstFocusable } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
 
-// Sheet.tsx as <agd-sheet>: a panel at an edge of the screen over the page: the card's #262626 fill with a
+// Sheet.tsx as <agd-sheet>: a panel at an edge of the screen over the page: the card's #141414 fill with a
 // hairline on its inner edge, 384px at the right (the default) or left, full width at the top or bottom. A Funnel
 // Display title and a muted line, a close button, the body scrolling on its own, buttons at the foot. It is modal: the
 // page dims under the scrim and stays inert. It slides in over 360ms on the drawer curve and leaves in 240ms; Escape

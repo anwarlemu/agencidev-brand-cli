@@ -4,8 +4,8 @@ import { live } from 'lit/directives/live.js'
 import { DsFormElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Input.tsx as <agd-input>: a text field on Black, a #666666 hairline that turns White on focus, DM Sans at 14px
-// (16px on phones), a #A3A3A3 placeholder and the brand corner. Sizes sm, md and lg; `invalid` turns the hairline red.
+// Input.tsx as <agd-input>: a text field on black, a hairline (white at 20%) that turns white on focus, ABC Diatype at 14px
+// (16px on phones), a mid (#909090) placeholder and square corners. Sizes sm, md and lg; `invalid` turns the hairline red.
 // It is form-associated (its `name` and `value` go with its form) and its value is `value` with the native `input`
 // and `change` events. aria-label, aria-description and aria-describedby's text pass to the inner <input>.
 

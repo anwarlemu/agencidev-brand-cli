@@ -6,8 +6,8 @@ import { useControllable } from '@/react/hooks/useControllable'
 import { onMenuRows, usePopover } from '@/react/hooks/usePopover'
 import { cn } from '@/react/lib/cn'
 
-// One choice from a short list, drawn as the field is (shadcn's select): a Black field with a #666666 hairline that
-// turns White while open, the chosen label (or a muted placeholder) and a chevron. The list opens in the card's #262626
+// One choice from a short list, drawn as the field is (shadcn's select): a black field with a hairline (white at 20%) that
+// turns white while open, the chosen label (or a muted placeholder) and a chevron. The list opens in the card's #141414
 // panel, as wide as the field, focus on the chosen row; the chosen row has a check. Arrow keys, Home, End and the first
 // letter move through it, Enter or Space picks, Escape closes and returns focus. Opened from the keyboard it shows at
 // once; from a click it grows from the field. `value` with `onValueChange`; `name` sends the value with a form.

@@ -5,9 +5,9 @@ import { Button } from '@/react/components/ui/Button'
 import { cn } from '@/react/lib/cn'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// shadcn's calendar in the brand: a month to pick a day from. 40px day cells (44px on phones) with the 4px corner,
-// weekday heads in DM Sans 12px muted, the month in DM Sans Medium between two ghost arrow buttons. The picked day is a
-// White fill with a Black figure; today carries a neutral hairline ring; the days of the months either side are faint;
+// shadcn's calendar in the brand: a month to pick a day from. 40px day cells (44px on phones) with square corners,
+// weekday heads in ABC Diatype 12px muted, the month in ABC Diatype between two ghost arrow buttons. The picked day is a
+// white fill with a black figure; today carries a neutral hairline ring; the days of the months either side are faint;
 // days that can't be picked are faint and struck through. Arrows move a day or a week, Home and End to the week's
 // ends, Page Up and Page Down a month (with Shift a year), Enter or Space picks. Changing month doesn't animate: it is
 // pressed many times in a row. `value` with `onValueChange` (or `defaultValue` alone); `onSelect` fires on every pick.

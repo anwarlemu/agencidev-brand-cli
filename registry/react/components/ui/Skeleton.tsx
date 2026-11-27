@@ -2,13 +2,13 @@ import type { HTMLAttributes } from 'react'
 import { cn } from '@/react/lib/cn'
 import { imageFit, type ImageSlot } from '@/lib/image'
 
-// A placeholder in the shape of what is loading: a #1A1A1A block with the brand corner (or a circle) that breathes
+// A placeholder in the shape of what is loading: a the quiet fill block with square corners (or a circle) that breathes
 // between full and half opacity every 2 seconds, never a shimmer. Size it with classes (h-4 w-48) to the part it holds
 // the place of, so nothing moves when the content lands. Still with reduced motion. Hidden from assistive tech: say
 // "Loading" once on the region (aria-busy) instead. When the picture it holds the place of arrives, pass it (`src`,
 // `alt`, `fit`, `position`): the block shows it, still, in the same shape. Without one it carries data-ds-placeholder.
 export interface SkeletonProps extends HTMLAttributes<HTMLDivElement>, ImageSlot {
-  /** A circle (an avatar or a logo) in place of the brand corner. */
+  /** A circle (an avatar or a logo) in place of square corners. */
   circle?: boolean
 }
 

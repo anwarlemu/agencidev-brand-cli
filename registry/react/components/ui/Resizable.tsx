@@ -3,8 +3,8 @@ import { useId, useRef, useState, type KeyboardEvent, type PointerEvent, type Re
 import { useControllable } from '@/react/hooks/useControllable'
 import { cn } from '@/react/lib/cn'
 
-// Two panes and the #363636 hairline between them. The hairline is the handle, with a 12px reach either side (20px
-// on touch); it turns White under the pointer, while dragged and when focused (160ms). `withHandle` adds a small grip
+// Two panes and the hairline (white at 20%) between them. The hairline is the handle, with a 12px reach either side (20px
+// on touch); it turns white under the pointer, while dragged and when focused (160ms). `withHandle` adds a small grip
 // on it in the card's fill. Drag it, or focus it and use the arrow keys (Shift for bigger steps, Home and End for the
 // limits). The split follows the hand with no easing. The value is the first pane's share in percent, held between
 // `min` and `max` (`value` with `onValueChange`, or `defaultValue` alone). The panes go in `first` and `second`.

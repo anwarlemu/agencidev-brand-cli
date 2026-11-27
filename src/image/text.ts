@@ -9,7 +9,7 @@ export function measure(face: Face, text: string, size: number, trackingEm = 0):
 	return advance(face, text, size) + tracking;
 }
 
-/** The text's advance. opentype.js cannot apply some substitution lookups (DM Sans's contextual ones), so where its
+/** The text's advance. opentype.js cannot apply some substitution lookups (some faces' contextual ones), so where its
  * shaper throws, the glyph advances and kerning pairs are summed directly (no ligatures, as the rasterizer draws them). */
 function advance(face: Face, text: string, size: number): number {
 	try {

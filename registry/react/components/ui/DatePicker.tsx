@@ -7,8 +7,8 @@ import { cn } from '@/react/lib/cn'
 import { useControllable } from '@/react/hooks/useControllable'
 import { usePopover } from '@/react/hooks/usePopover'
 
-// shadcn's date picker in the brand: a button drawn as the text field (40px, the 8px corner, a #666666 hairline that
-// turns White while it is open or focused, the placeholder muted) that opens a Calendar on the #262626 overlay panel
+// shadcn's date picker in the brand: a button drawn as the text field (40px, square corners, a hairline (white at 20%) that
+// turns white while it is open or focused, the placeholder muted) that opens a Calendar on the #141414 overlay panel
 // under it. Opening puts focus on the picked day (or today); picking a day closes it and returns focus to the field;
 // Escape closes it unchanged. `value` with `onValueChange` (or `defaultValue` alone).
 export interface DatePickerProps {

@@ -5,7 +5,7 @@ import '@/elements/components/ui/command'
 import type { CommandGroup } from '@/elements/components/ui/command'
 import styles from 'virtual:tw'
 
-// CommandDialog.tsx as <agd-command-dialog>: the command menu in a window, 15vh from the top over a Black scrim.
+// CommandDialog.tsx as <agd-command-dialog>: the command menu in a window, 15vh from the top over a black scrim.
 // Cmd+K (Ctrl+K) opens and closes it from anywhere on the page (`shortcut`, "" for none), and so can the `open`
 // attribute. It opens and closes at once, with no motion. Focus starts in the field; Escape or a press on the scrim
 // closes it and focus returns to what opened it; running a row closes it (the row's `select` event reaches the page).

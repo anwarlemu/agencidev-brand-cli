@@ -2,8 +2,8 @@ import type { InputHTMLAttributes, ReactNode, Ref } from 'react'
 import { cn } from '@/react/lib/cn'
 
 // A field with something at its start or end inside the same hairline: an icon, a unit or a prefix in the muted gray,
-// or a small button. It is drawn as the Input is (a #666666 hairline on Black that turns White while the field has
-// focus, DM Sans at 14px, 16px on phones, the brand corner) and sized as it is: sm 32px, md 40px, lg 48px. A button in
+// or a small button. It is drawn as the Input is (a hairline (white at 20%) on black that turns white while the field has
+// focus, ABC Diatype at 14px, 16px on phones, square corners) and sized as it is: sm 32px, md 40px, lg 48px. A button in
 // `end` sits 4px from the edge (use a ghost or secondary sm button in md, md in lg). `invalid` turns the hairline red.
 // `className` lands on the group; every other prop on the <input> (value and onChange as React's own).
 export type InputGroupSize = 'sm' | 'md' | 'lg'

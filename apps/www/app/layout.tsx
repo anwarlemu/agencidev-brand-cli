@@ -7,7 +7,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://agencidev-ds.vercel.app"),
   title: { default: `${registryName} design system`, template: `%s | ${registryName} design system` },
-  description: `Tokens, logos, the brand light and every component for building ${registryName} interfaces, pages and assets.`,
+  description: `Tokens, logos, the no-signal static and every component for building ${registryName} interfaces, pages and assets.`,
   icons: { icon: [{ url: "/agencidev-ds/logo/favicon.svg", type: "image/svg+xml" }, { url: "/agencidev-ds/icons/favicon-32.png", sizes: "32x32" }], apple: "/agencidev-ds/icons/apple-touch-icon.png" },
 };
 
@@ -15,8 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <head>
-        <link rel="preload" href="/agencidev-ds/fonts/DMSans.woff2" as="font" type="font/woff2" crossOrigin="" />
-        <link rel="preload" href="/agencidev-ds/fonts/FunnelDisplay.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/agencidev-ds/fonts/ABCDiatype.woff2" as="font" type="font/woff2" crossOrigin="" />
+        <link rel="preload" href="/agencidev-ds/fonts/AgencidevSans-400.woff2" as="font" type="font/woff2" crossOrigin="" />
       </head>
       <body>{children}</body>
     </html>

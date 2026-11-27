@@ -3,8 +3,8 @@ import { DsElement, define } from '@/elements/lib/element'
 import { boxOf, PopoverController, popoverStyles, within, type Align, type Side } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
 
-// HoverCard.tsx as <agd-hover-card>: more about a link, shown while the pointer rests on it: the card's #262626
-// fill with a hairline and the brand corner, 16px in, opened after the tooltip's 300ms wait and, on keyboard focus, at
+// HoverCard.tsx as <agd-hover-card>: more about a link, shown while the pointer rests on it: the card's #141414
+// fill with a hairline and square corners, 16px in, opened after the tooltip's 300ms wait and, on keyboard focus, at
 // once. The pointer can cross into the
 // card to select or follow what is in it; leaving both closes it after a short grace. It is a preview, never the only
 // way to the content: on touch the link just works. Wrap one link; the card is the `card` slot. Inside a paragraph, put

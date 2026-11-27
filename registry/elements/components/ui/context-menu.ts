@@ -5,7 +5,7 @@ import { PopoverController, popoverStyles } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
 
 // ContextMenu.tsx as <agd-context-menu>: the dropdown menu's rows (<agd-menu-item>, <agd-menu-label>,
-// <agd-menu-separator>, each with slot="menu") on the #262626 overlay panel, opened at the pointer: a right-click
+// <agd-menu-separator>, each with slot="menu") on the #141414 overlay panel, opened at the pointer: a right-click
 // (or a long press on Android) on the default slot opens the `menu` slot where it landed, flipped and kept inside the
 // viewport, in the top layer. From the keyboard, Shift+F10 or the context menu key opens it under the focused element,
 // at once, on its first row. Arrows, Home and End move; Escape closes and returns focus; choosing a row closes it.

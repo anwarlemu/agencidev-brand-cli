@@ -8,8 +8,8 @@ use_for: "Sign-in and verification codes sent by email or text. Say under it whe
 never:
   - "Passwords or keys"
   - "Cells that move focus on their own: it is one field"
-  - "A colored or glowing cell for the one being typed: its hairline turns White"
-source: "Derived from the brand guidelines (no code field in the brand assets): the input's hairline, fill and corner, DM Sans for the digits"
+  - "A colored or glowing cell for the one being typed: its hairline turns white"
+source: "shadcn's input otp, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/InputOtp.tsx
 examples:

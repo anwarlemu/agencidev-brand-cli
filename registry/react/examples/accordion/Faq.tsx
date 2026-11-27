@@ -5,7 +5,7 @@ import { AccordionItem } from '@/react/components/ui/AccordionItem'
 export default function Faq() {
   return (
     <Accordion defaultValue="what" className="w-160 max-w-full">
-      <AccordionItem value="what" title="What is Agencidev?">The only creative search engine. Ask in words for ads, product shots and UGC, and see what is running.</AccordionItem>
+      <AccordionItem value="what" title="What is Agencidev?">A distributed product design and development studio: product design, branding, strategy and full-stack development, as ongoing monthly partnerships.</AccordionItem>
       <AccordionItem value="price" title="How much does it cost?">$10 for your first month, then $20/month.</AccordionItem>
       <AccordionItem value="boards" title="Can I share a board with my team?">Yes. Save creatives to a board and send the link to Acme's whole team.</AccordionItem>
     </Accordion>

@@ -6,9 +6,9 @@ import { DsElement, define, uid } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// Command.tsx as <agd-command>: a box to type in over a list of actions and places, on the #262626 overlay
-// surface in a neutral hairline with the brand corner; the field on top over a hairline, groups with a capital label,
-// the menus' rows with a #262626 fill on the row the arrows or the pointer are on. The field keeps focus: typing
+// Command.tsx as <agd-command>: a box to type in over a list of actions and places, on the #141414 overlay
+// surface in a neutral hairline with square corners; the field on top over a hairline, groups with a capital label,
+// the menus' rows with a #141414 fill on the row the arrows or the pointer are on. The field keeps focus: typing
 // filters (label and keywords), arrows move the highlight and wrap, Home and End jump, Enter runs the row. Nothing
 // animates. `groups` is a property or a JSON attribute ({ heading, items: [{ id, label, keywords, shortcut,
 // disabled }] }); a row's icon is page content with slot="icon-<id>" (React's `icon`). `select` fires with the row.

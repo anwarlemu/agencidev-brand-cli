@@ -3,8 +3,8 @@ import { createContext, useEffect, useId, useImperativeHandle, useRef, type Reac
 import { useMenu } from '@/react/hooks/useMenu'
 import { cn } from '@/react/lib/cn'
 
-// shadcn's dropdown menu in the brand: a button that opens a short list of actions or choices on the #262626 overlay
-// surface, a neutral hairline, the 8px corner, no shadow, 4px inside; rows are MenuItem (shadcn's DropdownMenuItem),
+// shadcn's dropdown menu in the brand: a button that opens a short list of actions or choices on the #141414 overlay
+// surface, a neutral hairline, square corners, no shadow, 4px inside; rows are MenuItem (shadcn's DropdownMenuItem),
 // with MenuLabel and MenuSeparator between groups. It comes in over 240ms (a 4px drop and a touch of scale from its
 // trigger's edge, ease-out), leaves at once, and does not animate when opened from the keyboard, which is how menus
 // are opened most. Arrows, Home, End, Escape, Tab and a click outside are handled (useMenu). The trigger's content is

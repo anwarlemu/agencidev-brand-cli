@@ -3,7 +3,7 @@ import { useState, type HTMLAttributes } from 'react'
 import { cn } from '@/react/lib/cn'
 
 // shadcn's avatar in the brand: who or what something belongs to, in a circle. A `src` shows a picture cropped round;
-// without one, or if it fails to load, the name's initials (two at most) in White DM Sans Medium on #262626. Sizes sm
+// without one, or if it fails to load, the name's initials (two at most) in white ABC Diatype on #141414. Sizes sm
 // (24px, in a row), md (32px) and lg (40px). The name is read out; the picture is decoration.
 export type AvatarSize = 'sm' | 'md' | 'lg'
 

@@ -5,9 +5,9 @@ import { DsElement, define, uid } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// AccordionItem.tsx as <agd-accordion-item>: one row of an accordion: the question as a full-width button (DM Sans
-// 16px, soft White that turns full White under the pointer and while open) over a neutral hairline, and the answer
-// under it in muted DM Sans 14px. The chevron turns half a circle as the row opens; it never moves on hover. The closed
+// AccordionItem.tsx as <agd-accordion-item>: one row of an accordion: the question as a full-width button (ABC Diatype
+// 16px, soft white that turns full white under the pointer and while open) over a neutral hairline, and the answer
+// under it in muted ABC Diatype 14px. The chevron turns half a circle as the row opens; it never moves on hover. The closed
 // answer is inert, so its links leave the tab order. `heading` (React's `title`) or the `title` slot names the row; the
 // default slot is the answer.
 

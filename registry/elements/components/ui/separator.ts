@@ -2,7 +2,7 @@ import { type PropertyValues } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Separator.tsx as <agd-separator>: the hairline, 1px in the #262626 edge step, across or down. The host is the
+// Separator.tsx as <agd-separator>: the hairline, 1px in the #141414 edge step, across or down. The host is the
 // line (React's root div), so a class on the element (a margin) lands on it. Decorative by default; `semantic` makes it
 // a separator for assistive tech.
 

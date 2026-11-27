@@ -1,8 +1,8 @@
 'use client'
 import { createContext, useRef, useState, type Dispatch, type ReactNode, type SetStateAction } from 'react'
 
-// A site's top navigation (shadcn's navigation menu): a row of triggers and links in DM Sans Medium, each trigger
-// opening a panel of links in the card's #262626 fill under it (NavigationMenuItem with NavigationMenuLink rows). Under
+// A site's top navigation (shadcn's navigation menu): a row of triggers and links in ABC Diatype, each trigger
+// opening a panel of links in the card's #141414 fill under it (NavigationMenuItem with NavigationMenuLink rows). Under
 // a pointer a panel opens after a short wait and closes a moment after the pointer leaves both; while one is open,
 // pointing at another trigger switches at once. A click toggles it; Enter, Space or Down opens it at once with focus on
 // its first link; Left and Right move along the triggers; Escape closes it and returns focus. The chevron stays still.

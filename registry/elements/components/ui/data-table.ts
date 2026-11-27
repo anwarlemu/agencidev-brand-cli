@@ -10,10 +10,10 @@ import '@/elements/components/ui/menu-item'
 import styles from 'virtual:tw'
 
 // DataTable.tsx as <agd-data-table>: a table people filter, sort and page through. Over it, a dropdown per filter
-// (radio rows, the trigger saying what is picked) and a way to clear them; heads in DM Sans Medium capitals, muted,
+// (radio rows, the trigger saying what is picked) and a way to clear them; heads in ABC Diatype capitals, muted,
 // that sort when they can (aria-sort; the arrow shows the order, a faint pair where it could); 40px rows on hairlines
-// that take the #262626 fill under the pointer; numbers right-aligned in tabular figures; the whole in a hairline box
-// with the 8px corner that scrolls sideways on its own. Under it, where the page is and Previous and Next. Filters and
+// that take the #141414 fill under the pointer; numbers right-aligned in tabular figures; the whole in a hairline box
+// with square corners that scrolls sideways on its own. Under it, where the page is and Previous and Next. Filters and
 // sort go back to the first page. Cells render the value (numbers in en-US), or what `cells[key]({ row, value })`
 // returns (a node or text: React's `cell`). Nothing matching shows one line with a way to clear the filters, or the
 // `empty` slot. `columns`, `rows` and `filters` are JSON attributes or properties.

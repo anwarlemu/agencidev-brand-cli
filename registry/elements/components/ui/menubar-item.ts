@@ -5,8 +5,8 @@ import { DsElement, define } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// MenubarItem.tsx as <agd-menubar-item>: one row of a menubar menu: 32px (44px on phones), DM Sans soft gray, the
-// small corner; the row under the pointer or focus takes the #262626 fill and White type. Put a 16px Lucide icon first;
+// MenubarItem.tsx as <agd-menubar-item>: one row of a menubar menu: 32px (44px on phones), ABC Diatype soft gray, the
+// small corner; the row under the pointer or focus takes the #141414 fill and white type. Put a 16px Lucide icon first;
 // `shortcut` shows muted at the end. `item-role` menuitemradio or menuitemcheckbox with `checked` makes a checked row.
 // `danger` is a destructive row's red. Choosing it fires `select` and closes the menu, unless `keep-open`.
 

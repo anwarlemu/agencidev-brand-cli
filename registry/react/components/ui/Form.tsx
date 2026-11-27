@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react'
 
 // A form composed from Field, Input and Button: fields stacked 24px apart, each a Field with its label over it and its
-// description or error under it; a failure from the server in a dark red box with the brand corner above the actions;
+// description or error under it; a failure from the server in a dark red box with square corners above the actions;
 // the actions at the end, the main one last. It never validates as the first value is typed: useForm shows an error
 // once its field is left or the form is sent, then follows the value; on a send with errors focus moves to the first
 // field that is wrong. The browser's own bubbles are off (noValidate); Enter in a field sends it.

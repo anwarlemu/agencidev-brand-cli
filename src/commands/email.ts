@@ -63,8 +63,8 @@ export function renderEmail(kind: string, copy: Record<string, string>, logoSrc 
 	const extra = Object.keys(copy).filter((c) => !k.slots.some((s) => s.id === c));
 	if (extra.length) throw new Error(`${kind} does not take ${extra.join(', ')}. It takes ${k.slots.map((s) => s.id).join(', ')}.`);
 	const c = { ground: hex('--ds-color-black'), card: hex('--ds-color-neutral-4'), fg: hex('--ds-color-white'), soft: hex('--ds-color-neutral-11'), muted: hex('--ds-color-neutral-9'), rule: hex('--ds-color-neutral-5'), button: hex('--ds-color-white'), buttonFg: hex('--ds-color-black') };
-	const head = `'Funnel Display', 'Helvetica Neue', Arial, sans-serif`;
-	const text = `'DM Sans', 'Helvetica Neue', Arial, sans-serif`;
+	const head = `'Agencidev Sans', Arial, sans-serif`;
+	const text = `'ABC Diatype', Arial, sans-serif`;
 	const row = (inner: string, pad = '0 40px') => `<tr><td style="padding:${pad};">${inner}</td></tr>`;
 	const h1 = (t: string) => row(`<h1 style="margin:0;font-family:${head};font-weight:450;font-size:32px;line-height:36px;color:${c.fg};">${esc(t)}</h1>`, '32px 40px 0');
 	const p = (t: string, color = c.soft, pad = '16px 40px 0') => row(`<p style="margin:0;font-family:${text};font-size:16px;line-height:24px;color:${color};">${esc(t)}</p>`, pad);

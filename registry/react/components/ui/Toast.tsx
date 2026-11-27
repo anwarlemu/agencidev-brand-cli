@@ -2,8 +2,8 @@ import { X } from 'lucide-react'
 import { Button } from '@/react/components/ui/Button'
 import { cn } from '@/react/lib/cn'
 
-// One note: what just happened, in the card's #262626 fill with a #666666 hairline and the brand corner, no shadow. The
-// title in DM Sans Medium, a muted line under it, one small White button beside them when there is something to do
+// One note: what just happened, in the card's #141414 fill with a hairline (white at 20%) and square corners, no shadow. The
+// title in ABC Diatype, a muted line under it, one small white button beside them when there is something to do
 // (Undo, View), and a close button when it can be dismissed. The Toaster (sonner) stacks these in a corner and times
 // them; on its own it is a static note.
 export interface ToastProps {

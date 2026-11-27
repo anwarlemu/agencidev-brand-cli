@@ -2,7 +2,7 @@ import { html, type PropertyValues } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// AspectRatio.tsx as <agd-aspect-ratio>: a box that keeps its shape as it grows (CSS aspect-ratio), for a creative
+// AspectRatio.tsx as <agd-aspect-ratio>: a box that keeps its shape as it grows (CSS aspect-ratio), for a work
 // or a frame that must not reflow: a 1:1 post, a 4:5 ad, a 16:9 deck slide. `ratio` is width over height; the content
 // fills it. The host is the box (aspect-ratio.css), so a class on it (the corner, a ground, a width) lands as a class
 // on <AspectRatio> does.

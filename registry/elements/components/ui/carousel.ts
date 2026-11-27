@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide'
 import '@/elements/components/ui/button'
 import styles from 'virtual:tw'
 
-// Carousel.tsx as <agd-carousel>: slides in a row on the Black ground, 16px apart, one or more in view, with two
+// Carousel.tsx as <agd-carousel>: slides in a row on the black ground, 16px apart, one or more in view, with two
 // ghost arrow buttons and the place in tabular figures between them. Native scroll snap, so a swipe or a trackpad
 // moves it as the arrows do; the arrows and the arrow keys on the focused track glide it with the browser's smooth
 // scroll, and jump with reduced motion. It never plays on its own. Each child element is a slide (React's `count` and

@@ -2,7 +2,7 @@ import type { AnchorHTMLAttributes, ButtonHTMLAttributes, Ref } from 'react'
 import { cn } from '@/react/lib/cn'
 
 // The site's buttons (components/page-tokens.ts): the plate (PLATE_SKIN) is #252525 with white 12px capitals and the
-// 4px corner, 48px tall with 24px in; it turns mid (#909090) with black ink under the pointer and near-white on press.
+// square corner, 48px tall with 24px in; it turns mid (#909090) with black ink under the pointer and near-white on press.
 // secondary is the quiet button (QUIET_SKIN): bare, dim ink that turns white, white at 70% on press. ghost is a quiet
 // fill for tools in rows. Press feedback lands on pointer down with no transition (active:transition-none); hover and
 // press change color only, never size, and hover only where a fine pointer hovers. Sizes: xs (28px, a filter chip), sm

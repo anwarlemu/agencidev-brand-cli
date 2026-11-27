@@ -9,8 +9,8 @@ never:
   - "Errors while the first value is still being typed"
   - "The browser's own error bubbles"
   - "A red hairline at rest"
-  - "Two primary buttons: one White action, the rest secondary or ghost"
-source: "Derived from the brand guidelines (no form in the brand assets): Field, Input and Button, the red tints for the failure, one White primary"
+  - "Two primary buttons: one white action, the rest secondary or ghost"
+source: "shadcn's form, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Form.tsx
   - react/hooks/useForm.ts

@@ -8,9 +8,9 @@ import { PopoverController, popoverStyles } from '@/elements/lib/popover'
 import '@/elements/components/ui/calendar'
 import styles from 'virtual:tw'
 
-// DatePicker.tsx as <agd-date-picker>: a button drawn as the text field (40px, the 8px corner, a #363636
-// hairline that turns White while it is open or focused, the placeholder muted) that opens a <agd-calendar> on
-// the #262626 overlay panel under it, in the top layer. Opening puts focus on the picked day (or today); picking a day
+// DatePicker.tsx as <agd-date-picker>: a button drawn as the text field (40px, square corners, a white at 20%
+// hairline that turns white while it is open or focused, the placeholder muted) that opens a <agd-calendar> on
+// the #141414 overlay panel under it, in the top layer. Opening puts focus on the picked day (or today); picking a day
 // closes it and returns focus to the field; Escape closes it unchanged. `value` (a Date, or an ISO date attribute)
 // with `input` and `change`. `min` and `max` are Dates (or ISO date attributes); `disabled` is a function of the day,
 // set as a property. Form-associated: its `name` goes with the form as the day's ISO date (2026-11-13). aria-label

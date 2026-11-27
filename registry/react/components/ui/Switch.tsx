@@ -1,9 +1,9 @@
 'use client'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// On or off, with no words: a 36 by 20 track with the brand corner and a 14px thumb (the small corner, nested inside).
-// Off is the secondary #262626 fill with a #666666 hairline and a gray thumb; on is the primary White with a Black
-// thumb, as the brand's one White action. The thumb slides over 320ms on the strong ease-out (reduced motion keeps only
+// On or off, with no words: a 36 by 20 track with square corners and a 14px thumb (the small corner, nested inside).
+// Off is the secondary #141414 fill with a hairline (white at 20%) and a gray thumb; on is the primary white with a black
+// thumb, as the brand's one white action. The thumb slides over 320ms on the strong ease-out (reduced motion keeps only
 // the color change). The row beside it says what the state means. Disabled is the disabled fill, never faded.
 // `checked` with `onCheckedChange` controls it (or `defaultChecked` alone).
 export interface SwitchProps {

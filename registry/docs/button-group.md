@@ -3,13 +3,13 @@ name: button-group
 title: Button group
 type: registry:ui
 group: ui
-description: "Buttons that belong together, joined into one block: the brand corner on the outer corners only and a 1px Black seam between them. A field with its button, a button with its menu arrow, or a vertical stack."
+description: "Buttons that belong together, joined into one block: square corners on the outer corners only and a 1px black seam between them. A field with its button, a button with its menu arrow, or a vertical stack."
 use_for: "Paging, a pair of views, save with a choice of board, an email field with its Invite button."
 never:
   - "Unrelated actions in one group"
   - "Two primary buttons in one group"
   - "A border around the whole group"
-source: "Derived from the guidelines: the brand button (White primary, #262626 secondary, the 10px canvas corner, 8px here) on Black. shadcn's button group for anatomy."
+source: "shadcn's button group, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/ButtonGroup.tsx
 examples:

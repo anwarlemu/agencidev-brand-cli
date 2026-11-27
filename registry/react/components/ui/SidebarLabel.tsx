@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react'
 import { useSidebarCollapsed } from '@/react/components/ui/Sidebar'
 
-// A group's name in the Sidebar: DM Sans Medium in capitals at 6%, muted, 16px over it. Folded to icons, a hairline
+// A group's name in the Sidebar: ABC Diatype in capitals at 6%, muted, 16px over it. Folded to icons, a hairline
 // takes its place and the name stays for assistive tech.
 export interface SidebarLabelProps {
   /** The group's name. */

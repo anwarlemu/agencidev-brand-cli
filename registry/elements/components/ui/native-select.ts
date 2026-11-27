@@ -5,8 +5,8 @@ import { DsFormElement, define } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// NativeSelect.tsx as <agd-native-select>: the browser's own select, drawn as the input is: a #666666 hairline on
-// Black that turns White on focus, DM Sans at 14px (16px on phones), the brand corner and its own 16px chevron in the
+// NativeSelect.tsx as <agd-native-select>: the browser's own select, drawn as the input is: a hairline (white at 20%) on
+// black that turns white on focus, ABC Diatype at 14px (16px on phones), square corners and its own 16px chevron in the
 // muted gray. Sizes sm, md and lg. Options go inside as <option>s: a <select> takes only its own children, so the
 // element draws a copy of them in its shadow root and follows changes to them. The host is the box (React's wrapper
 // span), so a class on the element lands on it. Form-associated (its `name` and `value` go with its form); the value is

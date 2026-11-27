@@ -4,8 +4,8 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // NavigationMenuLink.tsx as <agd-navigation-menu-link>: a link in a navigation menu's panel: its title (`heading`,
-// React's `title`) in DM Sans Medium and a muted line under it, the small corner; the link under the pointer or focus
-// takes the #262626 fill.
+// React's `title`) in ABC Diatype and a muted line under it, the small corner; the link under the pointer or focus
+// takes the #141414 fill.
 
 /**
  * @summary A link with a line under it, in a navigation menu's panel.

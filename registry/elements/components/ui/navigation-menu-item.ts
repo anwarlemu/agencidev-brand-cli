@@ -9,7 +9,7 @@ import styles from 'virtual:tw'
 
 // NavigationMenuItem.tsx as <agd-navigation-menu-item>: one entry of a navigation menu: with content, a trigger
 // and its panel of links (<agd-navigation-menu-link>); with `href` and no content, a plain link in the row
-// (`active` for the page you are on). The open trigger takes the #262626 fill.
+// (`active` for the page you are on). The open trigger takes the #141414 fill.
 const WAIT = 80 // the site's menu intent (--dur-menu-intent)
 const GRACE = 240 // the site's menu grace (--dur-menu-grace)
 const ROW = 'inline-flex h-control-md cursor-pointer items-center gap-1.5 rounded-control px-4 type-ui-strong -outline-offset-2 transition-[background-color,color] duration-150 ease-standard max-md:h-control-touch'

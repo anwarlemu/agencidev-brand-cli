@@ -3,9 +3,9 @@ import { useId, useRef, type KeyboardEvent, type ReactNode } from 'react'
 import { useControllable } from '@/react/hooks/useControllable'
 import { cn } from '@/react/lib/cn'
 
-// Views of one thing, one at a time. `variant` default is a segmented control: a #262626 track with the brand corner,
-// the current view a White block with a Black DM Sans Medium label, the rest muted and White under the pointer. `line`
-// is for a page's sections: labels 24px apart over a #363636 hairline, the current one White with a 2px White line
+// Views of one thing, one at a time. `variant` default is a segmented control: a #141414 track with square corners,
+// the current view a white block with a black ABC Diatype label, the rest muted and white under the pointer. `line`
+// is for a page's sections: labels 24px apart over a hairline (white at 20%), the current one white with a 2px white line
 // under it. Colors change over 160ms; nothing slides. Arrow keys move between tabs and select (Home and End for the
 // ends); Tab moves into the panel. Pass `panels` (content by value) to draw the current panel under the list. The
 // value is `value` with `onValueChange` (or `defaultValue` alone).

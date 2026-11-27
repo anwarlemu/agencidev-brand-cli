@@ -1,8 +1,8 @@
 import type { HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// The site's card: a #262626 fill on Black with the 4px corner, no border and no shadow, 24px in. `title` is a Funnel
-// Display card title (24/28 at 400, as the site's resource cards), `description` a #D4D4D4 line of DM Sans under it, the children the body, and `actions` a row at the foot (a full
+// The site's card: a #141414 fill on black with square corners, no border and no shadow, 24px in. `title` is an Agencidev Sans
+// Display card title (24/28 at 400, as the site's resource cards), `description` a dim (#B6B6B6) line of ABC Diatype under it, the children the body, and `actions` a row at the foot (a full
 // width button in the plan card).
 export interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'> {
   title?: ReactNode

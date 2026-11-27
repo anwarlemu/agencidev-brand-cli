@@ -5,9 +5,9 @@ import { PopoverPanel } from '@/react/components/ui/PopoverPanel'
 import { usePopover, type Align, type Side } from '@/react/hooks/usePopover'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// shadcn's combobox in the brand: a field-like trigger (the input's #666666 hairline, White on focus, the brand
-// corner) that opens a list to pick one option from, with a filter over it, on the #262626 overlay panel. Rows are the
-// menus' rows: 32px, DM Sans 14px, a 4px corner and a #262626 fill on the row the arrows or the pointer are on (the
+// shadcn's combobox in the brand: a field-like trigger (the input's hairline (white at 20%), white on focus, the brand
+// corner) that opens a list to pick one option from, with a filter over it, on the #141414 overlay panel. Rows are the
+// menus' rows: 32px, ABC Diatype 14px, a square corner and a #141414 fill on the row the arrows or the pointer are on (the
 // highlight follows both, so hover draws nothing of its own), the pick checked at the end. The filter sits at the top
 // over a neutral hairline; `filter: 'auto'` shows it past six options, and `false` makes it a plain listbox. `pinned`
 // options stay above a hairline and are never filtered. Arrows, Home and End move, Enter picks, typing filters (or,

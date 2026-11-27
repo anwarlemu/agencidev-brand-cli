@@ -6,9 +6,9 @@ import { cn } from '@/react/lib/cn'
 import type { PopoverController } from '@/react/hooks/usePopover'
 
 // The floating panel every overlay draws (usePopover places it): portalled to the body, fixed where it fits, the
-// card's #262626 fill on Black with a #666666 hairline and the brand corner, no shadow. It grows from its anchor, 4px
+// card's #141414 fill on black with a hairline (white at 20%) and square corners, no shadow. It grows from its anchor, 4px
 // and a touch of scale, over 240ms on the strong ease-out, and leaves in 160ms; opened or closed from the keyboard it
-// does neither. `tip` is the tooltip's White fill with Black caption text, 2px over 160ms. Reduced motion keeps the
+// does neither. `tip` is the tooltip's white fill with black caption text, 2px over 160ms. Reduced motion keeps the
 // fade. className, style and other props land on the panel.
 export interface PopoverPanelProps extends HTMLAttributes<HTMLDivElement> { pop: PopoverController, tip?: boolean, children?: ReactNode, 'data-ds'?: string }
 

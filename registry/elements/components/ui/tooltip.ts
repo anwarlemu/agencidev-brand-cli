@@ -3,7 +3,7 @@ import { DsElement, define } from '@/elements/lib/element'
 import { boxOf, PopoverController, popoverStyles, type Align, type Side } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
 
-// Tooltip.tsx as <agd-tooltip>: a control's name, for icon buttons: a White fill with Black caption text and the
+// Tooltip.tsx as <agd-tooltip>: a control's name, for icon buttons: a white fill with black caption text and the
 // small corner, 4px from its trigger. Under the pointer it waits 300ms, then fades and moves 2px in over 160ms; on
 // keyboard focus it shows at once, without motion; a press, Escape or leaving hides it. Right after another tooltip it
 // shows at once. It never shows on touch (a tap presses the button). Wrap one focusable trigger; it gets

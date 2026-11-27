@@ -2,8 +2,8 @@ import { html } from 'lit'
 import { DsElement, define, tagName } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// NavigationMenu.tsx as <agd-navigation-menu>: a site's top navigation, a row of triggers and links in DM Sans
-// Medium (<agd-navigation-menu-item>), each trigger opening a panel of links in the card's #262626 fill. Under a
+// NavigationMenu.tsx as <agd-navigation-menu>: a site's top navigation, a row of triggers and links in ABC Diatype
+// Medium (<agd-navigation-menu-item>), each trigger opening a panel of links in the card's #141414 fill. Under a
 // pointer a panel opens after a short wait and closes a moment after the pointer leaves both; while one is open,
 // pointing at another trigger switches at once. A click toggles it; Enter, Space or Down opens it at once with focus on
 // its first link; Left and Right move along the row; Escape closes it.

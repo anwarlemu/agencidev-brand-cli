@@ -41,7 +41,7 @@ export default function App() {
       </Sidebar>
       <div className="hidden min-w-0 flex-1 flex-col gap-2 p-8 md:flex">
         <h2 className="type-heading-3 text-fg">{picked}</h2>
-        <p className="type-ui text-fg-muted">The only creative search engine.</p>
+        <p className="type-ui text-fg-muted">Product design thinking and implementation.</p>
       </div>
     </div>
   )

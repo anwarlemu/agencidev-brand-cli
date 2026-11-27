@@ -4,10 +4,10 @@ import { live } from 'lit/directives/live.js'
 import { DsFormElement, define, uid } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Checkbox.tsx as <agd-checkbox>: a yes or no that is part of a form. A 16px box with a 4px corner in a #363636
-// hairline on Black that lifts to #4D4D4D under the pointer; checked, it fills White and a Black check draws its
-// stroke; `indeterminate` shows a bar for a group partly on. Focus is the White ring. The label sits right of it in
-// DM Sans 14px, the whole row pressable, 32px tall (44px on phones). The host is the row (React's root label), so a
+// Checkbox.tsx as <agd-checkbox>: a yes or no that is part of a form. A 16px box with a square corner in a white at 20%
+// hairline on black that lifts to white at 20% under the pointer; checked, it fills white and a black check draws its
+// stroke; `indeterminate` shows a bar for a group partly on. Focus is the white ring. The label sits right of it in
+// ABC Diatype 14px, the whole row pressable, 32px tall (44px on phones). The host is the row (React's root label), so a
 // class on the element lands on it. `checked` (the attribute is the starting state, as a native checkbox's) with the
 // native `input` and `change` events and `checked-change`. Form-associated: its `name` goes with the form as `value`
 // (or "on") while checked.

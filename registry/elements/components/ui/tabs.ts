@@ -4,8 +4,8 @@ import { DsElement, define, HostLayoutController, uid } from '@/elements/lib/ele
 import styles from 'virtual:tw'
 
 // Tabs.tsx as <agd-tabs>: views of one thing, one at a time. `variant` default is the segmented control (a
-// #262626 track, the current view a White block with a Black label); `line` is labels over a hairline with a 2px
-// White line under the current one. Colors change over 160ms; nothing slides. Arrow keys move and select (Home, End);
+// #141414 track, the current view a white block with a black label); `line` is labels over a hairline with a 2px
+// white line under the current one. Colors change over 160ms; nothing slides. Arrow keys move and select (Home, End);
 // Tab moves into the panel. `options` is a JSON list; each panel is a child with slot="<value>" (React's `panels`),
 // drawn under the list while its tab is current. `value` with the native `input` and `change` events.
 

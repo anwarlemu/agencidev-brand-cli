@@ -3,8 +3,8 @@ import { ChevronLeft, ChevronRight, Ellipsis } from 'lucide-react'
 import { useControllable } from '@/react/hooks/useControllable'
 import { cn } from '@/react/lib/cn'
 
-// Pages of a long list: Previous and Next around the page numbers, 32px ghost buttons in DM Sans 14px that fill under
-// the pointer. The current page sits in a #666666 hairline box in White, the others muted; the first and last pages
+// Pages of a long list: Previous and Next around the page numbers, 32px ghost buttons in ABC Diatype 14px that fill under
+// the pointer. The current page sits in a hairline (white at 20%) box in white, the others muted; the first and last pages
 // always show, `siblings` pages either side of the current one, and an ellipsis for the rest. On phones Previous and
 // Next keep only their chevrons. The page is `page` with `onPageChange` (or `defaultPage` alone), from 1.
 export interface PaginationProps {

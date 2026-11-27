@@ -1,8 +1,8 @@
 import type { Ref, TextareaHTMLAttributes } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// Several lines of text, drawn as the Input is: a #666666 hairline on Black that turns White on focus, DM Sans at 14px
-// (16px on phones, so iOS does not zoom), a #A3A3A3 placeholder, the brand corner, 10px 12px inside. It grows by hand
+// Several lines of text, drawn as the Input is: a hairline (white at 20%) on black that turns white on focus, ABC Diatype at 14px
+// (16px on phones, so iOS does not zoom), a mid (#909090) placeholder, square corners, 10px 12px inside. It grows by hand
 // downward only. `invalid` turns the hairline red. Put it in a Field for its label and description. Every other prop
 // lands on the <textarea> (value and onChange as React's own).
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {

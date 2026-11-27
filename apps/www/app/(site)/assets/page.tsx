@@ -24,36 +24,31 @@ type Doc = {
 const file = path.join(process.cwd(), "lib/assets.generated.json");
 
 // "Ads from a brief": the brief format, one complete example (brand/briefs/offer.md) and where each platform lands.
-const BRIEF = `# Creator plan offer
+const BRIEF = `# Design partnership
 
 ## Goal
-Sell the Creator plan: a price offer for solo marketers.
+Sell the design partnership.
 
 ## Platforms
-Instagram feed, Instagram portrait, Facebook, LinkedIn
+Instagram feed, Instagram portrait, LinkedIn
 
 ## Headline
-Stop screenshotting at midnight.
+An embedded product team, not a vendor.
 
 ## Supporting line
-Every ad in your market, saved for you.
+Product design, branding and strategy. Cancel anytime.
 
 ## CTA
-Start free
+Book a call
 
 ## Offer
-$20 a month
+$5,417 a month
 
 ## Plan
-Creator
-
-## Features
-- Every network
-- Daily updates
-- Shared boards
+Design partnership
 
 ## Look
-dark, bold, pricing card
+dark, minimal, pricing card
 
 ## Must-haves
 - the price`;
@@ -61,12 +56,12 @@ const BRIEF_SECTIONS: [string, string][] = [
   ["Goal", "What the ads are for: a launch, an offer, a feature, a customer story, hiring, an event. Required."],
   ["Platforms", "Where they run, with commas. Required."],
   ["Headline, CTA", "The headline and the button label, drawn whole. Required (an offer also needs `Offer`, a customer story `Quote`)."],
-  ["Supporting line, Offer, Label, Plan, Features, Quote, Quote name, Quote role, Stat, Search prompt", "More copy, drawn where a layout has room; each label on the sheet says what that ad leaves out."],
+  ["Supporting line, Offer, Label, Plan, Features, Quote, Quote name, Quote role, Stat", "More copy, drawn where a layout has room; each label on the sheet says what that ad leaves out."],
   ["Audience", "Who sees them. Read, never drawn."],
-  ["Look", "`dark` or `light theme`, `minimal` or `bold`, `picture-led` or `type-led`, and the brand elements: `brand light`, `ASCII`, `product UI`, `pricing card`, and the ad layouts by name: `search bar`, `photo grid`, `stacked cards`, `corridor`."],
+  ["Look", "`dark` or `light theme`, `minimal` or `bold`, `picture-led` or `type-led`, and the brand elements: `no-signal static`, `work rail`, `two-tone statement`, `product UI`, `pricing card`, `photo grid`."],
   ["Layout", "Any arrangement in plain words, one row per line from the top, parts side by side split by commas: `headline top left`, `stat left, quote right`, `three photos in a row`, `button bottom right`. That ad comes first; without it, `ad` still lays every part out itself (stacked, centered, two columns) beside the templates that fit."],
   ["Images", "One per line, `file.png: what it shows`; or `--image name=file.png`. Pictures are only ever yours."],
-  ["Must-haves, Don'ts", "One per line: `the price`, `the CTA`, `no brand light`, `no texture`, `no pictures`. Lines the command cannot check are listed on the sheet to check by eye."],
+  ["Must-haves, Don'ts", "One per line: `the price`, `the CTA`, `no static`, `no pictures`. Lines the command cannot check are listed on the sheet to check by eye."],
 ];
 const PLATFORMS: [string, string][] = [
   ["X", "landscape 1200x675"],
@@ -81,11 +76,11 @@ const PLATFORMS: [string, string][] = [
 const doc: Doc | undefined = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : undefined;
 
 const GROUPS = [
-  ["post", "Social posts", "1080 by 1080. Every post on the brand assets page, with its own light window and type measured from the reference."],
-  ["ad", "Social ads", "1080 by 1350, including the plan offer and the search bar ad. Pictures come from --image; without one a slot is the card fill."],
-  ["banner", "Banners", "X (1500 by 500), LinkedIn (1584 by 396) and LinkedIn company (1128 by 191) for each banner layout."],
-  ["logo", "Avatar and logo backgrounds", "The logomark on the approved backgrounds only, the 3D logomark, the avatar and the primary 1920 by 1080."],
-  ["derived", "Open Graph, landscape and story", "1200 by 630, 1200 by 675 and 1080 by 1920, derived from the same rules (stories keep 250px clear at the top and bottom)."],
+  ["post", "Social posts", "1080 by 1080: the homepage statement, the work rail, the 404 page's static, the bets, a quote and the process, in the site's type at 1.5."],
+  ["ad", "Social ads", "1080 by 1350: book a call, the work rail, the static and a partnership. Pictures come from --image; without one a strip is the slat fill."],
+  ["banner", "Banners", "X, LinkedIn, YouTube and email headers: the statement on a strip, and the statement beside the rail."],
+  ["logo", "Avatar and logo backgrounds", "The square and the lockup in white on black (or black on white), the liquid-glass and 3D chrome marks, and the avatar."],
+  ["derived", "Share card and story", "The site's share image (the lockup alone on black) and a story in the safe area (250px clear at the top and bottom)."],
 ] as const;
 
 function Tile({ shot, caption, detail }: { shot: Shot; caption: string; detail?: string }) {
@@ -111,17 +106,17 @@ export default function AssetsPage() {
   }
   return (
     <>
-      <PageHead eyebrow="Brand" title="Assets" description="Posts, ads, banners, decks, light loops and merch print files, drawn by the CLI from the layouts on the brand assets page. The previews below are its output with the default copy and seed 0." />
+      <PageHead eyebrow="Brand" title="Assets" description="Posts, ads, banners, decks, loops and merch print files, drawn by the CLI in the site's own compositions. The previews below are its output with the default copy." />
       <PageBody className="max-w-250">
-        <Section id="commands" title="Make them" description="Text goes in by slot, pictures by --image, and --seed moves the texture (and a generated light with --light generated). Unknown names exit 1 with the closest match; manifest --json lists everything. The brand imagery on its own is on Illustrations; taking any of it into Figma is on Figma.">
+        <Section id="commands" title="Make them" description="Text goes in by slot, pictures by --image, and --seed picks the static's grain. Unknown names exit 1 with the closest match; manifest --json lists everything. The brand imagery on its own is on Illustrations; taking any of it into Figma is on Figma.">
           <div className="grid gap-2">
-            <Command command={`${CLI} image --template ad-creator-plan --headline "Stop screenshotting at midnight."`} />
-            <Command command={`${CLI} image --template post-agents --image photo.jpg --seed 3`} />
+            <Command command={`${CLI} image post-statement --headline "Product design thinking and implementation." --body "..."`} />
+            <Command command={`${CLI} image post-rail --image a.jpg --image b.jpg --headline "..."`} />
             <Command command={`${CLI} deck --input deck.json --out deck`} />
-            <Command command={`${CLI} video --template light-band --size vertical`} />
-            <Command command={`${CLI} merch --item tee-front --variant full-color`} />
-            <Command command={`${CLI} illustrate pattern --variant corner`} />
-            <Command command={`${CLI} figma push asset imagery/post-offer.svg`} />
+            <Command command={`${CLI} video --template signal-loop --size vertical`} />
+            <Command command={`${CLI} merch --item tee-front --variant signal`} />
+            <Command command={`${CLI} illustrate signal --seed 2`} />
+            <Command command={`${CLI} figma push asset imagery/post-statement.svg`} />
           </div>
         </Section>
 
@@ -190,7 +185,7 @@ export default function AssetsPage() {
           </div>
         </Section>
 
-        <Section id="video" title="Light loops" description={`${doc.catalog.video.seconds} seconds at ${doc.catalog.video.fps} fps, seamless: the light drifts at a constant rate around a closed path while everything else holds still. MP4 and WebM through ffmpeg, else PNG frames and a Motion JPEG MP4; --still writes one frame for reduced motion.`}>
+        <Section id="video" title="Loops and stings" description={`${doc.catalog.video.seconds} seconds at ${doc.catalog.video.fps} fps: the static rolls its band once per loop (the last frame meets the first), its grain runs; the stings bring the lockup in through the band, or the tagline rising as the page heads do.`}>
           <div className="divide-y divide-edge rounded-control border border-edge px-5">
             {doc.catalog.video.templates.map((t) => (
               <div key={t.id} className="grid gap-1 py-4 md:grid-cols-[12rem_1fr]">
@@ -239,7 +234,7 @@ export default function AssetsPage() {
           </Section>
         )}
 
-        <Section id="merch" title="Merch print files" description="Print files only, no mockups: SVG at physical size and PNG at 300 dpi with the bleed. Full color uses the light and the texture on Black; one-color files are an approved lockup in White or Black on a transparent ground (shown on a checker).">
+        <Section id="merch" title="Merch print files" description="Print files only, no mockups: SVG at physical size and PNG at 300 dpi with the bleed. The signal variant lays the no-signal static and the white lockup on the canvas; one-color files are the lockup alone, white or black, on a clear ground.">
           <div className="overflow-hidden rounded-control border border-edge">
             <div className="overflow-x-auto fade-x">
               <table className="w-full border-collapse type-ui">

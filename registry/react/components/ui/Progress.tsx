@@ -1,7 +1,7 @@
 import { cn } from '@/react/lib/cn'
 
-// How far a task has got: a White bar on a 6px #262626 track with round ends. The fill slides to a new value over
-// 320ms on the strong ease-out, on transform only. Leave out `value` when the end is not known: a short White bar
+// How far a task has got: a white bar on a 6px #141414 track with round ends. The fill slides to a new value over
+// 320ms on the strong ease-out, on transform only. Leave out `value` when the end is not known: a short white bar
 // sweeps across the track at a steady pace, and with reduced motion it rests and breathes instead. `label` names it
 // for assistive tech (a progressbar); say the number in text beside it too.
 export interface ProgressProps {

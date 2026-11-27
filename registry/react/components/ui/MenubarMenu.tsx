@@ -5,7 +5,7 @@ import { PopoverPanel } from '@/react/components/ui/PopoverPanel'
 import { onMenuRows, usePopover } from '@/react/hooks/usePopover'
 
 // One menu of a Menubar: its trigger and a panel of rows under it (MenubarItem, MenubarLabel, MenubarSeparator). The
-// open trigger takes the #262626 fill; the others fill on hover.
+// open trigger takes the #141414 fill; the others fill on hover.
 export interface MenubarMenuProps {
   /** The trigger's label. */
   label: string

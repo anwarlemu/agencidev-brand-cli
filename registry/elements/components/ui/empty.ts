@@ -2,8 +2,8 @@ import { html, nothing } from 'lit'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Empty.tsx as <agd-empty>: what shows where a list has nothing in it yet. A dashed #666666 hairline with the
-// brand corner on Black, a 20px Lucide icon in a #262626 tile (the `icon` slot), a Funnel Display title (`heading`,
+// Empty.tsx as <agd-empty>: what shows where a list has nothing in it yet. A dashed hairline (white at 20%) with the
+// square corner on black, a 20px Lucide icon in a #141414 tile (the `icon` slot), an Agencidev Sans title (`heading`,
 // React's `title`), one muted line on what is missing and the actions that fill it (the default slot).
 
 /**

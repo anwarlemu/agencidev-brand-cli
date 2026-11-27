@@ -4,7 +4,7 @@ import { useSidebarCollapsed } from '@/react/components/ui/Sidebar'
 import { cn } from '@/react/lib/cn'
 
 // One page in the Sidebar: a 40px row (44px on phones) with its 16px icon, the label and a count at the end, the brand
-// corner. The page you are on is White with Black type, as the primary button; the others are soft gray and fill on
+// corner. The page you are on is white with black type, as the primary button; the others are soft gray and fill on
 // hover. Folded to icons, the row is a 40px square and the label stays for assistive tech. `as` renders a router link
 // component instead of an anchor; other props (onClick) land on the link.
 export interface SidebarLinkProps extends AnchorHTMLAttributes<HTMLAnchorElement> {

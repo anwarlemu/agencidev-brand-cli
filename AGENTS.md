@@ -40,15 +40,16 @@ agencidev-ds brand --token --ds-color-surface-raised
 agencidev-ds principles --surface website --json
 ```
 
-Black is the ground and White the type; the spectrum colors come only from the light and small accents. Funnel Display
-for heads, DM Sans for text (Medium for labels and buttons, labels in capitals at 6%), Geist Mono for code and the
-texture. The voice is short declarative sentences ending in a period, sentence case, concrete numbers.
+The canvas is near-black and the ink white; the greys and white tints do the rest, with no accent color. Agencidev Sans
+for every heading, ABC Diatype for everything else, one weight; sizes 12, 13, 14 or a multiple of 4; headings are
+statements in two tones (white lead, mid rest). Square corners, the 4px plate button, color-only hover and press. The
+voice is a partner's: short declarative sentences ending in a period, sentence case, concrete facts.
 
 ## Components
 
 ```sh
 agencidev-ds list --json
-agencidev-ds view search-bar --json
+agencidev-ds view page-head --json
 agencidev-ds component emit button --state variant:secondary
 agencidev-ds add button card --dry-run
 ```
@@ -58,24 +59,18 @@ React apps get React; everything else gets web components (`<agd-button>`). Read
 ## Graphics
 
 ```sh
-agencidev-ds light --list
-agencidev-ds light --variant band --seed 1 --out band.svg
-agencidev-ds light --variant corner --source generated --seed 7 --format png --out corner.png
-agencidev-ds ascii --seed 4 --width 1080 --height 1350 --out texture.svg
-```
-
-```sh
 agencidev-ds illustrate --list
-agencidev-ds illustrate pattern --variant corner --seed 2
-agencidev-ds illustrate split --image photo.jpg
+agencidev-ds illustrate signal --seed 2
+agencidev-ds illustrate field --width 1080 --height 1350
+agencidev-ds illustrate rail --image a.jpg --image b.jpg
 agencidev-ds figma tokens
-agencidev-ds figma push asset imagery/post-offer.svg
+agencidev-ds figma push asset imagery/post-statement.svg
 ```
 
 `illustrate` follows `brand/illustration.md` (each rule with its source). `figma` never calls Figma: it writes files and
 prints the MCP calls in order; `figma check` flags off-brand values in saved Figma output.
 
-The light and the texture are generated from a seed; never paste them as images or draw them by hand. Logos are the
+The no-signal static is generated from a seed; never paste it as an image or draw it by hand. Logos are the
 files `brand --section logos` lists; never redraw, recolor or stretch them.
 
 ## Check

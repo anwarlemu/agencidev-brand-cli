@@ -3,8 +3,8 @@ import { useId, type ReactNode } from 'react'
 import { ChevronDown } from 'lucide-react'
 import { useAccordion } from '@/react/hooks/useAccordion'
 
-// One row of an Accordion: the question as a full-width button (DM Sans 16px, soft White that turns full White under
-// the pointer and while open) over a neutral hairline, and the answer under it in #D4D4D4 DM Sans 16/24, no wider than 640px (the site's FAQ: rows 56px tall, 20px in). The chevron turns
+// One row of an Accordion: the question as a full-width button (ABC Diatype 16px, soft white that turns full white under
+// the pointer and while open) over a neutral hairline, and the answer under it in dim (#B6B6B6) ABC Diatype 16/24, no wider than 640px (the site's FAQ: rows 56px tall, 20px in). The chevron turns
 // half a circle as the row opens (320ms, ease-in-out); it never moves on hover. The closed answer is inert, so its
 // links leave the tab order. `title` names the row; children are the answer.
 export interface AccordionItemProps {

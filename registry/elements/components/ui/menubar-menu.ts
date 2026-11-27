@@ -6,7 +6,7 @@ import type { Menubar } from '@/elements/components/ui/menubar'
 import styles from 'virtual:tw'
 
 // MenubarMenu.tsx as <agd-menubar-menu>: one menu of a <agd-menubar>: its trigger and a panel of rows
-// (<agd-menubar-item>, -label, -separator) under it, in the top layer. The open trigger takes the #262626 fill.
+// (<agd-menubar-item>, -label, -separator) under it, in the top layer. The open trigger takes the #141414 fill.
 
 type Row = HTMLElement & { disabled?: boolean, keepOpen?: boolean }
 

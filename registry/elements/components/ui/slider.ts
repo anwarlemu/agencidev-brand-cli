@@ -5,7 +5,7 @@ import { styleMap } from 'lit/directives/style-map.js'
 import { DsFormElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Slider.tsx as <agd-slider>: a value on a range: a 4px #363636 track, White up to the value, and a 16px White
+// Slider.tsx as <agd-slider>: a value on a range: a 4px white at 20% track, white up to the value, and a 16px white
 // thumb with the small corner. It follows the pointer with no easing; arrows step it, Page Up and Down by tens, Home and
 // End to the ends. The value is a numeric `value` with `input` (while it moves) and `change` (when it is let go), as a
 // native range's. Form-associated: its `name` goes with the form.

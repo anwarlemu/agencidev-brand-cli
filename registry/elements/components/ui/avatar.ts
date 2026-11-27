@@ -4,7 +4,7 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // Avatar.tsx as <agd-avatar>: who or what something belongs to, in a circle. A `src` shows a picture cropped round;
-// without one, or if it fails to load, the name's initials (two at most) in White DM Sans Medium on #262626. Sizes sm
+// without one, or if it fails to load, the name's initials (two at most) in white ABC Diatype on #141414. Sizes sm
 // (24px), md (32px) and lg (40px). The name is read out; the picture is decoration.
 export type AvatarSize = 'sm' | 'md' | 'lg'
 const SIZES: Record<AvatarSize, string> = { sm: 'size-6 text-label', md: 'size-8 text-caption', lg: 'size-10 text-ui' }

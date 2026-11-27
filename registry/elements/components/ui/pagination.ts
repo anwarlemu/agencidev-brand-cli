@@ -6,7 +6,7 @@ import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
 // Pagination.tsx as <agd-pagination>: Previous and Next around the page numbers, 32px ghost buttons that fill
-// under the pointer, the current page in a #666666 hairline box in White. First and last always show, `siblings`
+// under the pointer, the current page in a hairline (white at 20%) box in white. First and last always show, `siblings`
 // either side of the current page, an ellipsis for the rest. On phones Previous and Next keep only their chevrons.
 // `page` (from 1) with `page-change` (detail.value).
 

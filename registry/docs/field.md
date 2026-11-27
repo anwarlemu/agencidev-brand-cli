@@ -9,7 +9,7 @@ never:
   - "A placeholder in place of the label"
   - "A red hairline before anything is wrong: errors show once a field is left or the form is sent"
   - "Fields under 16px on phones (the input switches to 16px there)"
-source: "Derived from the brand guidelines (no form in the brand assets): the label voice from the type page, the neutral steps for help text, the red tints for errors"
+source: "shadcn's field, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Field.tsx
 examples:

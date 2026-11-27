@@ -1,8 +1,8 @@
 import type { LabelHTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// A field's label on its own: the brand's label voice, DM Sans Medium in capitals with 6% tracking at 12px, in the soft
-// gray (#D4D4D4), over or beside the control it names, never in place of one. `htmlFor` ties it to the control's id;
+// A field's label on its own: the brand's label voice, ABC Diatype in capitals at 12px, in the soft
+// gray (dim (#B6B6B6)), over or beside the control it names, never in place of one. `htmlFor` ties it to the control's id;
 // `hint` adds a muted note after it, such as "Optional". Every other prop lands on the <label>.
 export interface LabelProps extends LabelHTMLAttributes<HTMLLabelElement> {
   /** A muted note after the label, such as "Optional". */

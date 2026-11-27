@@ -3,8 +3,8 @@ import { ifDefined } from 'lit/directives/if-defined.js'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// MenuItem.tsx as <agd-menu-item>: one row of a dropdown or context menu: 32px (44px on phones), DM Sans 14px, a
-// 4px corner; the row under the pointer or focus takes a #262626 fill. `current` sets it in Medium; `danger` is the
+// MenuItem.tsx as <agd-menu-item>: one row of a dropdown or context menu: 32px (44px on phones), ABC Diatype 14px, a
+// square corner; the row under the pointer or focus takes a #141414 fill. `current` sets it in Medium; `danger` is the
 // red for leaving or deleting. Put a 16px Lucide icon first, a shortcut or a check last. Choosing it fires `select`
 // and closes the menu around it (any element with lib/menu's CloseOnSelect), unless `keep-open`. `role` and
 // `aria-checked` on the element move to its button (role="menuitemradio" aria-checked="true" for a radio row), or set

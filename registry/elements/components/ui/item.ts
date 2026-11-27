@@ -4,7 +4,7 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// Item.tsx as <agd-item>: a row with media, a title in DM Sans Medium with a muted line under it, and actions at
+// Item.tsx as <agd-item>: a row with media, a title in ABC Diatype with a muted line under it, and actions at
 // the end. `variant` default (no fill), outline (a hairline box) or muted (the card's fill); `size` sm is tighter. With
 // `href` the whole row is one link that takes the ghost fill under the pointer; `arrow` adds a chevron that brightens
 // with it and never moves. A link holds no buttons: the actions slot only shows on a row without href.

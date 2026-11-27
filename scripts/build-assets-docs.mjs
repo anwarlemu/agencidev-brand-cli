@@ -9,7 +9,7 @@ const { templates, sceneFor, catalogOf } = await import(join(root, 'dist/assets/
 const { drawScene, rasterizeScene } = await import(join(root, 'dist/assets/scene.js'));
 const { merchItems, merchScene, merchCatalog } = await import(join(root, 'dist/assets/merch.js'));
 const { videoCatalog } = await import(join(root, 'dist/commands/video.js'));
-const { illustrate, illustrateData, LIGHT_FRAMES } = await import(join(root, 'dist/illustrate/build.js'));
+const { illustrate, illustrateData } = await import(join(root, 'dist/illustrate/build.js'));
 const { Resvg } = await import('@resvg/resvg-js');
 const { recipes } = await import(join(root, 'dist/commands/recipe.js'));
 const { drawCompose } = await import(join(root, 'dist/assets/compose.js'));
@@ -59,13 +59,13 @@ const small = async (req, file, title, detail, longest = 720) => {
 	illustrations.push({ name: file.replace(/\.png$/, ''), title, detail, style: req.style, src: `/assets/${file}`, width: w, height: h, canvas: `${r.width}x${r.height}` });
 };
 const ill = illustrateData();
-await small({ style: 'pattern' }, 'ill-pattern.png', 'Brand pattern', 'pattern, corner light and texture');
-await small({ style: 'pattern', variant: 'band', source: 'generated', seed: 4 }, 'ill-pattern-generated.png', 'Brand pattern', 'pattern --variant band --source generated --seed 4');
-await small({ style: 'texture' }, 'ill-texture.png', 'ASCII texture', 'texture');
-for (const v of Object.keys(LIGHT_FRAMES)) await small({ style: 'light', variant: v }, `ill-light-${v}.png`, 'Brand light', `light --variant ${v}`, 480);
-// The split needs a picture; the docs use the brand's own art (the corner light) rather than a stock photo.
-const art = await illustrate({ style: 'light', variant: 'corner', seed: 1 });
-await small({ style: 'split', photo: { mime: 'image/png', data: art.png } }, 'ill-split.png', 'Photo light split', 'split --image (here the brand light itself)');
+await small({ style: 'signal' }, 'ill-signal.png', 'No signal', 'signal: the static with its glitch band');
+await small({ style: 'signal', time: 3.1, seed: 4 }, 'ill-signal-later.png', 'No signal', 'signal --time 3.1 --seed 4: the band elsewhere');
+await small({ style: 'field' }, 'ill-field.png', 'Static', 'field: the static alone');
+// The rail needs pictures; the docs use the brand's own marks rather than stock photos.
+const { readFileSync } = await import('node:fs');
+const pic = (f) => ({ mime: 'image/png', data: readFileSync(join(root, 'brand', 'briefs', 'images', f)) });
+await small({ style: 'rail', photos: ['work-1.png', 'work-2.png', 'work-3.png'].map(pic) }, 'ill-rail.png', 'Work rail', 'rail --image (here the brand kit marks)');
 // Recipes: each compose layout with its sample copy, drawn by the same compose engine as `recipe`.
 const recipeShots = [];
 for (const [id, r] of Object.entries(recipes())) {

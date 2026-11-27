@@ -5,14 +5,14 @@ import { DsElement, define } from '@/elements/lib/element'
 import { type DayPoint, compactNumber, dayMarks, formatDay, formatNumber, niceTicks } from '@/lib/chart'
 import styles from 'virtual:tw'
 
-// BarChart.tsx as <agd-bar-chart>: a White bar per day on the Black ground. The axis starts at 0 and ends on a
-// round number in about four steps; grid lines are #363636 hairlines; axis figures are DM Sans 12px muted in tabular
-// figures. Pointing at a bar names its day and value in the caption and quiets the others to #4D4D4D. The bars rise
+// BarChart.tsx as <agd-bar-chart>: a white bar per day on the black ground. The axis starts at 0 and ends on a
+// round number in about four steps; grid lines are hairline (white at 20%)s; axis figures are ABC Diatype 12px muted in tabular
+// figures. Pointing at a bar names its day and value in the caption and quiets the others to white at 20%. The bars rise
 // from the axis once, then only their color changes. `focus` (React's `focus`; the property is `lit`, as `focus` is
 // HTMLElement's own method): bars lit from outside; `note`: what the caption says meanwhile. `points` is a property
 // (or a JSON attribute).
 
-/** @summary A White bar per day, with its axis, grid and dates. */
+/** @summary A white bar per day, with its axis, grid and dates. */
 export class BarChart extends DsElement {
 	static styles = [DsElement.styles, styles]
 	static properties = { points: { type: Array }, label: {}, height: { type: Number }, lit: { type: Array, attribute: 'focus' }, note: {}, hover: { state: true } }

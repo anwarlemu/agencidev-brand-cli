@@ -4,14 +4,14 @@ import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// Breadcrumb.tsx as <agd-breadcrumb>: where you are, in DM Sans 14px. Each step back is a muted link that turns
-// White under the pointer, a small chevron between them, and the page itself in White, the only step that truncates.
+// Breadcrumb.tsx as <agd-breadcrumb>: where you are, in ABC Diatype 14px. Each step back is a muted link that turns
+// white under the pointer, a small chevron between them, and the page itself in white, the only step that truncates.
 // `items` is a JSON attribute or the property. A click on a step back fires `navigate` (detail.crumb, detail.event:
 // call detail.event.preventDefault() to route it yourself).
 export interface Crumb { label: string, href?: string }
 
 /**
- * @summary Where you are: each step back a link, the page in White.
+ * @summary Where you are: each step back a link, the page in white.
  * @fires navigate - A step back was clicked (detail.crumb, detail.event).
  */
 export class Breadcrumb extends DsElement {

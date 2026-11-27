@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Kbd.tsx as <agd-kbd>: a key, DM Sans 12px in the soft neutral, in a 20px #1A1A1A box with a hairline and the
+// Kbd.tsx as <agd-kbd>: a key, ABC Diatype 12px in the soft neutral, in a 20px the quiet fill box with a hairline and the
 // small corner. Put a shortcut's keys in <agd-kbd-group>.
 
 /**

@@ -1,7 +1,7 @@
 import { CopyButton } from "@www/components/copy";
 import { cn } from "@/react/lib/cn";
 
-/** A page's head: an eyebrow label, the Funnel Display title and a line of DM Sans under it, over a hairline. */
+/** A page's head: an eyebrow label, the Agencidev Sans title and a line of ABC Diatype under it, over a hairline. */
 export function PageHead({ title, description, eyebrow, children }: { title: React.ReactNode; description?: React.ReactNode; eyebrow?: React.ReactNode; children?: React.ReactNode }) {
   return (
     <header className="border-b border-edge px-6 pt-12 pb-8 max-sm:px-4 max-sm:pt-8">

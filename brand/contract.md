@@ -18,11 +18,13 @@
   text-fg, text-fg-muted, border-edge, bg-action-primary, text-action-primary-fg, rounded-control, type-body,
   type-label...); without Tailwind, `var(--ds-*)` in CSS and the `ds-*` classes from kinds.css. `{{cli}} brand --json`
   lists color, type, spacing, radii, motion, fonts, logos and voice; `{{cli}} principles --json` is the guidance.
-- Black is the ground and White the type. The spectrum colors come only from the brand light and small accents. No
-  shadows, no bold weights, no ease-in, no transition-all, icons never move on hover.
-- The brand light and the ASCII texture are generated, never drawn by hand or pasted as images: use the `brand-light`
-  and `ascii-texture` components, or `{{cli}} light` and `{{cli}} ascii` for SVG files. Brand imagery (the pattern,
-  the photo light split) comes from `{{cli}} illustrate`, following `brand/illustration.md`; social posts,
+- The canvas is near-black and the ink white; the greys (dim, mid) and white tints do the rest. No accent color, no
+  shadows, no bold for emphasis, square corners (4px only on the plate button), sizes 12, 13, 14 or a multiple of 4,
+  spacing on 4 or 6, hover and press change color only, no ease-in, no transition-all, icons never move on hover.
+- Headings are statements in two tones: the lead in white, the rest in mid, one size (`page-head`, `statement`).
+- The no-signal static is generated, never pasted as an image: use the `no-signal` component, or
+  `{{cli}} illustrate signal` for a file. The work rail is the `work-rail` component (your pictures). Brand imagery
+  comes from `{{cli}} illustrate`, following `brand/illustration.md`; social posts,
   decks, video and merch from `image`, `deck`, `video` and `merch`. Figma work goes through `{{cli}} figma` (tokens,
   push, pull, check): it writes files and prints the Figma MCP calls. Use the logo files from
   `{{cli}} brand --section logos` (or the `logo` component); never redraw, recolor, stretch or outline them.

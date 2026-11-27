@@ -43,26 +43,26 @@ export default function IllustrationsPage() {
   const of = (style: string) => shots.filter((s) => s.style === style);
   return (
     <>
-      <PageHead eyebrow="Brand" title="Illustrations" description="The brand's own imagery as code: the pattern, the light in every variant, the ASCII texture and the photo light split. PNG and SVG from illustrate; the same inputs write the same bytes. The previews below are its output at seed 0." />
+      <PageHead eyebrow="Brand" title="Illustrations" description="The brand's own imagery as code: the 404 page's no-signal static, the static alone, and your pictures as the home rail. PNG and SVG from illustrate; the same inputs write the same bytes. The previews below are its output." />
       <PageBody className="max-w-250">
-        <Section id="commands" title="Make them" description={<>One style per call, with <InlineCode>--image</InlineCode> where the style takes one. <InlineCode>--list</InlineCode> names every style and light variant; unknown names exit 1 with the closest match. The rules and their sources are in <InlineCode>brand/illustration.md</InlineCode>.</>}>
+        <Section id="commands" title="Make them" description={<>One style per call, with <InlineCode>--image</InlineCode> where the style takes one. <InlineCode>--list</InlineCode> names every style; unknown names exit 1 with the closest match. The rules and their sources are in <InlineCode>brand/illustration.md</InlineCode>.</>}>
           <div className="grid gap-2">
-            <Command command={`${CLI} illustrate pattern --variant corner --seed 2`} />
-            <Command command={`${CLI} illustrate light --variant strip-left --source generated --seed 7`} />
-            <Command command={`${CLI} illustrate split --image photo.jpg`} />
+            <Command command={`${CLI} illustrate signal --seed 2`} />
+            <Command command={`${CLI} illustrate field --width 1080 --height 1350`} />
+            <Command command={`${CLI} illustrate rail --image a.jpg --image b.jpg`} />
           </div>
         </Section>
 
-        <Section id="pattern" title="Pattern and texture" description={ill.styles.pattern?.description}>
-          <div className="grid gap-4 sm:grid-cols-2">{[...of("pattern"), ...of("texture")].map((s) => <Tile key={s.name} shot={s} />)}</div>
+        <Section id="signal" title="No signal" description={ill.styles.signal?.description}>
+          <div className="grid gap-4 sm:grid-cols-2">{of("signal").map((s) => <Tile key={s.name} shot={s} />)}</div>
         </Section>
 
-        <Section id="light" title="The light" description="One shape in Blue, Green and Red, shifted, blurred and added on Black, flowing in from an edge. Each variant is a window the brand assets cut from the brand's heat map, at the size they cut it.">
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">{of("light").map((s) => <Tile key={s.name} shot={s} />)}</div>
+        <Section id="field" title="Static" description={ill.styles.field?.description}>
+          <div className="grid gap-4 sm:grid-cols-2">{of("field").map((s) => <Tile key={s.name} shot={s} />)}</div>
         </Section>
 
-        <Section id="split" title="Photo light split" description={ill.styles.split?.description}>
-          <div className="grid gap-4 sm:grid-cols-2">{of("split").map((s) => <Tile key={s.name} shot={s} />)}</div>
+        <Section id="rail" title="Work rail" description={ill.styles.rail?.description}>
+          <div className="grid gap-4 sm:grid-cols-2">{of("rail").map((s) => <Tile key={s.name} shot={s} />)}</div>
         </Section>
 
         <Section id="sources" title="Where each part comes from" description="Each style and the source it follows (brand/assets/illustrate.json).">

@@ -2,9 +2,9 @@ import { ChevronRight } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// A row: media, a title in DM Sans Medium with a muted line under it, and what goes at the end. `variant` default has
-// no fill (rows in a list, split by ItemGroup's hairlines), outline a #363636 hairline box, muted the card's #262626
-// fill; both boxes take the brand corner. `size` sm is tighter. With `href` the whole row is one link that takes the
+// A row: media, a title in ABC Diatype with a muted line under it, and what goes at the end. `variant` default has
+// no fill (rows in a list, split by ItemGroup's hairlines), outline a hairline (white at 20%) box, muted the card's #141414
+// fill; both boxes take square corners. `size` sm is tighter. With `href` the whole row is one link that takes the
 // ghost fill under the pointer (160ms), and `arrow` adds a chevron that brightens with it and never moves. A link holds
 // no buttons: `actions` only show on a row without `href`.
 export type ItemVariant = 'default' | 'outline' | 'muted'

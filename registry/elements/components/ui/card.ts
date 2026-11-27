@@ -2,12 +2,12 @@ import { html, nothing } from 'lit'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Card.tsx as <agd-card>: a #262626 fill on Black with the 4px corner, no border, no shadow, 24px in. `heading` is the
-// Funnel Display card title (React's `title`; `title` is HTML's tooltip), `description` a line under it, the default
+// Card.tsx as <agd-card>: a #141414 fill on black with square corners, no border, no shadow, 24px in. `heading` is the
+// Agencidev Sanscard title (React's `title`; `title` is HTML's tooltip), `description` a line under it, the default
 // slot the body and the `actions` slot a row at the foot.
 
 /**
- * @summary A card: the brand's #262626 fill, a title, a line and actions.
+ * @summary A card: the brand's #141414 fill, a title, a line and actions.
  * @slot - The body.
  * @slot actions - Buttons or links at the foot.
  */

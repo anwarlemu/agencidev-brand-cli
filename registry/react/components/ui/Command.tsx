@@ -2,9 +2,9 @@
 import { useEffect, useId, useRef, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Search } from 'lucide-react'
 
-// shadcn's command menu in the brand: a box to type in over a list of actions and places, on the #262626 overlay
-// surface in a neutral hairline with the brand corner. The field sits on top over a hairline, DM Sans with a search
-// glyph; groups have a capital label; rows are the menus' rows (32px, a 4px corner, a #262626 fill on the row the
+// shadcn's command menu in the brand: a box to type in over a list of actions and places, on the #141414 overlay
+// surface in a neutral hairline with square corners. The field sits on top over a hairline, ABC Diatype with a search
+// glyph; groups have a capital label; rows are the menus' rows (32px, a square corner, a #141414 fill on the row the
 // arrows or the pointer are on), an icon first and a shortcut last. The field keeps focus: typing filters (label and
 // keywords), arrows move the highlight and wrap, Home and End jump, Enter runs the row, the pointer moves the
 // highlight too. Nothing animates: it is used many times a day. `onSelect` gets the row. CommandDialog puts it in a

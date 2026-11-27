@@ -5,8 +5,8 @@ import { icon } from '@/elements/lib/icon'
 import '@/elements/components/ui/button'
 import styles from 'virtual:tw'
 
-// Toast.tsx as <agd-toast>: one note, what just happened, in the card's #262626 fill with a hairline and the
-// brand corner. The title in DM Sans Medium, a muted line under it, one small White button when there is something to
+// Toast.tsx as <agd-toast>: one note, what just happened, in the card's #141414 fill with a hairline and the
+// square corner. The title in ABC Diatype, a muted line under it, one small white button when there is something to
 // do (`action-label`, firing `action`), and a close button when `dismissable` (firing `dismiss`). React's `title` is
 // `heading`. The toaster (sonner) stacks these in a corner and times them.
 

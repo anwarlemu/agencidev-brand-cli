@@ -4,8 +4,8 @@ import { styleMap } from 'lit/directives/style-map.js'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Progress.tsx as <agd-progress>: a White bar on a 6px #262626 track with round ends, sliding to a new value over
-// 320ms on transform only. Without `value` a short White bar sweeps across at a steady pace (breathing in place with
+// Progress.tsx as <agd-progress>: a white bar on a 6px #141414 track with round ends, sliding to a new value over
+// 320ms on transform only. Without `value` a short white bar sweeps across at a steady pace (breathing in place with
 // reduced motion). `label` names it for assistive tech.
 
 /** @summary How far a task has got, as a bar. */

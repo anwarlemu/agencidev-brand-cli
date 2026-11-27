@@ -7,7 +7,7 @@ import { firstFocusable, usePopover } from '@/react/hooks/usePopover'
 import { cn } from '@/react/lib/cn'
 
 // One entry of a NavigationMenu: with children, a trigger and its panel of links (NavigationMenuLink); with `href` and
-// no children, a plain link in the row (`active` for the page you are on). The open trigger takes the #262626 fill.
+// no children, a plain link in the row (`active` for the page you are on). The open trigger takes the #141414 fill.
 export interface NavigationMenuItemProps {
   /** The trigger's or the link's text. */
   label: string

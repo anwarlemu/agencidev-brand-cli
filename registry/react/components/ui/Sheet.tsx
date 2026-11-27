@@ -5,8 +5,8 @@ import { useControllable } from '@/react/hooks/useControllable'
 import { firstFocusable } from '@/react/hooks/usePopover'
 
 // A panel at an edge of the screen over the page, for details, filters or settings beside what someone is doing: the
-// card's #262626 fill with a #666666 hairline on its inner edge, no shadow. 384px wide at the right (the default) or
-// left, the screen on a phone; full width at the top or bottom. A Funnel Display title and a muted line, a close
+// card's #141414 fill with a hairline (white at 20%) on its inner edge, no shadow. 384px wide at the right (the default) or
+// left, the screen on a phone; full width at the top or bottom. A Agencidev Sans title and a muted line, a close
 // button, the body scrolling on its own, and buttons at the foot. It is modal: the page dims under the scrim and stays
 // inert, focus stays inside. It slides in from its edge over 360ms on the drawer curve and leaves in 240ms; Escape
 // closes it at once; focus returns to what opened it. Reduced motion fades it instead. `open` with `onOpenChange`.

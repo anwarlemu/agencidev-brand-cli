@@ -2,7 +2,7 @@ import { html, nothing, type PropertyValues } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Label.tsx as <agd-label>: a field's label on its own, DM Sans Medium in capitals with 6% tracking at 12px in the
+// Label.tsx as <agd-label>: a field's label on its own, ABC Diatype in capitals at 12px in the
 // soft gray, over or beside the control it names; `hint` adds a muted note after it, such as "Optional". A <label for>
 // in a shadow root cannot reach a control outside it, so `for` names the control's id in the same document (or shadow
 // root) and the element does what the label would: it gives that control its text as aria-label (an element such as

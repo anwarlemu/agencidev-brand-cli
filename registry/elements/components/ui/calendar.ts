@@ -8,8 +8,8 @@ import '@/elements/components/ui/button'
 import styles from 'virtual:tw'
 
 // Calendar.tsx as <agd-calendar>: a month to pick a day from. 40px day cells (44px on phones) with the 4px
-// corner, weekday heads in DM Sans 12px muted, the month in DM Sans Medium between two ghost arrow buttons. The picked
-// day is a White fill with a Black figure; today carries a neutral hairline ring; the days of the months either side
+// corner, weekday heads in ABC Diatype 12px muted, the month in ABC Diatype between two ghost arrow buttons. The picked
+// day is a white fill with a black figure; today carries a neutral hairline ring; the days of the months either side
 // are faint; days that can't be picked are faint and struck through. Arrows move a day or a week, Home and End to the
 // week's ends, Page Up and Page Down a month (with Shift a year), Enter or Space picks. Changing month doesn't
 // animate. `value` (a Date, or an ISO date attribute) with `input` and `change`, and `select` fires on every pick.

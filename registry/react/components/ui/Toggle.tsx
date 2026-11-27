@@ -4,7 +4,7 @@ import { cn } from '@/react/lib/cn'
 import { useControllable } from '@/react/hooks/useControllable'
 
 // A button that stays pressed: no fill at rest (soft gray text, the ghost fill under a hovering pointer) or, as
-// `outline`, a #666666 hairline; pressed it takes the primary White with Black text, the brand's one White state. Sizes
+// `outline`, a hairline (white at 20%); pressed it takes the primary white with black text, the brand's one white state. Sizes
 // follow the button's: sm 32px, md 40px, lg 56px; `icon` makes it square (put its name in aria-label). Nothing scales on press
 // (the site's controls do not); colors change over 160ms. Icons never move. `pressed`
 // with `onPressedChange` controls it (or `defaultPressed` alone). Every other prop lands on the <button>.

@@ -1,6 +1,6 @@
 import { cn } from '@/react/lib/cn'
 
-// The hairline as its own part: 1px in the #262626 edge step, across or down. Agencidev separates with a fill or a
+// The hairline as its own part: 1px in the #141414 edge step, across or down. Agencidev separates with a fill or a
 // hairline, never a shadow. Decorative by default (role none); pass `semantic` when it splits content a screen reader
 // should hear as split.
 export interface SeparatorProps {

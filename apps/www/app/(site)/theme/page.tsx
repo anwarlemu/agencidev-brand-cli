@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 
-import { AsciiTexture } from "@/react/components/visuals/AsciiTexture";
-import { BrandLight } from "@/react/components/visuals/BrandLight";
+import { NoSignal } from "@/react/components/visuals/NoSignal";
+import { WorkRail } from "@/react/components/visuals/WorkRail";
 import { Logo } from "@/react/components/visuals/Logo";
 import { Code, Command, PageBody, PageHead, Section } from "@www/components/chrome";
 import { CLI, assetBase } from "@www/lib/registry";
@@ -14,39 +14,25 @@ const tokens = (JSON.parse(readFileSync(path.join(process.cwd(), "../../build/to
 const all = Object.entries(tokens);
 const value = (name: string) => tokens[name]?.light ?? "";
 
-const SPECTRUM = ["magenta", "red", "orange", "yellow", "green", "cyan", "blue"];
-const steps = (name: string) => Array.from({ length: 15 }, (_, i) => `--ds-color-${name}-${i + 1}`);
-const ROLES = all.filter(([k, v]) => k.startsWith("--ds-color-") && v.value.startsWith("var(") && !/^--ds-color-(magenta|red|orange|yellow|green|cyan|blue|light-[rgb])$/.test(k));
+const BASE = ["--ds-color-black", "--ds-color-white", "--ds-color-faint", "--ds-color-subtle", "--ds-color-muted", "--ds-color-dim", "--ds-color-mid", "--ds-color-plate", "--ds-color-slat"];
+const ROLES = all.filter(([k, v]) => k.startsWith("--ds-color-") && v.value.startsWith("var("));
 
 const TYPE = [
-  ["type-section", "Funnel Display 450: 32/36, 44/48 at 768, 56/60 from 1024 (the site's page and section head)"],
-  ["type-display", "Funnel Display 450, 96/100"],
-  ["type-display-m", "Funnel Display 450, 72/76"],
-  ["type-hero", "Funnel Display 450, 56/60"],
-  ["type-heading-1", "Funnel Display 450, 44/48"],
-  ["type-heading-2", "Funnel Display 400, 32/36, plan names"],
-  ["type-heading-3", "Funnel Display 400, 24/28, card titles"],
-  ["type-heading-4", "Funnel Display 400, 20/24"],
-  ["type-body-lg", "DM Sans 20/28, the lead"],
-  ["type-body", "DM Sans 16/24"],
-  ["type-ui", "DM Sans 14/20"],
-  ["type-ui-strong", "DM Sans Medium 14/20, buttons"],
-  ["type-caption", "DM Sans 12/16"],
-  ["type-label", "DM Sans Medium 12/16, capitals, 6%"],
-  ["type-code", "System mono 14/20"],
+  ["type-section", "Agencidev Sans 400, 28 then 36 from 640, leading 1.14: every page head and the homepage statement (the one display step)"],
+  ["type-heading-3", "Agencidev Sans 400, 20, a pull quote"],
+  ["type-heading-4", "Agencidev Sans 400, 16, a row's title"],
+  ["type-body", "ABC Diatype 400, 16, leading 1.625: running copy"],
+  ["type-ui", "ABC Diatype 400, 14: the default, most of the UI"],
+  ["type-label", "ABC Diatype 400, 12, capitals, untracked: links, buttons, chips"],
+  ["type-caption", "ABC Diatype 400, 12: meta"],
+  ["type-code", "System mono 14"],
 ] as const;
 
 const LOCKUPS = [
   ["horizontal", 36],
-  ["vertical", 80],
   ["mark", 36],
-  ["wordmark", 30],
-  ["horizontal-3d", 40],
-  ["vertical-3d", 80],
-  ["mark-3d", 44],
+  ["wordmark", 36],
 ] as const;
-
-const LIGHTS = ["band", "field", "corner", "tile", "close-up", "curved-strip"] as const;
 
 function Swatch({ name, big }: { name: string; big?: boolean }) {
   return (
@@ -84,9 +70,9 @@ export default function ThemePage() {
   const pick = (prefix: string) => all.filter(([k]) => k.startsWith(prefix)).map(([k, v]) => [k, v.value] as [string, string]);
   return (
     <>
-      <PageHead eyebrow="Brand" title="Theme" description="Every token, the logo set and the two generated graphics. Components already use these; use the same names for anything new." />
+      <PageHead eyebrow="Brand" title="Theme" description="Every token, the logo set, the no-signal static and the work rail. Components already use these; use the same names for anything new." />
       <PageBody className="max-w-250">
-        <Section id="logo" title="Logo" description="Every lockup, split from the brand's own SVGs (never redrawn), in White on Black and Black on White. No other colors, no stretching, outlines, rotation or effects.">
+        <Section id="logo" title="Logo" description="The square, the lockup and the wordmark, split from the site's own lockup (never redrawn), white on the canvas and black on white. Keep clear space around it; never recolor or distort it.">
           <div className="grid gap-3 md:grid-cols-2">
             <div className="grid content-start gap-8 rounded-container border border-edge bg-surface p-8 max-sm:p-5">
               {LOCKUPS.map(([v, h]) => <Logo key={v} variant={v} height={h} label={`Agencidev ${v}`} />)}
@@ -95,57 +81,38 @@ export default function ThemePage() {
               {LOCKUPS.map(([v, h]) => <Logo key={v} variant={v} height={h} label={`Agencidev ${v}, black`} />)}
             </div>
           </div>
-          <p className="type-ui text-fg-muted">Files: <span className="type-code text-fg-soft">{assetBase}/logo/&lt;lockup&gt;-black.svg</span> and <span className="type-code text-fg-soft">-white.svg</span> for mark, wordmark, horizontal, vertical, mark-3d, horizontal-3d and vertical-3d, plus favicon.svg and the avatars. <span className="type-code text-fg-soft">{CLI} brand --section logos</span> lists them.</p>
+          <p className="type-ui text-fg-muted">Files: <span className="type-code text-fg-soft">{assetBase}/logo/&lt;lockup&gt;-black.svg</span> and <span className="type-code text-fg-soft">-white.svg</span> for mark, wordmark and horizontal, plus mark-glass.svg, favicon.svg and the avatars. <span className="type-code text-fg-soft">{CLI} brand --section logos</span> lists them.</p>
         </Section>
 
-        <Section id="color" title="Color" description="Black is the ground and White the type; most layouts use only these two. The spectrum comes from the light and small accents, always in this order.">
-          <div className="grid grid-cols-2 gap-3 sm:w-1/2"><Swatch name="--ds-color-black" big /><Swatch name="--ds-color-white" big /></div>
-          <div className="grid gap-2">
-            <p className="type-label text-fg-muted">Neutral spectrum, 15 steps</p>
-            <div className="grid grid-cols-5 gap-2 sm:grid-cols-8 lg:grid-cols-15">{steps("neutral").map((n) => <Swatch key={n} name={n} />)}</div>
-          </div>
-          {SPECTRUM.map((c) => (
-            <div key={c} className="grid gap-2">
-              <p className="type-label text-fg-muted">{c}, base step 8 ({value(`--ds-color-${c}-8`)})</p>
-              <div className="grid grid-cols-15 overflow-hidden rounded-control border border-edge">
-                {steps(c).map((n, i) => <div key={n} title={`${n} ${value(n)}`} className={i === 7 ? "h-12 ring-2 ring-fg ring-inset" : "h-12"} style={{ background: `var(${n})` }} />)}
-              </div>
-            </div>
-          ))}
+        <Section id="color" title="Color" description="Monochrome by construction: a near-black canvas, white ink, white tints by strength (faint 10%, subtle 20%, muted 60%) and three solid greys that hold over any surface. Color is used strategically: mute what does not need attention.">
+          <div className="grid grid-cols-3 gap-3 sm:grid-cols-5 lg:grid-cols-9">{BASE.map((n) => <Swatch key={n} name={n} big />)}</div>
           <div className="grid gap-2">
             <p className="type-label text-fg-muted">Roles (dark, the default)</p>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">{ROLES.map(([n]) => <Swatch key={n} name={n} />)}</div>
           </div>
         </Section>
 
-        <Section id="type" title="Type" description="From the site: Funnel Display at 450 for heads and 400 for titles, DM Sans at optical size 14 for everything else (Medium for labels and buttons), the system mono for code, Geist Mono for the texture. Variable faces, self-hosted, OFL.">
+        <Section id="type" title="Type" description="Two families, one weight: Agencidev Sans sets every heading, ABC Diatype everything else. Sizes are 12, 13, 14 or a multiple of 4; color, not size, makes the hierarchy.">
           <div className="divide-y divide-edge rounded-control border border-edge px-5">
             {TYPE.map(([cls, note]) => (
               <div key={cls} className="grid items-baseline gap-2 py-5 md:grid-cols-[14rem_1fr]">
                 <div><p className="type-code text-fg">{cls}</p><p className="type-caption text-fg-muted">{note}</p></div>
-                <p className={`${cls} min-w-0 text-fg`}>The only creative search engine.</p>
+                <p className={`${cls} min-w-0 text-fg`}>Product design thinking and implementation.</p>
               </div>
             ))}
           </div>
         </Section>
 
-        <Section id="light" title="The brand light" description="One shape drawn three times in Blue, Green and Red, shifted, blurred and blended plus-lighter on Black. Generated from a seed in every variant the brand assets use.">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {LIGHTS.map((v) => (
-              <figure key={v} className="m-0 grid gap-2">
-                <BrandLight variant={v} cover className="aspect-[4/3] w-full rounded-container" />
-                <figcaption className="type-label text-fg-muted">{v}</figcaption>
-              </figure>
-            ))}
-          </div>
-          <Table rows={[["--ds-color-light-r", value("--ds-color-light-r"), "Light R, at 0.85"], ["--ds-color-light-g", value("--ds-color-light-g"), "Light G, at 0.782"], ["--ds-color-light-b", value("--ds-color-light-b"), "Light B, at 0.782"], ["--ds-light-offset", value("--ds-light-offset"), "each layer's shift, of the heat map's width"], ["--ds-light-blur", value("--ds-light-blur"), "blur, of the heat map's width"], ["--ds-color-light-overlap", value("--ds-color-light-overlap"), "where all three overlap"]]} />
+        <Section id="signal" title="The no-signal static" description="The 404 page's dead channel: a charcoal static with its grain, and the glitch band rolling up through it, revealing white. The brand's one expressive surface; words sit under the band.">
+          <NoSignal still className="h-80 w-full" />
+          <Command command={`${CLI} illustrate signal --seed 2`} />
         </Section>
 
-        <Section id="ascii" title="The ASCII texture" description="Geist Mono characters from &quot; .:-=+*#&quot; off a soft heat map, White at 0.5 for a field (0.35 on the canvas). Behind the light, clear of text, the logo and photos.">
-          <AsciiTexture seed={4} width={1080} height={360} className="w-full rounded-container border border-edge bg-surface" />
+        <Section id="rail" title="The work rail" description="The home page's row of portrait strips, 100 by 280 with 20px between, the first a little left of the middle, running off the right edge. Square corners; your work in every strip.">
+          <WorkRail items={Array.from({ length: 10 }, () => ({}))} />
         </Section>
 
-        <Section id="shape" title="Space, size, corners and borders" description="A 4px base. One corner for buttons, fields, cards and the search bar: 10px on the canvas, 8px in the product. No shadows.">
+        <Section id="shape" title="Space, size, corners and borders" description="Every padding, margin, gap and radius a multiple of 4 or 6. Two radii: square everywhere, 4px on the plate button. No shadows: space, a tint or a hairline separates.">
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
             {pick("--ds-radius-").map(([n, v]) => (
               <div key={n} className="grid gap-2"><div className="h-16 border border-edge-strong bg-surface-raised" style={{ borderRadius: `var(${n})` }} /><p className="type-code text-fg">{n.replace("--ds-radius-", "radius-")} <span className="text-fg-muted">{v}</span></p></div>
@@ -154,11 +121,11 @@ export default function ThemePage() {
           <Table rows={[...pick("--ds-space-"), ...pick("--ds-size-"), ...pick("--ds-layout-"), ...pick("--ds-border-")]} />
         </Section>
 
-        <Section id="motion" title="Motion" description="Quick and quiet: color 160ms, press 160ms, entrances 240ms, exits faster, nothing over 360ms. Never ease-in; hover only where it exists; reduced motion keeps opacity and color; icons never move on hover.">
+        <Section id="motion" title="Motion" description="One curve, the expo-out ease-brand. Hover is a color change at 150ms; press shows on pointer down with no transition; menus fade in 250ms and their links rise in 350ms; a page head rises in 500ms. Things used a hundred times a day never move.">
           <Table rows={[...pick("--ds-duration-"), ...pick("--ds-easing-")]} />
         </Section>
 
-        <Section id="canvas" title="The 1080 canvas" description="The values measured on the brand assets (posts 1080x1080, ads 1080x1350, decks 1920x1080). The product scale above is derived from these: canvas x 2/3, snapped to the 4px grid.">
+        <Section id="canvas" title="The 1080 canvas" description="Posts 1080x1080, ads 1080x1350, stories 1080x1920, decks 1920x1080: the site's sizes at 1.5 (a post is read on a phone at about 720 site pixels), snapped to the house rules.">
           <Table rows={pick("--ds-asset-")} />
         </Section>
 

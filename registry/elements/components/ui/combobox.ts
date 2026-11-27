@@ -7,7 +7,7 @@ import { PopoverController, popoverStyles, type Align, type Side } from '@/eleme
 import styles from 'virtual:tw'
 
 // Combobox.tsx as <agd-combobox>: a field-like trigger that opens a list to pick one option from, with a filter
-// over it, on the #262626 overlay panel; rows are the menus' rows with a #262626 fill on the row the arrows or the
+// over it, on the #141414 overlay panel; rows are the menus' rows with a #141414 fill on the row the arrows or the
 // pointer are on, the pick checked at the end. `filter="auto"` shows the filter past six options, `filter="false"`
 // makes it a plain listbox. `pinned` options stay above a hairline and are never filtered. Arrows, Home and End move,
 // Enter picks, typing filters (or, with no filter, jumps to the option it starts), Escape closes and returns focus to

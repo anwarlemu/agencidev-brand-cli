@@ -3,10 +3,10 @@ import { useEffect, useId, useRef, type ReactNode, type SyntheticEvent } from 'r
 import { Button } from '@/react/components/ui/Button'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// shadcn's alert dialog in the brand: a question that needs an answer before anything else, on the #262626 overlay
-// surface in a neutral hairline with the brand corner and no shadow, over a Black scrim. A Funnel Display title, one
+// shadcn's alert dialog in the brand: a question that needs an answer before anything else, on the #141414 overlay
+// surface in a neutral hairline with square corners and no shadow, over a black scrim. A Agencidev Sans title, one
 // line saying what happens, then Cancel (secondary) and the action: the red fill for what removes something
-// (`danger`, the default), the White primary otherwise. Focus starts on Cancel; the scrim does nothing, so only a
+// (`danger`, the default), the white primary otherwise. Focus starts on Cancel; the scrim does nothing, so only a
 // choice closes it; Escape cancels and focus returns to what opened it. It comes in over 360ms (a fade and a scale
 // from 0.96, centered, ease-out) and leaves at once; reduced motion keeps the fade. `open` with `onOpenChange` (or
 // `defaultOpen` alone); `onConfirm` and `onCancel` say which was chosen.
@@ -19,7 +19,7 @@ export interface AlertDialogProps {
   action: string
   /** The Cancel button's label. */
   cancel?: string
-  /** The red fill for the action (the default); false draws the White primary. */
+  /** The red fill for the action (the default); false draws the white primary. */
   danger?: boolean
   open?: boolean
   defaultOpen?: boolean

@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// shadcn's alert in the brand: a #262626 box on Black with the brand corner and no border or shadow, a 16px Lucide
-// icon, the subject in DM Sans Medium and a line of muted DM Sans under it, and a button at the end if one helps.
+// shadcn's alert in the brand: a #141414 box on black with square corners and no border or shadow, a 16px Lucide
+// icon, the subject in ABC Diatype and a line of muted ABC Diatype under it, and a button at the end if one helps.
 // `destructive` turns the icon and the subject red for what broke. role="alert" so it is read out; for a note that
 // was there from the start, pass role="status".
 export type AlertVariant = 'default' | 'destructive'
@@ -13,7 +13,7 @@ const VARIANTS: Record<AlertVariant, string> = {
 }
 
 export interface AlertProps {
-  /** The subject, in DM Sans Medium. */
+  /** The subject, in ABC Diatype. */
   title: ReactNode
   /** default, or destructive (red) for what broke. */
   variant?: AlertVariant

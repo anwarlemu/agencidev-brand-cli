@@ -1,8 +1,8 @@
 import { useId, type HTMLAttributes, type ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// A label over one control, with a description or an error under it: the label in the brand's label voice (DM Sans
-// Medium, capitals, 6% tracking) in the soft gray, the description in the muted gray at caption size, the error in the
+// A label over one control, with a description or an error under it: the label in the brand's label voice (ABC Diatype
+// Medium, capitals) in the soft gray, the description in the muted gray at caption size, the error in the
 // danger red in its place, 8px apart. children may be a function that receives the ids to wire:
 // <Field label="Email">{({ id, describedBy, invalid }) => <Input id={id} aria-describedby={describedBy} invalid={invalid} />}</Field>;
 // plain children work too (give the control the field's `id`).

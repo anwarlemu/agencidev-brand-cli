@@ -3,13 +3,13 @@ name: avatar
 title: Avatar
 type: registry:ui
 group: ui
-description: "Who or what something belongs to, in a circle: a picture cropped round, or the name's initials in White DM Sans Medium on #262626. Three sizes."
-use_for: "A board's members, the account in a header, who saved a creative."
+description: "Who or what something belongs to, in a circle: a picture cropped round, or the name's initials in white ABC Diatype on #141414. Three sizes."
+use_for: "A board's members, the account in a header, who saved a work."
 never:
   - "A real person's photo or name in examples: use Acme"
-  - "A spectrum color behind the initials"
+  - "A colors behind the initials"
   - "The logomark as an avatar for anything but the brand itself"
-source: "Derived from the guidelines: the neutral steps (#262626 fill), White DM Sans Medium labels. shadcn's avatar for anatomy and the image fallback."
+source: "shadcn's avatar, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Avatar.tsx
 examples:

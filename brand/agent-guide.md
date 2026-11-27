@@ -26,7 +26,7 @@ a plain site, runs them with `--cwd <app>`).
 ```sh
 bun add -d {{source}}      # or npm install --save-dev {{source}}
 {{cli}} init
-{{cli}} add button card search-bar
+{{cli}} add button site-header page-head
 ```
 
 `init` writes `brand.css` (fonts, tokens, and base styles scoped to the library's components; a whole-app `apply`
@@ -63,22 +63,22 @@ Angular needs `schemas: [CUSTOM_ELEMENTS_SCHEMA]` for the elements; Vue and Nuxt
 
 ## Compose
 
-- The look is the Agencidev site's (`brand/site-changes.md`). Black is the ground and White the type. Surfaces:
-  `bg-surface` (Black), `bg-surface-raised` (the #262626 card), `bg-surface-subtle` (#1A1A1A: fields, the quiet button),
-  `bg-surface-inset` (#363636: badges, the chosen segment); text: `text-fg`, `text-fg-soft`, `text-fg-muted`,
-  `text-fg-faint`; lines: `border-edge` (#363636 on Black), `border-edge-surface` (#4D4D4D on a card),
-  `border-edge-strong` (#666666). Cards take `rounded-container` (4px), controls `rounded-control` (8px).
-- One primary action per view (`Button variant="primary"`: White fill, Black label); `secondary` for the rest, `ghost`
-  for tools in rows. Sizes `xs` (36px, the header's), `sm`, `md` (the default, 40px) and `lg` (56px).
-- Type utilities: `type-section` (the site's page and section head: 32, 44 at 768, 56 from 1024) and
-  `type-display-fluid` (48 to 112) for heads; `type-display`, `type-display-m`, `type-display-s`, `type-hero`,
-  `type-heading-1` (Funnel Display 450), `type-heading-2` to `type-heading-4` (Funnel Display 400: card titles and
-  subheads); `type-body-xl`, `type-body-lg` (the 20/28 lead), `type-body`, `type-ui`, `type-ui-strong`, `type-caption`
-  (DM Sans at optical size 14), `type-label` (DM Sans Medium capitals, 6%), `type-code` (the system mono). Geist Mono
-  is only the ASCII texture's.
-- The light and the ASCII texture come from the `brand-light` and `ascii-texture` components (seeded, so the same seed
-  draws the same picture). Put the light at an edge or a corner of a section, behind content, never boxed in; keep the
-  texture clear of text and photos (its `clear` areas).
+- The look is the Agencidev site's (github.com/anwarlemu/AGD; the house rules in `brand/principles.md`). The canvas is
+  near-black and the ink white. Surfaces: `bg-surface` (the canvas), `bg-surface-raised` (the slat, #141414: tiles and
+  image slots), `bg-surface-subtle` (white at 10%: a quiet fill, the chosen chip), `bg-surface-inset` (the plate,
+  #252525); text: `text-fg` (white), `text-fg-soft` (dim, running copy), `text-fg-muted` (mid, the quieter half),
+  `text-fg-faint` (white at 60%); lines: `border-edge` (white at 10%), `border-edge-strong` (white at 20%). Corners are
+  square (`rounded-container`, 0); only controls take `rounded-control` (4px).
+- One plate per view (`Button variant="primary"`: #252525, white 12px capitals); `secondary` is the quiet button (bare
+  dim capitals); `ghost` for tools in rows. Sizes `xs` (28), `sm` (36), `md` (48, the site's), `lg` (48, wider), `form`.
+- Type: `type-section` is the one display step (Agencidev Sans, 28 then 36 from 640, leading 1.14) for every page head
+  and statement; `type-heading-3` (20) and `type-heading-4` (16) for quotes and row titles; `type-body` (16, running
+  copy), `type-ui` (14, the default), `type-label` (12 capitals, untracked), `type-caption` (12), `type-code`. Sizes are
+  12, 13, 14 or a multiple of 4; color makes the hierarchy, never a bigger or bolder word.
+- Headings are statements in two tones: the lead in `text-fg`, the rest in `text-fg-muted`, one size (`page-head`,
+  `statement`).
+- The no-signal static is the `no-signal` component (generated, not an image); words sit under its band. The work rail
+  is `work-rail` with your pictures. Neither is decoration to sprinkle: one per page at most.
 - Data comes through props; components call no API and read no session.
 
 ## Replacing placeholders and moving sections
@@ -88,31 +88,30 @@ Angular needs `schemas: [CUSTOM_ELEMENTS_SCHEMA]` for the elements; Vue and Nuxt
   `position` (object-position, `"50% 20%"`, `"top"`). Lists of pictures take arrays, one slot per entry. Without `src`
   an item keeps its placeholder, and every placeholder carries `data-ds-placeholder`: before you ship a page, check
   that none is left (through shadow roots for the web components).
-- Pages take `sections`, the section keys in the order to show them; a key left out is not shown (an article's own
-  sections stay inside its article). Pictures go in as the page's data: `content` (posts, photos, covers, cases),
-  `blocks` where the page is made of blocks with their own data (home, templates, use case), and `menus` for the
-  header's menus (the live card's `picture`, the use cases' `shots`). Each page's docs list its keys.
+- Pages take `sections`, the section keys in the order to show them; a key left out is not shown. Pictures and copy go
+  in as the page's `content` (lib/pages/<page>.ts holds the defaults: the rail, covers, case pieces). Each page's docs
+  list its keys.
 - Use the user's own pictures, never a third party's; examples use neutral shapes or the brand's own art.
 
 ```tsx
-<HomePage sections={['hero', 'stories', 'close']} blocks={{ close: { creatives: [{ src: '/ads/1.jpg', alt: 'Acme ad', position: 'top' }] } }} />
+<HomePage sections={['rail', 'statement']} content={{ ...homeContent, rail: [{ src: '/work/1.jpg', alt: 'Acme dashboard' }] }} />
 ```
 
 ```html
 <{{elementPrefix}}-home-page id="home"></{{elementPrefix}}-home-page>
 <script type="module">
-  Object.assign(document.getElementById('home'), { sections: ['hero', 'stories', 'close'], blocks: { close: { creatives: [{ src: '/ads/1.jpg', alt: 'Acme ad', position: 'top' }] } } })
+  Object.assign(document.getElementById('home'), { sections: ['rail', 'statement'] })
 </script>
 ```
 
 ## Assets
 
-`{{cli}} light` and `{{cli}} ascii` write the brand light and the ASCII texture as SVG at any size (`--variant`,
-`--seed`, `--width`, `--height`). `{{cli}} image` (posts, ads, banners, avatar, logo backgrounds, Open Graph and story cards, at
+`{{cli}} illustrate signal` writes the no-signal static at any size (`--seed`, `--time`, `--width`, `--height`).
+`{{cli}} image` (posts, ads, banners, avatar, logo backgrounds, Open Graph and story cards, at
 every shared size: og, square, portrait, story, landscape, linkedin, linkedin-square, x-banner, linkedin-banner,
-linkedin-page, youtube, youtube-thumbnail, email, or `--size custom`; carousels with `--input`), `{{cli}} deck`, `{{cli}} video` and `{{cli}} merch` render from the brand assets layouts, the tokens, the
-fonts and the logo files; `--list` on each names every template, size and slot. `{{cli}} brand --section logos` lists
-every lockup in Black and White; use those files as they are.
+linkedin-page, youtube, youtube-thumbnail, email, or `--size custom`; carousels with `--input`), `{{cli}} deck`, `{{cli}} video` and `{{cli}} merch` render the site's own compositions (the statement, the rail, the
+static, the bets, the contact head) from the tokens, the fonts and the logo files; `--list` on each names every template, size and slot. `{{cli}} brand --section logos` lists
+every lockup in black and white; use those files as they are.
 
 ## Any layout, never only the templates
 
@@ -174,10 +173,10 @@ it, look at the sheet, and revise the ads they pick.
    | Offer | The offer or price | for an offer, or a pricing card |
    | Supporting line, Label, Plan, Features, Quote, Quote name, Quote role, Stat, Search prompt | More copy, drawn where a layout has room | no |
    | Audience | Who sees them (read, never drawn) | no |
-   | Look | dark or light theme, minimal or bold, picture-led or type-led, brand light, ASCII texture, product UI, pricing card, and the layouts by name: search bar, photo grid, stacked cards, corridor (brand/briefs/search.md asks for the search-bar ad) | no |
-   | Layout | Any arrangement in plain words, one row per line from the top, parts side by side split by commas: `headline top left`, `stat left, quote right`, `three photos in a row`, `pricing card center`, `button bottom right` (parts: headline, supporting line, label, stat, quote, search bar, pricing card, features, photos, chart, button, logo; with left, right, center, top, bottom, big, small). The ad drawn from it is ranked first; parts the brief gives that the Layout leaves out still go in, after it | no |
+   | Look | dark or light theme, minimal or bold, picture-led or type-led, no-signal static, work rail, two-tone statement, product UI, pricing card, photo grid | no |
+   | Layout | Any arrangement in plain words, one row per line from the top, parts side by side split by commas: `headline top left`, `stat left, quote right`, `three photos in a row`, `pricing card center`, `button bottom right` (parts: headline, supporting line, label, stat, quote, pricing card, features, photos, chart, button, logo; with left, right, center, top, bottom, big, small). The ad drawn from it is ranked first; parts the brief gives that the Layout leaves out still go in, after it | no |
    | Images | One per line: `file.png: what it shows` (screenshots, creatives and photos are told apart by what it shows) | for picture-led |
-   | Must-haves, Don'ts | One per line: "the price", "the CTA", "no brand light", "no texture", "no pictures" | no |
+   | Must-haves, Don'ts | One per line: "the price", "the CTA", "no static", "no pictures" | no |
 
    Use only the person's words. Never write a headline, a price, a quote or a name they did not give: ask for it. Use
    only pictures they gave you (`--image name=file.png` adds one). Customers are Acme, never a real person or company.
@@ -202,11 +201,10 @@ it, look at the sheet, and revise the ads they pick.
 
 ## Illustrations
 
-`{{cli}} illustrate <style>` writes the brand's own imagery as PNG and SVG: `pattern` (the light flowing in with the
-texture behind it), `light` (any variant), `texture` and `split` (a picture split into its color channels, `--image`
-required). The rules and their sources are `brand/illustration.md`; follow them: the light flows in from the edges on
-Black, the texture is an accent and never the subject, photos keep their own color. `{{cli}} illustrate --list` names
-every style and light variant.
+`{{cli}} illustrate <style>` writes the brand's own imagery as PNG and SVG: `signal` (the 404 page's no-signal static
+with its glitch band), `field` (the static alone) and `rail` (your pictures as the home rail, `--image` up to 8). The
+rules and their sources are `brand/illustration.md`; follow them: monochrome always, words under the band, the static
+used rarely, the rail only ever your own work. `{{cli}} illustrate --list` names every style.
 
 ## Work in Figma
 
@@ -225,11 +223,12 @@ file with `create_session`.
 
 ## Motion
 
-- The site's steps: hover and color 160ms (`duration-160`) on its ease-out (0.22, 1, 0.36, 1); menus and popovers in
-  240ms, out 160ms; dialogs, drawers and menu panels in 360ms, out 280ms; moves on screen 320ms. Buttons do not scale on
-  press (the site's hold still); under a mouse their glow follows the pointer. Never ease-in, never `transition-all`.
-- Keyboard-opened surfaces do not animate. Hover effects only where hover exists. Reduced motion keeps opacity and
-  color. Icons never move on hover.
+- By frequency, as the site's house rules set it: used a hundred times a day (shortcuts, palettes) never animates;
+  tens of times a day (hover, list navigation) only a 150ms color change (`duration-150`, ease-brand); rare moments may
+  move: a menu fades in 250ms and its links rise in 350ms, 40ms apart; a page head rises 12px in 500ms.
+- Press shows on pointer down with no transition (`active:transition-none`); hover and press change color only, never
+  size. Hover only where a fine pointer hovers. Never ease-in, never `transition-all`. Icons never move on hover.
+  Reduced motion keeps opacity and color.
 
 ## Verify
 
@@ -245,17 +244,17 @@ The command for each kind of graphic, document, page or part (`{{cli}} manifest 
 
 | I need | Made by | Run |
 | --- | --- | --- |
-| X post, LinkedIn post, Instagram post or portrait, Threads, Facebook post | template | `{{cli}} image post-offer --headline "..." --size square\|portrait\|linkedin\|facebook` |
+| A set of ads from a brief: every platform size (X, LinkedIn, Instagram, Facebook, TikTok cover, Google display), 2 to 4 variants each, one contact sheet | command | `{{cli}} ad brief.md --image screenshot=shot.png (brief format: brand/briefs/*.md)` |
+| X post, LinkedIn post, Instagram post or portrait, Threads, Facebook post | template | `{{cli}} image post-statement --headline "..." --body "..." --size square\|portrait\|linkedin\|facebook` |
 | Instagram or TikTok story, Reels or TikTok cover | template | `{{cli}} image story --headline "..."` |
 | Instagram carousel | command | `{{cli}} image --input carousel.json --out carousel` |
-| Pinterest pin | template | `{{cli}} image post-offer --headline "..." --size pinterest` |
-| YouTube thumbnail | template | `{{cli}} image og-site --headline "..." --size youtube-thumbnail` |
-| YouTube channel art, X header, LinkedIn banner and page cover, Facebook cover | template | `{{cli}} image banner-tagline --headline "..." --size youtube\|x-banner\|linkedin-banner\|linkedin-page\|facebook-cover` |
+| Pinterest pin | template | `{{cli}} image post-statement --headline "..." --size pinterest` |
+| YouTube thumbnail | template | `{{cli}} image post-rail --headline "..." --image a.png --size youtube-thumbnail` |
+| YouTube channel art, X header, LinkedIn banner and page cover, Facebook cover | template | `{{cli}} image banner-statement --headline "..." --size youtube\|x-banner\|linkedin-banner\|linkedin-page\|facebook-cover` |
 | Profile picture for any platform | template | `{{cli}} image avatar` |
-| Open Graph card (the site's own) | template | `{{cli}} image og-site --headline "..." --page pricing --image a.png` |
-| A set of ads from a brief, for every platform size, with a contact sheet | command | `{{cli}} ad brief.md --image screenshot=shot.png` (brand/briefs/*.md) |
+| Open Graph card (the site's own: the lockup on black) | template | `{{cli}} image og (or og --headline "..." --body "...")` |
 | Google display ads 300x250, 336x280, 728x90, 300x600, 320x50, 160x600, 970x250 | recipe | `{{cli}} recipe ad-300x250 --set headline.text="..." --set button.text="..."` |
-| Meta feed and story ad, LinkedIn ad | recipe | `{{cli}} recipe meta-feed --size square\|story\|linkedin ...  (or image ad-search-bar, ad-photo)` |
+| Meta feed and story ad, LinkedIn ad | recipe | `{{cli}} recipe meta-feed --size square\|story\|linkedin ...  (or image ad-call, ad-rail, ad-signal)` |
 | Quote, stat, customer story, launch or changelog, feature, comparison, pricing, event or webinar, hiring card | recipe | `{{cli}} recipe quote-card\|stat-card\|customer-story\|launch-card\|feature-card\|comparison\|pricing-card\|event-card\|hiring-card ...` |
 | Framed screenshot (the site's browser frame), before and after | recipe | `{{cli}} recipe screenshot-card --image picture=shot.png ...; recipe before-after --image picture-1=a.png --image picture-2=b.png` |
 | Chart (bar, line, donut), flow or architecture boxes | recipe | `{{cli}} recipe chart-card --set chart.data="Mon 12, Tue 18"; recipe flow-diagram ...` |
@@ -263,13 +262,13 @@ The command for each kind of graphic, document, page or part (`{{cli}} manifest 
 | One-pager, report cover, letterhead, certificate (A4 or Letter) | recipe | `{{cli}} recipe one-pager\|report-cover\|letterhead\|certificate --size a4\|letter ...` |
 | Business card (print size with bleed), event badge | recipe | `{{cli}} recipe business-card\|event-badge ...` |
 | Email header, email signature | recipe | `{{cli}} recipe email-header\|email-signature ...` |
-| Email templates (newsletter, announcement, receipt, password reset) | command | `{{cli}} design page compose outline.json --flavor html (plain HTML; see missing for table-based mail)` |
-| Deck: covers, section, statement, bullets, stat, quote, image, closing | template | `{{cli}} deck --list; deck <slide> --headline "..."; deck --input deck.json` |
-| Loops, stings and animated cards (MP4, WebM, GIF) | command | `{{cli}} video --list; video <loop> --size square\|vertical\|landscape` |
+| Email templates (newsletter, announcement, receipt, password reset) that survive mail clients | command | `{{cli}} email newsletter\|announcement\|receipt\|password-reset --set headline="..."` |
+| Deck: covers, section, statement, bullets, stat, quote, image, closing, agenda, timeline, team, comparison, image grid, questions | template | `{{cli}} deck --list; deck <slide> --headline "..."; deck --input deck.json` |
+| The static as a loop, a lockup reveal and a tagline sting (MP4, WebM, frames) | command | `{{cli}} video --list; video signal-loop\|field-loop\|logo-reveal\|rise --size square\|vertical\|landscape` |
 | Favicon set, app icons, maskable icon, avatars, web manifest | command | `{{cli}} icons` |
 | Video-call background, desktop and phone wallpaper | recipe | `{{cli}} recipe meeting-background\|desktop-wallpaper\|phone-wallpaper` |
-| The light or the ASCII texture as a still at any size | command | `{{cli}} light --variant band --width W --height H; ascii --width W --height H; illustrate pattern` |
-| Merch: cap, tee front and back, hoodie, tote, mug wrap, sticker, poster, socks | command | `{{cli}} merch --list; merch <item> --headline "..."` |
+| The no-signal static or the work rail as a still at any size | command | `{{cli}} illustrate signal\|field --width W --height H; illustrate rail --image a.png` |
+| Merch: cap, tee front and back, hoodie, tote, mug wrap, sticker, sticker sheet, posters (11x17, 18x24, 24x36), socks, A5 notebook cover, lanyard | command | `{{cli}} merch --list; merch <item> --headline "..."` |
 | Any component, section or page for a web app or site | library | `{{cli}} list; add <item> (React or web components); design page compose outline.json --flavor react\|elements\|html` |
 | Restyle an existing app to the brand | command | `{{cli}} apply; check` |
 
@@ -277,7 +276,5 @@ Not made, and why:
 
 - Other companies' logos, customer names and photos of real people: Never shipped: use Acme and --image with your own pictures.
 - Graded or filtered photo treatments: The principles refuse grading: pictures stay in their posted color.
-- Table-based email HTML for old mail clients: The page writer makes modern HTML on the brand stylesheet; mail-client tables are not built yet.
-- Sticker sheet, notebook, lanyard and more poster sizes: Not sourced: the site and the guide have no rules for them; a print vendor's template is needed for each.
-- Intro and outro stings, lower thirds, logo reveal and walkthrough videos: Not built yet: the video command draws the brand loops only.
-- Deck agenda, team, timeline, chart, comparison, image-grid and Q&A slides: Not slide templates yet; compose at the primary size (1920x1080) makes any of them from the blocks.
+- Lower thirds, animated stats and product walkthrough videos: Not built yet: the video command draws the static loops and the two stings; words that move need a type-in rule the site does not set for video.
+- A chart slide: Not a slide template: compose at the primary size (1920x1080) with the chart block makes one.

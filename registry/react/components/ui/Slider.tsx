@@ -2,8 +2,8 @@
 import type { CSSProperties } from 'react'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// A value on a range: a 4px #363636 track, White up to the value, and a 16px White thumb with the small corner, the
-// White focus ring around it. It follows the pointer with no easing, since the hand is moving it; arrows step it, Page
+// A value on a range: a 4px white at 20% track, white up to the value, and a 16px white thumb with the small corner, the
+// white focus ring around it. It follows the pointer with no easing, since the hand is moving it; arrows step it, Page
 // Up and Down by tens, Home and End to the ends. The whole 32px row takes the pointer (44px on phones). Show the value
 // beside it in tabular figures. `value` with `onValueChange` controls it (or `defaultValue` alone).
 export interface SliderProps {

@@ -6,7 +6,7 @@ import styles from 'virtual:tw'
 // Table.tsx as <agd-table>: it wraps the page's own <table> (rows stay in the page, where table markup works),
 // styling it with the same rules as React, scoped to tables inside the element. It draws React's root div and the
 // scroll box inside it around its slot: it scrolls sideways on its own with its edges fading (fade-x); `framed` gives
-// the root the hairline box and the brand corner, and with a `label` the scroll box is a named region a keyboard can
+// the root the hairline box and square corners, and with a `label` the scroll box is a named region a keyboard can
 // reach. Layout classes on the element land on the root.
 
 /** Table.tsx's styles, scoped to tables inside the element. */
@@ -43,7 +43,7 @@ export class Table extends DsElement {
 	protected readonly layout = new HostLayoutController(this, () => this.renderRoot.querySelector<HTMLElement>('[data-ds="table"]'))
 	static properties = { framed: { type: Boolean, reflect: true }, label: {} }
 
-	/** In a hairline box with the brand corner. */
+	/** In a hairline box with square corners. */
 	framed = false
 	/** Names the scroll box (a region a keyboard can reach). */
 	label?: string

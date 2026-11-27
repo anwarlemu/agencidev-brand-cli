@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-// A group's name in a MenubarMenu: DM Sans Medium in capitals at 6%, muted.
+// A group's name in a MenubarMenu: ABC Diatype in capitals at 6%, muted.
 export interface MenubarLabelProps {
   children?: ReactNode
 }

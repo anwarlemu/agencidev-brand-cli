@@ -4,8 +4,8 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react'
 import { useControllable } from '@/react/hooks/useControllable'
 import { cn } from '@/react/lib/cn'
 
-// The app's rail: Black with a hairline at its edge, 256px wide. `head` holds the logo or the workspace (56px, over a
-// hairline), SidebarLabel names each group in capitals, a SidebarLink per page (the page you are on in White), and
+// The app's rail: black with a hairline at its edge, 256px wide. `head` holds the logo or the workspace (56px, over a
+// hairline), SidebarLabel names each group in capitals, a SidebarLink per page (the page you are on in white), and
 // `foot` the account. `collapsible` adds a button that folds it to 64px of icons (the labels stay for assistive tech);
 // it folds at once, no motion, as something pressed many times a day should. `collapsed` with `onCollapsedChange`
 // controls it. Other attributes land on the <nav>.

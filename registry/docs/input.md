@@ -3,13 +3,13 @@ name: input
 title: Input
 type: registry:ui
 group: ui
-description: "A text field on Black: a #666666 hairline that turns White on focus, DM Sans, a #A3A3A3 placeholder and the brand corner. Sizes match the button's."
+description: "A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype, a mid (#909090) placeholder and square corners. Sizes match the button's."
 use_for: "Free text in forms and filters: an email, a brand or creator to track, a board name. Label every field (a visible label, or aria-label)."
 never:
   - "A placeholder as the only label"
-  - "A colored or glowing focus ring: the hairline turns White"
-  - "A filled or gray field on Black"
-source: "Derived from the brand guidelines (no field in the brand assets): the search bar's Black field and corner, the neutral steps for the hairline and placeholder"
+  - "A colored or glowing focus ring: the hairline turns white"
+  - "A filled or gray field on black"
+source: "shadcn's input, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Input.tsx
 examples:

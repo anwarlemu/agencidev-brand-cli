@@ -2,10 +2,10 @@ import type { ElementType, HTMLAttributes, ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
 // The brand's type scale as one part, every variant one of the theme's type utilities and nothing else (tokens.css):
-// Funnel Display Regular for titles (display 64px, hero 48px, h1 36px, h2 28px, h3 24px, h4 20px, at 1.07, the card
-// title's 1.0 for h2), DM Sans for text (lead and large 18px, p 16px at 1.33, ui 14px, small 14px Medium, caption
-// 12px), labels in capitals with 6% tracking (DM Sans Medium 12px), and Geist Mono for inline code. Muted text is the
-// #A3A3A3 neutral step. `as` overrides the tag; className is appended last (a margin, a width).
+// Agencidev SansRegular for titles (display 64px, hero 48px, h1 36px, h2 28px, h3 24px, h4 20px, at 1.07, the card
+// title's 1.0 for h2), ABC Diatype for text (lead and large 18px, p 16px at 1.33, ui 14px, small 14px Medium, caption
+// 12px), labels in capitals (ABC Diatype 12px), and the system mono for inline code. Muted text is the
+// mid (#909090) neutral step. `as` overrides the tag; className is appended last (a margin, a width).
 export type TextVariant = 'display' | 'hero' | 'h1' | 'h2' | 'h3' | 'h4' | 'lead' | 'large' | 'p' | 'ui' | 'small' | 'muted' | 'caption' | 'label' | 'blockquote' | 'code'
 
 export const TEXT_TAGS: Record<TextVariant, string> = {
@@ -33,7 +33,7 @@ export const TEXT_CLASSES: Record<TextVariant, string> = {
 }
 
 export interface TextProps extends HTMLAttributes<HTMLElement> {
-  /** The step of the scale: display, hero, h1 to h4 (Funnel Display), lead, large, p, ui, small, muted, caption (DM Sans), label (capitals), blockquote or code. */
+  /** The step of the scale: display, hero, h1 to h4 (Agencidev Sans), lead, large, p, ui, small, muted, caption (ABC Diatype), label (capitals), blockquote or code. */
   variant?: TextVariant
   /** The tag, in place of the variant's own (an h2 drawn as h1, a span drawn as caption). */
   as?: string

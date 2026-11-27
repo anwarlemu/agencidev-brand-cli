@@ -5,7 +5,7 @@ import styles from 'virtual:tw'
 
 // SidebarLink.tsx as <agd-sidebar-link>: one page in the sidebar, a 40px row (44px on phones) with its icon (an
 // <i data-lucide> in the `icon` slot), the label and a count (`status`) at the end. The page you are on (`active`) is
-// White with Black type; the others are soft gray and fill on hover. Folded to icons, the row is a 40px square.
+// white with black type; the others are soft gray and fill on hover. Folded to icons, the row is a 40px square.
 
 /**
  * @summary One page in the sidebar.

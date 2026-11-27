@@ -4,8 +4,8 @@ import { DsElement, define, uid } from '@/elements/lib/element'
 import { CloseOnSelect, menuRows } from '@/elements/lib/menu'
 import styles from 'virtual:tw'
 
-// DropdownMenu.tsx as <agd-dropdown-menu>: a button that opens a short list of actions or choices on the #262626
-// overlay surface, a neutral hairline, the 8px corner, no shadow, 4px inside; rows are <agd-menu-item>, with
+// DropdownMenu.tsx as <agd-dropdown-menu>: a button that opens a short list of actions or choices on the #141414
+// overlay surface, a neutral hairline, square corners, no shadow, 4px inside; rows are <agd-menu-item>, with
 // <agd-menu-label> and <agd-menu-separator> between groups. It comes in over 240ms (a 4px drop and a touch
 // of scale from the trigger's edge), leaves at once, and does not animate when opened from the keyboard. Arrows, Home,
 // End, Escape, Tab and a click outside are handled. The trigger: a <button slot="trigger"> you style yourself (React's

@@ -9,7 +9,7 @@ Every item is written in React (`registry/react`, the source of truth) and porte
 | A native field with a value | input | `DsFormElement`, `delegatesFocus`, `live(this.value)`, `setFormValue`, Enter submits |
 | Slots and a title | card | `heading` for `title`, `hasSlot('actions')`, layout classes on the host |
 | A composite that uses another element | search-bar | `import '@/elements/components/ui/button'`, `<agd-button>` in the template, an event with detail |
-| A generated graphic whose host is the box | brand-light, ascii-texture | `:host` in a sibling `.css`, `cover`, inline aspect ratio, `svg` templates for SVG children |
+| A generated graphic whose host is the box | no-signal | `:host` in a sibling `.css`, `cover`, inline aspect ratio, `svg` templates for SVG children |
 | Inline SVG markup from a lib file | logo | `dangerouslySetInnerHTML` / `unsafeSVG` with the same markup |
 
 ## What an item is
@@ -98,15 +98,14 @@ define('card', Card)
 - The host is `display: contents` by default and the shadow root's first element is the box; `HostLayoutController`
   copies the page's layout classes (width, margins, flex) onto it. When React's root is sized and placed by the page
   (`absolute inset-0`), the host is the box instead: write the root's styles as `:host { ... }` in the `.css` and put
-  no `data-ds` inside (the host gets `data-ds` itself) (brand-light, ascii-texture).
+  no `data-ds` inside (the host gets `data-ds` itself) (no-signal).
 - Properties: `static properties` plus typed fields with defaults. Never name one after an `HTMLElement` member (`id`,
-  `title`, `hidden`...): `title` is `heading`, a private `id` is `lightId`. Booleans that default to true take a
+  `title`, `hidden`...): `title` is `heading`, a private `id` is `headId`, `role` is `personRole`. Booleans that default to true take a
   converter (`fromAttribute: (v) => v !== 'false'`). Lists are JSON attributes or properties.
 - Values: extend `DsFormElement`, set the inner control with `live(this.value)`, `this.internals.setFormValue`, and
   fire only `change` yourself (the inner `input` event crosses the shadow root). Events: `this.emit('name', detail)`.
 - SVG children built in a loop or a nested template use Lit's `svg` tag, not `html` (an `html` fragment of `<use>` or
   `<text>` lands in the HTML namespace and draws nothing).
-- Spaces in SVG text collapse in some renderers: draw them as no-break spaces (`asciiText`).
 - An element that renders another (`<agd-button>` in the search bar) imports its module; that element's own form
   association finds the shadow form, so do not submit twice.
 - Examples: the React example's markup with the elements, the same layout classes and data, and an inline
@@ -115,16 +114,13 @@ define('card', Card)
 
 ## Generated graphics
 
-`registry/lib/light.ts` and `ascii.ts` are the only way to draw the brand light and the texture. Use
-`lightGeometry({ width, height, variant, seed, source })` (one evenodd path in frame px, the layers' offset and blur)
-in components, `lightSvg` for files (`blend: 'filter'` for rasterizers without CSS blend modes), `drawLight` on a
-canvas; `asciiLines`, `asciiSvg`, `drawAscii` likewise. Seeds below the number of brand windows for a variant are the
-exact windows the brand assets cut from the brand's heat map. The CLI draws with the same code (`build/generators`).
+`registry/lib/signal.ts` is the only way to draw the no-signal static: `signalFrame(width, height, { time, warp, frame,
+seed, grain, density })` returns gray RGBA pixels, `signalInk` where a frame is lit. `registry/lib/no-signal.ts` runs it
+on a canvas for both flavors. The CLI draws with the same code (`build/generators/signal.mjs`).
 
 ## Docs and data
 
 - `description` and `use_for` say what it is and when to use it in the brand's voice (short declarative sentences);
-  `never` lists the misuses the guidelines name; `source` names the frame in the brand assets it comes from (or says it
-  is derived from the guidelines).
-- Example data is Acme or the brand's own copy ("The only creative search engine.", "$10 for your first month, then
-  $20/month"). Never another brand's name or photo, never a real person's name.
+  `never` lists the misuses the guidelines name; `source` names the site file it comes from (github.com/anwarlemu/AGD), or says it is shadcn's in the tokens.
+- Example data is Acme or the brand's own copy ("Product design thinking and implementation.", "ongoing monthly
+  partnerships, cancellable at any time"). Never a client's name or work, never a real person's name.

@@ -9,7 +9,7 @@ never:
   - "Errors that need an answer: keep them where they happened"
   - "What the page already shows"
   - "Notes that leave while someone is reading them: the time holds while the stack is pointed at"
-source: "Derived from the brand guidelines (no toast in the brand assets): the Toast note, stacked in the corner of Black"
+source: "shadcn's sonner, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Sonner.tsx
   - lib/sonner.ts

@@ -93,7 +93,7 @@ const scopedBase = `/* Scoped base: the brand's element defaults inside the libr
   }
   :where([data-ds], .ds-scope)::selection, :where([data-ds], .ds-scope) ::selection {
     background: var(--ds-color-selection);
-    color: var(--ds-color-fg);
+    color: var(--ds-color-selection-fg);
   }
   :where([data-ds], .ds-scope) :where(a, button, [role="button"], [role="tab"]) {
     touch-action: manipulation;
@@ -144,9 +144,8 @@ for (const n of pick('--ds-size-')) lines.push(`  --spacing-${n.slice('--ds-size
 for (const n of pick('--ds-layout-')) lines.push(`  --container-${n.slice('--ds-layout-'.length)}: var(${n});`);
 for (const n of pick('--ds-easing-')) lines.push(`  --ease-${n.slice('--ds-easing-'.length)}: var(${n});`);
 
-// Composite type styles (the site's globals.css): Funnel Display at 450 for page and section heads and 400 for card
-// titles and subheads, DM Sans at optical size 14 for text (Medium for labels and buttons), labels in capitals with 6%
-// tracking, the system mono for code. Funnel Display drops the optical size (it has none; site: font-variation normal).
+// Composite type styles (the site's globals.css): Agencidev Sans Regular for every heading, ABC Diatype Regular for
+// everything else, labels in untracked capitals, the system mono for code.
 const type = {
 	'display-xl': ['heading', 'display-xl', 'heading'],
 	display: ['heading', 'display', 'heading'],

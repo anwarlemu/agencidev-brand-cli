@@ -9,7 +9,7 @@ never:
   - "A color as the badge's fill or dot: the brand is monochrome"
   - "Color alone for the meaning: the word says it"
   - "Sentences in a badge"
-source: "The site's filter chips (components/careers-section.tsx, about-view.tsx: 12px capitals on white at 10%) and the 404 page's dot before its link. shadcn's badge for variants."
+source: "shadcn's badge, drawn in the Agencidev tokens (brand/tokens.css, from the site's app/globals.css and components/page-tokens.ts): the near-black canvas and white ink, the greys, square corners with the 4px plate, ABC Diatype and Agencidev Sans, color changes on hover and press only."
 files:
   - react/components/ui/Badge.tsx
 examples:

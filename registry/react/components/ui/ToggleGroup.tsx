@@ -3,8 +3,8 @@ import { cn } from '@/react/lib/cn'
 import { useControllable } from '@/react/hooks/useControllable'
 
 // Buttons that stay pressed, side by side on one track, as the site's segmented control (controls.css --seg-*): a
-// #1A1A1A tray in a #262626 ring with the 8px corner, 4px in, each pressed one a #363636 segment with White text (the
-// small corner, nested inside the tray's), the rest soft gray that turns White under a hovering pointer. 32px (sm) or 40px (md) tall in all. `multiple` lets several stay on (the
+// the quiet fill tray in a #141414 ring with square corners, 4px in, each pressed one a white at 20% segment with white text (the
+// small corner, nested inside the tray's), the rest soft gray that turns white under a hovering pointer. 32px (sm) or 40px (md) tall in all. `multiple` lets several stay on (the
 // value is an array); otherwise one at most, and pressing it again lets it go. Colors change over 160ms; like the site's
 // controls, nothing scales on press. For views of one thing use Tabs; this is for options that are on or
 // off. `value` with `onValueChange` controls it (or `defaultValue` alone).

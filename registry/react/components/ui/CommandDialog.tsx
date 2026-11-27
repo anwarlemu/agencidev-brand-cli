@@ -3,7 +3,7 @@ import { useEffect, useRef, type SyntheticEvent, type MouseEvent } from 'react'
 import { Command, type CommandItem, type CommandProps } from '@/react/components/ui/Command'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// The command menu in a window, 15vh from the top over a Black scrim: Cmd+K (Ctrl+K) opens and closes it from anywhere
+// The command menu in a window, 15vh from the top over a black scrim: Cmd+K (Ctrl+K) opens and closes it from anywhere
 // on the page (`shortcut`, null for none), and so can your own button. It opens and closes at once, with no motion,
 // because it opens many times a day. Focus starts in the field; Escape or a press on the scrim closes it and focus
 // returns to what opened it; running a row closes it. The field is empty each time it opens. `open` with

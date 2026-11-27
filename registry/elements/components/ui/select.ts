@@ -8,9 +8,9 @@ import { onMenuRows } from '@/elements/lib/menu'
 import { PopoverController, popoverStyles } from '@/elements/lib/popover'
 import styles from 'virtual:tw'
 
-// Select.tsx as <agd-select>: one choice from a short list, drawn as the field is: a Black field with a hairline
-// that turns White while open, the chosen label (or a muted placeholder) and a chevron. The list opens in the card's
-// #262626 panel, as wide as the field, focus on the chosen row, which has a check. Arrow keys, Home, End and the first
+// Select.tsx as <agd-select>: one choice from a short list, drawn as the field is: a black field with a hairline
+// that turns white while open, the chosen label (or a muted placeholder) and a chevron. The list opens in the card's
+// #141414 panel, as wide as the field, focus on the chosen row, which has a check. Arrow keys, Home, End and the first
 // letter move through it, Enter or Space picks, Escape closes. Opened from the keyboard it shows at once. `options` is
 // a JSON list of { value, label, disabled }; `value` with `input` and `change`; form-associated under `name`.
 export type SelectSize = 'sm' | 'md' | 'lg'

@@ -6,7 +6,7 @@ import { usePopover, type Align, type Side } from '@/react/hooks/usePopover'
 // When the last tooltip closed: one opened right after it shows at once, so moving along a toolbar reads fast.
 let lastClosed = 0
 
-// A control's name, for icon buttons: a White fill with Black DM Sans caption text and the small corner, 4px from its
+// A control's name, for icon buttons: a white fill with black ABC Diatype caption text and the small corner, 4px from its
 // trigger. Under the pointer it waits 300ms, then fades and moves 2px in over 160ms; on keyboard focus it shows at
 // once, without motion; a press, Escape or leaving hides it. Right after another tooltip it shows at once, so moving
 // along a toolbar reads fast. It never shows on touch (a tap presses the button). Wrap one focusable trigger; it gets

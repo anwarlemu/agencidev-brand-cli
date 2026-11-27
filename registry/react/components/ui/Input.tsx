@@ -1,8 +1,8 @@
 import type { InputHTMLAttributes, Ref } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// A text field on Black: a #666666 hairline that turns White on focus, DM Sans at 14px (16px on phones, so iOS does
-// not zoom), a #A3A3A3 placeholder and the brand corner. Sizes follow the button's: sm 32px, md 40px, lg 48px.
+// A text field on black: a hairline (white at 20%) that turns white on focus, ABC Diatype at 14px (16px on phones, so iOS does
+// not zoom), a mid (#909090) placeholder and square corners. Sizes follow the button's: sm 32px, md 40px, lg 48px.
 // `invalid` turns the hairline red. Every other prop lands on the <input> (value and onChange as React's own).
 export type InputSize = 'sm' | 'md' | 'lg'
 

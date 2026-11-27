@@ -2,7 +2,7 @@ import { html, type PropertyValues } from 'lit'
 import { DsElement, define, HostLayoutController, tagName } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Accordion.tsx as <agd-accordion>: a stack of disclosures on Black with neutral hairlines between the rows, a
+// Accordion.tsx as <agd-accordion>: a stack of disclosures on black with neutral hairlines between the rows, a
 // muted chevron that turns as a row opens, the row opening to its content's height over 320ms on the strong ease-out
 // and closing in 160ms. One open at a time by default (a second press closes it); `multiple` lets several stay open.
 // `value` is the open row's value (or a JSON list of them with `multiple`), with `input` and `change` events. Compose

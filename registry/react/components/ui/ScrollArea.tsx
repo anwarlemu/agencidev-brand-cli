@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// A region that scrolls on its own, with the page's thin scrollbars: a #363636 thumb on a clear track. Native
+// A region that scrolls on its own, with the page's thin scrollbars: a white at 20% thumb on a clear track. Native
 // scrolling, so wheel, touch and keyboard all work and nothing is redrawn by script; overscroll stays inside it. With a
 // `label` it is a named region a keyboard can reach. `maxHeight` caps it (or size it with classes); `axis` picks the
 // direction.

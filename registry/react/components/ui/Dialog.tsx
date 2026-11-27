@@ -4,8 +4,8 @@ import { X } from 'lucide-react'
 import { Button } from '@/react/components/ui/Button'
 import { useControllable } from '@/react/hooks/useControllable'
 
-// shadcn's dialog in the brand: a native modal window on the #262626 overlay surface in a neutral hairline with the
-// brand corner and no shadow, over a Black scrim. A Funnel Display title, an optional line under it, a ghost close
+// shadcn's dialog in the brand: a native modal window on the overlay surface (#141414) in a neutral hairline with the
+// square corner and no shadow, over a black scrim. A Agencidev Sans title, an optional line under it, a ghost close
 // button, the body (a short form), and `foot` for the buttons. Focus stays inside; Escape, the close button and the
 // scrim close it (`locked`: the scrim does nothing). It starts in the first field; with none, focus rests on the window.
 // It comes in over 360ms (a fade and a scale from 0.96, centered, ease-out) and leaves at once; reduced motion keeps

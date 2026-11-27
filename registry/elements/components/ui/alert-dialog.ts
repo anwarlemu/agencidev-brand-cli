@@ -7,10 +7,10 @@ import styles from 'virtual:tw'
 // The button's md shape with the danger fill (the seed button has no danger variant), as in AlertDialog.tsx.
 const DANGER_BUTTON = 'inline-flex h-control-md shrink-0 cursor-pointer items-center justify-center gap-2 rounded-control px-4 whitespace-nowrap select-none type-ui-strong bg-action-danger text-ds-neutral-15 transition-[background-color] duration-150 ease-out hover:bg-action-danger-hover'
 
-// AlertDialog.tsx as <agd-alert-dialog>: a question that needs an answer before anything else, on the #262626
-// overlay surface in a neutral hairline with the brand corner, over a Black scrim. A Funnel Display heading, one line
+// AlertDialog.tsx as <agd-alert-dialog>: a question that needs an answer before anything else, on the #141414
+// overlay surface in a neutral hairline with square corners, over a black scrim. A Agencidev Sansheading, one line
 // saying what happens, then Cancel (secondary) and the action: the red fill for what removes something (`danger`, the
-// default), the White primary with danger="false". Focus starts on Cancel; the scrim does nothing, so only a choice
+// default), the white primary with danger="false". Focus starts on Cancel; the scrim does nothing, so only a choice
 // closes it; Escape cancels and focus returns to what opened it. It comes in over 360ms (a fade and a scale from 0.96)
 // and leaves at once. React's `open` with `onOpenChange` is the `open` attribute with `open-change`; React's `title`
 // is `heading` (title is HTML's tooltip attribute); `cancel` is the Cancel button's label, and the `cancel` event fires
@@ -35,7 +35,7 @@ export class AlertDialog extends DsElement {
 	action = ''
 	/** The Cancel button's label. */
 	cancel = 'Cancel'
-	/** The red fill for the action; danger="false" draws the White primary. */
+	/** The red fill for the action; danger="false" draws the white primary. */
 	danger = true
 	open = false
 	private dialogId = uid('alert')

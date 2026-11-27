@@ -1,15 +1,15 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// Rows of one kind of thing, on Black. Heads are labels: DM Sans Medium 12px in capitals with 6% tracking, muted, over
-// a #363636 hairline; cells are DM Sans 14px with a hairline between rows, and a row takes the ghost fill under the
-// pointer (160ms). Right-aligned cells (class text-right) take tabular figures. A footer row sits on the card's #262626
-// fill; a caption goes under the table in muted 12px. `framed` puts it in a hairline box with the brand corner and a
+// Rows of one kind of thing, on black. Heads are labels: ABC Diatype 12px in capitals, muted, over
+// a hairline (white at 20%); cells are ABC Diatype 14px with a hairline between rows, and a row takes the ghost fill under the
+// pointer (160ms). Right-aligned cells (class text-right) take tabular figures. A footer row sits on the card's #141414
+// fill; a caption goes under the table in muted 12px. `framed` puts it in a hairline box with square corners and a
 // 16px inset at both ends. It scrolls sideways on its own, so a phone never scrolls the page, and an edge with more
 // past it fades (fade-x) inside the frame; with a `label` the scroll box is a named region a keyboard can reach. Write the <caption>, <thead>, <tbody> and <tfoot> as children;
 // mark a selected row with data-state="selected".
 export interface TableProps {
-  /** In a hairline box with the brand corner. */
+  /** In a hairline box with square corners. */
   framed?: boolean
   /** Names the scroll box (a region a keyboard can reach). */
   label?: string

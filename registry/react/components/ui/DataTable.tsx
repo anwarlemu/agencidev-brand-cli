@@ -7,10 +7,10 @@ import { MenuItem } from '@/react/components/ui/MenuItem'
 import { cn } from '@/react/lib/cn'
 
 // shadcn's data table in the brand: a table people filter, sort and page through. Over it, a dropdown per filter
-// (radio rows, the trigger saying what is picked) and a way to clear them; heads in DM Sans Medium capitals, muted,
+// (radio rows, the trigger saying what is picked) and a way to clear them; heads in ABC Diatype capitals, muted,
 // that sort when they can (aria-sort; the arrow shows the order, a faint pair where it could); 40px rows on hairlines
-// that take the #262626 fill under the pointer; numbers right-aligned in tabular figures; the whole in a hairline box
-// with the 8px corner that scrolls sideways on its own, so a phone never scrolls the page. Under it, where the page is
+// that take the #141414 fill under the pointer; numbers right-aligned in tabular figures; the whole in a hairline box
+// with square corners that scrolls sideways on its own, so a phone never scrolls the page. Under it, where the page is
 // and Previous and Next. Filters and sort go back to the first page. Cells render the value (numbers in en-US), or
 // `cell[key]({ row, value })`. Nothing matching shows one line with a way to clear the filters (`empty` replaces it).
 export type DataColumn = { key: string, label: string, align?: 'left' | 'right', sortable?: boolean, muted?: boolean }

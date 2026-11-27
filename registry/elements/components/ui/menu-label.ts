@@ -2,8 +2,8 @@ import { html } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// MenuLabel.tsx as <agd-menu-label>: a group's name in a dropdown or context menu, a DM Sans Medium label in
-// capitals with 6% tracking, muted.
+// MenuLabel.tsx as <agd-menu-label>: a group's name in a dropdown or context menu, a ABC Diatype label in
+// capitals, muted.
 
 /**
  * @summary A group's name in a menu.

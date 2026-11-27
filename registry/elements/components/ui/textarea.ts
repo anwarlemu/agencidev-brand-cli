@@ -4,8 +4,8 @@ import { live } from 'lit/directives/live.js'
 import { DsFormElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Textarea.tsx as <agd-textarea>: several lines of text, drawn as the input is: a #666666 hairline on Black that
-// turns White on focus, DM Sans at 14px (16px on phones), a #A3A3A3 placeholder and the brand corner. It grows by hand
+// Textarea.tsx as <agd-textarea>: several lines of text, drawn as the input is: a hairline (white at 20%) on black that
+// turns white on focus, ABC Diatype at 14px (16px on phones), a mid (#909090) placeholder and square corners. It grows by hand
 // downward only; `invalid` turns the hairline red. Form-associated (its `name` and `value` go with its form); the value
 // is `value` with the native `input` and `change` events. aria-label and aria-description pass to the inner textarea.
 

@@ -4,8 +4,8 @@ import { Check } from 'lucide-react'
 import { MenubarClose } from '@/react/components/ui/Menubar'
 import { cn } from '@/react/lib/cn'
 
-// One row of a MenubarMenu: 32px (44px on phones), DM Sans soft gray, the brand's small corner; the row under the
-// pointer or focus takes the #262626 fill and White type. Put a 16px Lucide icon first, and a `shortcut` shows muted at
+// One row of a MenubarMenu: 32px (44px on phones), ABC Diatype soft gray, the brand's small corner; the row under the
+// pointer or focus takes the #141414 fill and white type. Put a 16px Lucide icon first, and a `shortcut` shows muted at
 // the end. `checked` makes it a radio or checkbox row with a check (`role`). `danger` is a destructive row's red.
 // Choosing it calls `onSelect` and closes the menu, unless `keepOpen`.
 export interface MenubarItemProps {

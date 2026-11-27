@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// shadcn's button group in the brand: buttons that belong together, joined into one block with the brand corner on
-// its outer corners only and a 1px Black seam between them (the ground showing through), so #262626 halves read as
+// shadcn's button group in the brand: buttons that belong together, joined into one block with square corners on
+// its outer corners only and a 1px black seam between them (the ground showing through), so #141414 halves read as
 // one control. Secondary buttons for a set of tools, a field with its button, a button with its menu arrow.
 // `vertical` stacks them. Give it a label for the group.
 export interface ButtonGroupProps {

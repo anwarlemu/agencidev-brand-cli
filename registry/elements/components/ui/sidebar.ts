@@ -4,9 +4,9 @@ import { DsElement, define, HostLayoutController, tagName } from '@/elements/lib
 import { icon } from '@/elements/lib/icon'
 import styles from 'virtual:tw'
 
-// Sidebar.tsx as <agd-sidebar>: the app's rail, Black with a hairline at its edge, 256px wide. The `head` slot
+// Sidebar.tsx as <agd-sidebar>: the app's rail, black with a hairline at its edge, 256px wide. The `head` slot
 // holds the logo or the workspace (56px, over a hairline), <agd-sidebar-label> names each group, a
-// <agd-sidebar-link> per page (the page you are on in White), and the `foot` slot the account. `collapsible` adds a
+// <agd-sidebar-link> per page (the page you are on in white), and the `foot` slot the account. `collapsible` adds a
 // button that folds it to 64px of icons, at once; `collapsed` (reflected) with `collapsed-change`.
 
 /**

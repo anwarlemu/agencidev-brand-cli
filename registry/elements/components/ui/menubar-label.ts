@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// MenubarLabel.tsx as <agd-menubar-label>: a group's name in a menubar menu, DM Sans Medium in capitals at 6%,
+// MenubarLabel.tsx as <agd-menubar-label>: a group's name in a menubar menu, ABC Diatype in capitals at 6%,
 // muted.
 
 /**

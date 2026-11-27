@@ -2,7 +2,7 @@ import { html } from 'lit'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Spinner.tsx as <agd-spinner>: a quarter arc in the color around it turning on a #363636 ring, one turn every
+// Spinner.tsx as <agd-spinner>: a quarter arc in the color around it turning on a white at 20% ring, one turn every
 // 750ms at a constant speed; with reduced motion it breathes instead. sm 16px, md 20px. A status with `label`.
 
 const SIZES = { sm: 'size-icon-sm', md: 'size-icon-md' } as const

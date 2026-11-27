@@ -6,7 +6,7 @@ import { useControllable } from '@/react/hooks/useControllable'
 // shadcn's collapsible in the brand: a part that opens in place and pushes what follows. The part grows to its
 // content's height over 320ms on the strong ease-out and closes in 160ms; the content fades and settles 4px down; the
 // muted chevron turns half a circle. Toggled from the keyboard it opens at once. The trigger's content is `trigger` (a
-// node, or a function of `open`), drawn as a quiet DM Sans Medium row unless `triggerClass` says otherwise; it is a
+// node, or a function of `open`), drawn as a quiet ABC Diatype row unless `triggerClass` says otherwise; it is a
 // real button with aria-expanded and aria-controls. `open` with `onOpenChange` (or `defaultOpen` alone).
 export interface CollapsibleProps {
   /** Classes for the trigger button, in place of the quiet row. */

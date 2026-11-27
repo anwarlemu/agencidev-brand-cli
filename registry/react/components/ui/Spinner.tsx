@@ -1,7 +1,7 @@
 import type { SVGAttributes } from 'react'
 import { cn } from '@/react/lib/cn'
 
-// Work in progress with no known end: a quarter arc in the color around it (White on Black) turning on a #363636
+// Work in progress with no known end: a quarter arc in the color around it (white on black) turning on a white at 20%
 // ring, one turn every 750ms at a constant speed (linear, as constant motion is). With reduced motion it stops turning
 // and breathes instead. sm is 16px (beside UI text, in a button), md 20px. It announces itself as a status with
 // `label`.

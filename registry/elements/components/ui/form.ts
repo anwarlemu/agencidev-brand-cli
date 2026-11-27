@@ -3,7 +3,7 @@ import { DsElement, define } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
 // Form.tsx as <agd-form>: fields stacked 24px apart, each a <agd-field> with its label over it and its
-// description or error under it; a `failure` from the server in a dark red box with the brand corner above the
+// description or error under it; a `failure` from the server in a dark red box with square corners above the
 // actions; the actions (slot="actions") at the end, the main one last. It never validates as the first value is typed:
 // the page shows an error once its field is left or the form is sent, and on a send with errors focus moves to the
 // first field that is wrong: marked `invalid` (or aria-invalid="true"), or failing its own validity. Like a novalidate

@@ -1,65 +1,66 @@
 # Agencidev: what good looks like
 
-Agencidev is the creative search engine: it watches the ads, posts and creators that brands put out across Meta, TikTok,
-Instagram and YouTube, and lets a team (or its agents) search them. Everything it makes sits on Black, in White type,
-with real creative and the brand light as the only color. How it looks comes from the Agencidev site (the owner's
-spyglass.zip, 2026-11-24; brand/site-changes.md lists what it changed); the logo, merch, decks and the 1080 canvas
-still come from the brand guidelines and the Figma brand assets page, where the site is silent.
+Agencidev is a distributed product design and development studio: an embedded product partner for founders at early and
+growth-stage startups, sold as ongoing monthly partnerships. The site exists to make the studio legible and to route
+serious enquiries into a call or an email. Show the work, don't describe it: galleries and case studies carry the
+argument and the copy stays short. How it looks comes from the site (github.com/anwarlemu/AGD: app/globals.css,
+components/page-tokens.ts and AGENTS.md, the house rules every change there is held to).
 
 ## Product
 
-- Black is the ground. Surfaces are Black (#000000); a card is #262626 on Black with a 4px corner (8px for controls,
-  fields and plan tiers; #171717 with a 10px corner only on the 1080 canvas). Separate with a fill or a hairline (#363636
-  on Black, #4D4D4D on a surface), never a shadow.
-- Type is White. Secondary text comes from the neutral steps (#D4D4D4, #A3A3A3, #858585); #4D4D4D and darker are never text.
-  Pick grays from the 15 neutral steps, never by eye.
-- Most screens use only Black and White. The spectrum colors (Magenta, Red, Orange, Yellow, Green, Cyan, Blue) come
-  from the brand light and small accents; when shown together they keep that order.
-- Funnel Display at 450 for page and section heads and at 400 for card titles and subheads, each line 4px taller than
-  its size (56/60, 44/48, 32/36, 24/28, 20/24); DM Sans at optical size 14, Regular for body (16/24) and captions,
-  Medium for labels, badges and buttons; labels in capitals with 6% letter spacing. Weights 400, 450 and 500 only.
-- The primary button is a White fill with a Black DM Sans Medium 14/20 label, an 8px corner, 40px tall (36px in the
-  header, 56px large; 56px with a 10px corner on the canvas). One primary button per view; secondary is the quiet button
-  (#1A1A1A inside a #363636 ring), ghost has no fill until hovered. Under a mouse a White glow follows the pointer.
-- The search bar is a Black field with a hairline, the prompt in White DM Sans and a White "Search" button inside.
-- Motion is quick and quiet, on the site's ease-out (0.22, 1, 0.36, 1): 160ms color changes, 240ms entrances, 360ms for
-  a dialog or menu panel and 280ms to close it, never ease-in, hover only behind (hover: hover), reduced motion keeps
-  opacity and color. Icons never move on hover.
+- The canvas is near-black (#050505) and the ink white. Secondary text comes from the solid greys: dim (#B6B6B6) for
+  running copy and links, mid (#909090) for the quieter half of a statement and meta. White tints by strength mark lines
+  and fills: faint (10%) for hairlines and quiet fills, subtle (20%) for borders, muted (60%) for de-emphasis.
+- Use color strategically. Do not make everything bold and clear: mute what does not need attention, so the muted
+  things give the important things their focus. The palette is monochrome by construction; there is no accent color.
+- Two font families: Agencidev Sans for every heading, ABC Diatype for everything else. One weight on the site (400).
+  Font sizes are 12, 13, 14 or a multiple of 4: 12 (labels, meta), 14 (the default), 16 (running copy), 20 (pull quotes)
+  and the one display step, 28 then 36 from 640, at leading 1.14. Color, not size, makes the hierarchy.
+- Every padding, margin, gap and radius is a multiple of 4 or 6. Two radii: square everywhere, 4px on the plate button
+  (a circle is geometry and does not count). Two components doing the same job pad the same.
+- The plate button: #252525 with white 12px capitals, 48px tall, 24px in (40 in the bar), the 4px corner; mid with black
+  ink under the pointer, near-white on press. The quiet button is bare dim capitals that turn white. One plate per view.
+- Hover and press change color only, never size. Press feedback lands on pointer down (no transition on :active). No
+  hover on touch: hover only where a fine pointer hovers. One interaction style per component type.
+- Motion by frequency: a hundred times a day (shortcuts, palettes) never animates; tens of times a day (hover, list
+  navigation) only very subtly (150ms color); rare moments (a menu opening, a page head arriving, onboarding) may move:
+  the menu fades in 250ms and its links rise in 350ms, a page head rises 12px in 500ms. One curve: ease-brand,
+  cubic-bezier(0.22, 1, 0.36, 1). Never ease-in.
 
 ## Website and assets
 
-- The light (the brand pattern) is one shape drawn three times in Red #DF0000 at 0.85, Green #00FF29 at 0.782 and
-  Blue #1B1DFF at 0.782, each offset sideways, blurred and blended plus-lighter on Black, so the colors separate at the
-  edges and turn pale where they overlap. It flows in from the edges and corners of a layout, never boxed in, with a
-  main mass and a smaller counterpart elsewhere.
-- The ASCII texture is a field of Geist Mono characters (" .:-=+*#") from a soft heat map, on Black, at 0.35 opacity,
-  behind the light (0.5 for a field on the site, 0.32 faint). It is an accent, never the main graphic, kept clear of text, the logo and photos, with soft edges.
-- Imagery is real creative (ads, product shots, UGC) in its posted color: no grading, filters or neon. Photos sit on
-  Black with the light behind or between them. Examples and templates use Acme placeholders or supplied images, never
-  another brand's photos or a real person's name.
-- Layouts: the lockup top left (or centered), the headline in Funnel Display, a White button bottom left and
-  "agencidev.com" bottom right. Margins are 64px on ads, 72px on posts, 96px on decks (1080px and 1920px canvases).
-- Logo: the logomark (a rounded rectangle with a lens cut out), the 3D logomark, the wordmark, horizontal and vertical
-  combination marks and the 3D combination marks. Primary background is Black with a White mark; secondary
-  backgrounds are White (Black mark), Blue, Red and Magenta (White mark), Yellow and Green (Black mark). Clear space is
-  half the logomark's height on all four sides (a minimum); minimum heights are 16px for the logomark and the
-  horizontal combination mark, 32px for the vertical one.
+- The statement is the brand's voice in type: one size in two tones, the lead in white running on into the rest in mid,
+  in Agencidev Sans at the display step. The homepage sets it at the foot of the first screen with a stat line over it.
+- The work rail: portrait strips of the studio's work in one row (100 by 280, 20px apart), running off the right edge,
+  the first a little left of the middle. Square corners; the work is the argument.
+- The no-signal static (the 404 page): a dead channel's charcoal static and grain with a glitch band rolling up through
+  it, revealing white. The one expressive surface; words sit under the band. Use it rarely.
+- Layouts are restrained and editorial: the lockup top left as the bar sets it, the address or a quiet link top right,
+  the statement at the foot, the plate button under it. Space separates sections, not borders. The first view is the
+  argument, not a masthead.
+- Logo: the square (the mark), the wordmark, and the lockup of both. White on dark, black on light; the liquid-glass mark
+  where it must read over imagery; the 3D chrome mark as a picture. Keep clear space around it and never recolor or
+  distort it. The bar's lockup is 18px tall.
+- Imagery is the studio's real work and real people with consent. Examples use Acme placeholders, never a client's work
+  or a person's name without permission.
 
 ## Always
 
-- Keep what each screen or asset is for: its headline and its one action stay the most prominent things.
-- Visible focus on every control (a 2px White outline); touch targets at least 44px on phones.
-- Feedback on pointer: a fill change and the button glow; buttons hold their size on press and on hover, as the site's do.
+- Keep each view's principal objective the most prominent thing; layer the rest so it is still reachable.
+- Touch targets at least 44px on phones; visible focus where the page allows it.
+- Feedback on pointer down, color only; buttons hold their size.
 
 ## Refuse
 
-- Shadows, gradients other than the light, a colored ground, a second accent color, the spectrum as text color, bold
-  (600+) weights, other companies' logos or photos, stretched, recolored, outlined, rotated or effected logos, the light inside a box with hard edges,
-  filtered or graded photos, emoji, exclamation marks.
+- Shadows, gradients as decoration, a colored ground or accent, bold for emphasis, a third font family or a fourth
+  weight, sizes off the scale, radii other than square and 4px, hover that changes size, other companies' logos,
+  recolored or distorted marks, stock imagery, emoji, exclamation marks, invented clients, metrics or testimonials.
 
 ## Voice (for any text an agent writes)
 
-Short declarative sentences that end with a period ("The only creative search engine."), sentence case, second person,
-concrete numbers ("$10 for your first month, then $20/month"), American spelling, no em dashes. Say what it does.
+Partner voice, not vendor voice: precise, calm, direct, evidence-led. Short declarative sentences that end with a period
+("Product design thinking and implementation."), sentence case, concrete facts ("ongoing monthly partnerships,
+cancellable at any time"), American spelling, no em dashes. Say what happened or what changes; never manufacture
+confidence.
 
-Never: seamless, revolutionary, cutting-edge, supercharge, next-generation, robust, powerful, leverage, empower, unlock, delve, elevate, game-changing, best-in-class.
+Never: seamless, revolutionary, cutting-edge, supercharge, next-generation, robust, powerful, leverage, empower, unlock, delve, elevate, game-changing, best-in-class, world-class.

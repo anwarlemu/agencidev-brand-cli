@@ -3,8 +3,8 @@ import { ifDefined } from 'lit/directives/if-defined.js'
 import { DsElement, define, HostLayoutController } from '@/elements/lib/element'
 import styles from 'virtual:tw'
 
-// Toggle.tsx as <agd-toggle>: a button that stays pressed: no fill at rest (or, as `outline`, a #363636
-// hairline); pressed it takes the primary White with Black text. Sizes sm (32px), md (40px), lg (48px); `icon` makes it
+// Toggle.tsx as <agd-toggle>: a button that stays pressed: no fill at rest (or, as `outline`, a white at 20%
+// hairline); pressed it takes the primary white with black text. Sizes sm (32px), md (40px), lg (48px); `icon` makes it
 // square (put its name in aria-label). colors change over 160ms. `pressed` (an
 // attribute) with `pressed-change`.
 

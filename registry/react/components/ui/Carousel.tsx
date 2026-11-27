@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from 
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/react/components/ui/Button'
 
-// shadcn's carousel in the brand: slides in a row on the Black ground, 16px apart, one or more in view, with two ghost
+// shadcn's carousel in the brand: slides in a row on the black ground, 16px apart, one or more in view, with two ghost
 // arrow buttons and the place in tabular figures between them. Native scroll snap, so a swipe or a trackpad moves it
 // as the arrows do; the arrows and the arrow keys on the focused track glide it with the browser's smooth scroll, and
 // jump with reduced motion. It never plays on its own. Pass `count` and draw each slide with `slide({ index })`;

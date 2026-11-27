@@ -147,7 +147,7 @@ export type Scene = {
 	seed?: number;
 	/** 'brand' keeps the brand's own heat map; 'generated' draws every light from a heat map generated from the seed. */
 	light?: 'brand' | 'generated';
-	/** Leave the ASCII texture out. */
+	/** Leave the no-signal static out. */
 	texture?: boolean;
 	/** Keep text inside the texture's clear areas (default on). */
 	clearPadding?: number;

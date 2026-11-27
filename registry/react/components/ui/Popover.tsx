@@ -4,8 +4,8 @@ import { buttonClasses } from '@/react/components/ui/Button'
 import { PopoverPanel } from '@/react/components/ui/PopoverPanel'
 import { firstFocusable, usePopover, type Align, type Side } from '@/react/hooks/usePopover'
 
-// A panel for any content (a short form, a few settings, a note), opened from a button: the card's #262626 fill on
-// Black with a hairline and the brand corner. The trigger's content is `trigger`, drawn as a small secondary button
+// A panel for any content (a short form, a few settings, a note), opened from a button: the card's #141414 fill on
+// black with a hairline and square corners. The trigger's content is `trigger`, drawn as a small secondary button
 // unless `triggerClass` says otherwise. Opening moves focus to the panel's first control (or the panel); Escape, a
 // press outside or tabbing away closes it, and Escape returns focus to the trigger. It flips to the side with room and
 // stays 8px inside the viewport. children may be a function of `close`. `open` with `onOpenChange` controls it; `ref`
